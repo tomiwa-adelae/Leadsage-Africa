@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import React, { useEffect, useState } from "react";
+import { easeInOut } from "motion";
 
 export const ImagesSlider = ({
 	images,
@@ -84,7 +85,10 @@ export const ImagesSlider = ({
 			scale: 1,
 			rotateX: 0,
 			opacity: 1,
-			transition: { duration: 0.5, ease: [0.645, 0.045, 0.355, 1.0] },
+			transition: {
+				duration: 0.5,
+				ease: easeInOut,
+			},
 		},
 		upExit: {
 			opacity: 1,
