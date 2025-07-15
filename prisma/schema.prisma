@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  phoneNumber   String?
+  gender        String?
+  address       String?
+  city          String?
+  state         String?
+  country       String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  sessions      Session[]
+  accounts      Account[]
+  listing       Listing[]
+
+  role       String?
+  banned     Boolean?
+  banReason  String?
+  banExpires DateTime?
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  impersonatedBy String?
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model Listing {
+  id               String  @id @default(uuid())
+  title            String?
+  slug             String?
+  description      String?
+  smallDescription String?
+
+  address    String?
+  city       String?
+  state      String?
+  country    String?
+  postalCode String?
+
+  propertySize     String?
+  bedrooms         Int?
+  bathrooms        Int?
+  availabilityDate String?
+
+  additionalPolicies String?
+  petPolicy          String?
+  smokingPolicy      String?
+  partyPolicy        String?
+
+  price            String?
+  paymentFrequency String?
+  securityDeposit  String?
+  discount         String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Category   Category    @relation(fields: [categoryId], references: [id])
+  categoryId String
+  amenities  Amenities[] @relation("ListingAmenities")
+
+  photos Photos[]
+  User   User     @relation(fields: [userId], references: [id])
+  userId String
+
+  status     ListingStatus @default(Draft)
+  isApproved Boolean       @default(false)
+
+  @@unique([slug, userId])
+}
+
+enum ListingStatus {
+  Draft
+  Published
+  Deleted
+  Archived
+}
+
+model Category {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  icon        String
+
+  listing Listing[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Amenities {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  icon        String
+
+  listings Listing[] @relation("ListingAmenities")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Photos {
+  id    String  @id @default(uuid())
+  src   String
+  cover Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Listing   Listing? @relation(fields: [listingId], references: [id])
+  listingId String?
+}
