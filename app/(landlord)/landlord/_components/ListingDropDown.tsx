@@ -37,7 +37,7 @@ export default function ListingDropdown({
 		<>
 			<DropdownMenu>
 				<DropdownMenuTrigger
-					onClick={(e) => {
+					onClick={(e: any) => {
 						e.stopPropagation();
 					}}
 					asChild

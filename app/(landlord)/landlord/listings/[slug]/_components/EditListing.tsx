@@ -60,6 +60,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 	const [openModal, setOpenModal] = useState<boolean>(false);
 	const [photos, setPhotos] = useState<string[]>([]);
 	const [uploading, setUploading] = useState(false);
+
 	const [size, setSize] = useState(listing.propertySize || "");
 	const [selectedCategory, setSelectedCategory] = useState<string>(
 		listing.Category.id || ""
@@ -239,6 +240,18 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 			field.onChange(formattedValue);
 		}
 	};
+
+	useEffect(() => {
+		// const newPhotos = photos.map((photo, index) => ({
+		// 	src: photo,
+		// 	cover: index === 0,
+		// }));
+		// setFormattedPhotos(newPhotos);
+
+		if (photos.length === 0) return;
+
+		console.log(photos);
+	}, [photos, listing]);
 
 	function onSubmit(data: EditListingFormSchemaType) {
 		// startTransition(async () => {
@@ -656,7 +669,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 							/>
 						</CardContent>
 					</Card>
-					<Card className="gap-0 pt-0">
+					<Card className="gap-0">
 						<CardHeader>
 							<div className="flex items-center justify-between gap-4">
 								<CardTitle>Photos</CardTitle>
