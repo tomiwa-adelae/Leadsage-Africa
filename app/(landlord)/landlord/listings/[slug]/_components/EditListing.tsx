@@ -1042,7 +1042,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 									fileTypeAccepted="image"
 									multiple={true}
 									display={true}
-									onUploadSuccess={() => setOpenModal(false)} // ✅ pass it
+									onUploadSuccess={() => setOpenModal(false)}
 								/>
 							</div>
 						</div>
