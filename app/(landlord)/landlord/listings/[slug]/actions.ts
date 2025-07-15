@@ -19,14 +19,14 @@ export const editListing = async (
 		if (!validation.success)
 			return { status: "error", message: "Invalid form data" };
 
-		await prisma.listing.update({
-			where: {
-				id,
-			},
-			data: {
-				...validation.data,
-			},
-		});
+		// await prisma.listing.update({
+		// 	where: {
+		// 		id,
+		// 	},
+		// 	data: {
+		// 		...validation.data,
+		// 	},
+		// });
 
 		return {
 			status: "success",
