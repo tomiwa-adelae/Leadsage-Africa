@@ -16,7 +16,7 @@ export const UploadProfilePicture = ({
 	onChange,
 	value,
 }: {
-	onChange: (value: string) => void;
+	onChange: (value: any) => void;
 	value?: string;
 }) => {
 	const [openModal, setOpenModal] = useState<boolean>(false);
@@ -86,7 +86,7 @@ export const UploadProfilePicture = ({
 						<div className="bg-muted py-8">
 							<div className="container">
 								<Uploader
-									onChange={onChange}
+									onChange={(value) => onChange(value)}
 									value={value}
 									fileTypeAccepted="image"
 								/>

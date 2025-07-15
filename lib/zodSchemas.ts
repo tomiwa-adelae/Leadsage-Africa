@@ -152,7 +152,7 @@ export const editListingFormSchema = z.object({
 	title: z.string().min(2, {
 		message: "Title must be at least 2 characters.",
 	}),
-	category: z.string().min(2, {
+	categoryId: z.string().min(2, {
 		message: "Category must be at least 2 characters.",
 	}),
 	smallDescription: z.string().min(2, {
@@ -198,6 +198,9 @@ export const editListingFormSchema = z.object({
 	paymentFrequency: z.enum(["Monthly", "Yearly"]),
 	securityDeposit: z.string().optional(),
 	discount: z.string().optional(),
+	status: z.string().min(2, {
+		message: "Status must be at selected.",
+	}),
 });
 
 export type RegisterFormSchemaType = z.infer<typeof registerFormSchema>;

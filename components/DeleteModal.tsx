@@ -52,7 +52,11 @@ export default function DeleteModal({
 				</div>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<Button onClick={handleConfirm} disabled={loading}>
+					<Button
+						variant="destructive"
+						onClick={handleConfirm}
+						disabled={loading}
+					>
 						{loading ? (
 							<Loader text="Deleting..." />
 						) : (

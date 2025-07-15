@@ -45,6 +45,9 @@ import { GetAmenitiesType } from "@/app/data/landlord/get-amenities";
 import { Plus, X } from "lucide-react";
 import { Uploader, UploaderHandle } from "@/components/file-uploader/Uploader";
 import { ResponsiveModal } from "@/components/ResponsiveModal";
+import { Photo } from "../../new/[listingId]/photos/_components/PhotosForm";
+import { editListing } from "../actions";
+import { tryCatch } from "@/hooks/use-try-catch";
 
 interface Props {
 	listing: GetLandlordListingPreviewType;
@@ -73,6 +76,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 	const [securityDeposit, setSecurityDeposit] = useState(
 		listing.securityDeposit || ""
 	);
+	const [formattedPhotos, setFormattedPhotos] = useState<Photo[]>([]);
 
 	useEffect(() => {
 		// Set the selected amenities to the existing ones' IDs
@@ -96,7 +100,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 		resolver: zodResolver(editListingFormSchema),
 		defaultValues: {
 			title: listing.title || "",
-			category: listing.Category.id,
+			categoryId: listing.Category.id,
 			smallDescription: listing.smallDescription || "",
 			description: listing.description || "",
 			address: listing.address || "",
@@ -127,6 +131,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 			paymentFrequency:
 				(listing.paymentFrequency as EditListingFormSchemaType["paymentFrequency"]) ||
 				("Yearly" as EditListingFormSchemaType["paymentFrequency"]),
+			status: listing.status || "",
 		},
 	});
 
@@ -242,31 +247,43 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 	};
 
 	useEffect(() => {
-		// const newPhotos = photos.map((photo, index) => ({
-		// 	src: photo,
-		// 	cover: index === 0,
-		// }));
-		// setFormattedPhotos(newPhotos);
-
 		if (photos.length === 0) return;
 
-		console.log(photos);
+		setFormattedPhotos((prevFormatted) => {
+			// Filter out existing photos that already exist in `photos` to prevent duplicates
+			const existingSrcs = new Set(prevFormatted.map((p) => p.src));
+			const newFormatted = photos
+				.filter((src) => !existingSrcs.has(src))
+				.map((src, index) => ({
+					src,
+					cover: false,
+				}));
+
+			return [...prevFormatted, ...newFormatted];
+		});
 	}, [photos, listing]);
 
 	function onSubmit(data: EditListingFormSchemaType) {
-		// startTransition(async () => {
-		//     const { data: result, error } = await tryCatch(saveTitle(data, id));
-		//     if (error) {
-		//         toast.error(error.message);
-		//         return;
-		//     }
-		//     if (result.status === "success") {
-		//         toast.success(result.message);
-		//         router.push(`/landlord/listings/new/${id}/description`);
-		//     } else {
-		//         toast.error(result.message);
-		//     }
-		// });
+		const editedData = {
+			...data,
+			photos: [...listing.photos, ...formattedPhotos],
+			amenities: selectedAmenities,
+		};
+		startTransition(async () => {
+			const { data: result, error } = await tryCatch(
+				editListing(data, listing.id)
+			);
+			if (error) {
+				toast.error(error.message);
+				return;
+			}
+			if (result.status === "success") {
+				toast.success(result.message);
+				router.push(`/landlord/listings/${listing.slug}/preview`);
+			} else {
+				toast.error(result.message);
+			}
+		});
 	}
 
 	return (
@@ -297,7 +314,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 							/>
 							<FormField
 								control={form.control}
-								name="category"
+								name="categoryId"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Category</FormLabel>
@@ -319,11 +336,14 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 																		id &&
 																		"border-primary bg-muted"
 																)}
-																onClick={() =>
+																onClick={() => {
 																	setSelectedCategory(
 																		id
-																	)
-																}
+																	);
+																	field.onChange(
+																		id
+																	);
+																}}
 															>
 																<CardContent className="space-y-2">
 																	<div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
@@ -764,44 +784,48 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 											</div>
 										);
 									})}
-								{photos.map((photo, index) => {
-									const photoUrl = useConstructUrl(photo);
-									return (
-										<div
-											key={index}
-											className="rounded-lg relative overflow-hidden "
-										>
-											<Image
-												src={photoUrl}
-												alt="Photo uploaded"
-												width={1000}
-												height={1000}
-												className="object-cover size-full aspect-video"
-											/>
-											<PhotoDropdown
-												key={photo}
-												onDelete={() => {
-													const updatedPhotos =
-														photos.filter(
-															(_, i) =>
-																i !== index
+								{formattedPhotos.map(
+									({ src, cover }, index) => {
+										const photoUrl = useConstructUrl(src);
+										return (
+											<div
+												key={index}
+												className="rounded-lg relative overflow-hidden "
+											>
+												<Image
+													src={photoUrl}
+													alt="Photo uploaded"
+													width={1000}
+													height={1000}
+													className="object-cover size-full aspect-video"
+												/>
+												<PhotoDropdown
+													key={src}
+													onDelete={() => {
+														const updatedPhotos =
+															formattedPhotos.filter(
+																(_, i) =>
+																	i !== index
+															);
+														setFormattedPhotos(
+															updatedPhotos
 														);
-													setPhotos(updatedPhotos);
-												}}
-												markCover={() => {
-													// if (formattedPhotos.length === 0) return;
-													// const updatedPhotos = formattedPhotos.map(
-													//     (p, i) => ({
-													//         ...p,
-													//         cover: i === index,
-													//     })
-													// );
-													// setFormattedPhotos(updatedPhotos);
-												}}
-											/>
-										</div>
-									);
-								})}
+													}}
+													markCover={() => {
+														// if (formattedPhotos.length === 0) return;
+														// const updatedPhotos = formattedPhotos.map(
+														//     (p, i) => ({
+														//         ...p,
+														//         cover: i === index,
+														//     })
+														// );
+														// setFormattedPhotos(updatedPhotos);
+													}}
+												/>
+											</div>
+										);
+									}
+								)}
 							</div>
 						</CardContent>
 					</Card>
@@ -991,41 +1015,74 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 						</CardHeader>
 						<Separator className="my-4" />
 						<CardContent className="space-y-6">
-							{listingVisibilities.map(
-								({ icon, name, description, id }) => (
-									<Card
-										key={id}
-										className={cn(
-											"cursor-pointer border-2 hover:bg-muted transition-all",
-											selectedVisibility === name &&
-												"border-primary bg-muted"
-										)}
-										onClick={() =>
-											setSelectedVisibility(name)
-										}
-									>
-										<CardContent className="flex flex-col md:flex-row items-start md:items-center justify-start gap-2">
-											<div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
-												<Image
-													src={icon}
-													alt={name}
-													width={1000}
-													height={1000}
-													className="size-6 dark:invert"
-												/>
+							<FormField
+								control={form.control}
+								name="status"
+								render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<div className="grid gap-4">
+												{listingVisibilities.map(
+													({
+														icon,
+														name,
+														description,
+														id,
+													}) => (
+														<Card
+															key={id}
+															className={cn(
+																"cursor-pointer border-2 hover:bg-muted transition-all",
+																selectedVisibility ===
+																	name &&
+																	"border-primary bg-muted"
+															)}
+															onClick={() => {
+																setSelectedVisibility(
+																	name
+																);
+																field.onChange(
+																	name
+																);
+															}}
+														>
+															<CardContent className="flex flex-col md:flex-row items-start md:items-center justify-start gap-2">
+																<div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
+																	<Image
+																		src={
+																			icon
+																		}
+																		alt={
+																			name
+																		}
+																		width={
+																			1000
+																		}
+																		height={
+																			1000
+																		}
+																		className="size-6 dark:invert"
+																	/>
+																</div>
+																<div>
+																	<h5 className="font-medium text-lg">
+																		{name}
+																	</h5>
+																	<p className="text-muted-foreground text-sm">
+																		{
+																			description
+																		}
+																	</p>
+																</div>
+															</CardContent>
+														</Card>
+													)
+												)}
 											</div>
-											<div>
-												<h5 className="font-medium text-lg">
-													{name}
-												</h5>
-												<p className="text-muted-foreground text-sm">
-													{description}
-												</p>
-											</div>
-										</CardContent>
-									</Card>
-								)
-							)}
+										</FormControl>
+									</FormItem>
+								)}
+							/>
 						</CardContent>
 					</Card>
 					<div className="grid grid-cols-2 gap-4 mt-8">
@@ -1056,6 +1113,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 								onClick={() => setOpenModal(false)}
 								size="icon"
 								variant="ghost"
+								type="button"
 							>
 								<X className="size-6" />
 							</Button>
@@ -1068,6 +1126,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 								}
 								size="icon"
 								variant="ghost"
+								type="button"
 							>
 								<Plus className="size-6" />
 							</Button>
@@ -1099,6 +1158,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 						</div>
 						<footer className="container py-4 bg-white dark:bg-dark flex items-center justify-end">
 							<Button
+								type="button"
 								onClick={() =>
 									uploaderRef.current?.uploadAllFiles()
 								}

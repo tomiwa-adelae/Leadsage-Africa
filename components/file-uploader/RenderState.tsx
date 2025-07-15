@@ -81,6 +81,7 @@ const RenderUploadedState = ({
 				className={cn("absolute top-4 right-4")}
 				onClick={handleRemoval}
 				disabled={isDeleting}
+				type="button"
 			>
 				{isDeleting ? (
 					<Loader2 className="size-4 animate-spin" />

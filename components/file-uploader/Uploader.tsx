@@ -554,6 +554,7 @@ export const Uploader = forwardRef<UploaderHandle, iAppProps>(
 										className="aspect-square col-span-1 object-cover size-full"
 									/>
 									<Button
+										type="button"
 										onClick={() => {
 											const updatedPhotos = photos.filter(
 												(_, i) => i !== index
