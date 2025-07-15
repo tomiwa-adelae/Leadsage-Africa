@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { ResetPasswordForm } from "./_components/ResetPasswordForm";
 
 const page = () => {
@@ -11,7 +11,9 @@ const page = () => {
 				For your security, please create a new password below. Make sure
 				it’s something strong and unique.
 			</p>
-			<ResetPasswordForm />
+			<Suspense fallback={<p>Loading...</p>}>
+				<ResetPasswordForm />
+			</Suspense>
 		</div>
 	);
 };
