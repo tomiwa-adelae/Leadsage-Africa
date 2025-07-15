@@ -7,7 +7,7 @@ import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import parse from "html-react-parser";
 
-export const RenderDescription = ({ json }: { json?: JSONContent }) => {
+export const RenderDescription = ({ json }: { json?: JSONContent | any }) => {
 	const output = useMemo(() => {
 		return generateHTML(json, [
 			StarterKit,
