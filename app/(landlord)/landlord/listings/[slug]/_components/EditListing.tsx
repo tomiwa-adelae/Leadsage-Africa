@@ -764,6 +764,44 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 											</div>
 										);
 									})}
+								{photos.map((photo, index) => {
+									const photoUrl = useConstructUrl(photo);
+									return (
+										<div
+											key={index}
+											className="rounded-lg relative overflow-hidden "
+										>
+											<Image
+												src={photoUrl}
+												alt="Photo uploaded"
+												width={1000}
+												height={1000}
+												className="object-cover size-full aspect-video"
+											/>
+											<PhotoDropdown
+												key={photo}
+												onDelete={() => {
+													const updatedPhotos =
+														photos.filter(
+															(_, i) =>
+																i !== index
+														);
+													setPhotos(updatedPhotos);
+												}}
+												markCover={() => {
+													// if (formattedPhotos.length === 0) return;
+													// const updatedPhotos = formattedPhotos.map(
+													//     (p, i) => ({
+													//         ...p,
+													//         cover: i === index,
+													//     })
+													// );
+													// setFormattedPhotos(updatedPhotos);
+												}}
+											/>
+										</div>
+									);
+								})}
 							</div>
 						</CardContent>
 					</Card>
