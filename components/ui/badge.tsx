@@ -14,6 +14,8 @@ const badgeVariants = cva(
 				glass: "border-transparent bg-slate-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-50 backdrop-saturate-100 backdrop-contrast-100 text-white [a&]:hover:bg-primary/90",
 				secondary:
 					"border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+				pending:
+					"border-transparent bg-orange-400 text-white [a&]:hover:bg-orange-400/90",
 				destructive:
 					"border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
 				outline:

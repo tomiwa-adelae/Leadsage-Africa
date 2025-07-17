@@ -39,7 +39,6 @@ export const saveTitle = async (
 			message: "Title successfully saved. Redirecting...",
 		};
 	} catch (error) {
-		console.log(error);
 		return { status: "error", message: "Failed to save the title." };
 	}
 };

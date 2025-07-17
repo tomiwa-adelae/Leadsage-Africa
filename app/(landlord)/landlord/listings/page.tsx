@@ -14,7 +14,7 @@ const page = async () => {
 		<div>
 			<SiteHeader />
 			<div className="py-4 md:py-6 px-4 lg:px-6">
-				<div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+				<div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
 					<div>
 						<h1 className="text-3xl md:text-4xl font-semibold">
 							My listings

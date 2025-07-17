@@ -26,7 +26,6 @@ export const saveAmenities = async (amenities: string[], id: string) => {
 			message: "Amenities successfully saved. Redirecting...",
 		};
 	} catch (error) {
-		console.log(error);
 		return { status: "error", message: "Failed to save amenities" };
 	}
 };

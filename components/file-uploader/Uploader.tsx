@@ -38,7 +38,7 @@ interface iAppProps {
 	// onChange?: (value: string) => void;
 	onChange?: (value: string | string[]) => void;
 	fileTypeAccepted: "image" | "video";
-	onUploadSuccess?: () => void; // ✅ New prop
+	onUploadSuccess?: (value: string | string[]) => void; // ✅ New prop
 }
 
 interface UploaderState {
@@ -146,33 +146,6 @@ export const Uploader = forwardRef<UploaderHandle, iAppProps>(
 						};
 
 						xhr.onload = () => {
-							// if (xhr.status === 200 || xhr.status === 204) {
-							// 	const finalKey = key;
-							// 	setFileState((prev) => ({
-							// 		...prev,
-							// 		progress: 100,
-							// 		uploading: false,
-							// 		key: finalKey,
-							// 	}));
-
-							// 	// onChange?.(key);
-							// 	if (multiple) {
-							// 		setUploadedKeys((prevKeys) => {
-							// 			const updated = [...prevKeys, finalKey];
-							// 			onChange?.(updated.join(",")); // or pass as array: `onChange?.(updated);`
-
-							// 			console.log(updated);
-							// 			return updated;
-							// 		});
-							// 	} else {
-							// 		onChange?.(finalKey);
-							// 	}
-
-							// 	toast.success("File uploaded successfully");
-							// 	resolve(finalKey);
-							// } else {
-							// 	reject(new Error("Upload failed..."));
-							// }
 							if (xhr.status === 200 || xhr.status === 204) {
 								setFileState((prev) => ({
 									...prev,
@@ -237,7 +210,7 @@ export const Uploader = forwardRef<UploaderHandle, iAppProps>(
 
 				// ✅ Notify parent that uploads are done
 				onChange?.(uploadedKeys);
-				onUploadSuccess?.();
+				onUploadSuccess?.(uploadedKeys);
 			},
 
 			isUploading: () => fileState.uploading, // ✅ expose here

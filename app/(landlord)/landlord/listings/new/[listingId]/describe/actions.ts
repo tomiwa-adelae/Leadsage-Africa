@@ -37,7 +37,6 @@ export const saveDescribe = async (
 			message: "Property information successfully saved. Redirecting...",
 		};
 	} catch (error) {
-		console.log(error);
 		return { status: "error", message: "Failed to save the location." };
 	}
 };

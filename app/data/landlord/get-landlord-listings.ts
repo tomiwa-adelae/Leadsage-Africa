@@ -26,6 +26,9 @@ export const getLandlordListings = async () => {
 			state: true,
 			city: true,
 			country: true,
+			petPolicy: true,
+			smokingPolicy: true,
+			partyPolicy: true,
 			status: true,
 			isApproved: true,
 			Category: {

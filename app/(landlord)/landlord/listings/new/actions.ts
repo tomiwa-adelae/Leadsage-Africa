@@ -9,8 +9,6 @@ export const saveCategory = async (id: string) => {
 		if (!id)
 			return { status: "error", message: "No category was selected" };
 
-		console.log(id);
-
 		const data = await prisma.listing.create({
 			data: {
 				categoryId: id,
@@ -24,7 +22,6 @@ export const saveCategory = async (id: string) => {
 			data: data,
 		};
 	} catch (error) {
-		console.log(error);
 		return { status: "error", message: "Failed to save category" };
 	}
 };
@@ -51,7 +48,6 @@ export const updateCategory = async (categoryId: string, listingId: string) => {
 			data: data,
 		};
 	} catch (error) {
-		console.log(error);
 		return { status: "error", message: "Failed to update category" };
 	}
 };

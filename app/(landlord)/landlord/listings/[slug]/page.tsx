@@ -7,6 +7,8 @@ import {
 } from "@/app/data/landlord/get-landlord-listing-preview";
 import { getCategories } from "@/app/data/landlord/get-categories";
 import { getAmenities } from "@/app/data/landlord/get-amenities";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type Params = Promise<{
 	slug: string;
@@ -26,13 +28,24 @@ const page = async ({ params }: { params: Params }) => {
 		<div>
 			<SiteHeader />
 			<div className="py-4 md:py-6 px-4 lg:px-6">
-				<h1 className="text-3xl md:text-4xl font-semibold">
-					Edit {listing.title}
-				</h1>
-				<p className="text-muted-foreground text-base mt-2.5">
-					Make changes to your property information and save when
-					you're done.
-				</p>
+				<div className="flex flex-col md:flex-row items-center justify-between gap-4">
+					<div>
+						<h1 className="text-3xl md:text-4xl font-semibold">
+							Edit {listing.title}
+						</h1>
+						<p className="text-muted-foreground text-base mt-2.5">
+							Make changes to your property information and save
+							when you're done.
+						</p>
+					</div>
+					<Button className="w-full md:w-auto" asChild size="md">
+						<Link
+							href={`/landlord/listings/${listing.slug}/preview`}
+						>
+							Preview listing
+						</Link>
+					</Button>
+				</div>
 				<EditListing
 					listing={listing}
 					categories={categories}

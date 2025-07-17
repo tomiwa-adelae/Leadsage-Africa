@@ -22,7 +22,7 @@ export default function DeleteModal({
 	open: boolean;
 	loading: boolean;
 	closeModal: () => void;
-	takeAction: () => Promise<void>;
+	takeAction: () => any;
 }) {
 	const handleConfirm = async () => {
 		try {

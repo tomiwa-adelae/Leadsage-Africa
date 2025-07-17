@@ -16,8 +16,13 @@ import {
 	GetLandlordListingPreviewType,
 } from "@/app/data/landlord/get-landlord-listing-preview";
 import { RenderDescription } from "@/components/text-editor/RenderDescription";
-import { formatDateInARow } from "../../../../../../lib/utils";
+import {
+	formatDateInARow,
+	formatMoneyInput,
+	removeCommas,
+} from "../../../../../../lib/utils";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
+import { useConstructUrl } from "@/hooks/use-construct-url";
 
 type Params = Promise<{
 	slug: string;
@@ -32,9 +37,9 @@ const page = async ({ params }: { params: Params }) => {
 	return (
 		<div>
 			<Header />
-			<div className="pt-20">
+			<div className="pt-20 relative">
 				<div className="container py-8">
-					<ListingPhotos />
+					<ListingPhotos photos={listing.photos} />
 					<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
 						<div className="space-y-6 lg:col-span-3">
 							<div>
@@ -94,6 +99,7 @@ const page = async ({ params }: { params: Params }) => {
 											.slice(0, 10)
 											.map((amenity) => (
 												<AmenityBox
+													key={amenity.id}
 													icon={amenity.icon}
 													name={amenity.name}
 													description={
@@ -148,8 +154,8 @@ const page = async ({ params }: { params: Params }) => {
 								</div>
 							</div>
 						</div>
-						<div className="lg:col-span-2">
-							<Card className="py-0 gap-0">
+						<div className="lg:col-span-2 ">
+							<Card className="py-0 gap-0 sticky top-25">
 								<CardContent className="py-8">
 									<div className="space-y-1.5">
 										<p className="text-muted-foreground text-sm">
@@ -205,8 +211,16 @@ const page = async ({ params }: { params: Params }) => {
 										</span>
 										<span>
 											<NairaIcon />
-											{Number(listing.price) +
-												Number(listing.securityDeposit)}
+											{formatMoneyInput(
+												Number(
+													removeCommas(listing.price)
+												) +
+													Number(
+														removeCommas(
+															listing.securityDeposit
+														)
+													)
+											)}
 										</span>
 									</p>
 									<div className="mt-4 space-y-4">
@@ -223,6 +237,18 @@ const page = async ({ params }: { params: Params }) => {
 										</Button> */}
 										<Button className="w-full" size="md">
 											Book listing
+										</Button>
+										<Button
+											className="w-full"
+											variant={"outline"}
+											size="md"
+											asChild
+										>
+											<Link
+												href={`/landlord/listings/${listing.slug}`}
+											>
+												Edit listing
+											</Link>
 										</Button>
 									</div>
 									<p className="text-muted-foreground text-sm mt-4 text-center text-balance">
@@ -282,43 +308,32 @@ const page = async ({ params }: { params: Params }) => {
 						</h3>
 						<div className="mt-4 flex flex-col md:flex-row items-center justify-center text-center md:text-left md:justify-start gap-10">
 							<div>
-								<Image
-									src={
-										listing.User.image ||
-										DEFAULT_PROFILE_PICTURE
-									}
-									alt={`${listing.User.image}'s picture`}
-									width={1000}
-									height={1000}
-									className="aspect-auto rounded-full object-cover size-[200px] lg:size-[300px]"
-								/>
+								{(() => {
+									const profilePicture =
+										listing.User.image?.startsWith("https")
+											? listing.User.image
+											: useConstructUrl(
+													listing?.User?.image ||
+														DEFAULT_PROFILE_PICTURE
+												);
+									return (
+										<Image
+											src={
+												profilePicture ||
+												DEFAULT_PROFILE_PICTURE
+											}
+											alt={`${listing.User.image}'s picture`}
+											width={1000}
+											height={1000}
+											className="aspect-auto rounded-full object-cover size-[200px] lg:size-[300px]"
+										/>
+									);
+								})()}
 							</div>
 							<div>
 								<h3 className="font-semibold text-2xl md:text-3xl lg:text-5xl">
 									{listing.User.name}
 								</h3>
-								<div className="mt-4 flex flex-wrap gap-6 items-center justify-start font-semibold text-2xl lg:text-3xl">
-									<h3 className="tracking-tight">
-										1600{" "}
-										<span className="text-sm text-muted-foreground">
-											reviews
-										</span>
-									</h3>
-									<h3>
-										4.8{" "}
-										<span className="text-sm text-muted-foreground">
-											ratings
-										</span>
-									</h3>
-									<h3>
-										{formatDateInARow(
-											listing.User.createdAt
-										)}{" "}
-										<span className="text-sm text-muted-foreground">
-											years hosting
-										</span>
-									</h3>
-								</div>
 							</div>
 						</div>
 					</div>

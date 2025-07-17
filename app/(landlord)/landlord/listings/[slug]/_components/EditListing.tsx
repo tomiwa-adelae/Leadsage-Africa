@@ -33,7 +33,12 @@ import {
 } from "@/lib/zodSchemas";
 import { RichTextEditor } from "@/components/text-editor/Editor";
 import { Input } from "@/components/ui/input";
-import { countries, listingVisibilities, states } from "@/constants";
+import {
+	countries,
+	DEFAULT_LISTING_IMAGE,
+	listingVisibilities,
+	states,
+} from "@/constants";
 import { NumberInput } from "@/components/ui/NumberInput";
 import { DateSelector } from "@/components/ui/DateSelector";
 import { NairaIcon } from "@/components/NairaIcon";
@@ -48,6 +53,7 @@ import { ResponsiveModal } from "@/components/ResponsiveModal";
 import { Photo } from "../../new/[listingId]/photos/_components/PhotosForm";
 import { editListing } from "../actions";
 import { tryCatch } from "@/hooks/use-try-catch";
+import { savePhotos } from "../../new/[listingId]/photos/actions";
 
 interface Props {
 	listing: GetLandlordListingPreviewType;
@@ -61,8 +67,6 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 
 	const [pending, startTransition] = useTransition();
 	const [openModal, setOpenModal] = useState<boolean>(false);
-	const [photos, setPhotos] = useState<string[]>([]);
-	const [uploading, setUploading] = useState(false);
 
 	const [size, setSize] = useState(listing.propertySize || "");
 	const [selectedCategory, setSelectedCategory] = useState<string>(
@@ -76,7 +80,9 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 	const [securityDeposit, setSecurityDeposit] = useState(
 		listing.securityDeposit || ""
 	);
-	const [formattedPhotos, setFormattedPhotos] = useState<Photo[]>([]);
+	const [photos, setPhotos] = useState<Photo[]>(listing.photos || []);
+
+	const [uploading, setUploading] = useState<boolean>(false);
 
 	useEffect(() => {
 		// Set the selected amenities to the existing ones' IDs
@@ -246,32 +252,27 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 		}
 	};
 
+	// 🧠 Poll or observe ref
 	useEffect(() => {
-		if (photos.length === 0) return;
+		const interval = setInterval(() => {
+			const status = uploaderRef.current?.isUploading?.();
+			if (status !== undefined) {
+				setUploading(status);
+			}
+		}, 300); // check every 300ms
 
-		setFormattedPhotos((prevFormatted) => {
-			// Filter out existing photos that already exist in `photos` to prevent duplicates
-			const existingSrcs = new Set(prevFormatted.map((p) => p.src));
-			const newFormatted = photos
-				.filter((src) => !existingSrcs.has(src))
-				.map((src, index) => ({
-					src,
-					cover: false,
-				}));
-
-			return [...prevFormatted, ...newFormatted];
-		});
-	}, [photos, listing]);
+		return () => clearInterval(interval);
+	}, []);
 
 	function onSubmit(data: EditListingFormSchemaType) {
 		const editedData = {
 			...data,
-			photos: [...listing.photos, ...formattedPhotos],
+			photos: [...listing.photos],
 			amenities: selectedAmenities,
 		};
 		startTransition(async () => {
 			const { data: result, error } = await tryCatch(
-				editListing(data, listing.id)
+				editListing(editedData, listing.id)
 			);
 			if (error) {
 				toast.error(error.message);
@@ -279,7 +280,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 			}
 			if (result.status === "success") {
 				toast.success(result.message);
-				router.push(`/landlord/listings/${listing.slug}/preview`);
+				router.push(`/landlord/listings/${result.data?.slug}/preview`);
 			} else {
 				toast.error(result.message);
 			}
@@ -694,6 +695,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 							<div className="flex items-center justify-between gap-4">
 								<CardTitle>Photos</CardTitle>
 								<Button
+									type="button"
 									onClick={() => setOpenModal(true)}
 									size="icon"
 									variant="ghost"
@@ -704,129 +706,116 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 						</CardHeader>
 						<Separator className="my-4" />
 						<CardContent className="space-y-6">
-							<div className="rounded-lg relative overflow-hidden">
-								{listing.photos.length > 0 && (
-									<>
-										{(() => {
-											const coverPhoto =
-												listing.photos.find(
-													(photo) => photo.cover
-												);
-											const photoUrl = useConstructUrl(
-												coverPhoto?.src ||
-													listing.photos[0]?.src
-											);
-
+							{photos?.length === 0 && (
+								<div className="min-h-[60vh] rounded-lg flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
+									<Image
+										src={"/assets/icons/camera.svg"}
+										alt="Camera icon"
+										width={1000}
+										height={1000}
+										className="size-20 object-cover"
+									/>
+									<Button
+										onClick={() => setOpenModal(true)}
+										size="md"
+										variant="default"
+									>
+										Add photos
+									</Button>
+								</div>
+							)}
+							{photos.length !== 0 &&
+								(() => {
+									const cover =
+										(photos?.length !== 0 &&
+											photos?.find(
+												(photo) => photo?.cover
+											)) ||
+										photos[0];
+									const photoUrl = cover
+										? useConstructUrl(cover?.src)
+										: DEFAULT_LISTING_IMAGE;
+									return (
+										<div className="rounded-lg relative overflow-hidden">
+											<Image
+												src={photoUrl}
+												alt="Photo uploaded"
+												width={1000}
+												height={1000}
+												className="object-cover size-full aspect-video"
+											/>
+											<PhotoDropdown
+												src={cover?.src}
+												onDelete={(photos) => {
+													setPhotos(photos);
+												}}
+												markCover={(photos) => {
+													setPhotos(photos);
+												}}
+												listingId={listing?.id}
+												photoId={cover?.id!}
+												cover={cover?.cover}
+											/>
+										</div>
+									);
+								})()}
+							{photos?.length !== 0 && (
+								<div className="mt-4 grid grid-cols-2 gap-4">
+									{photos
+										.filter((photo) => !photo.cover)
+										.map(({ src, cover, id }) => {
+											const photoUrl =
+												useConstructUrl(src);
 											return (
-												<>
-													<Badge className="absolute top-2 left-2">
-														Cover image
-													</Badge>
+												<div
+													key={id}
+													className="rounded-lg relative overflow-hidden "
+												>
 													<Image
 														src={photoUrl}
-														alt="Cover photo"
+														alt="Photo uploaded"
 														width={1000}
 														height={1000}
 														className="object-cover size-full aspect-video"
 													/>
 													<PhotoDropdown
-														key={
-															coverPhoto?.id ||
-															listing.photos[0].id
-														}
-														onDelete={() => {
-															// handle delete
+														src={src}
+														onDelete={(photos) => {
+															setPhotos(photos);
 														}}
-														markCover={() => {
-															// already cover
+														markCover={(photos) => {
+															setPhotos(photos);
 														}}
-														cover={true}
+														listingId={listing.id}
+														photoId={id!}
+														cover={cover}
 													/>
-												</>
+												</div>
 											);
-										})()}
-									</>
-								)}
-							</div>
-							<div className="grid grid-cols-2 gap-4">
-								{listing.photos
-									.filter((photo) => !photo.cover)
-									.map(({ src, cover, id }) => {
-										const photoUrl = useConstructUrl(src);
-										return (
-											<div
-												key={id}
-												className="rounded-lg relative overflow-hidden "
+										})}
+									{photos.length !== 0 && (
+										<div className="rounded-lg min-h-[280px] flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
+											<Image
+												src={"/assets/icons/camera.svg"}
+												alt="Camera icon"
+												width={1000}
+												height={1000}
+												className="size-14 object-cover"
+											/>
+											<Button
+												type="button"
+												onClick={() =>
+													setOpenModal(true)
+												}
+												size="md"
+												variant="default"
 											>
-												<Image
-													src={photoUrl}
-													alt="Photo uploaded"
-													width={1000}
-													height={1000}
-													className="object-cover size-full aspect-video"
-												/>
-												<PhotoDropdown
-													key={src}
-													onDelete={() => {
-														null;
-													}}
-													markCover={() => {
-														// if (formattedPhotos.length === 0) return;
-														// const updatedPhotos = formattedPhotos.map(
-														//     (p, i) => ({
-														//         ...p,
-														//         cover: i === index,
-														//     })
-														// );
-														// setFormattedPhotos(updatedPhotos);
-													}}
-												/>
-											</div>
-										);
-									})}
-								{formattedPhotos.map(
-									({ src, cover }, index) => {
-										const photoUrl = useConstructUrl(src);
-										return (
-											<div
-												key={index}
-												className="rounded-lg relative overflow-hidden "
-											>
-												<Image
-													src={photoUrl}
-													alt="Photo uploaded"
-													width={1000}
-													height={1000}
-													className="object-cover size-full aspect-video"
-												/>
-												<PhotoDropdown
-													key={src}
-													onDelete={() => {
-														const updatedPhotos =
-															formattedPhotos.filter(
-																(_, i) =>
-																	i !== index
-															);
-														setFormattedPhotos(
-															updatedPhotos
-														);
-													}}
-													markCover={() => {
-														// if (formattedPhotos.length === 0) return;
-														// const updatedPhotos = formattedPhotos.map(
-														//     (p, i) => ({
-														//         ...p,
-														//         cover: i === index,
-														//     })
-														// );
-														// setFormattedPhotos(updatedPhotos);
-													}}
-												/>
-											</div>
-										);
-									}
-								)}
-							</div>
+												Add more photos
+											</Button>
+										</div>
+									)}
+								</div>
+							)}
 						</CardContent>
 					</Card>
 					<Card className="gap-0">
@@ -1135,18 +1124,26 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
 							<div className="container">
 								<Uploader
 									ref={uploaderRef}
-									onChange={(value) => {
-										if (Array.isArray(value)) {
-											setPhotos((prev) => [
-												...prev,
-												...value,
-											]);
-										} else {
-											setPhotos((prev) => [
-												...prev,
-												value,
-											]);
-										}
+									onChange={async (value) => {
+										const valuesArray = Array.isArray(value)
+											? value
+											: [value];
+
+										const newPhotos: Photo[] =
+											valuesArray.map((src, index) => ({
+												src,
+												cover:
+													photos.length === 0 &&
+													index === 0, // Only first photo ever is cover
+											}));
+
+										// Save to DB
+										const result = await savePhotos(
+											newPhotos,
+											listing.id
+										);
+
+										setPhotos(result.data!);
 									}}
 									// value={}
 									fileTypeAccepted="image"

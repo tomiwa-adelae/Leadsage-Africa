@@ -1,5 +1,11 @@
 import { cn } from "@/lib/utils";
-import { CloudUploadIcon, ImageIcon, Loader2, XIcon } from "lucide-react";
+import {
+	CloudUploadIcon,
+	ImageIcon,
+	Loader2,
+	Trash2,
+	XIcon,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 
@@ -60,7 +66,7 @@ const RenderUploadedState = ({
 	handleRemoval: () => void;
 }) => {
 	return (
-		<div className="relative size-full bg-red-300 flex items-center justify-center group">
+		<div className="relative size-full flex items-center overflow-hidden justify-center group">
 			{fileType === "video" ? (
 				<video
 					src={previewUrl}
@@ -68,12 +74,15 @@ const RenderUploadedState = ({
 					className="rounded-md size-full"
 				/>
 			) : (
-				<Image
-					src={previewUrl}
-					alt="Uploaded file"
-					fill
-					className="object-contain p-2"
-				/>
+				<div className="overflow-hidden rounded-full">
+					<Image
+						src={previewUrl}
+						alt="Uploaded file"
+						width={1000}
+						height={1000}
+						className="size-full"
+					/>
+				</div>
 			)}
 			<Button
 				variant="destructive"
@@ -86,7 +95,7 @@ const RenderUploadedState = ({
 				{isDeleting ? (
 					<Loader2 className="size-4 animate-spin" />
 				) : (
-					<XIcon />
+					<Trash2 />
 				)}
 			</Button>
 		</div>

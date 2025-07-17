@@ -33,7 +33,6 @@ export const editProfile = async (
 				"Your profile has been successfully updated. Redirecting...",
 		};
 	} catch (error) {
-		console.log(error);
 		return { status: "error", message: "Failed to update profile." };
 	}
 };

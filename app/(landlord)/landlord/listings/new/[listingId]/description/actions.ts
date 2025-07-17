@@ -35,7 +35,6 @@ export const saveDescription = async (
 			message: "Description successfully saved. Redirecting...",
 		};
 	} catch (error) {
-		console.log(error);
 		return { status: "error", message: "Failed to save the description." };
 	}
 };
