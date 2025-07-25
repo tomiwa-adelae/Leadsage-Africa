@@ -85,7 +85,7 @@ model Verification {
 model Listing {
   id               String  @id @default(uuid())
   title            String?
-  slug             String?
+  slug             String? @unique
   description      String?
   smallDescription String?
 

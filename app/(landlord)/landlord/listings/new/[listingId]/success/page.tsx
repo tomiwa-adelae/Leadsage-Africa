@@ -15,14 +15,14 @@ type Params = Promise<{
 const page = async ({ params }: { params: Params }) => {
 	const { listingId } = await params;
 
-	// const listing: GetLandlordListingType = await getLandlordListing(listingId);
+	const listing: GetLandlordListingType = await getLandlordListing(listingId);
 
-	// if (listing.status !== "Published") return notFound();
+	if (listing.status !== "Published") return notFound();
 
 	return (
 		<div>
 			<SiteHeader />
-			<SuccessComponent listingId={listingId} />
+			<SuccessComponent slug={listing.slug!} />
 		</div>
 	);
 };

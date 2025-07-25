@@ -10,7 +10,7 @@ export const registerFormSchema = z.object({
 		message: "Last name must be at least 2 characters.",
 	}),
 	email: z.string().email().min(2, {
-		message: "Last name must be at least 2 characters.",
+		message: "Email must be at least 2 characters.",
 	}),
 	password: z
 		.string()

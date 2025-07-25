@@ -187,28 +187,28 @@ export const PhotosForm = ({ id, listing }: Props) => {
 			</div>
 			{openModal && (
 				<ResponsiveModal open={openModal}>
-					<div>
-						<div className="py-4 container bg-white flex items-center justify-center dark:bg-black">
-							<Button
-								onClick={() => setOpenModal(false)}
-								size="icon"
-								variant="ghost"
-							>
-								<X className="size-6" />
-							</Button>
-							<h5 className="flex-1 text-center font-semibold text-lg">
-								Upload photos
-							</h5>
-							<Button
-								onClick={() =>
-									uploaderRef.current?.triggerFileInput()
-								}
-								size="icon"
-								variant="ghost"
-							>
-								<Plus className="size-6" />
-							</Button>
-						</div>
+					<div className="py-4 container bg-white flex items-center justify-center dark:bg-black">
+						<Button
+							onClick={() => setOpenModal(false)}
+							size="icon"
+							variant="ghost"
+						>
+							<X className="size-6" />
+						</Button>
+						<h5 className="flex-1 text-center font-semibold text-lg">
+							Upload photos
+						</h5>
+						<Button
+							onClick={() =>
+								uploaderRef.current?.triggerFileInput()
+							}
+							size="icon"
+							variant="ghost"
+						>
+							<Plus className="size-6" />
+						</Button>
+					</div>
+					<div className="overflow-y-auto">
 						<div className="bg-muted py-8">
 							<div className="container">
 								<Uploader
@@ -243,21 +243,22 @@ export const PhotosForm = ({ id, listing }: Props) => {
 								/>
 							</div>
 						</div>
-						<footer className="container py-4 bg-white dark:bg-dark flex items-center justify-end">
-							<Button
-								onClick={() =>
-									uploaderRef.current?.uploadAllFiles()
-								}
-								disabled={uploading}
-							>
-								{uploading ? (
-									<Loader text="Uploading..." />
-								) : (
-									"Upload"
-								)}
-							</Button>
-						</footer>
 					</div>
+
+					<footer className="container py-4 bg-white dark:bg-dark flex items-center justify-end">
+						<Button
+							onClick={() =>
+								uploaderRef.current?.uploadAllFiles()
+							}
+							disabled={uploading}
+						>
+							{uploading ? (
+								<Loader text="Uploading..." />
+							) : (
+								"Upload"
+							)}
+						</Button>
+					</footer>
 				</ResponsiveModal>
 			)}
 		</div>

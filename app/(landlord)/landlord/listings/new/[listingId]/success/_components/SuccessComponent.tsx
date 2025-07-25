@@ -5,7 +5,7 @@ import { useConfetti } from "@/hooks/use-confetti";
 import Link from "next/link";
 import { useEffect } from "react";
 
-export const SuccessComponent = ({ listingId }: { listingId: string }) => {
+export const SuccessComponent = ({ slug }: { slug: string }) => {
 	const { triggerConfetti } = useConfetti();
 
 	useEffect(() => {
@@ -29,7 +29,7 @@ export const SuccessComponent = ({ listingId }: { listingId: string }) => {
 					variant={"outline"}
 					className="w-full"
 				>
-					<Link href={`/landlord/listings/${listingId}/preview`}>
+					<Link href={`/landlord/listings/${slug}/preview`}>
 						Preview my listing
 					</Link>
 				</Button>

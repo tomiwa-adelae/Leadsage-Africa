@@ -1,25 +1,22 @@
-import { Header } from "@/app/(root)/_components/Header";
-import React from "react";
-import { Separator } from "@/components/ui/separator";
+import { getListingDetails } from "@/app/data/listing/get-listing-details";
+import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { AmenityBox } from "@/components/AmenityBox";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { ListingPhotos } from "@/components/ListingPhotos";
 import { ListingTestimonial } from "@/components/ListingTestimonial";
-import { ListingMap } from "@/components/ListingMap";
-import { Card, CardContent } from "@/components/ui/card";
 import { NairaIcon } from "@/components/NairaIcon";
-import Link from "next/link";
-import {
-	getLandlordListingPreview,
-	GetLandlordListingPreviewType,
-} from "@/app/data/landlord/get-landlord-listing-preview";
 import { RenderDescription } from "@/components/text-editor/RenderDescription";
-import { formatMoneyInput, removeCommas } from "../../../../../../lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { useConstructUrl } from "@/hooks/use-construct-url";
-import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
-import { ListingPhotos } from "@/components/ListingPhotos";
+import { auth } from "@/lib/auth";
+import { formatMoneyInput, removeCommas } from "@/lib/utils";
 import { CheckCircle, MapPin, Star } from "lucide-react";
+import { headers } from "next/headers";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 type Params = Promise<{
 	slug: string;
@@ -28,12 +25,14 @@ type Params = Promise<{
 const page = async ({ params }: { params: Params }) => {
 	const { slug } = await params;
 
-	const listing: GetLandlordListingPreviewType =
-		await getLandlordListingPreview(slug);
+	const session = await auth.api.getSession({
+		headers: await headers(),
+	});
+
+	const listing = await getListingDetails(slug);
 
 	return (
 		<div>
-			<Header />
 			<div className="pt-20 relative">
 				<div className="container py-8">
 					<ListingPhotos photos={listing.photos} />
@@ -216,9 +215,21 @@ const page = async ({ params }: { params: Params }) => {
 										</span>
 									</p>
 									<div className="mt-4 space-y-4">
-										{/* <Button className="w-full" size="md">
-											Login
-										</Button>
+										{session ? (
+											<Button
+												className="w-full"
+												size="md"
+											>
+												Book listing
+											</Button>
+										) : (
+											<Button
+												className="w-full"
+												size="md"
+											>
+												Login
+											</Button>
+										)}
 										<Button
 											className="w-full"
 											variant={"outline"}
@@ -226,42 +237,26 @@ const page = async ({ params }: { params: Params }) => {
 										>
 											Not what you're looking for? Click
 											here
-										</Button> */}
-										<Button className="w-full" size="md">
-											Book listing
-										</Button>
-										<Button
-											className="w-full"
-											variant={"outline"}
-											size="md"
-											asChild
-										>
-											<Link
-												href={`/landlord/listings/${listing.slug}`}
-											>
-												Edit listing
-											</Link>
 										</Button>
 									</div>
-									<p className="text-muted-foreground text-sm mt-4 text-center text-balance">
-										You won't be charged yet
-									</p>
-									{/* <div className="mt-6 space-y-2.5">
-										<p className="text-muted-foreground text-sm text-center text-balance">
-											You need to login to place a book a
-											listing
-										</p>
-										<p className="text-muted-foreground text-sm text-center text-balance">
-											Don't have an account?{" "}
-											<Link
-												className="text-primary hover:underline"
-												href="/register"
-											>
-												Create an account on Leadsage
-												Africa
-											</Link>
-										</p>
-									</div> */}
+									{!session && (
+										<div className="mt-6 space-y-2.5">
+											<p className="text-muted-foreground text-sm text-center text-balance">
+												You need to login to place a
+												book a listing
+											</p>
+											<p className="text-muted-foreground text-sm text-center text-balance">
+												Don't have an account?{" "}
+												<Link
+													className="text-primary hover:underline"
+													href="/register"
+												>
+													Create an account on
+													Leadsage Africa
+												</Link>
+											</p>
+										</div>
+									)}
 								</CardContent>
 							</Card>
 						</div>
