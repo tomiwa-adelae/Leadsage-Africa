@@ -25,6 +25,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   listing       Listing[]
+  touring       Touring[]
 
   role       String?
   banned     Boolean?
@@ -124,6 +125,8 @@ model Listing {
   status     ListingStatus @default(Draft)
   isApproved Boolean       @default(false)
 
+  touring Touring[]
+
   @@unique([slug, userId])
 }
 
@@ -167,4 +170,28 @@ model Photos {
   updatedAt DateTime @updatedAt
   Listing   Listing? @relation(fields: [listingId], references: [id])
   listingId String?
+}
+
+model Touring {
+  id        String   @id @default(uuid())
+  date      DateTime
+  time      DateTime
+  expiresAt DateTime
+
+  User      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  Listing   Listing       @relation(fields: [listingId], references: [id])
+  listingId String
+  status    TouringStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@unique([listingId, date]) // Prevents overlapping bookings for same listing & time
+}
+
+enum TouringStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
 }

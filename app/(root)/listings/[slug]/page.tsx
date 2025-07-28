@@ -17,6 +17,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { BookingButton } from "./_components/BookingButton";
 
 type Params = Promise<{
 	slug: string;
@@ -33,7 +34,7 @@ const page = async ({ params }: { params: Params }) => {
 
 	return (
 		<div>
-			<div className="pt-20 relative">
+			<div className="relative">
 				<div className="container py-8">
 					<ListingPhotos photos={listing.photos} />
 					<div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -216,12 +217,9 @@ const page = async ({ params }: { params: Params }) => {
 									</p>
 									<div className="mt-4 space-y-4">
 										{session ? (
-											<Button
-												className="w-full"
-												size="md"
-											>
-												Book listing
-											</Button>
+											<BookingButton
+												listingId={listing.id}
+											/>
 										) : (
 											<Button
 												className="w-full"
@@ -230,14 +228,6 @@ const page = async ({ params }: { params: Params }) => {
 												Login
 											</Button>
 										)}
-										<Button
-											className="w-full"
-											variant={"outline"}
-											size="md"
-										>
-											Not what you're looking for? Click
-											here
-										</Button>
 									</div>
 									{!session && (
 										<div className="mt-6 space-y-2.5">

@@ -239,3 +239,5 @@ export const listingVisibilities = [
 			"Your listing is no longer active and is hidden from renters. Use this when the space is no longer available. You can restore or edit it later if needed.",
 	},
 ];
+
+export const TOUR_GRACE_PERIOD_DAYS = 3; // or 3
