@@ -18,6 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { BookingButton } from "./_components/BookingButton";
+import { ListingMap } from "@/components/ListingMap";
 
 type Params = Promise<{
 	slug: string;

@@ -203,6 +203,13 @@ export const editListingFormSchema = z.object({
 	}),
 });
 
+export const searchFormSchema = z.object({
+	listing: z.string().optional(),
+	bedrooms: z.coerce.number().optional(),
+	bathrooms: z.coerce.number().optional(),
+	availabilityDate: z.string().optional(),
+});
+
 export type RegisterFormSchemaType = z.infer<typeof registerFormSchema>;
 export type LoginFormSchemaType = z.infer<typeof loginFormSchema>;
 export type ForgotPasswordFormSchemaType = z.infer<
@@ -227,3 +234,4 @@ export type ListingPolicyFormSchemaType = z.infer<
 >;
 export type ListingPriceFormSchemaType = z.infer<typeof listingPriceFormSchema>;
 export type EditListingFormSchemaType = z.infer<typeof editListingFormSchema>;
+export type SearchFormSchemaType = z.infer<typeof searchFormSchema>;

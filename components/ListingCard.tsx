@@ -1,4 +1,3 @@
-import { GetLandlordListingType } from "@/app/data/landlord/get-landlord-listing";
 import { Card, CardContent } from "@/components/ui/card";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import Image from "next/image";
@@ -9,12 +8,12 @@ import Link from "next/link";
 import { NairaIcon } from "./NairaIcon";
 
 interface Props {
-	listing: GetLandlordListingType;
+	listing: any;
 }
 
 export const ListingCard = ({ listing }: Props) => {
 	const cover =
-		listing.photos.find((photo) => photo.cover) || listing.photos[0];
+		listing.photos.find((photo: any) => photo.cover) || listing.photos[0];
 	const photoUrl = useConstructUrl(cover.src);
 	return (
 		<Link className="group" href={`/listings/${listing.slug}`}>
@@ -27,7 +26,7 @@ export const ListingCard = ({ listing }: Props) => {
 								alt={`${listing.title}'s photo`}
 								width={1000}
 								height={1000}
-								className="aspect-video size-full object-cover"
+								className="aspect-video h-full w-[250px] lg:w-[400px] object-cover"
 							/>
 							<div className="absolute inset-0 bg-black/30" />
 						</div>
@@ -46,10 +45,10 @@ export const ListingCard = ({ listing }: Props) => {
 						</Button>
 					</div>
 					<div className="py-2">
-						<h2 className="group-hover:text-primary hover:underline transition-all font-semibold text-lg line-clamp-1">
+						<h2 className="group-hover:text-primary hover:underline transition-all font-semibold text-base md:text-lg line-clamp-1">
 							{listing.title}
 						</h2>
-						<p className="font-medium text-base">
+						<p className="font-medium text-sm md:text-base">
 							<NairaIcon />
 							{listing.price}
 						</p>

@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { MobileNavbar } from "./MobileNavbar";
 import { getUserInfo } from "@/app/data/user/get-user-info";
 import { UserDropdown } from "./UserDropdown";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const Header = async () => {
 	const user = await getUserInfo();
 
 	return (
-		<header className="z-50 bg-white py-4 h-20 flex items-center justify-center fixed top-0 w-full shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]">
+		<header className="z-50 bg-white dark:bg-black py-4 h-20 flex items-center justify-center fixed top-0 w-full shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]">
 			<div className="container flex items-center justify-between gap-4">
 				<Logo invert />
 				<nav className="hidden flex-1 lg:flex items-center justify-center gap-2 lg:gap-8">
@@ -25,6 +26,7 @@ export const Header = async () => {
 					))}
 				</nav>
 				<div className="flex items-center justify-end gap-6">
+					<ThemeToggle />
 					<div className="hidden md:flex items-center justify-end gap-4">
 						{!user && (
 							<>

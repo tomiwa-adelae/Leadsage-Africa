@@ -18,7 +18,7 @@ export function ListingMap() {
 	const position: [number, number] = [5.0207, 7.9273];
 
 	return (
-		<div className="h-[400px] w-full rounded-lg overflow-hidden">
+		<div className="mt-4 h-[400px] w-full rounded-lg overflow-hidden">
 			<MapContainer
 				center={position}
 				zoom={16}
