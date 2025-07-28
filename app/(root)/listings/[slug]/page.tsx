@@ -219,6 +219,7 @@ const page = async ({ params }: { params: Params }) => {
 										{session ? (
 											<BookingButton
 												listingId={listing.id}
+												slug={slug}
 											/>
 										) : (
 											<Button

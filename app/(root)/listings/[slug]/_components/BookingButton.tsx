@@ -12,25 +12,34 @@ import {
 	Label,
 	Button as ButtonRA,
 	Popover,
+	DatePicker,
 } from "react-aria-components";
 
 import { cn } from "@/lib/utils";
-import { RangeCalendar } from "@/components/ui/calendar-rac";
+import { Calendar, RangeCalendar } from "@/components/ui/calendar-rac";
 import { DateInput, dateInputStyle } from "@/components/ui/datefield-rac";
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { tryCatch } from "@/hooks/use-try-catch";
 import { bookTour } from "../actions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Dialog } from "@/components/ui/dialog";
+import { Loader } from "@/components/Loader";
 
-export const BookingButton = ({ listingId }: { listingId: string }) => {
+export const BookingButton = ({
+	listingId,
+	slug,
+}: {
+	listingId: string;
+	slug: string;
+}) => {
+	const router = useRouter();
 	const [showSelector, setShowSelector] = useState(false);
 	const [pending, startTransition] = useTransition();
 
-	const [dateRange, setDateRange] = useState<{
-		start: DateValue;
-		end: DateValue;
-	} | null>(null);
+	const [dateRange, setDateRange] = useState<any>(null);
 	const [time, setTime] = useState<any>();
 
 	const now = today(getLocalTimeZone());
@@ -58,19 +67,31 @@ export const BookingButton = ({ listingId }: { listingId: string }) => {
 			: null;
 
 	const handleSubmit = () => {
-		if (!dateRange?.start || !time) {
-			alert("Please select both a date and time.");
+		if (!dateRange || !time) {
+			toast.error("Please select both a date and time.");
 			return;
 		}
 
 		// Combine the selected date and time into a JS Date
-		const dateStr = dateRange.start.toString(); // "2025-07-30"
+		const dateStr = dateRange.toString(); // "2025-07-30"
 		const timeStr = time.toString(); // "14:00"
 
 		startTransition(async () => {
 			const { data: result, error } = await tryCatch(
 				bookTour(dateStr, timeStr, listingId)
 			);
+
+			if (error) {
+				toast.error(error.message);
+				return;
+			}
+
+			if (result.status === "success") {
+				toast.success(result.message);
+				router.push(`/listings/${slug}/success`);
+			} else {
+				toast.error(result.message);
+			}
 		});
 	};
 
@@ -86,7 +107,11 @@ export const BookingButton = ({ listingId }: { listingId: string }) => {
 				</Button>
 			) : (
 				<div className="grid gap-4">
-					<DatePicker className="*:not-first:mt-2">
+					<DatePicker
+						value={dateRange}
+						onChange={(e: any) => setDateRange(e)}
+						className="*:not-first:mt-2"
+					>
 						<Label className="text-foreground text-sm font-medium">
 							Date picker
 						</Label>
@@ -94,17 +119,17 @@ export const BookingButton = ({ listingId }: { listingId: string }) => {
 							<Group className="w-full">
 								<DateInput className="pe-9" />
 							</Group>
-							<Button className="text-muted-foreground/80 hover:text-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 z-10 -ms-9 -me-px flex w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none data-focus-visible:ring-[3px]">
+							<ButtonRA className="text-muted-foreground/80 hover:text-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 z-10 -ms-9 -me-px flex w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none data-focus-visible:ring-[3px]">
 								<CalendarIcon size={16} />
-							</Button>
+							</ButtonRA>
 						</div>
 						<Popover
 							className="bg-background text-popover-foreground data-entering:animate-in data-exiting:animate-out data-[entering]:fade-in-0 data-[exiting]:fade-out-0 data-[entering]:zoom-in-95 data-[exiting]:zoom-out-95 data-[placement=bottom]:slide-in-from-top-2 data-[placement=left]:slide-in-from-right-2 data-[placement=right]:slide-in-from-left-2 data-[placement=top]:slide-in-from-bottom-2 z-50 rounded-lg border shadow-lg outline-hidden"
 							offset={4}
 						>
-							<Dialog className="max-h-[inherit] overflow-auto p-2">
+							<DialogRA className="max-h-[inherit] overflow-auto p-2">
 								<Calendar />
-							</Dialog>
+							</DialogRA>
 						</Popover>
 					</DatePicker>
 					<TimeField
@@ -122,11 +147,17 @@ export const BookingButton = ({ listingId }: { listingId: string }) => {
 							</div>
 						</div>
 					</TimeField>
-					<Button size="md" className="w-full" onClick={handleSubmit}>
-						Book touring
+					<Button
+						disabled={pending}
+						size="md"
+						className="w-full"
+						onClick={handleSubmit}
+					>
+						{pending ? <Loader /> : "Book touring"}
 					</Button>
 				</div>
 			)}
+
 			<Button className="w-full" variant={"outline"} size="md" asChild>
 				<Link href="/listings">
 					Not what you're looking for? Click here

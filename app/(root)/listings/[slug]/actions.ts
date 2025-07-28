@@ -3,6 +3,7 @@
 import { requireUser } from "@/app/data/user/require-user";
 import { TOUR_GRACE_PERIOD_DAYS } from "@/constants";
 import { prisma } from "@/lib/db";
+import { ApiResponse } from "@/lib/types";
 
 export const bookTour = async (
 	date: string,
@@ -19,23 +20,22 @@ export const bookTour = async (
 		if (!listingId)
 			return { status: "error", message: "Oops! An error occurred" };
 
-		console.log(date);
-
-		console.log(
-			new Date(
-				new Date(date).getTime() +
-					TOUR_GRACE_PERIOD_DAYS * 24 * 60 * 60 * 1000
-			)
-		);
-
 		await prisma.touring.create({
 			data: {
 				date,
 				time,
-				expiresAt: TOUR_GRACE_PERIOD_DAYS * 24 * 60 * 60 * 1000,
+				expiresAt: new Date(
+					new Date(date).getTime() +
+						TOUR_GRACE_PERIOD_DAYS * 24 * 60 * 60 * 1000
+				),
+				userId: user.id,
+				listingId: listingId,
 			},
 		});
+
+		return { status: "success", message: "Booking successful." };
 	} catch (error) {
+		console.log(error);
 		return { status: "error", message: "Failed to book a role" };
 	}
 };

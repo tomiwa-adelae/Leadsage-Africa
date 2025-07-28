@@ -174,8 +174,8 @@ model Photos {
 
 model Touring {
   id        String   @id @default(uuid())
-  date      DateTime
-  time      DateTime
+  date      String
+  time      String
   expiresAt DateTime
 
   User      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
