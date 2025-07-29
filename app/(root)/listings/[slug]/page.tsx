@@ -293,7 +293,7 @@ const page = async ({ params }: { params: Params }) => {
 							{listing.address}, {listing.city}, {listing.state},{" "}
 							{listing.country}
 						</p>
-						{/* <ListingMap /> */}
+						<ListingMap />
 					</div>
 					<Separator className="my-8" />
 					<div>

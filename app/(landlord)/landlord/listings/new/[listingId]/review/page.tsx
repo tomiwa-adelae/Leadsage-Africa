@@ -18,6 +18,7 @@ import { RenderDescription } from "@/components/text-editor/RenderDescription";
 import { ImageBoxes } from "./_components/ImageBoxes";
 import { PublishButton } from "./_components/PublishButton";
 import { AmenityBox } from "@/components/AmenityBox";
+import { NairaIcon } from "@/components/NairaIcon";
 // import { ImageBoxes } from "./_components/ImageBoxes";
 
 type Params = Promise<{
@@ -345,6 +346,7 @@ const page = async ({ params }: { params: Params }) => {
 								<span className="text-muted-foreground">
 									Price:
 								</span>{" "}
+								<NairaIcon />
 								{listing.price}
 							</h5>
 							<h5>
@@ -357,13 +359,8 @@ const page = async ({ params }: { params: Params }) => {
 								<span className="text-muted-foreground">
 									Security deposit:
 								</span>{" "}
+								<NairaIcon />
 								{listing.securityDeposit}
-							</h5>
-							<h5>
-								<span className="text-muted-foreground">
-									Discount:
-								</span>{" "}
-								{listing.discount}
 							</h5>
 						</div>
 					</div>
