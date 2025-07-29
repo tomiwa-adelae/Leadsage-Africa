@@ -1,6 +1,6 @@
+import "server-only";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
-import "server-only";
 
 export const getApprovedListings = async () => {
 	const listing = await prisma.listing.findMany({
