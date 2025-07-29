@@ -96,3 +96,40 @@ export function removeKeysFromQuery({
 		}
 	);
 }
+
+// Define available time slots
+export const AVAILABLE_TIME_SLOTS = [
+	"09:00",
+	"10:00",
+	"11:00",
+	"14:00",
+	"15:00",
+	"16:00",
+	"17:00",
+];
+
+// Helper function to get date range (next 3 days only)
+export function getBookingDateRange() {
+	const now = new Date();
+	const startDate = new Date(now);
+	startDate.setDate(now.getDate() + 1); // Start from tomorrow
+
+	const endDate = new Date(now);
+	endDate.setDate(now.getDate() + 3); // End 3 days from now
+
+	return { startDate, endDate };
+}
+
+// Helper function to format date as YYYY-MM-DD
+export function formatDateForDB(date: Date): Date {
+	const year = date.getFullYear();
+	const month = String(date.getMonth() + 1).padStart(2, "0");
+	const day = String(date.getDate()).padStart(2, "0");
+	return new Date(`${year}-${month}-${day}`);
+}
+
+// Helper function to check if date is weekend
+export function isWeekend(date: Date): boolean {
+	const day = date.getDay();
+	return day === 0 || day === 6; // Sunday = 0, Saturday = 6
+}

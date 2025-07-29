@@ -52,13 +52,14 @@ export const SearchForm = () => {
 						name="listing"
 						render={({ field }) => (
 							<FormItem className="flex-1">
-								<FormLabel>Where</FormLabel>
 								<FormControl>
-									<div className="relative">
-										<Input
-											placeholder="Search listings, destination..."
-											{...field}
-										/>
+									<div className="group relative">
+										<label className="origin-start text-muted-foreground/70 group-focus-within:text-foreground has-[+input:not(:placeholder-shown)]:text-foreground absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-xs group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-xs has-[+input:not(:placeholder-shown)]:font-medium">
+											<span className="bg-background inline-flex px-2">
+												Where
+											</span>
+										</label>
+										<Input placeholder="" {...field} />
 									</div>
 								</FormControl>
 								<FormMessage />
@@ -71,9 +72,15 @@ export const SearchForm = () => {
 						name="bathrooms"
 						render={({ field }) => (
 							<FormItem className="flex-1">
-								<FormLabel>Bathrooms</FormLabel>
 								<FormControl>
-									<NumberInput field={field} />
+									<div className="group relative">
+										<label className="origin-start text-muted-foreground/70 group-focus-within:text-foreground has-[+input:not(:placeholder-shown)]:text-foreground absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-xs group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-xs has-[+input:not(:placeholder-shown)]:font-medium">
+											<span className="bg-background inline-flex px-2">
+												Bathrooms
+											</span>
+										</label>
+										<NumberInput field={field} />
+									</div>
 								</FormControl>
 								<FormMessage />
 							</FormItem>

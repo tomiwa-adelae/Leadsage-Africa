@@ -1,4 +1,7 @@
-import { getListingDetails } from "@/app/data/listing/get-listing-details";
+import {
+	getListingDetails,
+	GetListingPreviewType,
+} from "@/app/data/listing/get-listing-details";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { AmenityBox } from "@/components/AmenityBox";
 import { ListingPhotos } from "@/components/ListingPhotos";
@@ -19,6 +22,7 @@ import Link from "next/link";
 import React from "react";
 import { BookingButton } from "./_components/BookingButton";
 import { ListingMap } from "@/components/ListingMap";
+import { getExistingBooking } from "@/app/data/touring/get-existing-touring";
 
 type Params = Promise<{
 	slug: string;
@@ -31,7 +35,13 @@ const page = async ({ params }: { params: Params }) => {
 		headers: await headers(),
 	});
 
-	const listing = await getListingDetails(slug);
+	const listing: GetListingPreviewType = await getListingDetails(slug);
+
+	let booking;
+
+	if (session) {
+		booking = await getExistingBooking(listing.id);
+	}
 
 	return (
 		<div>
@@ -80,11 +90,11 @@ const page = async ({ params }: { params: Params }) => {
 								<h3 className="font-medium text-lg">
 									About this listing
 								</h3>
-								<p className="text-muted-foreground text-base mt-1.5">
+								<div className="text-muted-foreground text-base mt-1.5">
 									<RenderDescription
 										json={JSON.parse(listing?.description!)}
 									/>
-								</p>
+								</div>
 							</div>
 							<Separator />
 							<div>
@@ -221,6 +231,12 @@ const page = async ({ params }: { params: Params }) => {
 											<BookingButton
 												listingId={listing.id}
 												slug={slug}
+												hasBooked={
+													booking?.status ===
+														"PENDING" ||
+													booking?.status ===
+														"CONFIRMED"
+												}
 											/>
 										) : (
 											<Button

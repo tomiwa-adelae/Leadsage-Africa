@@ -125,7 +125,9 @@ model Listing {
   status     ListingStatus @default(Draft)
   isApproved Boolean       @default(false)
 
-  touring Touring[]
+  touring             Touring[]
+  listingBlockedDate  ListingBlockedDate[]
+  listingAvailability ListingAvailability[]
 
   @@unique([slug, userId])
 }
@@ -172,21 +174,35 @@ model Photos {
   listingId String?
 }
 
+// Tour booking model
 model Touring {
-  id        String   @id @default(uuid())
-  date      String
-  time      String
+  id String @id @default(uuid())
+
+  date     DateTime @db.Date
+  timeSlot String
+
+  scheduledAt DateTime
+
   expiresAt DateTime
-
-  User      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  Listing   Listing       @relation(fields: [listingId], references: [id])
-  listingId String
-  status    TouringStatus @default(PENDING)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
 
-  @@unique([listingId, date]) // Prevents overlapping bookings for same listing & time
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String
+
+  status TouringStatus @default(PENDING)
+
+  notes String? // Special requests or notes from user
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([listingId, date, timeSlot], name: "unique_listing_datetime")
+  // Index for efficient queries
+  @@index([listingId, date])
+  @@index([userId])
+  @@index([status])
+  @@index([scheduledAt])
 }
 
 enum TouringStatus {
@@ -194,4 +210,50 @@ enum TouringStatus {
   CONFIRMED
   CANCELLED
   COMPLETED
+}
+
+// Optional: Model for blocked dates (holidays, maintenance, etc.)
+model ListingBlockedDate {
+  id String @id @default(uuid())
+
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String
+
+  date   DateTime @db.Date
+  reason String? // Optional reason for blocking
+
+  // Block specific time slots or entire day
+  timeSlots Json? // If null, entire day is blocked
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([listingId, date])
+}
+
+// Optional: Add a separate model for listing availability rules
+model ListingAvailability {
+  id String @id @default(uuid())
+
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String
+
+  // Day of week (0 = Sunday, 1 = Monday, etc.)
+  dayOfWeek Int
+
+  // Available time slots for this day (JSON array of strings)
+  timeSlots Json // e.g., ["09:00", "10:00", "14:00", "15:00"]
+
+  // Or alternatively, use start/end times
+  startTime String // e.g., "09:00"
+  endTime   String // e.g., "17:00"
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([listingId, dayOfWeek])
 }

@@ -24,27 +24,10 @@ export const bookATourTenant = ({
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Rental Platform Email Templates</title>
 		<script src="https://cdn.tailwindcss.com"></script>
-		<style>
-			/* Custom gradients for email styling */
-			.gradient-primary {
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			}
-			.gradient-secondary {
-				background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-			}
-			.gradient-accent {
-				background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-			}
-			.gradient-divider {
-				background: linear-gradient(90deg, #667eea, #764ba2, #74b9ff);
-			}
-		</style>
-	</head>
 	<body class="font-sans bg-gray-100 p-5">
 		<div
-			class="max-w-2xl mx-auto bg-white rounded-b-xl shadow-lg overflow-hidden mb-10"
 		>
-			<div class="gradient-primary text-white py-8 px-10 text-center">
+			<div>
 				<h1 class="text-2xl font-semibold mb-2">Tour Confirmed!</h1>
 				<p class="opacity-90 m-0">Your property viewing is all set</p>
 			</div>
@@ -121,7 +104,7 @@ export const bookATourTenant = ({
 					</ul>
 				</div>
 
-				<div class="gradient-accent p-5 rounded-lg my-5 text-center">
+				<div class="p-5 rounded-lg my-5 text-center">
 					<h3 class="font-semibold text-gray-800 mb-2">
 						⏰ Important Reminders
 					</h3>
@@ -148,12 +131,12 @@ export const bookATourTenant = ({
 				<div class="text-center my-8">
 					<a
 						href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/dashboard"
-						class="inline-block gradient-primary text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:transform hover:-translate-y-0.5 transition-transform"
+						class="inline-block text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:transform hover:-translate-y-0.5 transition-transform"
 						>View Your Dashboard</a
 					>
 					<a
 						href="[Reschedule Link]"
-						class="inline-block gradient-secondary text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:transform hover:-translate-y-0.5 transition-transform"
+						class="inline-block text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:transform hover:-translate-y-0.5 transition-transform"
 						>Reschedule Tour</a
 					>
 				</div>
