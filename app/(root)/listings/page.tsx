@@ -18,7 +18,7 @@ const page = async () => {
 						Popular homes in Lagos
 					</h4>
 					<ScrollArea className="w-full max-w-full">
-						<div className="flex w-max space-x-4 md:space-x-6 lg:space-x-8 pt-4 pr-10 pb-4">
+						<div className="flex w-max space-x-2 md:space-x-3 lg:space-x-4 pt-4 pr-10 pb-2">
 							{Array.from({ length: 6 }).map((_, i) =>
 								listings.map((listing) => (
 									<ListingCard

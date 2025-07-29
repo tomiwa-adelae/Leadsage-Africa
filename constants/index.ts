@@ -241,3 +241,5 @@ export const listingVisibilities = [
 ];
 
 export const TOUR_GRACE_PERIOD_DAYS = 3; // or 3
+
+export const bathrooms = ["1", "2", "3", "4"];

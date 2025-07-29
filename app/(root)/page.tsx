@@ -8,10 +8,6 @@ const page = () => {
 			<PopularProperties />
 			{/* <FindProperties /> */}
 			{/* <PartneringCompanies /> */}
-			{/* <Footer /> */}
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-			provident voluptates earum ipsa dolorum id beatae qui dolorem sunt
-			ullam.
 		</div>
 	);
 };

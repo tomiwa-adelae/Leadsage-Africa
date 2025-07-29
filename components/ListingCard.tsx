@@ -17,7 +17,7 @@ export const ListingCard = ({ listing }: Props) => {
 	const photoUrl = useConstructUrl(cover.src);
 	return (
 		<Link className="group" href={`/listings/${listing.slug}`}>
-			<Card className="gap-0 border-0 rounded-none shadow-none p-0">
+			<Card className="gap-0 bg-transparent border-0 rounded-none shadow-none p-0">
 				<CardContent className="p-0">
 					<div className="relative rounded-lg overflow-hidden">
 						<div className="relative">
@@ -26,7 +26,7 @@ export const ListingCard = ({ listing }: Props) => {
 								alt={`${listing.title}'s photo`}
 								width={1000}
 								height={1000}
-								className="aspect-video h-full w-[250px] lg:w-[400px] object-cover"
+								className="aspect-square h-full w-[250px] lg:w-[400px] object-cover"
 							/>
 							<div className="absolute inset-0 bg-black/30" />
 						</div>
