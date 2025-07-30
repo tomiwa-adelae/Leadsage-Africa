@@ -6,7 +6,7 @@ const page = () => {
 	return (
 		<div>
 			<Header />
-			<div className="flex items-center justify-center min-h-[70vh]">
+			<div className="flex items-center justify-center min-h-[85vh]">
 				<h1 className="text-4xl font-bold">Coming soon...</h1>
 			</div>
 			<Footer />
