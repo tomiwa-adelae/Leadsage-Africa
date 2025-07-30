@@ -103,7 +103,7 @@ export function UserDropdown({ image, name, email }: Props) {
 						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem asChild>
-						<Link href="/become-a-landlord">
+						<Link href="/landlord/dashboard">
 							<Heart
 								size={16}
 								className="opacity-60"
