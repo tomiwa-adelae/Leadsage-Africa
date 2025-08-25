@@ -190,7 +190,7 @@ model Touring {
   listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
   listingId String
 
-  status TouringStatus @default(PENDING)
+  status TouringStatus @default(Pending)
 
   notes String? // Special requests or notes from user
 
@@ -206,10 +206,10 @@ model Touring {
 }
 
 enum TouringStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-  COMPLETED
+  Pending
+  Confirmed
+  Cancelled
+  Completed
 }
 
 // Optional: Model for blocked dates (holidays, maintenance, etc.)

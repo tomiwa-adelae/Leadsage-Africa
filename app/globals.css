@@ -123,9 +123,10 @@
 
 @utility container {
 	margin-inline: auto;
-	width: 87%;
+	width: 91%;
 
-	@media (min-width: 1024px) {
-		width: 89%;
-	}
+
+	/* @media (max-width: 1024px) { */
+		/* width: 93%; */
+	/* } */
 }
