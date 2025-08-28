@@ -10,17 +10,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { GetLandlordListingsType } from "@/app/data/landlord/get-landlord-listings";
-import { NairaIcon } from "../NairaIcon";
 import { Calendar, Clock, Eye, House, Wallet } from "lucide-react";
 import Image from "next/image";
-import { GetLandlordPendingBookingsType } from "@/app/data/touring/get-landlord-bookings";
+import { GetLandlordPendingBookingsType } from "@/app/data/landlord/get-landlord-bookings";
+import { NairaIcon } from "@/components/NairaIcon";
 
 interface Props {
   listings: GetLandlordListingsType;
   pendingBookings: GetLandlordPendingBookingsType;
 }
 
-export function SectionCards({ listings, pendingBookings }: Props) {
+export function DashboardCards({ listings, pendingBookings }: Props) {
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       <Card className="@container/card">

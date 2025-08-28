@@ -9,6 +9,7 @@ import { bookATourTenant } from "@/lib/emails/book-a-tour";
 import {
   AVAILABLE_TIME_SLOTS,
   formatDateForDB,
+  generateBookingSuffix,
   getBookingDateRange,
   isWeekend,
 } from "@/lib/utils";
@@ -18,19 +19,28 @@ const mailjet = Mailjet.apiConnect(
   env.MAILJET_API_PRIVATE_KEY
 );
 
-// Get available dates for a listing (excluding weekends and within 3-day window)
+// Get available dates for a listing (excluding weekends and ensuring 3 weekdays)
 export async function getAvailableDates(listingId: string) {
   try {
-    const { startDate, endDate } = getBookingDateRange();
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() + 1); // Start from tomorrow
 
-    // Get all blocked dates for this listing
+    // We'll search up to 10 days to ensure we can find 3 weekdays
+    // This accounts for potential weekend clusters
+    const maxSearchDays = 10;
+    const targetAvailableDays = 3;
+
+    // Get all blocked dates within our extended search range
+    const searchEndDate = new Date(startDate);
+    searchEndDate.setDate(startDate.getDate() + maxSearchDays);
+
     const blockedDates = await prisma.listingBlockedDate.findMany({
       where: {
         listingId,
         isActive: true,
         date: {
           gte: startDate,
-          lte: endDate,
+          lte: searchEndDate,
         },
       },
       select: {
@@ -39,22 +49,25 @@ export async function getAvailableDates(listingId: string) {
       },
     });
 
-    // Generate available dates within the 3-day window
+    // Generate available dates, skipping weekends and ensuring we get enough weekdays
     const availableDates: Array<{
       date: string;
       isFullyBooked: boolean;
       availableSlots: number;
     }> = [];
 
-    for (
-      let d = new Date(startDate);
-      d <= endDate;
-      d.setDate(d.getDate() + 1)
-    ) {
-      const currentDate = new Date(d);
+    let currentDate = new Date(startDate);
+    let daysChecked = 0;
 
+    // Continue searching until we have enough available days or reach max search limit
+    while (
+      availableDates.length < targetAvailableDays &&
+      daysChecked < maxSearchDays
+    ) {
       // Skip weekends
       if (isWeekend(currentDate)) {
+        currentDate.setDate(currentDate.getDate() + 1);
+        daysChecked++;
         continue;
       }
 
@@ -67,12 +80,14 @@ export async function getAvailableDates(listingId: string) {
       );
 
       if (blockedDate && !blockedDate.timeSlots) {
-        // Entire day is blocked
+        // Entire day is blocked, skip to next day
+        currentDate.setDate(currentDate.getDate() + 1);
+        daysChecked++;
         continue;
       }
 
       // Get existing bookings for this date
-      const existingBookings = await prisma.touring.findMany({
+      const existingBookings = await prisma.booking.findMany({
         where: {
           listingId,
           date: formattedDate,
@@ -105,6 +120,10 @@ export async function getAvailableDates(listingId: string) {
           availableSlots: availableSlots.length,
         });
       }
+
+      // Move to next day
+      currentDate.setDate(currentDate.getDate() + 1);
+      daysChecked++;
     }
 
     return {
@@ -112,11 +131,13 @@ export async function getAvailableDates(listingId: string) {
       data: availableDates,
       dateRange: {
         start: startDate.toISOString().split("T")[0],
-        end: endDate.toISOString().split("T")[0],
+        end:
+          availableDates.length > 0
+            ? availableDates[availableDates.length - 1].date
+            : startDate.toISOString().split("T")[0],
       },
     };
   } catch (error) {
-    console.error("Error fetching available dates:", error);
     return {
       success: false,
       error: "Failed to fetch available dates",
@@ -130,18 +151,9 @@ export async function getAvailableTimeSlots(
   dateString: string
 ) {
   try {
-    const { startDate, endDate } = getBookingDateRange();
     const selectedDate = new Date(dateString);
 
-    // Validate date is within allowed range
-    if (selectedDate < startDate || selectedDate > endDate) {
-      return {
-        success: false,
-        error: "Selected date is outside the booking window",
-      };
-    }
-
-    // Check if date is weekend
+    // Check if date is weekend first
     if (isWeekend(selectedDate)) {
       return {
         success: false,
@@ -149,8 +161,24 @@ export async function getAvailableTimeSlots(
       };
     }
 
-    const formattedDate = formatDateForDB(selectedDate);
+    // Instead of using the restrictive 3-day window, let's be more flexible
+    // We'll allow bookings for any reasonable future date (e.g., up to 30 days)
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
 
+    const maxBookingDate = new Date(now);
+    maxBookingDate.setDate(now.getDate() + 30); // Allow bookings up to 30 days ahead
+
+    // Validate date is within allowed range (tomorrow to 30 days ahead)
+    if (selectedDate < tomorrow || selectedDate > maxBookingDate) {
+      return {
+        success: false,
+        error: "Selected date is outside the booking window",
+      };
+    }
+
+    const formattedDate = formatDateForDB(selectedDate);
     // Check if date is blocked
     const blockedDate = await prisma.listingBlockedDate.findFirst({
       where: {
@@ -168,7 +196,7 @@ export async function getAvailableTimeSlots(
     }
 
     // Get existing bookings
-    const existingBookings = await prisma.touring.findMany({
+    const existingBookings = await prisma.booking.findMany({
       where: {
         listingId,
         date: formattedDate,
@@ -182,14 +210,17 @@ export async function getAvailableTimeSlots(
     });
 
     const bookedSlots = existingBookings.map((booking) => booking.timeSlot);
+
     const blockedTimeSlots = blockedDate?.timeSlots
       ? (blockedDate.timeSlots as string[])
       : [];
 
     // Calculate available slots
-    const availableSlots = AVAILABLE_TIME_SLOTS.filter(
-      (slot) => !bookedSlots.includes(slot) && !blockedTimeSlots.includes(slot)
-    ).map((slot) => ({
+    const availableSlots = AVAILABLE_TIME_SLOTS.filter((slot) => {
+      const isBooked = bookedSlots.includes(slot);
+      const isBlocked = blockedTimeSlots.includes(slot);
+      return !isBooked && !isBlocked;
+    }).map((slot) => ({
       value: slot,
       label: formatTimeSlot(slot),
     }));
@@ -199,7 +230,6 @@ export async function getAvailableTimeSlots(
       data: availableSlots,
     };
   } catch (error) {
-    console.error("Error fetching available time slots:", error);
     return {
       success: false,
       error: "Failed to fetch available time slots",
@@ -228,11 +258,18 @@ export async function bookTour(
     const { startDate, endDate } = getBookingDateRange();
     const selectedDate = new Date(dateString);
 
-    // Validate date is within allowed range
-    if (selectedDate < startDate || selectedDate > endDate) {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+
+    const maxBookingDate = new Date(now);
+    maxBookingDate.setDate(now.getDate() + 30); // Allow bookings up to 30 days ahead
+
+    // Validate date is within allowed range (tomorrow to 30 days ahead)
+    if (selectedDate < tomorrow || selectedDate > maxBookingDate) {
       return {
         success: false,
-        error: "Selected date is outside the booking window (next 3 days only)",
+        error: "Selected date is outside the booking window",
       };
     }
 
@@ -242,6 +279,26 @@ export async function bookTour(
         success: false,
         error: "Invalid time slot selected",
       };
+    }
+
+    const year = new Date().getFullYear();
+    let suffix = generateBookingSuffix();
+    let bookingId = `BK-${year}-${suffix}`;
+
+    let existing = await prisma.booking.findUnique({
+      where: {
+        bookingId,
+      },
+    });
+
+    while (existing) {
+      suffix = generateBookingSuffix();
+      bookingId = `BK-${year}-${suffix}`;
+      existing = await prisma.booking.findUnique({
+        where: {
+          bookingId,
+        },
+      });
     }
 
     const listing = await prisma.listing.findUnique({
@@ -270,7 +327,7 @@ export async function bookTour(
     const formattedDate = formatDateForDB(selectedDate);
 
     // Check if slot is still available
-    const existingBooking = await prisma.touring.findFirst({
+    const existingBooking = await prisma.booking.findFirst({
       where: {
         listingId,
         date: formattedDate,
@@ -318,10 +375,11 @@ export async function bookTour(
     const scheduledAt = new Date(`${dateString}T${timeSlot}:00`);
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
 
-    const booking = await prisma.touring.create({
+    const booking = await prisma.booking.create({
       data: {
         userId: user.id,
         listingId,
+        bookingId,
         date: formattedDate,
         timeSlot,
         scheduledAt,
@@ -393,7 +451,6 @@ export async function bookTour(
       },
     };
   } catch (error) {
-    console.error("Error booking tour:", error);
     return {
       success: false,
       error: "Failed to book tour. Please try again.",
@@ -405,7 +462,7 @@ export async function bookTour(
 export async function cancelBooking(bookingId: string) {
   const { user } = await requireUser();
   try {
-    const booking = await prisma.touring.findFirst({
+    const booking = await prisma.booking.findFirst({
       where: {
         id: bookingId,
         userId: user.id,
@@ -430,7 +487,7 @@ export async function cancelBooking(bookingId: string) {
     }
 
     // Update booking status
-    await prisma.touring.update({
+    await prisma.booking.update({
       where: {
         id: bookingId,
       },
@@ -448,7 +505,6 @@ export async function cancelBooking(bookingId: string) {
       message: "Booking cancelled successfully",
     };
   } catch (error) {
-    console.error("Error cancelling booking:", error);
     return {
       success: false,
       error: "Failed to cancel booking. Please try again.",

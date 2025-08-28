@@ -109,16 +109,16 @@ export const AVAILABLE_TIME_SLOTS = [
 ];
 
 // Helper function to get date range (next 3 days only)
-export function getBookingDateRange() {
-  const now = new Date();
-  const startDate = new Date(now);
-  startDate.setDate(now.getDate() + 1); // Start from tomorrow
+// export function getBookingDateRange() {
+//   const now = new Date();
+//   const startDate = new Date(now);
+//   startDate.setDate(now.getDate() + 1); // Start from tomorrow
 
-  const endDate = new Date(now);
-  endDate.setDate(now.getDate() + 3); // End 3 days from now
+//   const endDate = new Date(now);
+//   endDate.setDate(now.getDate() + 3); // End 3 days from now
 
-  return { startDate, endDate };
-}
+//   return { startDate, endDate };
+// }
 
 // Helper function to format date as YYYY-MM-DD
 export function formatDateForDB(date: Date): Date {
@@ -150,4 +150,56 @@ export function getGreeting(currentTime = new Date()) {
   }
 
   return timeGreeting;
+}
+
+export function generateBookingSuffix(length = 4): string {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+// Updated helper function to get flexible date range
+export function getBookingDateRange(daysAhead = 3) {
+  const now = new Date();
+  const startDate = new Date(now);
+  startDate.setDate(now.getDate() + 1); // Start from tomorrow
+
+  const endDate = new Date(now);
+  endDate.setDate(now.getDate() + daysAhead);
+
+  return { startDate, endDate };
+}
+
+// New helper function to get next N weekdays starting from a given date
+export function getNextWeekdays(startDate: Date, numberOfDays: number): Date[] {
+  const weekdays: Date[] = [];
+  const currentDate = new Date(startDate);
+
+  while (weekdays.length < numberOfDays) {
+    if (!isWeekend(currentDate)) {
+      weekdays.push(new Date(currentDate));
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return weekdays;
+}
+
+// Enhanced booking date range function that ensures weekdays only
+export function getBookingDateRangeWeekdaysOnly(numberOfWeekdays = 3) {
+  const now = new Date();
+  const startDate = new Date(now);
+  startDate.setDate(now.getDate() + 1); // Start from tomorrow
+
+  const weekdays = getNextWeekdays(startDate, numberOfWeekdays);
+  const endDate = weekdays[weekdays.length - 1];
+
+  return {
+    startDate,
+    endDate,
+    weekdays, // Include the actual weekday dates for easy reference
+  };
 }

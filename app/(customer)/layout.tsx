@@ -1,7 +1,7 @@
 "use client";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { landlordNavLinks } from "@/constants";
+import { customerNavLinks } from "@/constants";
 import React, { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
@@ -14,7 +14,7 @@ const layout = ({ children }: { children: ReactNode }) => {
         } as React.CSSProperties
       }
     >
-      <AppSidebar navLinks={landlordNavLinks} variant="inset" />
+      <AppSidebar navLinks={customerNavLinks} variant="inset" />
       <SidebarInset>
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">

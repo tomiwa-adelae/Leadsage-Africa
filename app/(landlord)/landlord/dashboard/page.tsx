@@ -1,18 +1,18 @@
 import { getLandlordListings } from "@/app/data/landlord/get-landlord-listings";
 import { ChartAreaInteractive } from "@/components/sidebar/chart-area-interactive";
-import { SectionCards } from "@/components/sidebar/section-cards";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { RecentBookings } from "./_components/RecentBookings";
 import {
   getLandlordBookings,
   getLandlordPendingBookings,
-} from "@/app/data/touring/get-landlord-bookings";
+} from "@/app/data/landlord/get-landlord-bookings";
 import { MyListings } from "./_components/MyListings";
 import { Separator } from "@/components/ui/separator";
 import { QuickActions } from "./_components/QuickActions";
 import { getGreeting } from "@/lib/utils";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { DashboardCards } from "./_components/DashboardCards";
 
 const page = async () => {
   const listings = await getLandlordListings();
@@ -30,7 +30,7 @@ const page = async () => {
         header={`${getGreeting()}, ${session?.user.name.split(" ")[0]}`}
       />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-6">
-        <SectionCards listings={listings} pendingBookings={pendingBookings} />
+        <DashboardCards listings={listings} pendingBookings={pendingBookings} />
         <ChartAreaInteractive />
         <RecentBookings bookings={bookings} />
         <Separator />

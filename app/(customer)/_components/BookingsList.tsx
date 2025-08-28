@@ -1,3 +1,7 @@
+import {
+  GetCustomerBookingsType,
+  GetCustomerPendingBookingsType,
+} from "@/app/data/booking/get-customer-bookings";
 import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
@@ -9,7 +13,7 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-  bookings: GetLandlordBookingsType;
+  bookings: GetCustomerPendingBookingsType[] | GetCustomerBookingsType[];
 }
 
 export const BookingsList = ({ bookings }: Props) => {
@@ -25,7 +29,7 @@ export const BookingsList = ({ bookings }: Props) => {
         return (
           <Link
             key={booking.id}
-            href={`/landlord/bookings/${booking.id}`}
+            href={`/bookings/${booking.id}`}
             className="flex items-center justify-start gap-2 hover:bg-muted p-2 rounded-lg group"
           >
             <Image
@@ -56,7 +60,7 @@ export const BookingsList = ({ bookings }: Props) => {
                 </Badge>
               </h5>
               <p className="text-sm text-muted-foreground">
-                {booking.user.name} <Dot className="inline-block" />{" "}
+                {booking.listing.User.name} <Dot className="inline-block" />{" "}
                 <span>{formatDate(booking.date)}</span>{" "}
                 <span>({booking.timeSlot})</span>
               </p>

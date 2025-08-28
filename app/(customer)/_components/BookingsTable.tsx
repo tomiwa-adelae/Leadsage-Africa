@@ -1,4 +1,8 @@
 "use client";
+import {
+  GetCustomerBookingsType,
+  GetCustomerPendingBookingsType,
+} from "@/app/data/booking/get-customer-bookings";
 import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -16,7 +20,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface Props {
-  bookings: GetLandlordBookingsType;
+  bookings: GetCustomerPendingBookingsType[] | GetCustomerBookingsType[];
 }
 
 export function BookingsTable({ bookings }: Props) {
@@ -27,7 +31,7 @@ export function BookingsTable({ bookings }: Props) {
         <TableHeader>
           <TableRow>
             <TableHead>Listing</TableHead>
-            <TableHead>Customer's name</TableHead>
+            <TableHead>Landlord's name</TableHead>
             <TableHead>Touring date</TableHead>
             <TableHead className="text-right">Status</TableHead>
           </TableRow>
@@ -45,7 +49,7 @@ export function BookingsTable({ bookings }: Props) {
                 className="group cursor-pointer"
                 key={booking.id}
                 onClick={() => {
-                  router.push(`/landlord/bookings/${booking.id}`);
+                  router.push(`/bookings/${booking.id}`);
                 }}
               >
                 <TableCell className="font-medium flex items-center justify-start gap-2">
@@ -60,7 +64,7 @@ export function BookingsTable({ bookings }: Props) {
                     {booking.listing.title}
                   </span>
                 </TableCell>
-                <TableCell>{booking.user.name}</TableCell>
+                <TableCell>{booking.listing.User.name}</TableCell>
                 <TableCell>
                   <span>{formatDate(booking.date)}</span>{" "}
                   <span>({booking.timeSlot})</span>

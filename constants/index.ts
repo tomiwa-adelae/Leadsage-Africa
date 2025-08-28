@@ -1,5 +1,18 @@
 import { v4 as uuidv4 } from "uuid";
-import { House, Search } from "lucide-react";
+import {
+  ClipboardList,
+  FolderPlus,
+  Info,
+  LayoutDashboardIcon,
+  LayoutList,
+  MessageSquareMore,
+  Settings,
+  Wallet,
+  House,
+  Search,
+  Heart,
+  Bell,
+} from "lucide-react";
 
 export const homeStats = [
   {
@@ -51,8 +64,7 @@ export const navLinks = [
   },
 ];
 
-export const DEFAULT_PROFILE_PICTURE =
-  "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
+export const DEFAULT_PROFILE_PICTURE = "/assets/images/profile-img.jpg";
 
 export const DEFAULT_LISTING_IMAGE = "/assets/images/sample-listing.png";
 
@@ -249,3 +261,92 @@ export const listingVisibilities = [
 export const TOUR_GRACE_PERIOD_DAYS = 3; // or 3
 
 export const bathrooms = ["1", "2", "3", "4"];
+
+export const landlordNavLinks = {
+  navMain: [
+    {
+      title: "Dashboard",
+      slug: "/landlord/dashboard",
+      icon: LayoutDashboardIcon,
+    },
+    {
+      title: "My listings",
+      slug: "/landlord/listings",
+      icon: LayoutList,
+    },
+    {
+      title: "Create new listing",
+      slug: "/landlord/listings/new",
+      icon: FolderPlus,
+    },
+    {
+      title: "Booking Requests",
+      slug: "/landlord/bookings",
+      icon: ClipboardList,
+    },
+    {
+      title: "Messages",
+      slug: "/landlord/messages",
+      icon: MessageSquareMore,
+    },
+    {
+      title: "Earnings",
+      slug: "/landlord/earnings",
+      icon: Wallet,
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Settings",
+      slug: "/landlord/settings",
+      icon: Settings,
+    },
+    {
+      title: "Get Help",
+      slug: "/help-center",
+      icon: Info,
+    },
+  ],
+};
+
+export const customerNavLinks = {
+  navMain: [
+    {
+      title: "Dashboard",
+      slug: "/dashboard",
+      icon: LayoutDashboardIcon,
+    },
+    {
+      title: "My bookings",
+      slug: "/bookings",
+      icon: ClipboardList,
+    },
+    {
+      title: "Saved Properties",
+      slug: "/listings",
+      icon: Heart,
+    },
+    {
+      title: "Messages",
+      slug: "/messages",
+      icon: MessageSquareMore,
+    },
+    {
+      title: "Notifications",
+      slug: "/notifications",
+      icon: Bell,
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Settings",
+      slug: "/settings",
+      icon: Settings,
+    },
+    {
+      title: "Get Help",
+      slug: "/help-center",
+      icon: Info,
+    },
+  ],
+};

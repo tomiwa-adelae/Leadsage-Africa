@@ -20,12 +20,13 @@ model User {
   city          String?
   state         String?
   country       String?
+  bio           String?
   createdAt     DateTime
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
   listing       Listing[]
-  touring       Touring[]
+  booking       Booking[]
 
   role       String?
   banned     Boolean?
@@ -125,7 +126,7 @@ model Listing {
   status     ListingStatus @default(Draft)
   isApproved Boolean       @default(false)
 
-  touring             Touring[]
+  booking             Booking[]
   listingBlockedDate  ListingBlockedDate[]
   listingAvailability ListingAvailability[]
 
@@ -175,13 +176,15 @@ model Photos {
 }
 
 // Tour booking model
-model Touring {
+model Booking {
   id String @id @default(uuid())
 
   date     DateTime @db.Date
   timeSlot String
 
   scheduledAt DateTime
+
+  bookingId String
 
   expiresAt DateTime
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -190,7 +193,7 @@ model Touring {
   listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
   listingId String
 
-  status TouringStatus @default(Pending)
+  status BookingStatus @default(Pending)
 
   notes String? // Special requests or notes from user
 
@@ -198,6 +201,7 @@ model Touring {
   updatedAt DateTime @updatedAt
 
   @@unique([listingId, date, timeSlot], name: "unique_listing_datetime")
+  @@unique(bookingId)
   // Index for efficient queries
   @@index([listingId, date])
   @@index([userId])
@@ -205,7 +209,7 @@ model Touring {
   @@index([scheduledAt])
 }
 
-enum TouringStatus {
+enum BookingStatus {
   Pending
   Confirmed
   Cancelled

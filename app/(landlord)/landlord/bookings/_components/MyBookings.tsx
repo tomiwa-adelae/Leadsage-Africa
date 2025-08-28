@@ -1,26 +1,16 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import React from "react";
 import { BookingsTable } from "../../_components/BookingsTable";
 import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
-import { BookingsList } from "../../_components/BookingsList";
 import { EmptyState } from "@/components/EmptyState";
+import { BookingsList } from "../../_components/BookingsList";
 
 interface Props {
   bookings: GetLandlordBookingsType;
 }
 
-export const RecentBookings = ({ bookings }: Props) => {
+export const MyBookings = ({ bookings }: Props) => {
   return (
-    <div className="mt-6">
-      <div className="flex items-center justify-between gap-4">
-        <h3 className="font-medium text-lg">Recent bookings</h3>
-        {bookings.length !== 0 && (
-          <Button asChild size="md" variant={"ghost"}>
-            <Link href="/landlord/bookings">View all</Link>
-          </Button>
-        )}
-      </div>
+    <div>
+      <h3 className="font-medium text-lg mb-1.5">Bookings</h3>
       {bookings.length === 0 && (
         <EmptyState
           title={"No bookings"}

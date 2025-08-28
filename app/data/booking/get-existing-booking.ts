@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 export const getExistingBooking = async (listingId: string) => {
   const { user } = await requireUser();
 
-  const booking = await prisma.touring.findFirst({
+  const booking = await prisma.booking.findFirst({
     where: {
       listingId,
       userId: user.id,
