@@ -34,7 +34,7 @@ export const RecommendedListings = ({ listings }: Props) => {
         )}
         <div className="mt-2.5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {listings.map((listing: any) => (
-            <ListingCard key={listing.id} listing={listing} />
+            <ListingCard isAuthenticated key={listing.id} listing={listing} />
           ))}
         </div>
       </CardContent>
