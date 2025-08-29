@@ -45,6 +45,8 @@ model User {
   listing       Listing[]
   booking       Booking[]
   paymentMethod PaymentMethod[]
+  savedListing  SavedListing[]
+  notification  Notification[]
 
   role       String?
   banned     Boolean?
@@ -147,6 +149,7 @@ model Listing {
   booking             Booking[]
   listingBlockedDate  ListingBlockedDate[]
   listingAvailability ListingAvailability[]
+  savedListing        SavedListing[]
 
   @@unique([slug, userId])
 }
@@ -168,10 +171,67 @@ model PaymentMethod {
   userId String
 }
 
+model SavedListing {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  Listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String
+}
+
 enum ListingStatus {
   Draft
   Published
   Deleted
+  Archived
+}
+
+model Notification {
+  id String @id @default(uuid())
+
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  type   NotificationType
+  status NotificationStatus @default(Unread)
+
+  title   String
+  message String
+
+  color String @default("bg-primary")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum NotificationType {
+  Tour
+  Save
+  Delete
+  User
+  EditUser
+  Security
+  Listing
+  Booking
+  Payment
+  Account
+  System
+  Promotion
+  Notification
+  Appearance
+  Success
+  Welcome
+  Pending
+  Warning
+  Archive
+}
+
+enum NotificationStatus {
+  Unread
+  Read
   Archived
 }
 

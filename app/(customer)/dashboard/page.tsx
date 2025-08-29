@@ -15,13 +15,15 @@ import {
 import { RecommendedListings } from "./_components/RecommendedListings";
 import { getApprovedListings } from "@/app/data/listing/get-approved-listings";
 import { SavedListings } from "./_components/SavedListings";
+import { getSavedListings } from "@/app/data/listing/get-saved-listings";
 
 const page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  const recommendedListings = await getApprovedListings(5);
+  const recommendedListings = await getApprovedListings(3);
+  const savedListings = await getSavedListings(3);
 
   const pendingBookings = await getCustomerPendingBookings();
   const completedBookings = await getCustomerCompletedBookings();
@@ -40,7 +42,7 @@ const page = async () => {
         />
         <UpcomingTours bookings={pendingBookings} />
         <RecommendedListings listings={recommendedListings} />
-        <SavedListings listings={recommendedListings} />
+        <SavedListings listings={savedListings} />
       </div>
     </div>
   );

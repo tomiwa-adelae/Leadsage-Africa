@@ -34,7 +34,7 @@ export const EmptyState = ({
         {buttonSlug && buttonText && (
           <Button asChild>
             <Link href={buttonSlug}>
-              <Icon />
+              {icon && <Icon />}
               {buttonText}
             </Link>
           </Button>

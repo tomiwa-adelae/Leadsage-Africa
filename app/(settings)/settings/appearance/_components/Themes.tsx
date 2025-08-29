@@ -1,4 +1,5 @@
 "use client";
+import { triggerAppearanceNotifications } from "@/app/actions";
 import { Theme, themes } from "@/constants";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
@@ -85,9 +86,10 @@ export const Themes = () => {
             ? "border-blue-500 ring-2 ring-blue-200"
             : "border-gray-300 hover:border-gray-400"
         }`}
-        onClick={() => {
+        onClick={async () => {
           setSelectedTheme(theme.id);
           setTheme(theme.id);
+          await triggerAppearanceNotifications(theme.id);
         }}
       >
         {/* Theme Preview */}

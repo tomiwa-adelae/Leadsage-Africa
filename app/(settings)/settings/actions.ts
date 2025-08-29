@@ -3,6 +3,7 @@
 import { requireUser } from "@/app/data/user/require-user";
 import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
+import { formatPhoneNumber } from "@/lib/utils";
 import {
   editAddressFormSchema,
   EditAddressFormSchemaType,
@@ -41,7 +42,18 @@ export const saveLegalNames = async (
       },
     });
 
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        type: "EditUser",
+        color: "bg-blue-600",
+        title: "Your legal name has been updated",
+        message: `You successfully changed your legal name to ${validation.data.name}. If this wasn’t you, please update your account settings or contact support immediately.`,
+      },
+    });
+
     revalidatePath("/settings");
+    revalidatePath("/notifications");
 
     return { status: "success", message: "Legal names successfully saved" };
   } catch (error) {
@@ -69,7 +81,18 @@ export const savePreferredFirstName = async (
       },
     });
 
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        type: "EditUser",
+        color: "bg-blue-600",
+        title: "Your preferred name has been updated",
+        message: `You successfully updated your preferred name to ${validation.data.preferredFirstName}. If this wasn’t you, please update your account settings or contact support immediately.`,
+      },
+    });
+
     revalidatePath("/settings");
+    revalidatePath("/notifications");
 
     return {
       status: "success",
@@ -100,7 +123,18 @@ export const saveEmail = async (
       },
     });
 
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        type: "EditUser",
+        color: "bg-blue-600",
+        title: "Your email has been updated",
+        message: `You successfully changed your preferred name to ${validation.data.email}. If this wasn’t you, please update your account settings or contact support immediately.`,
+      },
+    });
+
     revalidatePath("/settings");
+    revalidatePath("/notifications");
 
     return {
       status: "success",
@@ -137,7 +171,20 @@ export const savePhoneNumber = async (
       },
     });
 
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        type: "EditUser",
+        color: "bg-blue-600",
+        title: "Your phone number has been updated",
+        message: `You successfully updated your phone number to ${formatPhoneNumber(
+          validation.data.phoneNumber
+        )}. If this wasn’t you, please update your account settings or contact support immediately.`,
+      },
+    });
+
     revalidatePath("/settings");
+    revalidatePath("/notifications");
 
     return {
       status: "success",
@@ -171,7 +218,18 @@ export const saveAddress = async (
       },
     });
 
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        type: "EditUser",
+        color: "bg-blue-600",
+        title: "Your address has been updated",
+        message: `You successfully updated your address to ${validation.data.address}, ${validation.data.city}, ${validation.data.state}, ${validation.data.country}. If this wasn’t you, please update your account settings or contact support immediately.`,
+      },
+    });
+
     revalidatePath("/settings");
+    revalidatePath("/notifications");
 
     return {
       status: "success",
@@ -205,7 +263,18 @@ export const saveMailingAddress = async (
       },
     });
 
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        type: "EditUser",
+        color: "bg-blue-600",
+        title: "Your preferred name has been updated",
+        message: `You successfully updated your address to ${validation.data.mailingAddress}, ${validation.data.mailingCity}, ${validation.data.mailingState}, ${validation.data.mailingCountry}. If this wasn’t you, please update your account settings or contact support immediately.`,
+      },
+    });
+
     revalidatePath("/settings");
+    revalidatePath("/notifications");
 
     return {
       status: "success",
@@ -239,7 +308,18 @@ export const saveEmergencyContact = async (
       },
     });
 
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        type: "EditUser",
+        color: "bg-blue-600",
+        title: "Your emergency contact has been updated",
+        message: `You successfully updated your emergency contact to ${validation.data.emergencyName}. If this wasn’t you, please update your account settings or contact support immediately.`,
+      },
+    });
+
     revalidatePath("/settings");
+    revalidatePath("/notifications");
 
     return {
       status: "success",

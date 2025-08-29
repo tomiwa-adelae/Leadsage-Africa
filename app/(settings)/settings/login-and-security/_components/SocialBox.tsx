@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { triggerSocialNotification } from "../actions";
 
 interface Props {
   socialName: string;
@@ -34,10 +35,11 @@ export const SocialBox = ({ socialName, accountId }: Props) => {
         providerId: socialName,
         accountId,
         fetchOptions: {
-          onSuccess: () => {
+          onSuccess: async () => {
             toast.success(`You've been disconnected successfully!`);
             setOpenModal(false);
             router.refresh();
+            await triggerSocialNotification(socialName);
           },
           onError: (error) => {
             toast.error(error.error.message || "Oops! Disconnecting failed");

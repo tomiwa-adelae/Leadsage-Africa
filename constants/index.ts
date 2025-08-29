@@ -17,6 +17,8 @@ import {
   Hand,
   CreditCard,
   SunMoon,
+  Mail,
+  Plus,
 } from "lucide-react";
 
 export const homeStats = [
@@ -328,7 +330,7 @@ export const customerNavLinks = {
     },
     {
       title: "Saved Properties",
-      slug: "/listings",
+      slug: "/saved-properties",
       icon: Heart,
     },
     {
@@ -391,6 +393,92 @@ export const settingsNavLinks = {
     },
   ],
 };
+
+export const userDropdownLinks = [
+  {
+    slug: "/dashboard",
+    label: "My Profile",
+    icon: User,
+  },
+  {
+    slug: "/bookings",
+    label: "My Bookings",
+    icon: ClipboardList,
+  },
+  {
+    slug: "/messages",
+    label: "Messages",
+    icon: Mail,
+  },
+  {
+    slug: "/saved-properties",
+    label: "Saved Properties",
+    icon: Heart,
+  },
+  {
+    slug: "/notifications",
+    label: "Notifications",
+    icon: Bell,
+  },
+  {
+    slug: "/",
+    label: "Become a Landlord",
+    icon: House,
+  },
+];
+
+export const landlordDropdownLinks = [
+  {
+    slug: "/dashboard",
+    label: "My Profile",
+    icon: User,
+  },
+  {
+    slug: "/landlord/dashboard",
+    label: "Landlord Dashbaord",
+    icon: LayoutDashboardIcon,
+  },
+  {
+    slug: "/landlord/listings",
+    label: "My Lisitngs",
+    icon: LayoutList,
+  },
+  {
+    slug: "/landlord/listings/new",
+    label: "Create Listing",
+    icon: Plus,
+  },
+  {
+    slug: "/landlord/bookings",
+    label: "My appointments",
+    icon: ClipboardList,
+  },
+  {
+    slug: "/landlord/wallets",
+    label: "Earnings",
+    icon: Wallet,
+  },
+  {
+    slug: "/messages",
+    label: "Messages",
+    icon: Mail,
+  },
+  {
+    slug: "/bookings",
+    label: "My Bookings",
+    icon: ClipboardList,
+  },
+  {
+    slug: "/saved-properties",
+    label: "Saved Properties",
+    icon: Heart,
+  },
+  {
+    slug: "/notifications",
+    label: "Notifications",
+    icon: Bell,
+  },
+];
 
 export const languages = [
   "Afrikaans",

@@ -2,7 +2,10 @@ import "server-only";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 
-export const getApprovedListings = async (limit: number = 10) => {
+export const getApprovedListings = async (
+  limit: number = 10,
+  userId?: string
+) => {
   const listing = await prisma.listing.findMany({
     where: {
       isApproved: true,
@@ -33,6 +36,14 @@ export const getApprovedListings = async (limit: number = 10) => {
           id: true,
           cover: true,
           src: true,
+        },
+      },
+      savedListing: {
+        where: {
+          userId,
+        },
+        select: {
+          id: true,
         },
       },
     },

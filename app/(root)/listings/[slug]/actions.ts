@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import { bookATourTenant } from "@/lib/emails/book-a-tour";
 import {
   AVAILABLE_TIME_SLOTS,
+  formatDate,
   formatDateForDB,
   generateBookingSuffix,
   getBookingDateRange,
@@ -319,8 +320,16 @@ export async function bookTour(
             name: true,
           },
         },
+        User: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
+
+    if (!listing)
+      return { status: "error", message: "Oops! An error occurred" };
 
     const location = `${listing?.address!}, ${listing?.city!}, ${listing?.state!}, ${listing?.country!}`;
 
@@ -415,7 +424,9 @@ export async function bookTour(
               Email: env.SENDER_EMAIL_ADDRESS,
               Name: "Leadsage Support",
             },
-            Subject: `Tour Confirmed: ${location} - ${dateString}-${timeSlot}`,
+            Subject: `Tour Confirmed: ${location} - ${formatDate(
+              dateString
+            )} (${timeSlot})`,
             TextPart: `Booking successful - Leadsage`,
             HTMLPart: bookATourTenant({
               name: user.name,
@@ -435,9 +446,36 @@ export async function bookTour(
       };
     }
 
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        type: "Tour",
+        color: "bg-green-600",
+        title: "You're all set for your tour!",
+        message: `Your visit to "${
+          listing.title
+        }" is confirmed for ${formatDate(
+          dateString
+        )} at ${timeSlot}. Get ready to explore!`,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        userId: listing.User.id,
+        type: "Tour",
+        color: "bg-green-600",
+        title: "New tour booking received",
+        message: `${user.name} has booked a tour for your listing "${
+          listing.title
+        }" on ${formatDate(dateString)} at ${timeSlot}.`,
+      },
+    });
+
     // Revalidate relevant pages
     revalidatePath(`/listings/${booking.listing.slug}`);
-    revalidatePath("/dashboard/bookings");
+    revalidatePath("/bookings");
+    revalidatePath("/notifications");
 
     return {
       success: true,
@@ -498,7 +536,7 @@ export async function cancelBooking(bookingId: string) {
 
     // Revalidate relevant pages
     revalidatePath(`/listings/${booking.listing.slug}`);
-    revalidatePath("/dashboard/bookings");
+    revalidatePath("/bookings");
 
     return {
       success: true,
