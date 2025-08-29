@@ -33,6 +33,10 @@ export const getUserInfo = async () => {
       emergencyPhoneNumber: true,
       emergencyRelationship: true,
       updatedAt: true,
+      bookingNotifications: true,
+      listingNotifications: true,
+      promotionalNotifications: true,
+      accountNotifications: true,
       accounts: {
         select: {
           id: true,

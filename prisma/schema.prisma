@@ -33,6 +33,11 @@ model User {
   emergencyEmail        String?
   emergencyPhoneNumber  String?
 
+  bookingNotifications     Boolean? @default(false)
+  listingNotifications     Boolean? @default(false)
+  promotionalNotifications Boolean? @default(false)
+  accountNotifications     Boolean? @default(false)
+
   createdAt DateTime
   updatedAt DateTime
   sessions  Session[]

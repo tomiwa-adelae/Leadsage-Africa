@@ -20,6 +20,7 @@ type Props = React.ComponentProps<typeof Sidebar> & {
   navLinks: {
     navMain: any[];
     navSecondary?: any[];
+    title?: string;
   };
 };
 
@@ -38,6 +39,11 @@ export function AppSidebar({ navLinks, ...props }: Props) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+      {navLinks.title && (
+        <h2 className="font-semibold container text-lg mt-2">
+          {navLinks.title}
+        </h2>
+      )}
       <SidebarContent>
         <NavMain items={navLinks.navMain} />
         {navLinks.navSecondary && (

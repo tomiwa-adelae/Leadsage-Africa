@@ -357,6 +357,7 @@ export const customerNavLinks = {
 };
 
 export const settingsNavLinks = {
+  title: "Account settings",
   navMain: [
     {
       title: "Personal Information",

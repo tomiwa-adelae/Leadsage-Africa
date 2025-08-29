@@ -1,0 +1,26 @@
+import { SiteHeader } from "@/components/sidebar/site-header";
+import { BookingBox } from "./_components/BookingBox";
+import { getUserInfo } from "@/app/data/user/get-user-info";
+import { ListingBox } from "./_components/ListingBox";
+import { PromotionalBox } from "./_components/PromotionalBox";
+import { AccountBox } from "./_components/AccountBox";
+
+const page = async () => {
+  const user = await getUserInfo();
+  return (
+    <div>
+      <SiteHeader />
+      <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
+        <h1 className="text-3xl md:text-4xl font-semibold">Notifications</h1>
+        <div className="space-y-1">
+          <BookingBox value={user.bookingNotifications} />
+          <ListingBox value={user.listingNotifications} />
+          <PromotionalBox value={user.promotionalNotifications} />
+          <AccountBox value={user.accountNotifications} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default page;
