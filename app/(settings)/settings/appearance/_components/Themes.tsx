@@ -5,8 +5,8 @@ import { useTheme } from "next-themes";
 import React, { useState } from "react";
 
 export const Themes = () => {
-  const { setTheme } = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState("dark-default");
+  const { setTheme, theme } = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState(theme);
 
   const ThemeCard = ({ theme }: { theme: Theme }) => {
     const isSelected = selectedTheme === theme.id;

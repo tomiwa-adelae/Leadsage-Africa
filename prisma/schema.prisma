@@ -38,12 +38,13 @@ model User {
   promotionalNotifications Boolean? @default(false)
   accountNotifications     Boolean? @default(false)
 
-  createdAt DateTime
-  updatedAt DateTime
-  sessions  Session[]
-  accounts  Account[]
-  listing   Listing[]
-  booking   Booking[]
+  createdAt     DateTime
+  updatedAt     DateTime
+  sessions      Session[]
+  accounts      Account[]
+  listing       Listing[]
+  booking       Booking[]
+  paymentMethod PaymentMethod[]
 
   role       String?
   banned     Boolean?
@@ -148,6 +149,23 @@ model Listing {
   listingAvailability ListingAvailability[]
 
   @@unique([slug, userId])
+}
+
+model PaymentMethod {
+  id String @id @default(uuid())
+
+  nameOnCard String
+  cardNumber String
+  expiryDate String
+  cvc        String
+  default    Boolean
+  cardType   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 }
 
 enum ListingStatus {

@@ -10,8 +10,12 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import React from "react";
+import { PaymentCard } from "./_components/PaymentCard";
+import { AddPaymentMethod } from "./_components/AddPaymentMethod";
+import { getPaymentMethods } from "@/app/data/payment/get-payment-methods";
 
-const page = () => {
+const page = async () => {
+  const methods = await getPaymentMethods();
   return (
     <div>
       <SiteHeader />
@@ -40,9 +44,28 @@ const page = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="py-4">
-              <EmptyState title="No payment methods" />
-              <div className="flex items-center justify-center mt-2">
-                <Button size={"md"}>Add payment method</Button>
+              {methods.length === 0 && (
+                <>
+                  <EmptyState title="No payment methods" />
+                  <div className="flex items-center justify-center mt-2">
+                    <AddPaymentMethod />
+                  </div>
+                </>
+              )}
+              <div className="flex flex-wrap gap-4 items-center justify-start">
+                {methods.map((method) => (
+                  <PaymentCard
+                    key={method.id}
+                    name={method.nameOnCard}
+                    expiryDate={method.expiryDate}
+                    cardType={method.cardType}
+                    firstSix={method.cardNumber.slice(0, 7)}
+                    lastFour={method.cardNumber.slice(-4)}
+                  />
+                ))}
+              </div>
+              <div className="mt-4">
+                {methods.length !== 0 && <AddPaymentMethod variant="outline" />}
               </div>
             </CardContent>
           </Card>

@@ -369,11 +369,11 @@ export const settingsNavLinks = {
       slug: "/settings/login-and-security",
       icon: Shield,
     },
-    {
-      title: "Privacy",
-      slug: "/settings/privacy",
-      icon: Hand,
-    },
+    // {
+    //   title: "Privacy",
+    //   slug: "/settings/privacy",
+    //   icon: Hand,
+    // },
     {
       title: "Notifications",
       slug: "/settings/notifications",

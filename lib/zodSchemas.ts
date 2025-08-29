@@ -295,6 +295,17 @@ export const editPasswordFormSchema = z
     path: ["confirmPassword"], // 👈 attach the error to confirmPassword
   });
 
+export const addPaymentMethodFormSchema = z.object({
+  nameOnCard: z.string().min(1, "Name on card is required"),
+  cardNumber: z.string().min(1, "Card number is required"),
+  expiryDate: z.string().min(1, "Expiry date is required"),
+  cvc: z
+    .string()
+    .min(3, "CVC must be at least 3 digits")
+    .max(4, "CVC must be at most 4 digits"),
+  default: z.boolean(),
+});
+
 export type RegisterFormSchemaType = z.infer<typeof registerFormSchema>;
 export type LoginFormSchemaType = z.infer<typeof loginFormSchema>;
 export type ForgotPasswordFormSchemaType = z.infer<
@@ -338,3 +349,6 @@ export type EditEmergencyFormSchemaType = z.infer<
   typeof editEmergencyFormSchema
 >;
 export type EditPasswordFormSchemaType = z.infer<typeof editPasswordFormSchema>;
+export type AddPaymentMethodFormSchemaType = z.infer<
+  typeof addPaymentMethodFormSchema
+>;
