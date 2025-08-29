@@ -19,7 +19,7 @@ import { Logo } from "../Logo";
 type Props = React.ComponentProps<typeof Sidebar> & {
   navLinks: {
     navMain: any[];
-    navSecondary: any[];
+    navSecondary?: any[];
   };
 };
 
@@ -40,7 +40,9 @@ export function AppSidebar({ navLinks, ...props }: Props) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navLinks.navMain} />
-        <NavSecondary items={navLinks.navSecondary} className="mt-auto" />
+        {navLinks.navSecondary && (
+          <NavSecondary items={navLinks?.navSecondary} className="mt-auto" />
+        )}
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

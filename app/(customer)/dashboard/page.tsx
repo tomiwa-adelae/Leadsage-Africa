@@ -12,11 +12,16 @@ import {
   getCustomerConfirmedBookings,
   getCustomerPendingBookings,
 } from "@/app/data/booking/get-customer-bookings";
+import { RecommendedListings } from "./_components/RecommendedListings";
+import { getApprovedListings } from "@/app/data/listing/get-approved-listings";
+import { SavedListings } from "./_components/SavedListings";
 
 const page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+
+  const recommendedListings = await getApprovedListings(5);
 
   const pendingBookings = await getCustomerPendingBookings();
   const completedBookings = await getCustomerCompletedBookings();
@@ -34,6 +39,8 @@ const page = async () => {
           completedBookings={completedBookings}
         />
         <UpcomingTours bookings={pendingBookings} />
+        <RecommendedListings listings={recommendedListings} />
+        <SavedListings listings={recommendedListings} />
       </div>
     </div>
   );

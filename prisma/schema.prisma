@@ -9,24 +9,36 @@ datasource db {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean
-  image         String?
-  phoneNumber   String?
-  gender        String?
-  address       String?
-  city          String?
-  state         String?
-  country       String?
-  bio           String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  sessions      Session[]
-  accounts      Account[]
-  listing       Listing[]
-  booking       Booking[]
+  id                 String  @id
+  name               String
+  preferredFirstName String?
+  email              String
+  emailVerified      Boolean
+  image              String?
+  phoneNumber        String?
+  gender             String?
+  address            String?
+  city               String?
+  state              String?
+  country            String?
+  mailingAddress     String?
+  mailingCity        String?
+  mailingState       String?
+  mailingCountry     String?
+  bio                String?
+
+  emergencyName         String?
+  emergencyRelationship String?
+  emergencyLanguage     String?
+  emergencyEmail        String?
+  emergencyPhoneNumber  String?
+
+  createdAt DateTime
+  updatedAt DateTime
+  sessions  Session[]
+  accounts  Account[]
+  listing   Listing[]
+  booking   Booking[]
 
   role       String?
   banned     Boolean?
