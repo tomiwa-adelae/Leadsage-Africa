@@ -21,7 +21,11 @@ const page = async () => {
             <div className="flex w-max space-x-2 md:space-x-3 lg:space-x-4 pt-4 pr-10 pb-2">
               {Array.from({ length: 6 }).map((_, i) =>
                 listings.map((listing) => (
-                  <ListingCard listing={listing} key={`${listing.id}-${i}`} />
+                  <ListingCard
+                    isAuthenticated={session ? true : false}
+                    listing={listing}
+                    key={`${listing.id}-${i}`}
+                  />
                 ))
               )}
             </div>
@@ -33,7 +37,11 @@ const page = async () => {
           <ScrollArea className="">
             <div className="flex w-max space-x-4 md:space-x-6 lg:space-x-8 pt-4 pr-10 pb-8">
               {listings.map((listing) => (
-                <ListingCard listing={listing} key={listing.id} />
+                <ListingCard
+                  isAuthenticated={session ? true : false}
+                  listing={listing}
+                  key={listing.id}
+                />
               ))}
             </div>
             <ScrollBar orientation="horizontal" />
@@ -44,7 +52,11 @@ const page = async () => {
           <ScrollArea className="">
             <div className="flex w-max space-x-4 md:space-x-6 lg:space-x-8 pt-4 pr-10 pb-8">
               {listings.map((listing) => (
-                <ListingCard listing={listing} key={listing.id} />
+                <ListingCard
+                  isAuthenticated={session ? true : false}
+                  listing={listing}
+                  key={listing.id}
+                />
               ))}
             </div>
             <ScrollBar orientation="horizontal" />
@@ -57,7 +69,11 @@ const page = async () => {
           <ScrollArea className="">
             <div className="flex w-max space-x-4 md:space-x-6 lg:space-x-8 pt-4 pr-10 pb-8">
               {listings.map((listing) => (
-                <ListingCard listing={listing} key={listing.id} />
+                <ListingCard
+                  isAuthenticated={session ? true : false}
+                  listing={listing}
+                  key={listing.id}
+                />
               ))}
             </div>
             <ScrollBar orientation="horizontal" />
