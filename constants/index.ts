@@ -507,3 +507,39 @@ export const languages = [
   "Yoruba",
   "Zulu",
 ] as const;
+
+export interface Theme {
+  id: string;
+  name: string;
+  bgColor: string;
+  headerColor: string;
+  accentColor: string;
+  buttonColors: string[];
+}
+
+export const themes: Theme[] = [
+  {
+    id: "light",
+    name: "Light",
+    bgColor: "bg-accent dark:bg-white",
+    headerColor: "bg-white dark:bg-accent/10",
+    accentColor: "bg-primary",
+    buttonColors: ["bg-primary", "bg-red-500"],
+  },
+  {
+    id: "dark",
+    name: "Dark",
+    bgColor: "bg-gray-800",
+    headerColor: "bg-gray-700",
+    accentColor: "bg-primary",
+    buttonColors: ["bg-white", "bg-red-500"],
+  },
+  {
+    id: "system",
+    name: "Default device",
+    bgColor: "split",
+    headerColor: "bg-gray-700",
+    accentColor: "bg-primary",
+    buttonColors: ["bg-white", "bg-red-500"],
+  },
+];
