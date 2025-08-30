@@ -1,4 +1,5 @@
 import {
+  GetLandlordBookingsType,
   GetLandlordCancelledBookingsType,
   GetLandlordCompletedBookingsType,
   GetLandlordConfirmedBookingsType,
@@ -12,7 +13,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
+import {
+  IconClipboardList,
+  IconTrendingDown,
+  IconTrendingUp,
+} from "@tabler/icons-react";
 import { CalendarCheck, CircleCheckBig, CircleX, Clock } from "lucide-react";
 import React from "react";
 
@@ -20,17 +25,35 @@ interface Props {
   pendingBookings: GetLandlordPendingBookingsType;
   confirmedBookings: GetLandlordConfirmedBookingsType;
   cancelledBookings: GetLandlordCancelledBookingsType;
-  completedBookings: GetLandlordCompletedBookingsType;
+  totalBookings: GetLandlordBookingsType;
 }
 
 export const BookingsCards = ({
   pendingBookings,
   confirmedBookings,
-  completedBookings,
+  totalBookings,
   cancelledBookings,
 }: Props) => {
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+      <Card className="@container/card">
+        <CardHeader>
+          <CardDescription>Total Bookings</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {totalBookings.length}
+          </CardTitle>
+          <CardAction>
+            <div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
+              <IconClipboardList />
+            </div>
+          </CardAction>
+        </CardHeader>
+        <CardFooter className="flex-col items-start gap-1.5 text-sm">
+          <div className="line-clamp-1 flex gap-2 font-medium">
+            Trending up this month <IconTrendingUp className="size-4" />
+          </div>
+        </CardFooter>
+      </Card>
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Pending bookings</CardDescription>
@@ -69,30 +92,12 @@ export const BookingsCards = ({
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Completed bookings</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            {completedBookings.length}
-          </CardTitle>
-          <CardAction>
-            <div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
-              <CircleCheckBig />
-            </div>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex items-center text-orange-400 gap-2 font-medium">
-            <span>Requires attention</span> <Clock className="size-4" />
-          </div>
-        </CardFooter>
-      </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Cancalled bookings</CardDescription>
+          <CardDescription>Cancelled bookings</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {cancelledBookings.length}
           </CardTitle>
           <CardAction>
-            <div className="p-4 inline-block bg-purple-400/20 dark:bg-purple-400/70 text-purple-400 dark:text-white rounded-full">
+            <div className="p-4 inline-block bg-red-600/20 dark:bg-red-600/70 text-red-600 dark:text-white rounded-full">
               <CircleX />
             </div>
           </CardAction>

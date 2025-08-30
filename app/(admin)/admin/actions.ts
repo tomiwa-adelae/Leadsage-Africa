@@ -3,6 +3,7 @@
 import { requireAdmin } from "@/app/data/admin/require-admin";
 import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
+import { formatDate } from "@/lib/utils";
 import {
   rejectListingFormSchema,
   RejectListingFormSchemaType,
@@ -348,5 +349,283 @@ export const unarchiveListing = async (id: string): Promise<ApiResponse> => {
     return { status: "success", message: "Listing successfully unarchived" };
   } catch (error) {
     return { status: "error", message: "Failed to unarchive lisitng" };
+  }
+};
+
+export const confirmBooking = async (id: string): Promise<ApiResponse> => {
+  const { user } = await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    const booking = await prisma.booking.findUnique({
+      where: {
+        id,
+        status: "Pending",
+      },
+      select: {
+        id: true,
+        timeSlot: true,
+        date: true,
+        user: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+        listing: {
+          select: {
+            title: true,
+            User: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!booking)
+      return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.booking.update({
+      where: {
+        id,
+        status: "Pending",
+      },
+      data: {
+        status: "Confirmed",
+        confirmedBy: user.role,
+      },
+    });
+
+    await prisma.bookingTimeline.create({
+      data: {
+        bookingId: booking.id,
+        status: "Confirmed",
+        userId: user.id,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        userId: booking.listing.User.id,
+        type: "Tour",
+        color: "bg-blue-600",
+        title: `Tour appointment confirmed`,
+        message: `Leadsage admin confirmed the tour request for ${
+          booking.user.name
+        } at ${booking.listing.title} on ${formatDate(booking.date)} at ${
+          booking.timeSlot
+        }.`,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        userId: booking.user.id,
+        type: "Tour",
+        color: "bg-blue-600",
+        title: `Tour confirmed`,
+        message: `Your tour request for ${
+          booking.listing.title
+        } has been confirmed by the admin. See you on ${formatDate(
+          booking.date
+        )} at ${booking.timeSlot}.`,
+      },
+    });
+
+    revalidatePath("/notifications");
+    revalidatePath("/admin/bookings");
+    revalidatePath("/bookings");
+
+    return { status: "success", message: "Booking successfully confirmed" };
+  } catch (error) {
+    return { status: "error", message: "Failed to confirm booking" };
+  }
+};
+
+export const completedBooking = async (id: string): Promise<ApiResponse> => {
+  const { user } = await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    const booking = await prisma.booking.findUnique({
+      where: {
+        id,
+        status: "Confirmed",
+      },
+      select: {
+        id: true,
+        timeSlot: true,
+        date: true,
+        user: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+        listing: {
+          select: {
+            title: true,
+            User: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!booking)
+      return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.booking.update({
+      where: {
+        id,
+        status: "Confirmed",
+      },
+      data: {
+        status: "Completed",
+        confirmedBy: user.role,
+      },
+    });
+
+    await prisma.bookingTimeline.create({
+      data: {
+        bookingId: booking.id,
+        status: "Completed",
+        userId: user.id,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        userId: booking.listing.User.id,
+        type: "Tour",
+        color: "bg-green-600",
+        title: `Tour appointment completed`,
+        message: `${booking.user.name} has completed the tour request for ${
+          booking.listing.title
+        } on ${formatDate(booking.date)} at ${booking.timeSlot}.`,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        userId: booking.user.id,
+        type: "Tour",
+        color: "bg-green-600",
+        title: `Tour completed`,
+        message: `Your tour request for ${booking.listing.title} has been completed.`,
+      },
+    });
+
+    revalidatePath("/notifications");
+    revalidatePath("/admin/bookings");
+    revalidatePath("/bookings");
+
+    return { status: "success", message: "Booking successfully completed" };
+  } catch (error) {
+    return { status: "error", message: "Failed to complete booking" };
+  }
+};
+
+export const cancelBooking = async (id: string): Promise<ApiResponse> => {
+  const { user } = await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    const booking = await prisma.booking.findUnique({
+      where: {
+        id,
+        status: {
+          not: "Completed",
+        },
+      },
+      select: {
+        id: true,
+        timeSlot: true,
+        date: true,
+        user: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+        listing: {
+          select: {
+            title: true,
+            User: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!booking)
+      return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.booking.update({
+      where: {
+        id,
+        status: {
+          not: "Completed",
+        },
+      },
+      data: {
+        status: "Cancelled",
+        cancelledBy: user.role,
+      },
+    });
+
+    await prisma.bookingTimeline.create({
+      data: {
+        bookingId: booking.id,
+        status: "Cancelled",
+        userId: user.id,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        userId: booking.user.id,
+        type: "Tour",
+        color: "bg-red-600",
+        title: `Tour appointment cancelled`,
+        message: `Your tour request has been cancelled for ${
+          booking.listing.title
+        } on ${formatDate(booking.date)} at ${booking.timeSlot}.`,
+      },
+    });
+
+    await prisma.notification.create({
+      data: {
+        userId: booking.listing.User.id,
+        type: "Warning",
+        color: "bg-yellow-500",
+        title: `Tour cancelled`,
+        message: `${booking.user.name} tour request for ${
+          booking.listing.title
+        } on ${formatDate(booking.date)} at ${
+          booking.timeSlot
+        } has been cancelled.`,
+      },
+    });
+
+    revalidatePath("/notifications");
+    revalidatePath("/bookings");
+    revalidatePath("/admin/bookings");
+
+    return { status: "success", message: "Booking successfully cancelled" };
+  } catch (error) {
+    return { status: "error", message: "Failed to cancel booking" };
   }
 };

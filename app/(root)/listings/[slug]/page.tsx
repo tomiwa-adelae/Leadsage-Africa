@@ -94,7 +94,7 @@ const page = async ({ params }: { params: Params }) => {
                 <div className="mt-1.5 grid grid-cols-1">
                   {listing?.amenities?.length !== 0 &&
                     listing?.amenities
-                      .slice(0, 10)
+                      .slice(0, 5)
                       .map((amenity) => (
                         <AmenityBox
                           key={amenity.id}

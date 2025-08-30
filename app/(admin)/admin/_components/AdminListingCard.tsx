@@ -1,16 +1,12 @@
 "use client";
-import { GetLandlordListingType } from "@/app/data/landlord/get-landlord-listing";
 import { Card, CardContent } from "@/components/ui/card";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import Image from "next/image";
-import { Component, Heart, Hourglass, Radio } from "lucide-react";
+import { Archive, Component, Heart, Hourglass, Radio } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { NairaIcon } from "@/components/NairaIcon";
-import { GetLandlordListingsType } from "@/app/data/landlord/get-landlord-listings";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
-import { useRouter } from "next/navigation";
 import { GetTotalListingsType } from "@/app/data/admin/listing/get-all-listings";
 import ListingDropdown from "./ListingDropdown";
 import { IconCircleDashedX, IconRestore } from "@tabler/icons-react";
@@ -20,47 +16,9 @@ interface Props {
 }
 
 export const AdminListingCard = ({ listing }: Props) => {
-  const router = useRouter();
   const cover =
     listing.photos.find((photo) => photo.cover) || listing?.photos[0];
   const photoUrl = cover ? useConstructUrl(cover?.src) : DEFAULT_LISTING_IMAGE;
-
-  // const handleDraft = () => {
-  //     if (listing.status === "Draft") {
-  //         if (!listing.address)
-  //             return router.push(
-  //                 `/landlord/listings/new/${listing.id}/location`
-  //             );
-  //         if (!listing.bedrooms)
-  //             return router.push(
-  //                 `/landlord/listings/new/${listing.id}/describe`
-  //             );
-  //         if (listing.amenities.length === 0)
-  //             return router.push(
-  //                 `/landlord/listings/new/${listing.id}/amenities`
-  //             );
-  //         if (listing.photos.length < 5)
-  //             return router.push(
-  //                 `/landlord/listings/new/${listing.id}/photos`
-  //             );
-  //         if (!listing.title)
-  //             return router.push(
-  //                 `/landlord/listings/new/${listing.id}/title`
-  //             );
-  //         if (!listing.smallDescription)
-  //             return router.push(
-  //                 `/landlord/listings/new/${listing.id}/description`
-  //             );
-  //         if (!listing.price)
-  //             return router.push(
-  //                 `/landlord/listings/new/${listing.id}/price`
-  //             );
-  //         if (!listing.petPolicy)
-  //             return router.push(
-  //                 `/landlord/listings/new/${listing.id}/policies`
-  //             );
-  //     }
-  // };
 
   return (
     <Card className="bg-transparent gap-0 border-0 rounded-none shadow-none p-0">
@@ -73,11 +31,10 @@ export const AdminListingCard = ({ listing }: Props) => {
               width={1000}
               height={1000}
               className="aspect-video md:aspect-square size-full object-cover"
-              // onClick={handleDraft}
             />
           ) : (
             <Link
-              href={`/landlord/listings/${listing.slug}`}
+              href={`/admin/listings/${listing.slug}`}
               className="relative rounded-lg"
             >
               <Image
@@ -119,6 +76,12 @@ export const AdminListingCard = ({ listing }: Props) => {
             </Badge>
           )}
 
+          {listing.status === "Archived" && (
+            <Badge variant={"secondary"} className="absolute top-2 left-2">
+              <Archive /> Archived
+            </Badge>
+          )}
+
           <ListingDropdown
             slug={listing.slug!}
             listingId={listing.id}
@@ -129,7 +92,7 @@ export const AdminListingCard = ({ listing }: Props) => {
         <div className="py-2">
           {listing.title ? (
             <Link
-              href={`/landlord/listings/${listing.slug}`}
+              href={`/admin/listings/${listing.slug}`}
               className="group-hover:text-primary hover:underline transition-all font-semibold text-lg line-clamp-1"
             >
               {listing.title}

@@ -29,6 +29,7 @@ import {
   IconChartArcs,
   IconChartDots,
   IconChartHistogram,
+  IconCheckbox,
   IconClipboardList,
   IconCoins,
   IconCurrencyNaira,
@@ -420,6 +421,11 @@ export const adminNavLinks = {
           title: "Completed Bookings",
           slug: "/admin/bookings/completed",
           icon: IconCalendarCheck,
+        },
+        {
+          title: "Confirmed Bookings",
+          slug: "/admin/bookings/confirmed",
+          icon: IconCheckbox,
         },
         {
           title: "Cancelled Bookings",

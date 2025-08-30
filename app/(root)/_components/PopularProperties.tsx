@@ -19,7 +19,7 @@ export const PopularProperties = async () => {
     <div className="container py-16">
       <div className="space-y-2">
         <h2 className="font-medium text-3xl md:text-4xl">Popular Properties</h2>
-        <p className="hidden lg:block text-base text-muted-foreground leading-relaxed lg:max-w-lg">
+        <p className="hidden lg:block text-base text-muted-foreground leading-relaxed">
           Check out our most viewed and top-selling properties—trusted by many
           for their quality, location, and value.
         </p>

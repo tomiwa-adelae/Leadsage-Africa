@@ -15,6 +15,7 @@ import { useConstructUrl } from "@/hooks/use-construct-url";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { BookingActions } from "./BookingActions";
 
 interface Props {
   bookings: GetTotalBookingsType[];
@@ -31,7 +32,8 @@ export function BookingsTable({ bookings }: Props) {
             <TableHead>Customer's name</TableHead>
             <TableHead>Landlord's name</TableHead>
             <TableHead>Touring date</TableHead>
-            <TableHead className="text-right">Status</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -47,7 +49,7 @@ export function BookingsTable({ bookings }: Props) {
                 className="group cursor-pointer"
                 key={booking.id}
                 onClick={() => {
-                  router.push(`/landlord/bookings/${booking.id}`);
+                  router.push(`/admin/bookings/${booking.id}`);
                 }}
               >
                 <TableCell className="font-medium flex items-center justify-start gap-2">
@@ -68,7 +70,7 @@ export function BookingsTable({ bookings }: Props) {
                   <span>{formatDate(booking.date)}</span>{" "}
                   <span>({booking.timeSlot})</span>
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell>
                   <Badge
                     variant={
                       booking.status === "Pending"
@@ -78,13 +80,18 @@ export function BookingsTable({ bookings }: Props) {
                         : booking.status === "Cancelled"
                         ? "destructive"
                         : booking.status === "Completed"
-                        ? "success"
+                        ? "default"
                         : "default"
                     }
                     className="capitalize"
                   >
                     {booking.status}
                   </Badge>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center justify-end">
+                    <BookingActions id={booking.id} status={booking.status} />
+                  </div>
                 </TableCell>
               </TableRow>
             );

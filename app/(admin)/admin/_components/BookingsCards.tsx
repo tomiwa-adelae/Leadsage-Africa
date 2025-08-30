@@ -1,9 +1,8 @@
-import {
-  GetCustomerCancelledBookingsType,
-  GetCustomerCompletedBookingsType,
-  GetCustomerConfirmedBookingsType,
-  GetCustomerPendingBookingsType,
-} from "@/app/data/booking/get-customer-bookings";
+import { GetTotalBookingsType } from "@/app/data/admin/booking/get-all-bookings";
+import { GetTotalCancelledBookingsType } from "@/app/data/admin/booking/get-cancelled-bookings";
+import { GetTotalCompletedBookingsType } from "@/app/data/admin/booking/get-completed-bookings";
+import { GetTotalConfirmedBookingsType } from "@/app/data/admin/booking/get-confirmed-bookings";
+import { GetTotalPendingBookingsType } from "@/app/data/admin/booking/get-pending-bookings";
 import {
   Card,
   CardAction,
@@ -12,17 +11,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
+import {
+  IconClipboardList,
+  IconTrendingDown,
+  IconTrendingUp,
+} from "@tabler/icons-react";
 import { CalendarCheck, CircleCheckBig, CircleX, Clock } from "lucide-react";
+import React from "react";
 
 interface Props {
-  pendingBookings: GetCustomerPendingBookingsType[];
-  confirmedBookings: GetCustomerConfirmedBookingsType[];
-  cancelledBookings: GetCustomerCancelledBookingsType[];
-  completedBookings: GetCustomerCompletedBookingsType[];
+  pendingBookings: GetTotalPendingBookingsType[];
+  confirmedBookings: GetTotalConfirmedBookingsType[];
+  cancelledBookings: GetTotalCancelledBookingsType[];
+  completedBookings: GetTotalCompletedBookingsType[];
+  totalBookings: GetTotalBookingsType[];
 }
 
 export const BookingsCards = ({
+  totalBookings,
   pendingBookings,
   confirmedBookings,
   completedBookings,
@@ -30,6 +36,24 @@ export const BookingsCards = ({
 }: Props) => {
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+      <Card className="@container/card">
+        <CardHeader>
+          <CardDescription>Total Bookings</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {totalBookings.length}
+          </CardTitle>
+          <CardAction>
+            <div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
+              <IconClipboardList />
+            </div>
+          </CardAction>
+        </CardHeader>
+        <CardFooter className="flex-col items-start gap-1.5 text-sm">
+          <div className="line-clamp-1 flex gap-2 font-medium">
+            Trending up this month <IconTrendingUp className="size-4" />
+          </div>
+        </CardFooter>
+      </Card>
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Pending bookings</CardDescription>
@@ -63,24 +87,6 @@ export const BookingsCards = ({
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
             Down 20% this period <IconTrendingDown className="size-4" />
-          </div>
-        </CardFooter>
-      </Card>
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Completed bookings</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            {completedBookings.length}
-          </CardTitle>
-          <CardAction>
-            <div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
-              <CircleCheckBig />
-            </div>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex items-center text-orange-400 gap-2 font-medium">
-            <span>Requires attention</span> <Clock className="size-4" />
           </div>
         </CardFooter>
       </Card>

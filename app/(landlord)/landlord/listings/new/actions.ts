@@ -2,6 +2,7 @@
 
 import { requireLandlord } from "@/app/data/landlord/require-landlord";
 import { prisma } from "@/lib/db";
+import { generateSuffix } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
 export const saveCategory = async (id: string) => {
@@ -9,10 +10,31 @@ export const saveCategory = async (id: string) => {
   try {
     if (!id) return { status: "error", message: "No category was selected" };
 
+    const year = new Date().getFullYear();
+    let suffix = generateSuffix();
+    let listingId = `LS-${year}-${suffix}`;
+
+    let existing = await prisma.listing.findUnique({
+      where: {
+        listingId,
+      },
+    });
+
+    while (existing) {
+      suffix = generateSuffix();
+      listingId = `LS-${year}-${suffix}`;
+      existing = await prisma.listing.findUnique({
+        where: {
+          listingId,
+        },
+      });
+    }
+
     const data = await prisma.listing.create({
       data: {
         categoryId: id,
         userId: user.id,
+        listingId,
       },
     });
 
@@ -33,8 +55,14 @@ export const saveCategory = async (id: string) => {
       message: "Category successfully saved. Redirecting...",
       data: data,
     };
-  } catch (error) {
-    return { status: "error", message: "Failed to save category" };
+  } catch (error: any) {
+    return {
+      status: "error",
+      message:
+        error.code === "P2002"
+          ? "This listing ID already exists. Please try again."
+          : "Failed to save category",
+    };
   }
 };
 

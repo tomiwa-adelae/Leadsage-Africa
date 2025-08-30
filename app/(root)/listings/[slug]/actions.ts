@@ -10,7 +10,7 @@ import {
   AVAILABLE_TIME_SLOTS,
   formatDate,
   formatDateForDB,
-  generateBookingSuffix,
+  generateSuffix,
   getBookingDateRange,
   isWeekend,
 } from "@/lib/utils";
@@ -283,7 +283,7 @@ export async function bookTour(
     }
 
     const year = new Date().getFullYear();
-    let suffix = generateBookingSuffix();
+    let suffix = generateSuffix();
     let bookingId = `BK-${year}-${suffix}`;
 
     let existing = await prisma.booking.findUnique({
@@ -293,7 +293,7 @@ export async function bookTour(
     });
 
     while (existing) {
-      suffix = generateBookingSuffix();
+      suffix = generateSuffix();
       bookingId = `BK-${year}-${suffix}`;
       existing = await prisma.booking.findUnique({
         where: {
@@ -538,6 +538,7 @@ export async function cancelBooking(bookingId: string) {
       },
       data: {
         status: "Cancelled",
+        cancelledBy: user.role,
       },
     });
 

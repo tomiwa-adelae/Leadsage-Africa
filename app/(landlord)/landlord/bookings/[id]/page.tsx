@@ -37,6 +37,7 @@ import { Badge } from "@/components/ui/badge";
 import { MarkConfirmButton } from "./_components/MarkConfirmButton";
 import { getBookingTimelines } from "@/app/data/booking-timeline/get-booking-timelines";
 import { getUserInfo } from "@/app/data/user/get-user-info";
+import Link from "next/link";
 
 type Params = Promise<{
   id: string;
@@ -184,8 +185,10 @@ const page = async ({ params }: { params: Params }) => {
                       />
                     ))}
               </div>
-              <Button size="md" className="w-full mt-2">
-                View Full Property
+              <Button asChild size="md" className="w-full mt-2">
+                <Link href={`/landlord/listings/${booking.listing.slug}`}>
+                  View Full Property
+                </Link>
               </Button>
             </div>
           </CardContent>
@@ -257,10 +260,16 @@ const page = async ({ params }: { params: Params }) => {
                       {timeline.status === "Pending"
                         ? "is currently"
                         : "has been"}{" "}
-                      <span className="lowercase">{timeline.status}</span> by{" "}
-                      {timeline.User.name === user.name
-                        ? "you"
-                        : timeline.User.name}
+                      <span className="lowercase">{timeline.status}</span>{" "}
+                      {timeline.status !== "Pending" && (
+                        <>
+                          by{" "}
+                          {timeline.User.name === user.name
+                            ? "you"
+                            : timeline.User.name}{" "}
+                          {timeline.User.role === "admin" && "(admin)"}
+                        </>
+                      )}
                     </p>
                     <p className="md:hidden text-xs text-muted-foreground">
                       {formatDate(timeline.createdAt)}
@@ -282,7 +291,7 @@ const page = async ({ params }: { params: Params }) => {
             <div className="flex items-center justify-start gap-4">
               <Image
                 src={
-                  booking.user.image !== null
+                  booking.user.image !== null && booking.user.image
                     ? booking.user.image
                     : DEFAULT_PROFILE_PICTURE
                 }

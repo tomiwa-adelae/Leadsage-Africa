@@ -30,7 +30,7 @@ const page = async () => {
             pendingBookings={pendingBookings}
             confirmedBookings={confirmedBookings}
             cancelledBookings={cancelledBookings}
-            completedBookings={completedBookings}
+            totalBookings={bookings}
           />
           <MyBookings bookings={bookings} />
         </div>

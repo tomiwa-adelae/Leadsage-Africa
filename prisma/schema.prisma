@@ -133,6 +133,8 @@ model Listing {
   securityDeposit  String?
   discount         String?
 
+  listingId String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

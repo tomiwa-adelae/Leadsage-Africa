@@ -1,0 +1,387 @@
+import {
+  getListing,
+  GetListingType,
+} from "@/app/data/admin/listing/get-listing";
+import { SiteHeader } from "@/components/sidebar/site-header";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  IconCircleDashedX,
+  IconMapPin,
+  IconRestore,
+} from "@tabler/icons-react";
+import {
+  Archive,
+  CheckCircle,
+  CircleCheckBig,
+  Component,
+  Hourglass,
+  Mail,
+  Phone,
+  Radio,
+  Star,
+} from "lucide-react";
+import React from "react";
+import { ListingActions } from "./_components/ListingActions";
+import { ListingPhotos } from "@/components/ListingPhotos";
+import { Separator } from "@/components/ui/separator";
+import { RenderDescription } from "@/components/text-editor/RenderDescription";
+import Image from "next/image";
+import { CopyToClipboard } from "@/components/CopyToClipboard";
+import { formatDate, formatPhoneNumber } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DEFAULT_PROFILE_PICTURE } from "@/constants";
+import { ListingMap } from "@/components/ListingMap";
+import { NairaIcon } from "@/components/NairaIcon";
+import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
+import { AmenityBox } from "@/components/AmenityBox";
+
+type Params = Promise<{
+  slug: string;
+}>;
+
+const page = async ({ params }: { params: Params }) => {
+  const { slug } = await params;
+  const listing = await getListing(slug);
+
+  return (
+    <div>
+      <SiteHeader />
+      <div className="py-4 md:py-6 px-4 lg:px-6">
+        <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-semibold">
+              {listing.title}{" "}
+              {listing.status === "Published" && !listing.isApproved && (
+                <Badge variant={"pending"}>
+                  <Hourglass /> Pending approval
+                </Badge>
+              )}
+              {listing.status === "Draft" && (
+                <Badge variant={"pending"}>
+                  <Component /> {listing.status}
+                </Badge>
+              )}
+              {listing.isApproved && (
+                <Badge variant={"default"}>
+                  <Radio /> Live
+                </Badge>
+              )}
+              {listing.status === "Rejected" && (
+                <Badge variant={"destructive"}>
+                  <IconCircleDashedX /> Rejected
+                </Badge>
+              )}
+              {listing.status === "Restored" && (
+                <Badge variant={"secondary"}>
+                  <IconRestore /> Restored
+                </Badge>
+              )}
+              {listing.status === "Archived" && (
+                <Badge variant={"secondary"}>
+                  <Archive /> Archived
+                </Badge>
+              )}
+            </h1>
+            <p className="text-muted-foreground text-base mt-2.5">
+              <IconMapPin className="inline-block mr-1 size-4" />
+              {listing.address}, {listing.city}, {listing.state},{" "}
+              {listing.country}
+            </p>
+          </div>
+          <ListingActions
+            isApproved={listing.isApproved}
+            id={listing.id}
+            status={listing.status}
+          />
+        </div>
+        <div className="mt-4">
+          <ListingPhotos photos={listing.photos} />
+        </div>
+        <div className="space-y-6 mt-8">
+          <Card className="@container/card gap-0">
+            <CardHeader className="border-b">
+              <CardTitle>Overview</CardTitle>
+            </CardHeader>
+            <CardContent className="mt-2.5 space-y-6">
+              <div>
+                <div className="mt-1.5 flex items-center justify-start gap-2">
+                  <div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
+                    <Image
+                      src={listing.Category.icon}
+                      alt={listing.Category.name}
+                      width={1000}
+                      height={1000}
+                      className="size-6 dark:invert"
+                    />
+                  </div>
+                  <div>
+                    <h5 className="font-medium text-base">
+                      {listing.Category.name}
+                    </h5>
+                    <p className="text-muted-foreground text-sm">
+                      {listing.Category.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <Separator />
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                  <h3 className="font-medium text-base">Listing ID</h3>
+                  <p className="text-muted-foreground text-sm">
+                    {/* {listing.listingId} <CopyToClipboard text={listing.listingId} /> */}
+                    Lorem, ipsum.
+                  </p>
+                </div>
+                <Separator className="md:hidden" />
+                <div>
+                  <h3 className="font-medium text-base">Creation date</h3>
+                  <p className="text-muted-foreground text-sm">
+                    {formatDate(listing.createdAt)}
+                  </p>
+                </div>
+                <Separator className="md:hidden" />
+                <div>
+                  <h3 className="font-medium text-base">Last updated</h3>
+                  <p className="text-muted-foreground text-sm">
+                    {formatDate(listing.updatedAt)}
+                  </p>
+                </div>
+              </div>
+              <Separator />
+              <div className="flex flex-wrap gap-6 items-center justify-start font-semibold text-2xl">
+                {listing.propertySize && (
+                  <h3 className="tracking-tight">
+                    {listing.propertySize}{" "}
+                    <span className="text-sm text-muted-foreground">sqm</span>
+                  </h3>
+                )}
+                <h3>
+                  {listing.bedrooms}{" "}
+                  <span className="text-sm text-muted-foreground">beds</span>
+                </h3>
+                <h3>
+                  {listing.bathrooms}{" "}
+                  <span className="text-sm text-muted-foreground">baths</span>
+                </h3>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="@container/card gap-0">
+            <CardHeader className="border-b">
+              <CardTitle>About this listing</CardTitle>
+            </CardHeader>
+            <CardContent className="mt-2.5">
+              <p className="text-muted-foreground text-base mt-1.5">
+                <RenderDescription json={JSON.parse(listing?.description!)} />
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="@container/card gap-0">
+            <CardHeader className="border-b">
+              <CardTitle>Landlord Information</CardTitle>
+            </CardHeader>
+            <CardContent className="mt-4 grid gap-6">
+              <div className="flex items-center justify-start gap-4">
+                <Image
+                  src={
+                    listing.User.image !== null && listing.User.image
+                      ? listing.User.image
+                      : DEFAULT_PROFILE_PICTURE
+                  }
+                  alt={`Landlord profile picture`}
+                  width={1000}
+                  height={1000}
+                  className="size-[70px] rounded-full object-cover"
+                />
+                <div>
+                  <h4 className="font-medium text-base">
+                    {listing.User.name}
+                    {listing.User.emailVerified && (
+                      <CircleCheckBig className="text-primary size-4 inline-block ml-2" />
+                    )}
+                  </h4>
+                  <p className="text-sm text-muted-foreground mt-1 flex items-center justify-start">
+                    <Star className="text-yellow-600 size-4 inline-block mr-1" />
+                    <span>4.8 rating</span>
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-0.5">
+                    3 total bookings
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-2 text-base text-muted-foreground">
+                <p>
+                  <Mail className="size-4 inline-block mr-2" />
+                  <a
+                    className="hover:underline text-primary"
+                    href={`mailto:${listing.User.email}`}
+                  >
+                    {listing.User.email}
+                  </a>
+                </p>
+                {listing.User.phoneNumber && (
+                  <p>
+                    <Phone className="size-4 inline-block mr-2" />
+                    <a
+                      className="hover:underline text-primary"
+                      href={`tel:${listing.User.phoneNumber}`}
+                    >
+                      {formatPhoneNumber(listing.User.phoneNumber)}
+                    </a>
+                  </p>
+                )}
+              </div>
+              {listing.User.bio && (
+                <div className="mt-2">
+                  <RenderDescription json={listing.User.bio} />
+                </div>
+              )}
+              <div className="grid gap-2">
+                <Button size="md">
+                  <Mail />
+                  Send Message
+                </Button>
+                <Button size="md" variant={"outline"}>
+                  View Profile
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="@container/card gap-0">
+            <CardHeader className="border-b">
+              <CardTitle>Property Details</CardTitle>
+            </CardHeader>
+            <CardContent className="mt-4 grid gap-6">
+              <div>
+                <h3 className="font-medium text-base">Location</h3>
+                <p className="text-muted-foreground text-base">
+                  <IconMapPin className="inline-block mr-1 size-4" />
+                  {listing.address}, {listing.city}, {listing.state},{" "}
+                  {listing.country}
+                </p>
+                <ListingMap />
+              </div>
+              <Separator />
+              <div>
+                <h3 className="font-medium text-base">Rent</h3>
+                <p className="text-muted-foreground font-semibold text-3xl">
+                  <NairaIcon />
+                  {listing.price}
+                  <span className="text-sm">/{listing.paymentFrequency}</span>
+                </p>
+              </div>
+              <Separator />
+              <div>
+                <h3 className="font-medium text-base">Security deposit</h3>
+                <p className="text-muted-foreground font-semibold text-3xl">
+                  <NairaIcon />
+                  {listing.securityDeposit}
+                </p>
+              </div>
+              <Separator />
+              <div>
+                <h3 className="font-medium text-base">Amenities</h3>
+                <div className="grid grid-cols-1 mt-1.5">
+                  {listing?.amenities?.length !== 0 &&
+                    listing?.amenities
+                      .slice(0, 5)
+                      .map((amenity) => (
+                        <AmenityBox
+                          key={amenity.id}
+                          icon={amenity.icon}
+                          name={amenity.name}
+                          description={amenity.description}
+                        />
+                      ))}
+                </div>
+                {listing?.amenities.length > 5 && (
+                  <AllAmenitiesModal amenities={listing.amenities} />
+                )}
+              </div>
+              <Separator />
+              <div>
+                <h3 className="font-medium text-base">Policies</h3>
+                <div className="mt-1.5 grid grid-cols-1 gap-2">
+                  <p className="text-muted-foreground text-base mt-1.5">
+                    <CheckCircle className="mr-2 size-4 inline-block" />
+                    <span>
+                      {listing.petPolicy === "yes"
+                        ? "Pets are allowed"
+                        : "No pets allowed"}
+                    </span>
+                  </p>
+                  <p className="text-muted-foreground text-base mt-1.5">
+                    <CheckCircle className="mr-2 size-4 inline-block" />
+                    <span>
+                      {" "}
+                      {listing.smokingPolicy === "yes"
+                        ? "Smoking is allowed"
+                        : "No smoking allowed"}
+                    </span>
+                  </p>
+                  <p className="text-muted-foreground text-base mt-1.5">
+                    <CheckCircle className="mr-2 size-4 inline-block" />
+                    <span>
+                      {" "}
+                      {listing.partyPolicy === "yes"
+                        ? "Parties are allowed"
+                        : "No parties allowed"}
+                    </span>
+                  </p>
+                  {listing.additionalPolicies && (
+                    <p className="text-muted-foreground text-base mt-4">
+                      {listing.additionalPolicies}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="@container/card gap-0">
+            <CardHeader className="border-b">
+              <CardTitle>Touring & Bookings</CardTitle>
+            </CardHeader>
+            <CardContent className="mt-4 grid gap-6">
+              <div>
+                <h3 className="font-medium text-base">Upcoming Tours</h3>
+                <div className="mt-1.5 grid grid-cols-1 gap-2"></div>
+              </div>
+              <Separator />
+              <div>
+                <h3 className="font-medium text-base">Past Tours</h3>
+                <div className="mt-1.5 grid grid-cols-1 gap-2"></div>
+              </div>
+              <Separator />
+            </CardContent>
+          </Card>
+          <Card className="@container/card gap-0">
+            <CardHeader className="border-b">
+              <CardTitle>Activities logs</CardTitle>
+            </CardHeader>
+            <CardContent className="mt-4 grid gap-6">
+              <div>
+                <h3 className="font-medium text-base">Upcoming Tours</h3>
+                <div className="mt-1.5 grid grid-cols-1 gap-2"></div>
+              </div>
+              <Separator />
+              <div>
+                <h3 className="font-medium text-base">Past Tours</h3>
+                <div className="mt-1.5 grid grid-cols-1 gap-2"></div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="@container/card gap-0">
+            <CardHeader className="border-b">
+              <CardTitle>Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent className="mt-4 grid gap-6"></CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default page;

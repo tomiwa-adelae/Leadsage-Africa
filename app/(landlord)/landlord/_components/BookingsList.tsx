@@ -47,7 +47,7 @@ export const BookingsList = ({ bookings }: Props) => {
                       : booking.status === "Cancelled"
                       ? "destructive"
                       : booking.status === "Completed"
-                      ? "success"
+                      ? "default"
                       : "default"
                   }
                   className="capitalize"

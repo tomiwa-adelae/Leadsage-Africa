@@ -9,14 +9,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { cn, formatDate, formatMoneyInput } from "@/lib/utils";
+import {
+  cn,
+  formatDate,
+  formatMoneyInput,
+  formatPhoneNumber,
+} from "@/lib/utils";
 import {
   Bell,
   Calendar,
   CalendarCheck,
   CalendarX,
   CircleCheckBig,
-  CircleX,
   Clock,
   CreditCard,
   Dot,
@@ -25,6 +29,7 @@ import {
   Mail,
   MapPin,
   Navigation,
+  Phone,
   Star,
 } from "lucide-react";
 import Image from "next/image";
@@ -34,11 +39,10 @@ import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { RenderDescription } from "@/components/text-editor/RenderDescription";
 import { Badge } from "@/components/ui/badge";
-import { getCustomerBooking } from "@/app/data/booking/get-customer-booking";
-import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
-import { CancelAppointmentButton } from "./_components/CancelAppointmentButton";
 import { getBookingTimelines } from "@/app/data/booking-timeline/get-booking-timelines";
 import { getUserInfo } from "@/app/data/user/get-user-info";
+import { getAdminBooking } from "@/app/data/admin/booking/get-booking";
+import { BookingActions } from "./_components/BookingActions";
 import Link from "next/link";
 
 type Params = Promise<{
@@ -49,10 +53,9 @@ const page = async ({ params }: { params: Params }) => {
   const { id } = await params;
 
   const user = await getUserInfo();
-
-  const booking = await getCustomerBooking(id);
   const timelines = await getBookingTimelines(id);
-  console.log(timelines);
+
+  const booking = await getAdminBooking(id);
   return (
     <div>
       <SiteHeader />
@@ -79,14 +82,7 @@ const page = async ({ params }: { params: Params }) => {
               {booking.listing.title}
             </p>
           </div>
-          {booking.status !== "Cancelled" && (
-            <CancelAppointmentButton
-              id={booking.id}
-              title={booking.listing.title!}
-              date={booking.date}
-              time={booking.timeSlot}
-            />
-          )}
+          <BookingActions id={booking.id} status={booking.status} />
         </div>
         <Card className="@container/card gap-0">
           <CardHeader>
@@ -146,7 +142,7 @@ const page = async ({ params }: { params: Params }) => {
             </div>
             {booking.notes && (
               <div className="bg-muted p-4 rounded-md">
-                <p className="text-base font-medium">Additional Notes</p>
+                <p className="text-base font-medium">Tenant Notes</p>
                 <p className="text-sm text-muted-foreground">{booking.notes}</p>
               </div>
             )}
@@ -157,7 +153,7 @@ const page = async ({ params }: { params: Params }) => {
             <CardTitle>Property Details</CardTitle>
           </CardHeader>
           <CardContent className="mt-2.5 grid gap-4">
-            <ListingPhoto photos={booking.listing.photos} />
+            {/* <ListingPhoto photos={booking.listing.photos} /> */}
             <div>
               <h3 className="text-lg font-medium">{booking.listing.title}</h3>
               <p className="text-muted-foreground text-sm mt-1.5">
@@ -194,7 +190,7 @@ const page = async ({ params }: { params: Params }) => {
                     ))}
               </div>
               <Button asChild size="md" className="w-full mt-2">
-                <Link href={`/listings/${booking.listing.slug}`}>
+                <Link href={`/admin/listings/${booking.listing.slug}`}>
                   View Full Property
                 </Link>
               </Button>
@@ -214,7 +210,7 @@ const page = async ({ params }: { params: Params }) => {
                 <div>
                   <p className="text-sm font-medium">Booking Created </p>
                   <p className="text-sm text-muted-foreground">
-                    Tour booking was created by you
+                    Tour booking was created by {booking.user.name}
                   </p>
                   <p className="md:hidden text-xs text-muted-foreground">
                     {formatDate(booking.createdAt)}
@@ -293,6 +289,77 @@ const page = async ({ params }: { params: Params }) => {
         </Card>
         <Card className="@container/card gap-0">
           <CardHeader>
+            <CardTitle>Tenant Information</CardTitle>
+          </CardHeader>
+          <CardContent className="mt-2.5 grid gap-6">
+            <div className="flex items-center justify-start gap-4">
+              <Image
+                src={
+                  booking.user.image !== null && booking.user.image
+                    ? booking.user.image
+                    : DEFAULT_PROFILE_PICTURE
+                }
+                alt={`User profile picture`}
+                width={1000}
+                height={1000}
+                className="size-[70px] rounded-full object-cover"
+              />
+              <div>
+                <h4 className="font-medium text-base">
+                  {booking.user.name}
+                  {booking.user.emailVerified && (
+                    <CircleCheckBig className="text-primary size-4 inline-block ml-2" />
+                  )}
+                </h4>
+                <p className="text-sm text-muted-foreground mt-1 flex items-center justify-start">
+                  <Star className="text-yellow-600 size-4 inline-block mr-1" />
+                  <span>4.8 rating</span>
+                </p>
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  3 total bookings
+                </p>
+              </div>
+            </div>
+            <div className="space-y-2 text-base text-muted-foreground">
+              <p>
+                <Mail className="size-4 inline-block mr-2" />
+                <a
+                  className="hover:underline text-primary"
+                  href={`mailto:${booking.user.email}`}
+                >
+                  {booking.user.email}
+                </a>
+              </p>
+              {booking.user.phoneNumber && (
+                <p>
+                  <Phone className="size-4 inline-block mr-2" />
+                  <a
+                    className="hover:underline text-primary"
+                    href={`tel:${booking.user.phoneNumber}`}
+                  >
+                    {formatPhoneNumber(booking.user.phoneNumber)}
+                  </a>
+                </p>
+              )}
+            </div>
+            {booking.user.bio && (
+              <div className="mt-2">
+                <RenderDescription json={booking.user.bio} />
+              </div>
+            )}
+            <div className="grid gap-2">
+              <Button size="md">
+                <Mail />
+                Send Message
+              </Button>
+              <Button size="md" variant={"outline"}>
+                View Profile
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="@container/card gap-0">
+          <CardHeader>
             <CardTitle>Landlord Information</CardTitle>
           </CardHeader>
           <CardContent className="mt-2.5 grid gap-6">
@@ -321,13 +388,35 @@ const page = async ({ params }: { params: Params }) => {
                   <span>4.8 rating</span>
                 </p>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  3 successful bookings
+                  3 total bookings
                 </p>
               </div>
             </div>
+            <div className="space-y-2 text-base text-muted-foreground">
+              <p>
+                <Mail className="size-4 inline-block mr-2" />
+                <a
+                  className="hover:underline text-primary"
+                  href={`mailto:${booking.listing.User.email}`}
+                >
+                  {booking.listing.User.email}
+                </a>
+              </p>
+              {booking.listing.User.phoneNumber && (
+                <p>
+                  <Phone className="size-4 inline-block mr-2" />
+                  <a
+                    className="hover:underline text-primary"
+                    href={`tel:${booking.listing.User.phoneNumber}`}
+                  >
+                    {formatPhoneNumber(booking.listing.User.phoneNumber)}
+                  </a>
+                </p>
+              )}
+            </div>
             {booking.listing.User.bio && (
-              <div className="mt-4">
-                <RenderDescription json={booking.user.bio} />
+              <div className="mt-2">
+                <RenderDescription json={booking.listing.User.bio} />
               </div>
             )}
             <div className="grid gap-2">
@@ -382,9 +471,7 @@ const page = async ({ params }: { params: Params }) => {
           <CardContent className="mt-2.5 grid gap-2">
             <div className="bg-accent px-3.5 py-4 rounded-lg flex flex-col md:flex-row items-start justify-between gap-2">
               <div>
-                <p className="text-sm font-medium">
-                  {booking.listing.User.name}
-                </p>
+                <p className="text-sm font-medium">{booking.user.name}</p>
                 <p className="text-sm text-muted-foreground">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   Sapiente, accusamus!

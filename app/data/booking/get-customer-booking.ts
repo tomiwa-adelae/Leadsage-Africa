@@ -32,6 +32,7 @@ export const getCustomerBooking = async (id: string) => {
       listing: {
         select: {
           id: true,
+          slug: true,
           title: true,
           address: true,
           city: true,

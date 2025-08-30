@@ -1,17 +1,13 @@
 import "server-only";
-import { requireLandlord } from "./require-landlord";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { requireAdmin } from "../require-admin";
 
-export const getLandlordBooking = async (id: string) => {
-  const { user } = await requireLandlord();
-
+export const getAdminBooking = async (id: string) => {
+  await requireAdmin();
   const booking = await prisma.booking.findUnique({
     where: {
       id,
-      listing: {
-        userId: user.id,
-      },
     },
     select: {
       id: true,
@@ -30,14 +26,16 @@ export const getLandlordBooking = async (id: string) => {
           name: true,
           image: true,
           emailVerified: true,
+          email: true,
+          phoneNumber: true,
           bio: true,
         },
       },
       listing: {
         select: {
           id: true,
-          title: true,
           slug: true,
+          title: true,
           address: true,
           city: true,
           state: true,
@@ -64,6 +62,17 @@ export const getLandlordBooking = async (id: string) => {
               description: true,
             },
           },
+          User: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+              emailVerified: true,
+              email: true,
+              phoneNumber: true,
+              bio: true,
+            },
+          },
         },
       },
     },
@@ -74,6 +83,4 @@ export const getLandlordBooking = async (id: string) => {
   return booking;
 };
 
-export type GetLandlordBookingType = Awaited<
-  ReturnType<typeof getLandlordBooking>
->;
+export type GetAdminBookingType = Awaited<ReturnType<typeof getAdminBooking>>;
