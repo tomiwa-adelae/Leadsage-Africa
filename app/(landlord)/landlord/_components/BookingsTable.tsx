@@ -71,7 +71,7 @@ export function BookingsTable({ bookings }: Props) {
                       booking.status === "Pending"
                         ? "pending"
                         : booking.status === "Confirmed"
-                        ? "default"
+                        ? "success"
                         : booking.status === "Cancelled"
                         ? "destructive"
                         : booking.status === "Completed"

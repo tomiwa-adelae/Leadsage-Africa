@@ -446,6 +446,13 @@ export async function bookTour(
       };
     }
 
+    await prisma.bookingTimeline.create({
+      data: {
+        bookingId: booking.id,
+        userId: user.id,
+      },
+    });
+
     await prisma.notification.create({
       data: {
         userId: user.id,

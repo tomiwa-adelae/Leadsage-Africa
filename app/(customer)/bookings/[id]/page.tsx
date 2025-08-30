@@ -9,10 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatDate, formatMoneyInput } from "@/lib/utils";
+import { cn, formatDate, formatMoneyInput } from "@/lib/utils";
 import {
   Bell,
   Calendar,
+  CalendarCheck,
+  CalendarX,
   CircleCheckBig,
   CircleX,
   Clock,
@@ -34,6 +36,9 @@ import { RenderDescription } from "@/components/text-editor/RenderDescription";
 import { Badge } from "@/components/ui/badge";
 import { getCustomerBooking } from "@/app/data/booking/get-customer-booking";
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
+import { CancelAppointmentButton } from "./_components/CancelAppointmentButton";
+import { getBookingTimelines } from "@/app/data/booking-timeline/get-booking-timelines";
+import { getUserInfo } from "@/app/data/user/get-user-info";
 
 type Params = Promise<{
   id: string;
@@ -42,7 +47,11 @@ type Params = Promise<{
 const page = async ({ params }: { params: Params }) => {
   const { id } = await params;
 
+  const user = await getUserInfo();
+
   const booking = await getCustomerBooking(id);
+  const timelines = await getBookingTimelines(id);
+  console.log(timelines);
   return (
     <div>
       <SiteHeader />
@@ -50,7 +59,7 @@ const page = async ({ params }: { params: Params }) => {
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-semibold">
-              Booking {booking.bookingId}{" "}
+              {booking.bookingId}{" "}
               <Badge
                 variant={
                   booking.status === "Pending"
@@ -69,14 +78,14 @@ const page = async ({ params }: { params: Params }) => {
               {booking.listing.title}
             </p>
           </div>
-          <Button
-            variant={"destructive"}
-            className="w-full sm:w-auto"
-            size="md"
-          >
-            <span className="sm:hidden md:block">Cancel Appointment</span>
-            <CircleX />
-          </Button>
+          {booking.status !== "Cancelled" && (
+            <CancelAppointmentButton
+              id={booking.id}
+              title={booking.listing.title!}
+              date={booking.date}
+              time={booking.timeSlot}
+            />
+          )}
         </div>
         <Card className="@container/card gap-0">
           <CardHeader>
@@ -202,7 +211,7 @@ const page = async ({ params }: { params: Params }) => {
                 <div>
                   <p className="text-sm font-medium">Booking Created </p>
                   <p className="text-sm text-muted-foreground">
-                    Tour booking was created by {booking.user.name}
+                    Tour booking was created by you
                   </p>
                   <p className="md:hidden text-xs text-muted-foreground">
                     {formatDate(booking.createdAt)}
@@ -213,47 +222,64 @@ const page = async ({ params }: { params: Params }) => {
                 {formatDate(booking.createdAt)}
               </p>
             </div>
-            {booking.status === "Pending" && (
-              <div className="flex items-start justify-between gap-2">
+            {timelines.map((timeline) => (
+              <div
+                key={timeline.id}
+                className="flex items-start justify-between gap-2"
+              >
                 <div className="flex items-center justify-start gap-2">
-                  <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-full">
-                    <Clock className="size-5" />
+                  <div
+                    className={cn(
+                      "p-2.5 inline-block  dark:text-white rounded-full",
+                      timeline.status === "Pending"
+                        ? "bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600"
+                        : timeline.status === "Confirmed"
+                        ? "bg-green-600/20 dark:bg-green-600/70 text-green-600"
+                        : timeline.status === "Cancelled"
+                        ? "bg-red-600/20 dark:bg-red-600/70 text-red-600"
+                        : timeline.status === "Completed"
+                        ? "bg-green-600/20 dark:bg-green-600/70 text-green-600"
+                        : ""
+                    )}
+                  >
+                    {timeline.status === "Pending" && (
+                      <Clock className="size-5" />
+                    )}
+                    {timeline.status === "Confirmed" && (
+                      <CircleCheckBig className="size-5" />
+                    )}
+                    {timeline.status === "Cancelled" && (
+                      <CalendarX className="size-5" />
+                    )}
+                    {timeline.status === "Completed" && (
+                      <CalendarCheck className="size-5" />
+                    )}
                   </div>
                   <div>
-                    <p className="text-sm font-medium">Booking Status</p>
+                    <p className="text-sm font-medium">
+                      Booking {timeline.status === "Pending" && "Status"}
+                      {timeline.status !== "Pending" && timeline.status}
+                    </p>
                     <p className="text-sm text-muted-foreground">
-                      Tour booking is currently{" "}
-                      <span className="lowercase">{booking.status}</span>
+                      Tour booking{" "}
+                      {timeline.status === "Pending"
+                        ? "is currently"
+                        : "has been"}{" "}
+                      <span className="lowercase">{timeline.status}</span> by{" "}
+                      {timeline.User.name === user.name
+                        ? "you"
+                        : timeline.User.role}
                     </p>
                     <p className="md:hidden text-xs text-muted-foreground">
-                      {formatDate(booking.createdAt)}
+                      {formatDate(timeline.createdAt)}
                     </p>
                   </div>
                 </div>
                 <p className="hidden md:block text-xs text-muted-foreground">
-                  {formatDate(booking.createdAt)}
+                  {formatDate(timeline.createdAt)}
                 </p>
               </div>
-            )}
-            <div className="flex items-start justify-between gap-2">
-              <div className="flex items-center justify-start gap-2">
-                <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-full">
-                  <CircleCheckBig className="size-5" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Booking Confirmed</p>
-                  <p className="text-sm text-muted-foreground">
-                    Tour booking was confirmed by landlord
-                  </p>
-                  <p className="md:hidden text-xs text-muted-foreground">
-                    {formatDate(booking.updatedAt)}
-                  </p>
-                </div>
-              </div>
-              <p className="hidden md:block text-xs text-muted-foreground">
-                {formatDate(booking.updatedAt)}
-              </p>
-            </div>
+            ))}
           </CardContent>
         </Card>
         <Card className="@container/card gap-0">

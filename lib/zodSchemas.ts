@@ -306,6 +306,12 @@ export const addPaymentMethodFormSchema = z.object({
   default: z.boolean(),
 });
 
+export const rejectListingFormSchema = z.object({
+  reasons: z.string().min(2, {
+    message: "Reasons is required.",
+  }),
+});
+
 export type RegisterFormSchemaType = z.infer<typeof registerFormSchema>;
 export type LoginFormSchemaType = z.infer<typeof loginFormSchema>;
 export type ForgotPasswordFormSchemaType = z.infer<
@@ -351,4 +357,7 @@ export type EditEmergencyFormSchemaType = z.infer<
 export type EditPasswordFormSchemaType = z.infer<typeof editPasswordFormSchema>;
 export type AddPaymentMethodFormSchemaType = z.infer<
   typeof addPaymentMethodFormSchema
+>;
+export type RejectListingFormSchemaType = z.infer<
+  typeof rejectListingFormSchema
 >;

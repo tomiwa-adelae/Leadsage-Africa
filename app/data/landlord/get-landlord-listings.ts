@@ -9,6 +9,9 @@ export const getLandlordListings = async (limit: number = 10) => {
   const data = await prisma.listing.findMany({
     where: {
       userId: user.id,
+      status: {
+        not: "Archived",
+      },
     },
     take: limit,
     select: {

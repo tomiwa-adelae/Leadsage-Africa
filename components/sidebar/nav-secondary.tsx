@@ -12,6 +12,8 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { ArrowRightLeft } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
 
 export function NavSecondary({
   items,
@@ -23,11 +25,39 @@ export function NavSecondary({
     icon: any;
   }[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+  const { data: session, isPending } = authClient.useSession();
+
   const pathname = usePathname();
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
         <SidebarMenu>
+          {!isPending && session?.user.role === "landlord" && (
+            <SidebarMenuItem>
+              <Button
+                variant="ghost"
+                className={cn(
+                  "w-full dark:bg-accent/50 dark:hover:bg-accent text-left justify-start"
+                )}
+                asChild
+              >
+                <Link
+                  href={
+                    pathname.startsWith("/landlord")
+                      ? "/dashboard"
+                      : "/landlord/dashboard"
+                  }
+                >
+                  <ArrowRightLeft />
+                  <span>
+                    {pathname.startsWith("/landlord")
+                      ? "Switch to Customer"
+                      : "Switch to Landlord"}
+                  </span>
+                </Link>
+              </Button>
+            </SidebarMenuItem>
+          )}
           {items.map((item) => {
             const Icon = item.icon;
             return (

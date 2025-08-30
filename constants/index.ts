@@ -19,7 +19,26 @@ import {
   SunMoon,
   Mail,
   Plus,
+  Hourglass,
 } from "lucide-react";
+import {
+  IconArchive,
+  IconBan,
+  IconCalendarCheck,
+  IconCalendarX,
+  IconChartArcs,
+  IconChartDots,
+  IconChartHistogram,
+  IconClipboardList,
+  IconCoins,
+  IconCurrencyNaira,
+  IconMoneybag,
+  IconReceipt,
+  IconTrash,
+  IconTrendingUp,
+  IconUsers,
+  IconUsersGroup,
+} from "@tabler/icons-react";
 
 export const homeStats = [
   {
@@ -300,6 +319,168 @@ export const landlordNavLinks = {
       title: "Earnings",
       slug: "/landlord/earnings",
       icon: Wallet,
+    },
+    {
+      title: "Notifications",
+      slug: "/notifications",
+      icon: Bell,
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Settings",
+      slug: "/landlord/settings",
+      icon: Settings,
+    },
+    {
+      title: "Get Help",
+      slug: "/help-center",
+      icon: Info,
+    },
+  ],
+};
+
+export const adminNavLinks = {
+  navMain: [
+    {
+      title: "Dashboard",
+      slug: "/admin/dashboard",
+      icon: LayoutDashboardIcon,
+    },
+    {
+      title: "Users",
+      icon: IconUsersGroup,
+      group: true,
+      items: [
+        {
+          title: "All Users",
+          slug: "/admin/users",
+          icon: IconUsersGroup,
+        },
+        {
+          title: "Landlords",
+          slug: "/admin/users/landlords",
+          icon: IconUsers,
+        },
+        {
+          title: "Customers",
+          slug: "/admin/users/customers",
+          icon: IconUsers,
+        },
+      ],
+    },
+    {
+      title: "Listings",
+      icon: LayoutList,
+      group: true,
+      items: [
+        {
+          title: "All Listings",
+          slug: "/admin/listings",
+          icon: IconClipboardList,
+        },
+        {
+          title: "Pending Listings",
+          slug: "/admin/listings/pendings",
+          icon: Hourglass,
+        },
+        {
+          title: "Rejected Listings",
+          slug: "/admin/listings/rejected",
+          icon: IconBan,
+        },
+        {
+          title: "Archived Listings",
+          slug: "/admin/listings/archived",
+          icon: IconArchive,
+        },
+        {
+          title: "Deleted Listings",
+          slug: "/admin/listings/deleted",
+          icon: IconTrash,
+        },
+      ],
+    },
+    {
+      title: "Bookings",
+      icon: ClipboardList,
+      group: true,
+      items: [
+        {
+          title: "All Bookings",
+          slug: "/admin/bookings",
+          icon: IconClipboardList,
+        },
+        {
+          title: "Pending Bookings",
+          slug: "/admin/bookings/pendings",
+          icon: Hourglass,
+        },
+        {
+          title: "Completed Bookings",
+          slug: "/admin/bookings/completed",
+          icon: IconCalendarCheck,
+        },
+        {
+          title: "Cancelled Bookings",
+          slug: "/admin/bookings/cancelled",
+          icon: IconCalendarX,
+        },
+      ],
+    },
+    {
+      title: "Payments & Transactions",
+      icon: CreditCard,
+      group: true,
+      items: [
+        {
+          title: "All Payments",
+          slug: "/admin/payments",
+          icon: IconCurrencyNaira,
+        },
+        {
+          title: "Invoices & Receipt",
+          slug: "/admin/invoices",
+          icon: IconReceipt,
+        },
+        {
+          title: "Revenue Reports",
+          slug: "/admin/revenue",
+          icon: IconMoneybag,
+        },
+      ],
+    },
+    {
+      title: "Reports & Analytics",
+      icon: IconChartHistogram,
+      group: true,
+      items: [
+        {
+          title: "User growth",
+          slug: "admin/analytics/users",
+          icon: IconTrendingUp,
+        },
+        {
+          title: "Listings stats",
+          slug: "admin/analytics/listings",
+          icon: IconChartDots,
+        },
+        {
+          title: "Tour bookings trends",
+          slug: "admin/analytics/tour-bookings",
+          icon: IconChartArcs,
+        },
+        {
+          title: "Revenue breakdown",
+          slug: "admin/analytics/revenue-breakdown",
+          icon: IconCoins,
+        },
+      ],
+    },
+    {
+      title: "Notifications",
+      slug: "/notifications",
+      icon: Bell,
     },
   ],
   navSecondary: [

@@ -38,15 +38,16 @@ model User {
   promotionalNotifications Boolean? @default(false)
   accountNotifications     Boolean? @default(false)
 
-  createdAt     DateTime
-  updatedAt     DateTime
-  sessions      Session[]
-  accounts      Account[]
-  listing       Listing[]
-  booking       Booking[]
-  paymentMethod PaymentMethod[]
-  savedListing  SavedListing[]
-  notification  Notification[]
+  createdAt       DateTime
+  updatedAt       DateTime
+  sessions        Session[]
+  accounts        Account[]
+  listing         Listing[]
+  booking         Booking[]
+  paymentMethod   PaymentMethod[]
+  savedListing    SavedListing[]
+  notification    Notification[]
+  bookingTimeline BookingTimeline[]
 
   role       String?
   banned     Boolean?
@@ -143,8 +144,9 @@ model Listing {
   User   User     @relation(fields: [userId], references: [id])
   userId String
 
-  status     ListingStatus @default(Draft)
-  isApproved Boolean       @default(false)
+  status          ListingStatus @default(Draft)
+  isApproved      Boolean       @default(false)
+  rejectedReasons String?
 
   booking             Booking[]
   listingBlockedDate  ListingBlockedDate[]
@@ -187,6 +189,8 @@ enum ListingStatus {
   Published
   Deleted
   Archived
+  Restored
+  Rejected
 }
 
 model Notification {
@@ -202,6 +206,8 @@ model Notification {
   message String
 
   color String @default("bg-primary")
+
+  isAdmin Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -290,7 +296,12 @@ model Booking {
 
   status BookingStatus @default(Pending)
 
+  bookingTimeline BookingTimeline[]
+
   notes String? // Special requests or notes from user
+
+  confirmedBy String?
+  cancelledBy String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -309,6 +320,20 @@ enum BookingStatus {
   Confirmed
   Cancelled
   Completed
+}
+
+model BookingTimeline {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  bookingId String
+
+  status BookingStatus @default(Pending)
+  User   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 }
 
 // Optional: Model for blocked dates (holidays, maintenance, etc.)

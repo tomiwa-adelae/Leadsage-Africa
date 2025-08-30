@@ -18,6 +18,8 @@ export const getLandlordBooking = async (id: string) => {
       updatedAt: true,
       notes: true,
       status: true,
+      confirmedBy: true,
+      cancelledBy: true,
       user: {
         select: {
           id: true,
