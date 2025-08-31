@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/collapsible";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import {
   getLandlordListing,
   GetLandlordListingType,
@@ -19,6 +19,7 @@ import { ImageBoxes } from "./_components/ImageBoxes";
 import { PublishButton } from "./_components/PublishButton";
 import { AmenityBox } from "@/components/AmenityBox";
 import { NairaIcon } from "@/components/NairaIcon";
+import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 // import { ImageBoxes } from "./_components/ImageBoxes";
 
 type Params = Promise<{
@@ -170,7 +171,7 @@ const page = async ({ params }: { params: Params }) => {
                 <span className="text-muted-foreground">
                   Availability date:
                 </span>{" "}
-                {listing.availabilityDate}
+                {formatDate(listing.availabilityDate)}
               </h5>
             </div>
           </div>
@@ -185,15 +186,21 @@ const page = async ({ params }: { params: Params }) => {
               </Button>
             </div>
             <div className="mt-2.5 text-sm">
-              {listing.amenities.map(({ id, icon, name, description }) => (
-                <AmenityBox
-                  key={id}
-                  icon={icon}
-                  name={name}
-                  description={description}
-                />
-              ))}
+              {listing?.amenities?.length !== 0 &&
+                listing?.amenities
+                  .slice(0, 5)
+                  .map(({ id, icon, name, description }) => (
+                    <AmenityBox
+                      key={id}
+                      icon={icon}
+                      name={name}
+                      description={description}
+                    />
+                  ))}
             </div>
+            {listing?.amenities.length > 5 && (
+              <AllAmenitiesModal amenities={listing.amenities} />
+            )}
           </div>
           <Separator />
           <div>

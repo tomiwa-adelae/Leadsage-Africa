@@ -6,9 +6,9 @@ import { notFound } from "next/navigation";
 export const getListing = async (slug: string) => {
   await requireAdmin();
 
-  const listing = await prisma.listing.findUnique({
+  const listing = await prisma.listing.findFirst({
     where: {
-      slug,
+      OR: [{ slug: slug }, { id: slug }],
     },
     select: {
       id: true,
@@ -22,6 +22,7 @@ export const getListing = async (slug: string) => {
       availabilityDate: true,
       petPolicy: true,
       smokingPolicy: true,
+      listingId: true,
       partyPolicy: true,
       additionalPolicies: true,
       price: true,

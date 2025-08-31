@@ -17,28 +17,26 @@ import { useRef, useTransition } from "react";
 import { Loader } from "@/components/Loader";
 import { tryCatch } from "@/hooks/use-try-catch";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { deleteListing } from "../actions";
+import { useConfetti } from "@/hooks/use-confetti";
+import { publishListing } from "../listings/new/[listingId]/review/actions";
+import { draftListing } from "../actions";
 
-export function DeleteListingModal({
+export function DraftListingModal({
   open,
   closeModal,
-  redirectURL,
   listingId,
 }: {
   open: boolean;
   closeModal: () => void;
   listingId: string;
-  redirectURL?: string;
 }) {
   const animationRef = useRef<LottieRefCurrentProps>(null);
-  const router = useRouter();
 
   const [pending, startPending] = useTransition();
 
-  const handleDelete = () => {
+  const handleDraft = () => {
     startPending(async () => {
-      const { data: result, error } = await tryCatch(deleteListing(listingId));
+      const { data: result, error } = await tryCatch(draftListing(listingId));
 
       if (error) {
         toast.error(error.message);
@@ -48,7 +46,6 @@ export function DeleteListingModal({
       if (result.status === "success") {
         toast.success(result.message);
         closeModal();
-        if (redirectURL) return router.push(redirectURL);
       } else {
         toast.error(result.message);
       }
@@ -68,23 +65,22 @@ export function DeleteListingModal({
             </div>
           </div>
           <AlertDialogTitle className="text-center">
-            Delete this listing?
+            Draft this listing?
           </AlertDialogTitle>
           <AlertDialogDescription className="text-center">
-            Are you sure you want to delete this listing? Once deleted, it will
-            permanently remove the listing from the platform. If the listing is
-            published, it will no longer be visible to renters
+            Are you sure you want to draft this listing? Once drafted, it will
+            no longer become visible to everyone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
           <Button
+            variant={"warning"}
             size="md"
-            onClick={handleDelete}
+            onClick={handleDraft}
             disabled={pending}
-            variant={"destructive"}
           >
-            {pending ? <Loader text="Deleting..." /> : "Yes, delete it"}
+            {pending ? <Loader text="Drafting..." /> : "Yes, draft it"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

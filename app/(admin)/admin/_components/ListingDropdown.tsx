@@ -1,6 +1,7 @@
 "use client";
 import {
   Archive,
+  ArchiveRestore,
   CircleCheckBig,
   Clipboard,
   EllipsisIcon,
@@ -31,7 +32,7 @@ import { DeleteListingModal } from "./DeleteListingModal";
 import { GetTotalListingsType } from "@/app/data/admin/listing/get-all-listings";
 import { ApproveListingModal } from "./ApproveListingModal";
 import { UnapproveListingModal } from "./UnapproveListingModal";
-import { IconCircleDashedX } from "@tabler/icons-react";
+import { IconCircleDashedX, IconEyeDotted } from "@tabler/icons-react";
 import { RejectListingModal } from "./RejectListingModal";
 import { GetPendingListingsType } from "@/app/data/admin/listing/get-pending-listings";
 import { UnarchivedListingModal } from "./UnarchivedListingModal";
@@ -74,39 +75,34 @@ export default function ListingDropdown({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {status === "Draft" ? (
-            <DropdownMenuItem
-            //  onClick={handleDraft}
-            >
+          <DropdownMenuItem asChild>
+            <Link href={`/admin/listings/${slug}`}>
               <Eye />
+              View listing
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              const url = `${env.NEXT_PUBLIC_BETTER_AUTH_URL}/listings/${slug}`;
+              navigator.clipboard.writeText(url);
+              return toast.success(`Link copied!`);
+            }}
+          >
+            <Clipboard />
+            Copy link
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href={`/admin/listings/${slug}/preview`}>
+              <IconEyeDotted />
+              Preview listing
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href={`/admin/listings/${slug}`}>
+              <Pen />
               Edit listing
-            </DropdownMenuItem>
-          ) : (
-            <>
-              <DropdownMenuItem asChild>
-                <Link href={`/listings/${slug}`}>
-                  <Eye />
-                  View listing
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => {
-                  const url = `${env.NEXT_PUBLIC_BETTER_AUTH_URL}/listings/${slug}`;
-                  navigator.clipboard.writeText(url);
-                  return toast.success(`Link copied!`);
-                }}
-              >
-                <Clipboard />
-                Copy link
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href={`/admin/listings/${slug}`}>
-                  <Pen />
-                  Edit listing
-                </Link>
-              </DropdownMenuItem>
-            </>
-          )}
+            </Link>
+          </DropdownMenuItem>
           {listing.status === "Published" && !listing.isApproved && (
             <>
               <DropdownMenuItem onClick={() => setOpenApproveModal(true)}>
@@ -133,7 +129,7 @@ export default function ListingDropdown({
           )}
           {listing.status === "Archived" && (
             <DropdownMenuItem onClick={() => setOpenUnarchivedModal(true)}>
-              <PowerOff />
+              <ArchiveRestore />
               Unarchive listing
             </DropdownMenuItem>
           )}

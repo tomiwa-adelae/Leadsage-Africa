@@ -1,3 +1,4 @@
+import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { AmenityBox } from "@/components/AmenityBox";
 import { Button } from "@/components/ui/button";
@@ -7,10 +8,6 @@ import { ListingMap } from "@/components/ListingMap";
 import { Card, CardContent } from "@/components/ui/card";
 import { NairaIcon } from "@/components/NairaIcon";
 import Link from "next/link";
-import {
-  getLandlordListingPreview,
-  GetLandlordListingPreviewType,
-} from "@/app/data/landlord/get-landlord-listing-preview";
 import { RenderDescription } from "@/components/text-editor/RenderDescription";
 import { formatMoneyInput, removeCommas } from "../../../../../../lib/utils";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
@@ -18,6 +15,11 @@ import { useConstructUrl } from "@/hooks/use-construct-url";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { ListingPhotos } from "@/components/ListingPhotos";
 import { CheckCircle, MapPin, Star } from "lucide-react";
+import {
+  getListing,
+  GetListingType,
+} from "@/app/data/admin/listing/get-listing";
+import { QuickActions } from "../../../_components/QuickActions";
 
 type Params = Promise<{
   slug: string;
@@ -26,8 +28,7 @@ type Params = Promise<{
 const page = async ({ params }: { params: Params }) => {
   const { slug } = await params;
 
-  const listing: GetLandlordListingPreviewType =
-    await getLandlordListingPreview(slug);
+  const listing: GetListingType = await getListing(slug);
 
   return (
     <div>
@@ -181,21 +182,12 @@ const page = async ({ params }: { params: Params }) => {
                     )}
                   </span>
                 </p>
-                <div className="mt-4 space-y-4">
-                  <Button className="w-full" size="md">
-                    Book listing
-                  </Button>
-                  <Button
-                    className="w-full"
-                    variant={"outline"}
-                    size="md"
-                    asChild
-                  >
-                    <Link href={`/landlord/listings/${listing.slug}/edit`}>
-                      Edit listing
-                    </Link>
-                  </Button>
-                </div>
+                <QuickActions
+                  isApproved={listing.isApproved}
+                  slug={listing.slug!}
+                  id={listing.id}
+                  status={listing.status}
+                />
                 <p className="text-muted-foreground text-sm mt-4 text-center text-balance">
                   You won't be charged yet
                 </p>

@@ -9,7 +9,7 @@ import { NairaIcon } from "@/components/NairaIcon";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { GetTotalListingsType } from "@/app/data/admin/listing/get-all-listings";
 import ListingDropdown from "./ListingDropdown";
-import { IconCircleDashedX, IconRestore } from "@tabler/icons-react";
+import { IconCircleDashedX, IconRestore, IconTrash } from "@tabler/icons-react";
 
 interface Props {
   listing: GetTotalListingsType;
@@ -24,7 +24,10 @@ export const AdminListingCard = ({ listing }: Props) => {
     <Card className="bg-transparent gap-0 border-0 rounded-none shadow-none p-0">
       <CardContent className="p-0">
         <div className="relative rounded-lg overflow-hidden">
-          {listing.status === "Draft" ? (
+          <Link
+            href={`/admin/listings/${listing.slug ? listing.slug : listing.id}`}
+            className="relative rounded-lg"
+          >
             <Image
               src={photoUrl}
               alt={`${listing.title}'s photo`}
@@ -32,21 +35,8 @@ export const AdminListingCard = ({ listing }: Props) => {
               height={1000}
               className="aspect-video md:aspect-square size-full object-cover"
             />
-          ) : (
-            <Link
-              href={`/admin/listings/${listing.slug}`}
-              className="relative rounded-lg"
-            >
-              <Image
-                src={photoUrl}
-                alt={`${listing.title}'s photo`}
-                width={1000}
-                height={1000}
-                className="aspect-video md:aspect-square size-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/30" />
-            </Link>
-          )}
+            <div className="absolute inset-0 bg-black/30" />
+          </Link>
           {listing.status === "Published" && !listing.isApproved && (
             <Badge variant={"pending"} className="absolute top-2 left-2">
               <Hourglass /> Pending approval
@@ -58,7 +48,7 @@ export const AdminListingCard = ({ listing }: Props) => {
             </Badge>
           )}
 
-          {listing.isApproved && (
+          {listing.isApproved && listing.status === "Published" && (
             <Badge variant={"default"} className="absolute top-2 left-2">
               <Radio /> Live
             </Badge>
@@ -79,6 +69,12 @@ export const AdminListingCard = ({ listing }: Props) => {
           {listing.status === "Archived" && (
             <Badge variant={"secondary"} className="absolute top-2 left-2">
               <Archive /> Archived
+            </Badge>
+          )}
+
+          {listing.status === "Deleted" && (
+            <Badge variant={"destructive"} className="absolute top-2 left-2">
+              <IconTrash /> Deleted
             </Badge>
           )}
 

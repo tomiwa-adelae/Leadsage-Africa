@@ -9,6 +9,7 @@ import {
   IconCircleDashedX,
   IconMapPin,
   IconRestore,
+  IconTrash,
 } from "@tabler/icons-react";
 import {
   Archive,
@@ -30,11 +31,19 @@ import Image from "next/image";
 import { CopyToClipboard } from "@/components/CopyToClipboard";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DEFAULT_PROFILE_PICTURE } from "@/constants";
+import { DEFAULT_LISTING_IMAGE, DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { ListingMap } from "@/components/ListingMap";
 import { NairaIcon } from "@/components/NairaIcon";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { AmenityBox } from "@/components/AmenityBox";
+import { EmptyState } from "@/components/EmptyState";
+import { BookingsTable } from "../../_components/BookingsTable";
+import { BookingsList } from "../../_components/BookingsList";
+import { QuickActions } from "./_components/QuickActions";
+import ListingDropdown from "../../_components/ListingDropdown";
+import { PlaceholderImage } from "@/components/PlaceholderImage";
+import { getListingUpcomingBookings } from "@/app/data/booking/get-upcoming-bookings";
+import { getListingPastBookings } from "@/app/data/booking/get-listing-past-bookings";
 
 type Params = Promise<{
   slug: string;
@@ -43,6 +52,8 @@ type Params = Promise<{
 const page = async ({ params }: { params: Params }) => {
   const { slug } = await params;
   const listing = await getListing(slug);
+  const pendingBookings = await getListingUpcomingBookings(listing.id);
+  const pastBookings = await getListingPastBookings(listing.id);
 
   return (
     <div>
@@ -51,7 +62,11 @@ const page = async ({ params }: { params: Params }) => {
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-semibold">
-              {listing.title}{" "}
+              {listing.title ? (
+                listing.title
+              ) : (
+                <span className="italic">No title</span>
+              )}{" "}
               {listing.status === "Published" && !listing.isApproved && (
                 <Badge variant={"pending"}>
                   <Hourglass /> Pending approval
@@ -62,7 +77,7 @@ const page = async ({ params }: { params: Params }) => {
                   <Component /> {listing.status}
                 </Badge>
               )}
-              {listing.isApproved && (
+              {listing.isApproved && listing.status === "Published" && (
                 <Badge variant={"default"}>
                   <Radio /> Live
                 </Badge>
@@ -82,6 +97,11 @@ const page = async ({ params }: { params: Params }) => {
                   <Archive /> Archived
                 </Badge>
               )}
+              {listing.status === "Deleted" && (
+                <Badge variant={"destructive"}>
+                  <IconTrash /> Deleted
+                </Badge>
+              )}
             </h1>
             <p className="text-muted-foreground text-base mt-2.5">
               <IconMapPin className="inline-block mr-1 size-4" />
@@ -96,7 +116,11 @@ const page = async ({ params }: { params: Params }) => {
           />
         </div>
         <div className="mt-4">
-          <ListingPhotos photos={listing.photos} />
+          {listing.photos.length === 0 ? (
+            <PlaceholderImage />
+          ) : (
+            <ListingPhotos photos={listing.photos} />
+          )}
         </div>
         <div className="space-y-6 mt-8">
           <Card className="@container/card gap-0">
@@ -130,8 +154,8 @@ const page = async ({ params }: { params: Params }) => {
                 <div>
                   <h3 className="font-medium text-base">Listing ID</h3>
                   <p className="text-muted-foreground text-sm">
-                    {/* {listing.listingId} <CopyToClipboard text={listing.listingId} /> */}
-                    Lorem, ipsum.
+                    {listing.listingId}{" "}
+                    <CopyToClipboard text={listing.listingId} />
                   </p>
                 </div>
                 <Separator className="md:hidden" />
@@ -158,11 +182,19 @@ const page = async ({ params }: { params: Params }) => {
                   </h3>
                 )}
                 <h3>
-                  {listing.bedrooms}{" "}
+                  {listing.bedrooms ? (
+                    listing.bedrooms
+                  ) : (
+                    <span className="italic">0</span>
+                  )}{" "}
                   <span className="text-sm text-muted-foreground">beds</span>
                 </h3>
                 <h3>
-                  {listing.bathrooms}{" "}
+                  {listing.bathrooms ? (
+                    listing.bathrooms
+                  ) : (
+                    <span className="italic">0</span>
+                  )}{" "}
                   <span className="text-sm text-muted-foreground">baths</span>
                 </h3>
               </div>
@@ -174,7 +206,11 @@ const page = async ({ params }: { params: Params }) => {
             </CardHeader>
             <CardContent className="mt-2.5">
               <p className="text-muted-foreground text-base mt-1.5">
-                <RenderDescription json={JSON.parse(listing?.description!)} />
+                {listing.description ? (
+                  <RenderDescription json={JSON.parse(listing?.description!)} />
+                ) : (
+                  <span className="italic">No description</span>
+                )}
               </p>
             </CardContent>
           </Card>
@@ -258,18 +294,28 @@ const page = async ({ params }: { params: Params }) => {
                 <h3 className="font-medium text-base">Location</h3>
                 <p className="text-muted-foreground text-base">
                   <IconMapPin className="inline-block mr-1 size-4" />
-                  {listing.address}, {listing.city}, {listing.state},{" "}
-                  {listing.country}
+                  {listing.address ? (
+                    `${listing.address}, ${listing.city}, ${listing.state}, ${listing.country}`
+                  ) : (
+                    <span className="italic">No location</span>
+                  )}
                 </p>
-                <ListingMap />
+                {listing.address && <>{/* <ListingMap /> */}</>}
               </div>
               <Separator />
               <div>
                 <h3 className="font-medium text-base">Rent</h3>
                 <p className="text-muted-foreground font-semibold text-3xl">
                   <NairaIcon />
-                  {listing.price}
-                  <span className="text-sm">/{listing.paymentFrequency}</span>
+                  {listing.price ? (
+                    listing.price
+                  ) : (
+                    <span className="italic">0</span>
+                  )}
+                  <span className="text-sm">
+                    {listing.paymentFrequency && "/"}
+                    {listing.paymentFrequency}
+                  </span>
                 </p>
               </div>
               <Separator />
@@ -277,13 +323,20 @@ const page = async ({ params }: { params: Params }) => {
                 <h3 className="font-medium text-base">Security deposit</h3>
                 <p className="text-muted-foreground font-semibold text-3xl">
                   <NairaIcon />
-                  {listing.securityDeposit}
+                  {listing.securityDeposit ? (
+                    listing.securityDeposit
+                  ) : (
+                    <span className="italic">0</span>
+                  )}
                 </p>
               </div>
               <Separator />
               <div>
                 <h3 className="font-medium text-base">Amenities</h3>
                 <div className="grid grid-cols-1 mt-1.5">
+                  {listing.amenities.length === 0 && (
+                    <span className="italic">No amenities selected</span>
+                  )}
                   {listing?.amenities?.length !== 0 &&
                     listing?.amenities
                       .slice(0, 5)
@@ -307,27 +360,43 @@ const page = async ({ params }: { params: Params }) => {
                   <p className="text-muted-foreground text-base mt-1.5">
                     <CheckCircle className="mr-2 size-4 inline-block" />
                     <span>
-                      {listing.petPolicy === "yes"
-                        ? "Pets are allowed"
-                        : "No pets allowed"}
+                      {listing.petPolicy ? (
+                        listing.petPolicy === "yes" ? (
+                          "Pets are allowed"
+                        ) : (
+                          "No pets allowed"
+                        )
+                      ) : (
+                        <span className="italic">Not selected</span>
+                      )}
                     </span>
                   </p>
                   <p className="text-muted-foreground text-base mt-1.5">
                     <CheckCircle className="mr-2 size-4 inline-block" />
                     <span>
-                      {" "}
-                      {listing.smokingPolicy === "yes"
-                        ? "Smoking is allowed"
-                        : "No smoking allowed"}
+                      {listing.smokingPolicy ? (
+                        listing.smokingPolicy === "yes" ? (
+                          "Smoking is allowed"
+                        ) : (
+                          "No smoking allowed"
+                        )
+                      ) : (
+                        <span className="italic">Not selected</span>
+                      )}
                     </span>
                   </p>
                   <p className="text-muted-foreground text-base mt-1.5">
                     <CheckCircle className="mr-2 size-4 inline-block" />
                     <span>
-                      {" "}
-                      {listing.partyPolicy === "yes"
-                        ? "Parties are allowed"
-                        : "No parties allowed"}
+                      {listing.partyPolicy ? (
+                        listing.partyPolicy === "yes" ? (
+                          "Parties are allowed"
+                        ) : (
+                          "No parties allowed"
+                        )
+                      ) : (
+                        <span className="italic">Not selected</span>
+                      )}
                     </span>
                   </p>
                   {listing.additionalPolicies && (
@@ -344,40 +413,66 @@ const page = async ({ params }: { params: Params }) => {
               <CardTitle>Touring & Bookings</CardTitle>
             </CardHeader>
             <CardContent className="mt-4 grid gap-6">
-              <div>
-                <h3 className="font-medium text-base">Upcoming Tours</h3>
-                <div className="mt-1.5 grid grid-cols-1 gap-2"></div>
-              </div>
-              <Separator />
-              <div>
-                <h3 className="font-medium text-base">Past Tours</h3>
-                <div className="mt-1.5 grid grid-cols-1 gap-2"></div>
-              </div>
-              <Separator />
+              <Card className="@container/card gap-0">
+                <CardHeader className="border-b">
+                  <CardTitle>Upcoming Tours</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="mt-1.5">
+                    {pendingBookings.length === 0 && (
+                      <EmptyState
+                        title={"No bookings"}
+                        description={
+                          "There are no pending tours for this listing!"
+                        }
+                      />
+                    )}
+                    {pendingBookings.length !== 0 && (
+                      <div className="mt-2.5">
+                        <BookingsTable bookings={pendingBookings} />
+                        <BookingsList bookings={pendingBookings} />
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="@container/card gap-0">
+                <CardHeader className="border-b">
+                  <CardTitle>Past Tours</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="mt-1.5">
+                    {pastBookings.length === 0 && (
+                      <EmptyState
+                        title={"No bookings"}
+                        description={
+                          "There are no past tours for this listing!"
+                        }
+                      />
+                    )}
+                    {pastBookings.length !== 0 && (
+                      <div className="mt-2.5">
+                        <BookingsTable bookings={pastBookings} />
+                        <BookingsList bookings={pastBookings} />
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
             </CardContent>
           </Card>
           <Card className="@container/card gap-0">
             <CardHeader className="border-b">
               <CardTitle>Activities logs</CardTitle>
             </CardHeader>
-            <CardContent className="mt-4 grid gap-6">
-              <div>
-                <h3 className="font-medium text-base">Upcoming Tours</h3>
-                <div className="mt-1.5 grid grid-cols-1 gap-2"></div>
-              </div>
-              <Separator />
-              <div>
-                <h3 className="font-medium text-base">Past Tours</h3>
-                <div className="mt-1.5 grid grid-cols-1 gap-2"></div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="@container/card gap-0">
-            <CardHeader className="border-b">
-              <CardTitle>Quick Actions</CardTitle>
-            </CardHeader>
             <CardContent className="mt-4 grid gap-6"></CardContent>
           </Card>
+          <QuickActions
+            slug={listing.slug}
+            id={listing.id}
+            status={listing.status}
+            isApproved={listing.isApproved}
+          />
         </div>
       </div>
     </div>

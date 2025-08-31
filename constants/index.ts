@@ -20,6 +20,9 @@ import {
   Mail,
   Plus,
   Hourglass,
+  CircleCheck,
+  CircleCheckBig,
+  Archive,
 } from "lucide-react";
 import {
   IconArchive,
@@ -33,6 +36,7 @@ import {
   IconClipboardList,
   IconCoins,
   IconCurrencyNaira,
+  IconFolder,
   IconMoneybag,
   IconReceipt,
   IconTrash,
@@ -264,21 +268,21 @@ export const listingAmenities = [
 export const listingVisibilities = [
   {
     id: uuidv4(),
-    icon: "/assets/icons/draft.svg",
+    icon: IconFolder,
     name: "Draft",
     description:
-      "Your listing is still in progress and not visible to the public. Use this while you're setting things up. You can continue editing anytime.”",
+      "Your listing is still in progress and not visible to the public. Use this while you're setting things up. You can continue editing anytime.",
   },
   {
     id: uuidv4(),
-    icon: "/assets/icons/publish.svg",
+    icon: CircleCheckBig,
     name: "Published",
     description:
       "Your listing is submitted and pending approval. Once approved by Leadsage, it will become visible to renters. You can still make changes if needed.",
   },
   {
     id: uuidv4(),
-    icon: "/assets/icons/archive.svg",
+    icon: Archive,
     name: "Archived",
     description:
       "Your listing is no longer active and is hidden from renters. Use this when the space is no longer available. You can restore or edit it later if needed.",
@@ -323,7 +327,7 @@ export const landlordNavLinks = {
     },
     {
       title: "Notifications",
-      slug: "/notifications",
+      slug: "/landlord/notifications",
       icon: Bell,
     },
   ],
@@ -485,7 +489,7 @@ export const adminNavLinks = {
     },
     {
       title: "Notifications",
-      slug: "/notifications",
+      slug: "/admin/notifications",
       icon: Bell,
     },
   ],

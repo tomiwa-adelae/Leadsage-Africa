@@ -4,69 +4,75 @@ import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 
 export const getLandlordListing = async (id: string) => {
-	const { user } = await requireLandlord();
+  const { user } = await requireLandlord();
 
-	const data = await prisma.listing.findUnique({
-		where: {
-			id,
-			userId: user.id,
-		},
-		select: {
-			id: true,
-			title: true,
-			slug: true,
-			description: true,
-			smallDescription: true,
-			propertySize: true,
-			bedrooms: true,
-			bathrooms: true,
-			availabilityDate: true,
-			petPolicy: true,
-			smokingPolicy: true,
-			partyPolicy: true,
-			additionalPolicies: true,
-			price: true,
-			securityDeposit: true,
-			paymentFrequency: true,
-			discount: true,
-			address: true,
-			state: true,
-			city: true,
-			country: true,
-			postalCode: true,
-			status: true,
-			isApproved: true,
-			Category: {
-				select: {
-					name: true,
-					id: true,
-					description: true,
-					icon: true,
-				},
-			},
-			amenities: {
-				select: {
-					icon: true,
-					id: true,
-					name: true,
-					description: true,
-				},
-			},
-			photos: {
-				select: {
-					id: true,
-					cover: true,
-					src: true,
-				},
-			},
-		},
-	});
+  const data = await prisma.listing.findFirst({
+    where: {
+      OR: [{ id: id }, { slug: id }],
+      NOT: {
+        status: "Deleted",
+      },
+      userId: user.id,
+    },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      description: true,
+      propertySize: true,
+      listingId: true,
+      createdAt: true,
+      updatedAt: true,
+      smallDescription: true,
+      bedrooms: true,
+      bathrooms: true,
+      availabilityDate: true,
+      petPolicy: true,
+      smokingPolicy: true,
+      partyPolicy: true,
+      additionalPolicies: true,
+      price: true,
+      securityDeposit: true,
+      paymentFrequency: true,
+      discount: true,
+      address: true,
+      state: true,
+      city: true,
+      country: true,
+      postalCode: true,
+      status: true,
+      isApproved: true,
+      Category: {
+        select: {
+          name: true,
+          id: true,
+          description: true,
+          icon: true,
+        },
+      },
+      amenities: {
+        select: {
+          icon: true,
+          id: true,
+          name: true,
+          description: true,
+        },
+      },
+      photos: {
+        select: {
+          id: true,
+          cover: true,
+          src: true,
+        },
+      },
+    },
+  });
 
-	if (!data) return notFound();
+  if (!data) return notFound();
 
-	return data;
+  return data;
 };
 
 export type GetLandlordListingType = Awaited<
-	ReturnType<typeof getLandlordListing>
+  ReturnType<typeof getLandlordListing>
 >;

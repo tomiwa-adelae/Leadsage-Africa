@@ -1,22 +1,22 @@
 "use server";
 
-import { requireLandlord } from "@/app/data/landlord/require-landlord";
 import { prisma } from "@/lib/db";
-import { Photo } from "./_components/PhotosForm";
 import { revalidatePath } from "next/cache";
-import { ApiResponse } from "@/lib/types";
-import { PrismaClientRustPanicError } from "@/lib/generated/prisma/runtime/library";
+import { Photo } from "@/app/(landlord)/landlord/listings/new/[listingId]/photos/_components/PhotosForm";
+import { requireAdmin } from "@/app/data/admin/require-admin";
+import {
+  editListingFormSchema,
+  EditListingFormSchemaType,
+} from "@/lib/zodSchemas";
+import slugify from "slugify";
 
 export const savePhotos = async (photos: Photo[], id: string) => {
-  const { user } = await requireLandlord();
+  await requireAdmin();
 
   try {
-    // if (photos.length === 0)
-    // 	return { status: "error", message: "No photos were selected" };
-
     // Check if a cover already exists
     const existing = await prisma.listing.findUnique({
-      where: { id, userId: user.id },
+      where: { id },
       select: {
         photos: {
           where: { cover: true },
@@ -41,7 +41,6 @@ export const savePhotos = async (photos: Photo[], id: string) => {
     await prisma.listing.update({
       where: {
         id,
-        userId: user.id,
       },
       data: {
         photos: {
@@ -66,20 +65,20 @@ export const savePhotos = async (photos: Photo[], id: string) => {
     });
 
     revalidatePath(`/landlord/listings`);
+    revalidatePath(`/admin/listings`);
 
     return {
       status: "success",
-      message: "Photos successfully saved. Redirecting...",
+      message: "Photos successfully saved.",
       data: listing?.photos,
     };
   } catch (error) {
-    console.error("savePhotos error:", error);
     return { status: "error", message: "Failed to save photos" };
   }
 };
 
 export const deletePhoto = async (photoId: string, listingId: string) => {
-  const { user } = await requireLandlord();
+  await requireAdmin();
   try {
     if (!photoId)
       return { status: "error", message: "Oops! An error occurred." };
@@ -89,7 +88,6 @@ export const deletePhoto = async (photoId: string, listingId: string) => {
         id: photoId,
         Listing: {
           id: listingId,
-          userId: user.id,
         },
       },
     });
@@ -138,6 +136,7 @@ export const deletePhoto = async (photoId: string, listingId: string) => {
     });
 
     revalidatePath(`/landlord/listings/new/${listingId}/photos`);
+    revalidatePath(`/admin/listings`);
 
     return {
       status: "success",
@@ -145,13 +144,12 @@ export const deletePhoto = async (photoId: string, listingId: string) => {
       photos: listing?.photos,
     };
   } catch (error) {
-    console.error("savePhotos error:", error);
     return { status: "error", message: "Failed to delete photos" };
   }
 };
 
 export const markAsCover = async (photoId: string, listingId: string) => {
-  const { user } = await requireLandlord();
+  await requireAdmin();
   try {
     if (!photoId)
       return { status: "error", message: "Oops! An error occurred." };
@@ -161,7 +159,6 @@ export const markAsCover = async (photoId: string, listingId: string) => {
         id: photoId,
         Listing: {
           id: listingId,
-          userId: user.id,
         },
       },
     });
@@ -200,6 +197,7 @@ export const markAsCover = async (photoId: string, listingId: string) => {
     });
 
     revalidatePath(`/landlord/listings/new/${listingId}/photos`);
+    revalidatePath(`/admin/listings`);
 
     return {
       status: "success",
@@ -207,7 +205,64 @@ export const markAsCover = async (photoId: string, listingId: string) => {
       photos: listing?.photos,
     };
   } catch (error) {
-    console.error("savePhotos error:", error);
     return { status: "error", message: "Failed to mark as cover" };
+  }
+};
+
+export const editListing = async (
+  data: EditListingFormSchemaType | any,
+  id: string
+) => {
+  await requireAdmin();
+  try {
+    const validation = editListingFormSchema.safeParse(data);
+
+    if (!validation.success)
+      return { status: "error", message: "Invalid form data" };
+
+    const slug = slugify(validation.data.title);
+
+    const listing = await prisma.listing.update({
+      where: {
+        id,
+      },
+      data: {
+        title: validation.data.title,
+        slug,
+        smallDescription: validation.data.smallDescription,
+        description: validation.data.description,
+        categoryId: validation.data.categoryId,
+        address: validation.data.address,
+        city: validation.data.city,
+        state: validation.data.state,
+        country: validation.data.country,
+        postalCode: validation.data.postalCode,
+        propertySize: validation.data.propertySize,
+        bedrooms: validation.data.bedrooms,
+        bathrooms: validation.data.bathrooms,
+        availabilityDate: validation.data.availabilityDate,
+        price: validation.data.price,
+        securityDeposit: validation.data.securityDeposit,
+        discount: validation.data.discount,
+        paymentFrequency: validation.data.paymentFrequency,
+        petPolicy: validation.data.petPolicy,
+        smokingPolicy: validation.data.smokingPolicy,
+        partyPolicy: validation.data.partyPolicy,
+        additionalPolicies: validation.data.additionalPolicies,
+        status: validation.data.status as any,
+        isApproved: false,
+        amenities: {
+          connect: data.amenities.map((id: string) => ({ id })),
+        },
+      },
+    });
+
+    return {
+      status: "success",
+      message: "Listing successfully updated. Redirecting...",
+      data: listing,
+    };
+  } catch (error) {
+    return { status: "error", message: "Failed to edit listing" };
   }
 };

@@ -1,3 +1,4 @@
+import { GetListingUpcomingBookingsType } from "@/app/data/booking/get-upcoming-bookings";
 import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
@@ -9,7 +10,7 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-  bookings: GetLandlordBookingsType;
+  bookings: GetLandlordBookingsType[] | GetListingUpcomingBookingsType[];
 }
 
 export const BookingsList = ({ bookings }: Props) => {

@@ -107,7 +107,12 @@ export const RejectListingModal = ({ listingId, open, closeModal }: Props) => {
                 >
                   Close
                 </Button>
-                <Button disabled={pending} type="submit" size={"md"}>
+                <Button
+                  variant={"warning"}
+                  disabled={pending}
+                  type="submit"
+                  size={"md"}
+                >
                   {pending ? <Loader text="Rejecting..." /> : "Reject"}
                 </Button>
               </footer>

@@ -40,6 +40,7 @@ export const getAdminBooking = async (id: string) => {
           city: true,
           state: true,
           country: true,
+          listingId: true,
           price: true,
           createdAt: true,
           updatedAt: true,

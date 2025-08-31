@@ -104,16 +104,20 @@ export const getLandlordCompletedBookings = async () => {
 
 export type GetLandlordBookingsType = Awaited<
   ReturnType<typeof getLandlordBookings>
->;
+>[0];
+
 export type GetLandlordPendingBookingsType = Awaited<
   ReturnType<typeof getLandlordPendingBookings>
->;
+>[0];
+
 export type GetLandlordConfirmedBookingsType = Awaited<
   ReturnType<typeof getLandlordConfirmedBookings>
->;
+>[0];
+
 export type GetLandlordCancelledBookingsType = Awaited<
   ReturnType<typeof getLandlordCancelledBookings>
->;
+>[0];
+
 export type GetLandlordCompletedBookingsType = Awaited<
   ReturnType<typeof getLandlordCompletedBookings>
->;
+>[0];

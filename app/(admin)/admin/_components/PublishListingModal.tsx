@@ -17,28 +17,27 @@ import { useRef, useTransition } from "react";
 import { Loader } from "@/components/Loader";
 import { tryCatch } from "@/hooks/use-try-catch";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { deleteListing } from "../actions";
+import { deleteListing, publishListing } from "../actions";
+import { useConfetti } from "@/hooks/use-confetti";
 
-export function DeleteListingModal({
+export function PublishListingModal({
   open,
   closeModal,
-  redirectURL,
   listingId,
 }: {
   open: boolean;
   closeModal: () => void;
   listingId: string;
-  redirectURL?: string;
 }) {
   const animationRef = useRef<LottieRefCurrentProps>(null);
-  const router = useRouter();
 
   const [pending, startPending] = useTransition();
 
-  const handleDelete = () => {
+  const { triggerConfetti } = useConfetti();
+
+  const handlePublish = () => {
     startPending(async () => {
-      const { data: result, error } = await tryCatch(deleteListing(listingId));
+      const { data: result, error } = await tryCatch(publishListing(listingId));
 
       if (error) {
         toast.error(error.message);
@@ -48,7 +47,7 @@ export function DeleteListingModal({
       if (result.status === "success") {
         toast.success(result.message);
         closeModal();
-        if (redirectURL) return router.push(redirectURL);
+        triggerConfetti();
       } else {
         toast.error(result.message);
       }
@@ -68,23 +67,17 @@ export function DeleteListingModal({
             </div>
           </div>
           <AlertDialogTitle className="text-center">
-            Delete this listing?
+            Publish this listing?
           </AlertDialogTitle>
           <AlertDialogDescription className="text-center">
-            Are you sure you want to delete this listing? Once deleted, it will
-            permanently remove the listing from the platform. If the listing is
-            published, it will no longer be visible to renters
+            Are you sure you want to publish this listing? Once published, it
+            will still need approval before becoming visible to everyone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
-          <Button
-            size="md"
-            onClick={handleDelete}
-            disabled={pending}
-            variant={"destructive"}
-          >
-            {pending ? <Loader text="Deleting..." /> : "Yes, delete it"}
+          <Button size="md" onClick={handlePublish} disabled={pending}>
+            {pending ? <Loader text="Publishing..." /> : "Yes, publish it"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

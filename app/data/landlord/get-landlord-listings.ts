@@ -10,7 +10,7 @@ export const getLandlordListings = async (limit: number = 10) => {
     where: {
       userId: user.id,
       status: {
-        not: "Archived",
+        notIn: ["Archived", "Deleted"],
       },
     },
     take: limit,
@@ -68,4 +68,4 @@ export const getLandlordListings = async (limit: number = 10) => {
 
 export type GetLandlordListingsType = Awaited<
   ReturnType<typeof getLandlordListings>
->;
+>[0];

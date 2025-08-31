@@ -1,4 +1,5 @@
 "use client";
+import { GetListingUpcomingBookingsType } from "@/app/data/booking/get-upcoming-bookings";
 import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -16,7 +17,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface Props {
-  bookings: GetLandlordBookingsType;
+  bookings: GetLandlordBookingsType[] | GetListingUpcomingBookingsType[];
 }
 
 export function BookingsTable({ bookings }: Props) {

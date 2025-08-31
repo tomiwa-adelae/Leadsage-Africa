@@ -71,7 +71,7 @@ export const UnapproveListingModal = ({
         <AlertDialogFooter>
           <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
           <Button
-            variant={"destructive"}
+            variant={"warning"}
             onClick={handleUnapprove}
             disabled={pending}
             size="md"

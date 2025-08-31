@@ -1,6 +1,7 @@
 "use client";
 import {
   Clipboard,
+  ClipboardList,
   EllipsisIcon,
   Eye,
   GalleryThumbnails,
@@ -35,7 +36,7 @@ export default function ListingDropdown({
   listingId: string;
   slug: string;
   status: string;
-  listing: GetLandlordListingsType[0];
+  listing: GetLandlordListingsType;
 }) {
   const router = useRouter();
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -80,9 +81,15 @@ export default function ListingDropdown({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          <DropdownMenuItem asChild>
+            <Link href={`/landlord/listings/${slug}`}>
+              <ClipboardList />
+              View details
+            </Link>
+          </DropdownMenuItem>
           {status === "Draft" ? (
             <DropdownMenuItem onClick={handleDraft}>
-              <Eye />
+              <Pen />
               Edit listing
             </DropdownMenuItem>
           ) : (
@@ -104,7 +111,7 @@ export default function ListingDropdown({
                 Copy link
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={`/landlord/listings/${slug}`}>
+                <Link href={`/landlord/listings/${slug}/edit`}>
                   <Pen />
                   Edit
                 </Link>
@@ -121,6 +128,7 @@ export default function ListingDropdown({
         <DeleteListingModal
           open={openModal}
           closeModal={() => setOpenModal(false)}
+          listingId={listingId}
         />
       )}
     </>

@@ -16,7 +16,7 @@ export const saveCategory = async (id: string) => {
 
     let existing = await prisma.listing.findUnique({
       where: {
-        listingId: "djsjsj",
+        listingId,
       },
     });
 
