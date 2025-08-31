@@ -16,8 +16,8 @@ import { GetLandlordPendingBookingsType } from "@/app/data/landlord/get-landlord
 import { NairaIcon } from "@/components/NairaIcon";
 
 interface Props {
-  listings: GetLandlordListingsType;
-  pendingBookings: GetLandlordPendingBookingsType;
+  listings: GetLandlordListingsType[];
+  pendingBookings: GetLandlordPendingBookingsType[];
 }
 
 export function DashboardCards({ listings, pendingBookings }: Props) {

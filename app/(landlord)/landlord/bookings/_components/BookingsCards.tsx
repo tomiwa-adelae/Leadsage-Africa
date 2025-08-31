@@ -22,10 +22,10 @@ import { CalendarCheck, CircleCheckBig, CircleX, Clock } from "lucide-react";
 import React from "react";
 
 interface Props {
-  pendingBookings: GetLandlordPendingBookingsType;
-  confirmedBookings: GetLandlordConfirmedBookingsType;
-  cancelledBookings: GetLandlordCancelledBookingsType;
-  totalBookings: GetLandlordBookingsType;
+  pendingBookings: GetLandlordPendingBookingsType[];
+  confirmedBookings: GetLandlordConfirmedBookingsType[];
+  cancelledBookings: GetLandlordCancelledBookingsType[];
+  totalBookings: GetLandlordBookingsType[];
 }
 
 export const BookingsCards = ({

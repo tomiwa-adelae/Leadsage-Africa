@@ -4,7 +4,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { BookingsList } from "../../_components/BookingsList";
 
 interface Props {
-  bookings: GetLandlordBookingsType;
+  bookings: GetLandlordBookingsType[];
 }
 
 export const MyBookings = ({ bookings }: Props) => {

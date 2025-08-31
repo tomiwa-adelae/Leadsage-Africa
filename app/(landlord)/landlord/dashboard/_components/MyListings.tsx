@@ -7,7 +7,7 @@ import React from "react";
 import { LandlordListingCard } from "../../_components/LandlordListingCard";
 
 interface Props {
-  listings: GetLandlordListingsType;
+  listings: GetLandlordListingsType[];
 }
 
 export const MyListings = ({ listings }: Props) => {
