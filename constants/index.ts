@@ -816,3 +816,12 @@ export const themes: Theme[] = [
     buttonColors: ["bg-white", "bg-red-500"],
   },
 ];
+
+export const uninterestedReasons = [
+  "Price is too high",
+  "Location doesn’t work for me",
+  "Property doesn’t meet my needs (size, amenities, etc.)",
+  "Listing feels incomplete or unclear",
+  "Scheduling/touring issues",
+  "Others",
+] as const;

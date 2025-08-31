@@ -1,7 +1,3 @@
-import Link from "next/link";
-import Image from "next/image";
-import { DEFAULT_LISTING_IMAGE } from "@/constants";
-import { formatMoneyInput } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { ListingCard } from "@/components/ListingCard";
 import { getApprovedListings } from "@/app/data/listing/get-approved-listings";
@@ -26,15 +22,13 @@ export const PopularProperties = async () => {
       </div>
       <ScrollArea className="w-full max-w-full">
         <div className="flex w-max space-x-2 md:space-x-3 lg:space-x-4 pt-4 pr-10 pb-2">
-          {Array.from({ length: 6 }).map((_, i) =>
-            listings.map((listing) => (
-              <ListingCard
-                isAuthenticated={session ? true : false}
-                listing={listing}
-                key={`${listing.id}-${i}`}
-              />
-            ))
-          )}
+          {listings.map((listing) => (
+            <ListingCard
+              isAuthenticated={session ? true : false}
+              listing={listing}
+              key={listing.id}
+            />
+          ))}
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>

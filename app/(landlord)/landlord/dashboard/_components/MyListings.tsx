@@ -1,3 +1,4 @@
+"use client";
 import { GetLandlordListingsType } from "@/app/data/landlord/get-landlord-listings";
 import { EmptyState } from "@/components/EmptyState";
 import { Button } from "@/components/ui/button";

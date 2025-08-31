@@ -309,6 +309,8 @@ model Booking {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  bookingFeedback BookingFeedback[]
+
   @@unique([listingId, date, timeSlot], name: "unique_listing_datetime")
   @@unique(bookingId)
   // Index for efficient queries
@@ -316,6 +318,24 @@ model Booking {
   @@index([userId])
   @@index([status])
   @@index([scheduledAt])
+}
+
+model BookingFeedback {
+  id        String  @id @default(uuid())
+  Booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  bookingId String
+
+  status  BookingFeedbackStatus
+  reasons String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum BookingFeedbackStatus {
+  INTERESTED
+  NOT_INTERESTED
+  NOT_SURE
 }
 
 enum BookingStatus {

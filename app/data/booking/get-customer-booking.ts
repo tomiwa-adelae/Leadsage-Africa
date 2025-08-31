@@ -70,6 +70,11 @@ export const getCustomerBooking = async (id: string) => {
           },
         },
       },
+      bookingFeedback: {
+        select: {
+          status: true,
+        },
+      },
     },
   });
 

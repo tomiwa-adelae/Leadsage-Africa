@@ -40,6 +40,9 @@ import { CancelAppointmentButton } from "./_components/CancelAppointmentButton";
 import { getBookingTimelines } from "@/app/data/booking-timeline/get-booking-timelines";
 import { getUserInfo } from "@/app/data/user/get-user-info";
 import Link from "next/link";
+import { QuickActions } from "./_components/QuickActions";
+import { NextStepActions } from "./_components/NextStepActions";
+import { getCustomerBookingFeedback } from "@/app/data/booking/get-customer-booking-feedback";
 
 type Params = Promise<{
   id: string;
@@ -52,7 +55,7 @@ const page = async ({ params }: { params: Params }) => {
 
   const booking = await getCustomerBooking(id);
   const timelines = await getBookingTimelines(id);
-  console.log(timelines);
+  const feedback = await getCustomerBookingFeedback(id);
   return (
     <div>
       <SiteHeader />
@@ -79,7 +82,7 @@ const page = async ({ params }: { params: Params }) => {
               {booking.listing.title}
             </p>
           </div>
-          {booking.status !== "Cancelled" && (
+          {booking.status !== "Cancelled" && booking.status !== "Completed" && (
             <CancelAppointmentButton
               id={booking.id}
               title={booking.listing.title!}
@@ -341,37 +344,22 @@ const page = async ({ params }: { params: Params }) => {
             </div>
           </CardContent>
         </Card>
-        <Card className="@container/card gap-0">
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent className="mt-2.5 grid gap-4">
-            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-              <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-lg">
-                <Calendar className="size-4" />
-              </div>
-              Reschedule Tour
-            </div>
-            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-              <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
-                <Download className="size-4" />
-              </div>
-              Export Details
-            </div>
-            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-              <div className="p-2.5 inline-block bg-purple-600/20 dark:bg-purple-600/70 text-purple-600 dark:text-white rounded-lg">
-                <Navigation className="size-4" />
-              </div>
-              Get Directions
-            </div>
-            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-              <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-lg">
-                <Bell className="size-4" />
-              </div>
-              Set Reminder
-            </div>
-          </CardContent>
-        </Card>
+        {booking.status !== "Completed" && (
+          <QuickActions
+            title={booking.listing.title!}
+            id={booking.id}
+            time={booking.timeSlot}
+            date={booking.date}
+            status={booking.status}
+          />
+        )}
+        {booking.status === "Completed" && (
+          <NextStepActions
+            id={booking.id}
+            slug={booking.listing.slug!}
+            feedback={feedback}
+          />
+        )}
         <Card className="@container/card gap-0">
           <CardHeader className="flex items-center justify-between gap-2">
             <CardTitle>Recent Messages</CardTitle>

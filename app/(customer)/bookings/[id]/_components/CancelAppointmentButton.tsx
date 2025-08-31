@@ -24,6 +24,7 @@ import { Loader } from "@/components/Loader";
 import { useConfetti } from "@/hooks/use-confetti";
 import { formatDate } from "@/lib/utils";
 import { cancelBooking } from "../actions";
+import { CancelBookingModal } from "@/app/(customer)/_components/CancelBookingModal";
 
 interface Props {
   id: string;
@@ -33,6 +34,8 @@ interface Props {
 }
 
 export const CancelAppointmentButton = ({ id, title, time, date }: Props) => {
+  const [openCancelModal, setOpenCancelModal] = useState(false);
+
   const [open, setOpen] = useState(false);
   const { triggerConfetti } = useConfetti();
 
@@ -57,40 +60,30 @@ export const CancelAppointmentButton = ({ id, title, time, date }: Props) => {
   };
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <Button className="w-full sm:w-auto" size="md" variant={"destructive"}>
-          <CircleX />{" "}
-          <span className="sm:hidden md:block">Cancel appointment</span>
-        </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
-          <div
-            className="flex size-9 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-            <CalendarX className="opacity-80" size={16} />
-          </div>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Cancel tour appointment?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to cancel your tour of {title} scheduled for{" "}
-              {formatDate(date)} at {time}? The landlord will be notified.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-        </div>
-        <AlertDialogFooter>
-          <AlertDialogCancel>No</AlertDialogCancel>
-          <Button
-            variant={"destructive"}
-            disabled={pending}
-            onClick={handleCancel}
-          >
-            {pending ? <Loader text=" " /> : "Yes"}
-          </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <>
+      <Button
+        onClick={(e) => {
+          e.preventDefault(); // stops the Link from navigating
+          e.stopPropagation();
+          setOpenCancelModal(true);
+        }}
+        className="w-full sm:w-auto"
+        size="md"
+        variant={"destructive"}
+      >
+        <CircleX />{" "}
+        <span className="sm:hidden md:block">Cancel appointment</span>
+      </Button>
+      {openCancelModal && (
+        <CancelBookingModal
+          open={openCancelModal}
+          closeModal={() => setOpenCancelModal(false)}
+          id={id}
+          time={time}
+          date={date}
+          title={title}
+        />
+      )}
+    </>
   );
 };

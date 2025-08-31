@@ -73,7 +73,6 @@ export const savePhotos = async (photos: Photo[], id: string) => {
       data: listing?.photos,
     };
   } catch (error) {
-    console.error("savePhotos error:", error);
     return { status: "error", message: "Failed to save photos" };
   }
 };
@@ -145,7 +144,6 @@ export const deletePhoto = async (photoId: string, listingId: string) => {
       photos: listing?.photos,
     };
   } catch (error) {
-    console.error("savePhotos error:", error);
     return { status: "error", message: "Failed to delete photos" };
   }
 };
@@ -207,7 +205,6 @@ export const markAsCover = async (photoId: string, listingId: string) => {
       photos: listing?.photos,
     };
   } catch (error) {
-    console.error("savePhotos error:", error);
     return { status: "error", message: "Failed to mark as cover" };
   }
 };

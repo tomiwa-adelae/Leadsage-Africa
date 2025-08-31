@@ -28,7 +28,6 @@ export default function DeleteModal({
     try {
       await takeAction(); // wait for delete to finish
     } catch (error) {
-      console.error("Error deleting:", error);
       // optionally handle error state here
     }
   };

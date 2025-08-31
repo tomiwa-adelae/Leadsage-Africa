@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { isValidPhoneNumber } from "react-phone-number-input";
-import { countries, genders, languages, states } from "@/constants";
+import {
+  countries,
+  genders,
+  languages,
+  states,
+  uninterestedReasons,
+} from "@/constants";
 
 export const registerFormSchema = z.object({
   firstName: z.string().min(2, {
@@ -312,6 +318,12 @@ export const rejectListingFormSchema = z.object({
   }),
 });
 
+export const uninterestedModalFormSchema = z.object({
+  reasons: z.enum(uninterestedReasons, {
+    required_error: "You need to select a reason.",
+  }),
+});
+
 export type RegisterFormSchemaType = z.infer<typeof registerFormSchema>;
 export type LoginFormSchemaType = z.infer<typeof loginFormSchema>;
 export type ForgotPasswordFormSchemaType = z.infer<
@@ -360,4 +372,7 @@ export type AddPaymentMethodFormSchemaType = z.infer<
 >;
 export type RejectListingFormSchemaType = z.infer<
   typeof rejectListingFormSchema
+>;
+export type UninterestedModalFormSchemaType = z.infer<
+  typeof uninterestedModalFormSchema
 >;
