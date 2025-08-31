@@ -105,8 +105,11 @@ const page = async ({ params }: { params: Params }) => {
             </h1>
             <p className="text-muted-foreground text-base mt-2.5">
               <IconMapPin className="inline-block mr-1 size-4" />
-              {listing.address}, {listing.city}, {listing.state},{" "}
-              {listing.country}
+              {listing.address ? (
+                `${listing.address}, ${listing.city}, ${listing.state}, ${listing.country}`
+              ) : (
+                <span className="italic">No location</span>
+              )}
             </p>
           </div>
           <ListingActions
@@ -335,7 +338,9 @@ const page = async ({ params }: { params: Params }) => {
                 <h3 className="font-medium text-base">Amenities</h3>
                 <div className="grid grid-cols-1 mt-1.5">
                   {listing.amenities.length === 0 && (
-                    <span className="italic">No amenities selected</span>
+                    <span className="italic text-muted-foreground">
+                      No amenities selected
+                    </span>
                   )}
                   {listing?.amenities?.length !== 0 &&
                     listing?.amenities

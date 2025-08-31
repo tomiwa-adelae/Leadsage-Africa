@@ -76,29 +76,33 @@ export default function ListingDropdown({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem asChild>
-            <Link href={`/admin/listings/${slug}`}>
+            <Link href={`/admin/listings/${slug ? slug : listingId}`}>
               <Eye />
               View listing
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              const url = `${env.NEXT_PUBLIC_BETTER_AUTH_URL}/listings/${slug}`;
-              navigator.clipboard.writeText(url);
-              return toast.success(`Link copied!`);
-            }}
-          >
-            <Clipboard />
-            Copy link
-          </DropdownMenuItem>
+          {listing.status === "Published" && listing.isApproved && (
+            <DropdownMenuItem
+              onClick={() => {
+                const url = `${env.NEXT_PUBLIC_BETTER_AUTH_URL}/listings/${slug}`;
+                navigator.clipboard.writeText(url);
+                return toast.success(`Link copied!`);
+              }}
+            >
+              <Clipboard />
+              Copy link
+            </DropdownMenuItem>
+          )}
+          {listing.status === "Published" && (
+            <DropdownMenuItem asChild>
+              <Link href={`/admin/listings/${slug}/preview`}>
+                <IconEyeDotted />
+                Preview listing
+              </Link>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem asChild>
-            <Link href={`/admin/listings/${slug}/preview`}>
-              <IconEyeDotted />
-              Preview listing
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href={`/admin/listings/${slug}`}>
+            <Link href={`/admin/listings/${slug ? slug : listingId}/edit`}>
               <Pen />
               Edit listing
             </Link>
@@ -115,12 +119,6 @@ export default function ListingDropdown({
               </DropdownMenuItem>
             </>
           )}
-          {/* {listing.status === "Rejected" && (
-            <DropdownMenuItem onClick={() => setOpenApproveModal(true)}>
-              <CircleCheckBig />
-              Approve listing
-            </DropdownMenuItem>
-          )} */}
           {listing.isApproved && (
             <DropdownMenuItem onClick={() => setOpenUnapproveModal(true)}>
               <PowerOff />

@@ -123,7 +123,6 @@ const page = async ({ params }: { params: Params }) => {
                   <p className="text-muted-foreground text-base mt-1.5">
                     <CheckCircle className="mr-2 size-4 inline-block" />
                     <span>
-                      {" "}
                       {listing.smokingPolicy === "yes"
                         ? "Smoking is allowed"
                         : "No smoking allowed"}
@@ -132,7 +131,6 @@ const page = async ({ params }: { params: Params }) => {
                   <p className="text-muted-foreground text-base mt-1.5">
                     <CheckCircle className="mr-2 size-4 inline-block" />
                     <span>
-                      {" "}
                       {listing.partyPolicy === "yes"
                         ? "Parties are allowed"
                         : "No parties allowed"}
@@ -149,6 +147,9 @@ const page = async ({ params }: { params: Params }) => {
                     <h2 className="font-semibold text-3xl">
                       <NairaIcon />
                       {listing.price}
+                      <span className="text-sm">
+                        /{listing.paymentFrequency}
+                      </span>
                     </h2>
                   </div>
                   <div className="mt-4 text-base space-y-4">

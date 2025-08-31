@@ -60,7 +60,7 @@ export const QuickActions = ({ isApproved, slug, status, id }: Props) => {
         </>
       )}
       <Button className="w-full" variant={"outline"} size="md" asChild>
-        <Link href={`/admin/listings/${slug}/edit`}>
+        <Link href={`/admin/listings/${slug ? slug : id}/edit`}>
           <Pen />
           Edit listing
         </Link>

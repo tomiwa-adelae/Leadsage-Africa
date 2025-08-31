@@ -38,11 +38,13 @@ const page = async ({ params }: { params: Params }) => {
               done.
             </p>
           </div>
-          <Button className="w-full md:w-auto" asChild size="md">
-            <Link href={`/landlord/listings/${listing.slug}/preview`}>
-              Preview listing
-            </Link>
-          </Button>
+          {listing.status === "Published" && (
+            <Button className="w-full md:w-auto" asChild size="md">
+              <Link href={`/landlord/listings/${listing.slug}/preview`}>
+                Preview listing
+              </Link>
+            </Button>
+          )}
         </div>
         <EditListing
           listing={listing}

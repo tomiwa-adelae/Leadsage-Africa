@@ -82,7 +82,7 @@ export default function ListingDropdown({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem asChild>
-            <Link href={`/landlord/listings/${slug}`}>
+            <Link href={`/landlord/listings/${slug ? slug : listingId}`}>
               <ClipboardList />
               View details
             </Link>
@@ -94,26 +94,36 @@ export default function ListingDropdown({
             </DropdownMenuItem>
           ) : (
             <>
+              {listing.status === "Published" && (
+                <DropdownMenuItem asChild>
+                  <Link
+                    href={`/landlord/listings/${
+                      slug ? slug : listingId
+                    }/preview`}
+                  >
+                    <Eye />
+                    Preview listing
+                  </Link>
+                </DropdownMenuItem>
+              )}
+              {listing.status === "Published" && listing.isApproved && (
+                <DropdownMenuItem
+                  onClick={() => {
+                    const url = `${env.NEXT_PUBLIC_BETTER_AUTH_URL}/${slug}`;
+                    navigator.clipboard.writeText(url);
+                    return toast.success(`Link copied!`);
+                  }}
+                >
+                  <Clipboard />
+                  Copy link
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem asChild>
-                <Link href={`/landlord/listings/${slug}/preview`}>
-                  <Eye />
-                  Preview
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => {
-                  const url = `${env.NEXT_PUBLIC_BETTER_AUTH_URL}/${slug}`;
-                  navigator.clipboard.writeText(url);
-                  return toast.success(`Link copied!`);
-                }}
-              >
-                <Clipboard />
-                Copy link
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href={`/landlord/listings/${slug}/edit`}>
+                <Link
+                  href={`/landlord/listings/${slug ? slug : listingId}/edit`}
+                >
                   <Pen />
-                  Edit
+                  Edit listing
                 </Link>
               </DropdownMenuItem>
             </>

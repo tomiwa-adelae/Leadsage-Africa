@@ -18,6 +18,7 @@ import { useConstructUrl } from "@/hooks/use-construct-url";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { ListingPhotos } from "@/components/ListingPhotos";
 import { CheckCircle, MapPin, Star } from "lucide-react";
+import { PlaceholderImage } from "@/components/PlaceholderImage";
 
 type Params = Promise<{
   slug: string;
@@ -32,18 +33,29 @@ const page = async ({ params }: { params: Params }) => {
   return (
     <div>
       <div className="container py-8">
-        <ListingPhotos photos={listing.photos} />
+        {listing.photos.length === 0 ? (
+          <PlaceholderImage />
+        ) : (
+          <ListingPhotos photos={listing.photos} />
+        )}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="space-y-6 lg:col-span-3">
             <div>
               <h1 className="font-semibold text-3xl tracking-tight">
-                {listing.title}
+                {listing.title ? (
+                  listing.title
+                ) : (
+                  <span className="italic">No title</span>
+                )}
               </h1>
               <p className="mt-1.5 text-muted-foreground text-base">
                 <MapPin className="size-5 inline-block mr-1" />
                 <span>
-                  {listing.address}, {listing.city}, {listing.state},{" "}
-                  {listing.country}
+                  {listing.address ? (
+                    `${listing.address}, ${listing.city}, ${listing.state}, ${listing.country}`
+                  ) : (
+                    <span className="italic">No location</span>
+                  )}
                 </span>
               </p>
             </div>
@@ -56,11 +68,19 @@ const page = async ({ params }: { params: Params }) => {
                 </h3>
               )}
               <h3>
-                {listing.bedrooms}{" "}
+                {listing.bedrooms ? (
+                  listing.bedrooms
+                ) : (
+                  <span className="italic">0</span>
+                )}{" "}
                 <span className="text-sm text-muted-foreground">beds</span>
               </h3>
               <h3>
-                {listing.bathrooms}{" "}
+                {listing.bathrooms ? (
+                  listing.bathrooms
+                ) : (
+                  <span className="italic">0</span>
+                )}{" "}
                 <span className="text-sm text-muted-foreground">baths</span>
               </h3>
             </div>
@@ -68,13 +88,22 @@ const page = async ({ params }: { params: Params }) => {
             <div>
               <h3 className="font-medium text-lg">About this listing</h3>
               <p className="text-muted-foreground text-base mt-1.5">
-                <RenderDescription json={JSON.parse(listing?.description!)} />
+                {listing.description ? (
+                  <RenderDescription json={JSON.parse(listing?.description!)} />
+                ) : (
+                  <span className="italic">No description</span>
+                )}
               </p>
             </div>
             <Separator />
             <div>
               <h3 className="font-medium text-lg">What this listing offers</h3>
               <div className="mt-1.5 grid grid-cols-1">
+                {listing.amenities.length === 0 && (
+                  <span className="italic text-muted-foreground">
+                    No amenities selected
+                  </span>
+                )}
                 {listing?.amenities?.length !== 0 &&
                   listing?.amenities
                     .slice(0, 5)
@@ -98,27 +127,43 @@ const page = async ({ params }: { params: Params }) => {
                 <p className="text-muted-foreground text-base mt-1.5">
                   <CheckCircle className="mr-2 size-4 inline-block" />
                   <span>
-                    {listing.petPolicy === "yes"
-                      ? "Pets are allowed"
-                      : "No pets allowed"}
+                    {listing.petPolicy ? (
+                      listing.petPolicy === "yes" ? (
+                        "Pets are allowed"
+                      ) : (
+                        "No pets allowed"
+                      )
+                    ) : (
+                      <span className="italic">Not selected</span>
+                    )}
                   </span>
                 </p>
                 <p className="text-muted-foreground text-base mt-1.5">
                   <CheckCircle className="mr-2 size-4 inline-block" />
                   <span>
-                    {" "}
-                    {listing.smokingPolicy === "yes"
-                      ? "Smoking is allowed"
-                      : "No smoking allowed"}
+                    {listing.smokingPolicy ? (
+                      listing.smokingPolicy === "yes" ? (
+                        "Smoking is allowed"
+                      ) : (
+                        "No smoking allowed"
+                      )
+                    ) : (
+                      <span className="italic">Not selected</span>
+                    )}
                   </span>
                 </p>
                 <p className="text-muted-foreground text-base mt-1.5">
                   <CheckCircle className="mr-2 size-4 inline-block" />
                   <span>
-                    {" "}
-                    {listing.partyPolicy === "yes"
-                      ? "Parties are allowed"
-                      : "No parties allowed"}
+                    {listing.partyPolicy ? (
+                      listing.partyPolicy === "yes" ? (
+                        "Parties are allowed"
+                      ) : (
+                        "No parties allowed"
+                      )
+                    ) : (
+                      <span className="italic">Not selected</span>
+                    )}
                   </span>
                 </p>
               </div>
@@ -131,7 +176,15 @@ const page = async ({ params }: { params: Params }) => {
                   <p className="text-muted-foreground text-sm">Rent price</p>
                   <h2 className="font-semibold text-3xl">
                     <NairaIcon />
-                    {listing.price}
+                    {listing.price ? (
+                      listing.price
+                    ) : (
+                      <span className="italic">0</span>
+                    )}
+                    <span className="text-sm">
+                      {listing.paymentFrequency && "/"}
+                      {listing.paymentFrequency}
+                    </span>
                   </h2>
                 </div>
                 <div className="mt-4 text-base space-y-4">
@@ -139,7 +192,11 @@ const page = async ({ params }: { params: Params }) => {
                     <span className="text-muted-foreground">Rent</span>
                     <span>
                       <NairaIcon />
-                      {listing.price}
+                      {listing.price ? (
+                        listing.price
+                      ) : (
+                        <span className="italic">0</span>
+                      )}
                     </span>
                   </p>
                   <p className="flex items-center justify-between gap-4">
@@ -148,7 +205,11 @@ const page = async ({ params }: { params: Params }) => {
                     </span>
                     <span>
                       <NairaIcon />
-                      {listing.securityDeposit}
+                      {listing.securityDeposit ? (
+                        listing.securityDeposit
+                      ) : (
+                        <span className="italic">0</span>
+                      )}
                     </span>
                   </p>
                   <p className="flex items-center justify-between gap-4">
@@ -175,9 +236,13 @@ const page = async ({ params }: { params: Params }) => {
                   <span className="text-muted-foreground">Total</span>
                   <span>
                     <NairaIcon />
-                    {formatMoneyInput(
-                      Number(removeCommas(listing.price)) +
-                        Number(removeCommas(listing.securityDeposit))
+                    {listing.price ? (
+                      formatMoneyInput(
+                        Number(removeCommas(listing.price)) +
+                          Number(removeCommas(listing.securityDeposit))
+                      )
+                    ) : (
+                      <span className="italic">0</span>
                     )}
                   </span>
                 </p>
@@ -191,7 +256,11 @@ const page = async ({ params }: { params: Params }) => {
                     size="md"
                     asChild
                   >
-                    <Link href={`/landlord/listings/${listing.slug}/edit`}>
+                    <Link
+                      href={`/landlord/listings/${
+                        listing.slug ? listing.slug : listing.id
+                      }/edit`}
+                    >
                       Edit listing
                     </Link>
                   </Button>
@@ -224,10 +293,13 @@ const page = async ({ params }: { params: Params }) => {
         <div>
           <h3 className="font-medium text-lg">Where you'll be</h3>
           <p className="text-muted-foreground text-base mt-1.5">
-            {listing.address}, {listing.city}, {listing.state},{" "}
-            {listing.country}
+            {listing.address ? (
+              `${listing.address}, ${listing.city}, ${listing.state}, ${listing.country}`
+            ) : (
+              <span className="italic">No location</span>
+            )}
           </p>
-          <ListingMap />
+          {listing.address && <>{/* <ListingMap /> */}</>}
         </div>
         <Separator className="my-8" />
         <div>

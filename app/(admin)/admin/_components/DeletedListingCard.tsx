@@ -46,7 +46,9 @@ export const DeletedListingCard = ({ listing }: Props) => {
                 height={1000}
                 className="aspect-video md:aspect-square size-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/30" />
+              {listing.photos.length !== 0 && (
+                <div className="absolute inset-0 bg-black/30" />
+              )}
             </div>
           )}
           <Badge variant={"destructive"} className="absolute top-2 left-2">

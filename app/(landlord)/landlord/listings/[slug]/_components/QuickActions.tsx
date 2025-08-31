@@ -73,6 +73,17 @@ export const QuickActions = ({
             Publish listing
           </div>
         )}
+        {status === "Restored" && (
+          <div
+            onClick={() => setOpenPublishModal(true)}
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+          >
+            <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+              <CircleCheckBig className="size-4" />
+            </div>
+            Publish listing
+          </div>
+        )}
         {status === "Published" && (
           <div
             onClick={() => setOpenDraftModal(true)}

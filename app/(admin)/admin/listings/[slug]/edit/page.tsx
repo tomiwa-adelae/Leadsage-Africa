@@ -80,11 +80,13 @@ const page = async ({ params }: { params: Params }) => {
               done.
             </p>
           </div>
-          <Button className="w-full md:w-auto" asChild size="md">
-            <Link href={`/admin/listings/${listing.slug}/preview`}>
-              Preview listing
-            </Link>
-          </Button>
+          {listing.status === "Published" && (
+            <Button className="w-full md:w-auto" asChild size="md">
+              <Link href={`/admin/listings/${listing.slug}/preview`}>
+                Preview listing
+              </Link>
+            </Button>
+          )}
         </div>
         <Card className="@container/card gap-0 mt-4">
           <CardHeader className="border-b">
