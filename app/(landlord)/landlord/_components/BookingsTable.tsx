@@ -15,6 +15,7 @@ import { useConstructUrl } from "@/hooks/use-construct-url";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { BookingActions } from "./BookingActions";
 
 interface Props {
   bookings: GetLandlordBookingsType[] | GetListingUpcomingBookingsType[];
@@ -30,7 +31,8 @@ export function BookingsTable({ bookings }: Props) {
             <TableHead>Listing</TableHead>
             <TableHead>Customer's name</TableHead>
             <TableHead>Touring date</TableHead>
-            <TableHead className="text-right">Status</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -66,7 +68,7 @@ export function BookingsTable({ bookings }: Props) {
                   <span>{formatDate(booking.date)}</span>{" "}
                   <span>({booking.timeSlot})</span>
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell>
                   <Badge
                     variant={
                       booking.status === "Pending"
@@ -83,6 +85,11 @@ export function BookingsTable({ bookings }: Props) {
                   >
                     {booking.status}
                   </Badge>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center justify-end">
+                    <BookingActions id={booking.id} status={booking.status} />
+                  </div>
                 </TableCell>
               </TableRow>
             );

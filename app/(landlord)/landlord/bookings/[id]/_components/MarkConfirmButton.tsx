@@ -17,12 +17,15 @@ import { confirmBooking } from "../actions";
 import { toast } from "sonner";
 import { Loader } from "@/components/Loader";
 import { useConfetti } from "@/hooks/use-confetti";
+import { IconCheckbox } from "@tabler/icons-react";
+import { ConfirmBookingModal } from "../../../_components/ConfirmBookingModal";
 
 interface Props {
   id: string;
 }
 
 export const MarkConfirmButton = ({ id }: Props) => {
+  const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [open, setOpen] = useState(false);
   const { triggerConfetti } = useConfetti();
 
@@ -48,35 +51,26 @@ export const MarkConfirmButton = ({ id }: Props) => {
   };
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <Button className="w-full sm:w-auto" size="md">
-          <CalendarCheck />{" "}
-          <span className="sm:hidden md:block">Confirm booking</span>
-        </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
-          <div
-            className="flex size-9 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-            <CalendarCheck className="opacity-80" size={16} />
-          </div>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to confirm this booking?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-        </div>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <Button disabled={pending} onClick={handleConfirm}>
-            {pending ? <Loader text=" " /> : "Yes"}
-          </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <>
+      <Button
+        size="md"
+        variant={"success"}
+        onClick={(e) => {
+          e.preventDefault(); // stops the Link from navigating
+          e.stopPropagation();
+          setOpenConfirmModal(true);
+        }}
+      >
+        <IconCheckbox size={16} className="opacity-60" aria-hidden="true" />
+        Confirm Booking
+      </Button>
+      {openConfirmModal && (
+        <ConfirmBookingModal
+          open={openConfirmModal}
+          closeModal={() => setOpenConfirmModal(false)}
+          id={id}
+        />
+      )}
+    </>
   );
 };

@@ -1,3 +1,4 @@
+"use client";
 import {
   GetCustomerBookingsType,
   GetCustomerPendingBookingsType,
@@ -11,6 +12,7 @@ import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { BookingActions } from "./BookingActions";
 
 interface Props {
   bookings: GetCustomerPendingBookingsType[] | GetCustomerBookingsType[];
@@ -30,7 +32,7 @@ export const BookingsList = ({ bookings }: Props) => {
           <Link
             key={booking.id}
             href={`/bookings/${booking.id}`}
-            className="flex items-center justify-start gap-2 hover:bg-muted p-2 rounded-lg group"
+            className="flex items-center relative justify-start gap-2 hover:bg-muted p-2 rounded-lg group"
           >
             <Image
               src={photoUrl}
@@ -64,6 +66,21 @@ export const BookingsList = ({ bookings }: Props) => {
                 <span>{formatDate(booking.date)}</span>{" "}
                 <span>({booking.timeSlot})</span>
               </p>
+            </div>
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              className="absolute top-1/2 right-1 -translate-y-1/2 -translate-x-1"
+            >
+              <BookingActions
+                id={booking.id}
+                status={booking.status}
+                title={booking.listing.title!}
+                date={booking.date}
+                time={booking.timeSlot}
+              />
             </div>
           </Link>
         );

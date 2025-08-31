@@ -85,14 +85,6 @@ export const navLinks = [
     slug: "/contact",
     label: "Contact us",
   },
-  {
-    slug: "/messages",
-    label: "Messages",
-  },
-  {
-    slug: "/wallet",
-    label: "My wallet",
-  },
 ];
 
 export const DEFAULT_PROFILE_PICTURE = "/assets/images/profile-img.jpg";

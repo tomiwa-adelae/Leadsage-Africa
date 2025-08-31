@@ -1,5 +1,5 @@
+"use client";
 import { GetTotalBookingsType } from "@/app/data/admin/booking/get-all-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { useConstructUrl } from "@/hooks/use-construct-url";
@@ -7,7 +7,7 @@ import { formatDate } from "@/lib/utils";
 import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { BookingActions } from "./BookingActions";
 
 interface Props {
   bookings: GetTotalBookingsType[];
@@ -27,7 +27,7 @@ export const BookingsList = ({ bookings }: Props) => {
           <Link
             key={booking.id}
             href={`/landlord/bookings/${booking.id}`}
-            className="flex items-center justify-start gap-2 hover:bg-muted p-2 rounded-lg group"
+            className="flex items-center relative justify-start gap-2 hover:bg-muted p-2 rounded-lg group"
           >
             <Image
               src={photoUrl}
@@ -61,6 +61,15 @@ export const BookingsList = ({ bookings }: Props) => {
                 <span>{formatDate(booking.date)}</span>{" "}
                 <span>({booking.timeSlot})</span>
               </p>
+            </div>
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              className="absolute top-1/2 right-1 -translate-y-1/2 -translate-x-1"
+            >
+              <BookingActions id={booking.id} status={booking.status} />
             </div>
           </Link>
         );

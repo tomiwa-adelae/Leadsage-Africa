@@ -18,8 +18,6 @@ import Link from "next/link";
 import { BookingStatus } from "@/lib/generated/prisma";
 import { useState } from "react";
 import { ConfirmBookingModal } from "./ConfirmBookingModal";
-import { CompletedBookingModal } from "./CompletedBookingModal";
-import { CancelBookingModal } from "./CancelBookingModal";
 
 interface Props {
   id: string;
@@ -28,8 +26,6 @@ interface Props {
 
 export function BookingActions({ id, status }: Props) {
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
-  const [openCompletedModal, setOpenCompletedModal] = useState(false);
-  const [openCancelModal, setOpenCancelModal] = useState(false);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -39,7 +35,7 @@ export function BookingActions({ id, status }: Props) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href={`/admin/bookings/${id}`}>
+          <Link href={`/landlord/bookings/${id}`}>
             <IconEye size={16} className="opacity-60" aria-hidden="true" />
             View details
           </Link>
@@ -56,58 +52,12 @@ export function BookingActions({ id, status }: Props) {
             Confirm Booking
           </DropdownMenuItem>
         )}
-        {status === "Confirmed" && (
-          <DropdownMenuItem
-            onClick={(e) => {
-              e.preventDefault(); // stops the Link from navigating
-              e.stopPropagation();
-              setOpenCompletedModal(true);
-            }}
-          >
-            <IconCalendarCheck
-              size={16}
-              className="opacity-60"
-              aria-hidden="true"
-            />
-            Mark Completed
-          </DropdownMenuItem>
-        )}
-        {status !== "Completed" && status !== "Cancelled" && (
-          <DropdownMenuItem
-            onClick={(e) => {
-              e.preventDefault(); // stops the Link from navigating
-              e.stopPropagation();
-              setOpenCancelModal(true);
-            }}
-          >
-            <IconCalendarX
-              size={16}
-              className="opacity-60"
-              aria-hidden="true"
-            />
-            Cancel Booking
-          </DropdownMenuItem>
-        )}
       </DropdownMenuContent>
 
       {openConfirmModal && (
         <ConfirmBookingModal
           open={openConfirmModal}
           closeModal={() => setOpenConfirmModal(false)}
-          id={id}
-        />
-      )}
-      {openCompletedModal && (
-        <CompletedBookingModal
-          open={openCompletedModal}
-          closeModal={() => setOpenCompletedModal(false)}
-          id={id}
-        />
-      )}
-      {openCancelModal && (
-        <CancelBookingModal
-          open={openCancelModal}
-          closeModal={() => setOpenCancelModal(false)}
           id={id}
         />
       )}
