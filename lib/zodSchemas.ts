@@ -2,6 +2,7 @@ import { z } from "zod";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import {
   countries,
+  employmentStatus,
   genders,
   languages,
   states,
@@ -324,6 +325,122 @@ export const uninterestedModalFormSchema = z.object({
   }),
 });
 
+export const personalInformationFormSchema = z.object({
+  image: z.string().optional(),
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  email: z.string().email().min(2, {
+    message: "Last name must be at least 2 characters.",
+  }),
+  phoneNumber: z
+    .string()
+    .regex(/^(\+?\d{10,15})$/, { message: "Enter a valid phone number." })
+    .optional(),
+  gender: z.enum(genders).optional(),
+  address: z.string().optional(),
+  city: z.string().optional(),
+  state: z.enum(states).optional(),
+  country: z.enum(countries).optional(),
+  emergencyName: z.string().min(2, {
+    message: "Name is required.",
+  }),
+  emergencyRelationship: z.string().min(2, {
+    message: "Relationship is required.",
+  }),
+  emergencyPhoneNumber: z
+    .string()
+    .regex(/^(\+?\d{10,15})$/, { message: "Enter a valid phone number." }),
+  emergencyEmail: z.string().email().min(2, {
+    message: "Email is required.",
+  }),
+  emergencyLanguage: z.enum(languages, { message: "Langauges is required" }),
+});
+
+export const employmentFormSchema = z
+  .object({
+    employmentStatus: z.enum(employmentStatus, {
+      message: "Employment status is required",
+    }),
+    jobTitle: z.string().optional(),
+    employerName: z.string().optional(),
+    employerEmail: z
+      .string()
+      .optional()
+      .refine((val) => !val || val.includes("@"), {
+        message: "Invalid email",
+      }),
+    employerPhoneNumber: z
+      .string()
+      .optional()
+      .refine((val) => !val || /^(\+?\d{10,15})$/.test(val), {
+        message: "Enter a valid phone number.",
+      }),
+    monthlyIncome: z
+      .string()
+      .optional()
+      .refine((val) => !val || /^\d{1,3}(,\d{3})*(\.\d{1,2})?$/.test(val), {
+        message: "Invalid price format",
+      }),
+  })
+  .superRefine((data, ctx) => {
+    // If status is employed/self-employed etc.
+    if (!["Student", "Unemployed"].includes(data.employmentStatus)) {
+      if (!data.jobTitle || data.jobTitle.trim().length < 2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Job title is required",
+          path: ["jobTitle"],
+        });
+      }
+      if (!data.employerName || data.employerName.trim().length < 2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Employer's name is required",
+          path: ["employerName"],
+        });
+      }
+      if (!data.employerEmail) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Employer's email is required",
+          path: ["employerEmail"],
+        });
+      }
+      if (!data.employerPhoneNumber) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Employer phone number is required",
+          path: ["employerPhoneNumber"],
+        });
+      }
+      if (!data.monthlyIncome) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Monthly income is required",
+          path: ["monthlyIncome"],
+        });
+      }
+    }
+  });
+
+export const rentalHistoryFormSchema = z.object({
+  reasonsForMoving: z.string().optional(),
+  currentLandlordName: z.string().optional(),
+  currentLandlordEmail: z
+    .string()
+    .optional()
+    .refine((val) => !val || val.includes("@"), {
+      message: "Invalid email",
+    }),
+  currentLandlordPhoneNumber: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^(\+?\d{10,15})$/.test(val), {
+      message: "Enter a valid phone number.",
+    }),
+});
+
 export type RegisterFormSchemaType = z.infer<typeof registerFormSchema>;
 export type LoginFormSchemaType = z.infer<typeof loginFormSchema>;
 export type ForgotPasswordFormSchemaType = z.infer<
@@ -375,4 +492,11 @@ export type RejectListingFormSchemaType = z.infer<
 >;
 export type UninterestedModalFormSchemaType = z.infer<
   typeof uninterestedModalFormSchema
+>;
+export type PersonalInformationFormSchemaType = z.infer<
+  typeof personalInformationFormSchema
+>;
+export type EmploymentFormSchemaType = z.infer<typeof employmentFormSchema>;
+export type RentalHistoryFormSchemaType = z.infer<
+  typeof rentalHistoryFormSchema
 >;

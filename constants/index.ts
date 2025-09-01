@@ -825,3 +825,11 @@ export const uninterestedReasons = [
   "Scheduling/touring issues",
   "Others",
 ] as const;
+
+export const employmentStatus = [
+  "Employed",
+  "Self-Employed",
+  "Student",
+  "Unemployed",
+  "Others",
+] as const;
