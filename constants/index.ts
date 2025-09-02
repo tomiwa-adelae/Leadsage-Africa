@@ -37,6 +37,8 @@ import {
   IconCoins,
   IconCurrencyNaira,
   IconFolder,
+  IconFolderCheck,
+  IconLineScan,
   IconMoneybag,
   IconReceipt,
   IconTrash,
@@ -309,6 +311,11 @@ export const landlordNavLinks = {
       icon: ClipboardList,
     },
     {
+      title: "My Applications",
+      slug: "/landlord/applications",
+      icon: IconFolderCheck,
+    },
+    {
       title: "Messages",
       slug: "/landlord/messages",
       icon: MessageSquareMore,
@@ -432,6 +439,38 @@ export const adminNavLinks = {
       ],
     },
     {
+      title: "Applications",
+      icon: IconFolderCheck,
+      group: true,
+      items: [
+        {
+          title: "All Applications",
+          slug: "/admin/applications",
+          icon: IconClipboardList,
+        },
+        {
+          title: "Uncompleted Applications",
+          slug: "/admin/applications/uncompleted",
+          icon: Hourglass,
+        },
+        {
+          title: "Applications Under Review",
+          slug: "/admin/applications/under-review",
+          icon: IconLineScan,
+        },
+        {
+          title: "Approved Applications",
+          slug: "/admin/applications/approved",
+          icon: IconCheckbox,
+        },
+        {
+          title: "Rejected Applications",
+          slug: "/admin/applications/rejected",
+          icon: IconBan,
+        },
+      ],
+    },
+    {
       title: "Payments & Transactions",
       icon: CreditCard,
       group: true,
@@ -508,9 +547,14 @@ export const customerNavLinks = {
       icon: LayoutDashboardIcon,
     },
     {
-      title: "My bookings",
+      title: "My Bookings",
       slug: "/bookings",
       icon: ClipboardList,
+    },
+    {
+      title: "My Applications",
+      slug: "/applications",
+      icon: IconFolderCheck,
     },
     {
       title: "Saved Properties",

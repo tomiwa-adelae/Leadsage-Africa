@@ -18,16 +18,15 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-semibold">
-              Application for {listing.title}
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Complete your application to move forward with this property.
-            </p>
-          </div>
+        <div>
+          <h1 className="text-3xl md:text-4xl font-semibold">
+            Application for {listing.title}
+          </h1>
+          <p className="text-muted-foreground text-base mt-2.5">
+            Complete your application to move forward with this property.
+          </p>
         </div>
+
         <PersonalInformationForm
           data={user}
           listingId={listing.id}

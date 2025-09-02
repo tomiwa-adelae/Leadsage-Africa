@@ -10,6 +10,8 @@ import {
   PersonalInformationFormSchemaType,
   rentalHistoryFormSchema,
   RentalHistoryFormSchemaType,
+  termsAndAgreementFormSchema,
+  TermsAndAgreementFormSchemaType,
 } from "@/lib/zodSchemas";
 
 export const updateProfile = async (
@@ -118,6 +120,41 @@ export const updateRentalHistory = async (
     return {
       status: "error",
       message: "Failed to save rental history details",
+    };
+  }
+};
+
+export const submitApplication = async (
+  data: TermsAndAgreementFormSchemaType,
+  id: string
+): Promise<ApiResponse> => {
+  const { user } = await requireUser();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred" };
+
+    const validation = termsAndAgreementFormSchema.safeParse(data);
+
+    if (!validation.success)
+      return { status: "error", message: "Invalid data type" };
+
+    await prisma.application.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "UNDER_REVIEW",
+      },
+    });
+
+    return {
+      status: "success",
+      message: "Application successfully submitted",
+    };
+  } catch (error) {
+    return {
+      status: "error",
+      message: "Failed to submit application",
     };
   }
 };

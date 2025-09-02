@@ -10,6 +10,7 @@ import { getUserInfo } from "@/app/data/user/get-user-info";
 import { Separator } from "@/components/ui/separator";
 import { formatPhoneNumber } from "@/lib/utils";
 import { NairaIcon } from "@/components/NairaIcon";
+import { TermsAndAgreements } from "../../_components/TermsAndAgreements";
 
 type Params = Promise<{
   slug: string;
@@ -27,16 +28,15 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-semibold">
-              Application for {listing.title}
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Review your application to move forward with this property.
-            </p>
-          </div>
+        <div>
+          <h1 className="text-3xl md:text-4xl font-semibold">
+            Application for {listing.title}
+          </h1>
+          <p className="text-muted-foreground text-base mt-2.5">
+            Review your application to move forward with this property.
+          </p>
         </div>
+
         <div className="mt-4 space-y-4">
           <Card>
             <CardHeader className="border-b flex items-center justify-between gap-4">
@@ -302,6 +302,11 @@ const page = async ({ params }: { params: Params }) => {
               )}
             </CardContent>
           </Card>
+          <TermsAndAgreements
+            applicationId={application.id}
+            data={application}
+            slug={slug}
+          />
         </div>
       </div>
     </div>

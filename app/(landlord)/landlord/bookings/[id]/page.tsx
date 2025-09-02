@@ -303,8 +303,10 @@ const page = async ({ params }: { params: Params }) => {
               <div>
                 <h4 className="font-medium text-base">
                   {booking.user.name}
-                  {booking.user.emailVerified && (
+                  {booking.user.emailVerified ? (
                     <CircleCheckBig className="text-primary size-4 inline-block ml-2" />
+                  ) : (
+                    <Badge variant={"pending"}>Not verified</Badge>
                   )}
                 </h4>
                 <p className="text-sm text-muted-foreground mt-1 flex items-center justify-start">

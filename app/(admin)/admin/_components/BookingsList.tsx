@@ -26,7 +26,7 @@ export const BookingsList = ({ bookings }: Props) => {
         return (
           <Link
             key={booking.id}
-            href={`/landlord/bookings/${booking.id}`}
+            href={`/admin/bookings/${booking.id}`}
             className="flex items-center relative justify-start gap-2 hover:bg-muted p-2 rounded-lg group"
           >
             <Image

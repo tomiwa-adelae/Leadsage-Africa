@@ -93,18 +93,6 @@ export function InterestedModal({
               handleInterested();
             }}
             disabled={pending}
-            variant={"success"}
-          >
-            {pending ? <Loader text="Saving..." /> : "Save for later"}
-          </Button>
-          <Button
-            size="md"
-            onClick={(e) => {
-              e.preventDefault(); // stops the Link from navigating
-              e.stopPropagation();
-              handleInterested();
-            }}
-            disabled={pending}
           >
             {pending ? <Loader text="Applying..." /> : "Apply now"}
           </Button>

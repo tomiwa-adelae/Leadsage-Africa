@@ -5,10 +5,15 @@ import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
 import {
+  rejectApplicationFormSchema,
+  RejectApplicationFormSchemaType,
   rejectListingFormSchema,
   RejectListingFormSchemaType,
+  requestMoreInfoApplicationFormSchema,
+  RequestMoreInfoApplicationFormSchemaType,
 } from "@/lib/zodSchemas";
 import { revalidatePath } from "next/cache";
+import { VALID_LOADERS } from "next/dist/shared/lib/image-config";
 
 export const approveListing = async (id: string): Promise<ApiResponse> => {
   await requireAdmin();
@@ -834,5 +839,181 @@ export const publishListing = async (id: string): Promise<ApiResponse> => {
     return { status: "success", message: "Listing successfully published" };
   } catch (error) {
     return { status: "error", message: "Failed to publish lisitng" };
+  }
+};
+
+export const approveApplication = async (id: string): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    const application = await prisma.application.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        status: true,
+      },
+    });
+
+    if (!application)
+      return { status: "error", message: "Oops! An error occurred" };
+
+    if (application.status === "PENDING")
+      return {
+        status: "error",
+        message: "You can not approve an incomplete application",
+      };
+
+    await prisma.application.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "APPROVED",
+      },
+    });
+
+    revalidatePath("/admin");
+
+    return { status: "success", message: "Application successfully approved" };
+  } catch (error) {
+    return { status: "error", message: "Failed to approve application" };
+  }
+};
+
+export const rejectApplication = async (
+  id: string,
+  data: RejectApplicationFormSchemaType
+): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    const validation = rejectApplicationFormSchema.safeParse(data);
+
+    if (!validation.success)
+      return { status: "error", message: "Invalid data type" };
+
+    const application = await prisma.application.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        status: true,
+      },
+    });
+
+    if (!application)
+      return { status: "error", message: "Oops! An error occurred" };
+
+    if (application.status === "PENDING")
+      return {
+        status: "error",
+        message: "You can not reject an incomplete application",
+      };
+
+    await prisma.application.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "REJECTED",
+        rejectedReasons: validation.data.reasons,
+      },
+    });
+
+    revalidatePath("/admin");
+
+    return { status: "success", message: "Application successfully rejected" };
+  } catch (error) {
+    return { status: "error", message: "Failed to reject application" };
+  }
+};
+
+export const requestMoreInformationApplication = async (
+  id: string,
+  data: RequestMoreInfoApplicationFormSchemaType
+): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    const validation = requestMoreInfoApplicationFormSchema.safeParse(data);
+
+    if (!validation.success)
+      return { status: "error", message: "Invalid data type" };
+
+    const application = await prisma.application.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        status: true,
+      },
+    });
+
+    if (!application)
+      return { status: "error", message: "Oops! An error occurred" };
+
+    if (application.status === "PENDING")
+      return {
+        status: "error",
+        message:
+          "You can not request additional information for an incomplete application",
+      };
+
+    await prisma.application.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "UNDER_REVIEW",
+        additionalInfo: validation.data.additionalInformation,
+      },
+    });
+
+    revalidatePath("/admin");
+
+    return { status: "success", message: "Request successfully sent" };
+  } catch (error) {
+    return { status: "error", message: "Failed to send request" };
+  }
+};
+
+export const deleteApplication = async (id: string): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred" };
+
+    const application = await prisma.application.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!application)
+      return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.application.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "DELETED",
+      },
+    });
+
+    revalidatePath("/landlord");
+    revalidatePath("/admin");
+    revalidatePath("/notifications");
+
+    return { status: "success", message: "Application successfully deleted" };
+  } catch (error) {
+    return { status: "error", message: "Failed to delete application" };
   }
 };

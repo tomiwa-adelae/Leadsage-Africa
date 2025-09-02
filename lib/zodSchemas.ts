@@ -441,6 +441,25 @@ export const rentalHistoryFormSchema = z.object({
     }),
 });
 
+export const termsAndAgreementFormSchema = z.object({
+  accurateInformation: z.boolean().refine((val) => val === true, {
+    message: "Please confirm the information",
+  }),
+  consentInformation: z.boolean().refine((val) => val === true, {
+    message: "Please consent to verification checks",
+  }),
+});
+
+export const rejectApplicationFormSchema = z.object({
+  reasons: z.string().optional(),
+});
+
+export const requestMoreInfoApplicationFormSchema = z.object({
+  additionalInformation: z
+    .string()
+    .min(2, { message: "Additional information is required" }),
+});
+
 export type RegisterFormSchemaType = z.infer<typeof registerFormSchema>;
 export type LoginFormSchemaType = z.infer<typeof loginFormSchema>;
 export type ForgotPasswordFormSchemaType = z.infer<
@@ -499,4 +518,13 @@ export type PersonalInformationFormSchemaType = z.infer<
 export type EmploymentFormSchemaType = z.infer<typeof employmentFormSchema>;
 export type RentalHistoryFormSchemaType = z.infer<
   typeof rentalHistoryFormSchema
+>;
+export type TermsAndAgreementFormSchemaType = z.infer<
+  typeof termsAndAgreementFormSchema
+>;
+export type RejectApplicationFormSchemaType = z.infer<
+  typeof rejectApplicationFormSchema
+>;
+export type RequestMoreInfoApplicationFormSchemaType = z.infer<
+  typeof requestMoreInfoApplicationFormSchema
 >;

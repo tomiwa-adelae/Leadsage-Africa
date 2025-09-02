@@ -431,7 +431,9 @@ model Application {
   govermentID   String?
   proofOfIncome String?
 
-  status ApplicationStatus @default(PENDING)
+  status          ApplicationStatus @default(PENDING)
+  rejectedReasons String?
+  additionalInfo  String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -442,4 +444,5 @@ enum ApplicationStatus {
   UNDER_REVIEW
   APPROVED
   REJECTED
+  DELETED
 }
