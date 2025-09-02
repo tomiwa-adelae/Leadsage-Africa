@@ -16,6 +16,13 @@ import { Badge } from "@/components/ui/badge";
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
 import { getApplication } from "@/app/data/user/application/get-application";
 import { Confetti } from "@/components/Confetti";
+import { ApprovedApplicationModal } from "../../_components/ApprovedApplicationModal";
+import { UncompletedApplicationModal } from "../../_components/UncompletedApplicationModal";
+import {
+  IconArrowNarrowRightDashed,
+  IconCalendarCheck,
+  IconContract,
+} from "@tabler/icons-react";
 
 type Params = Promise<{
   id: string;
@@ -37,6 +44,20 @@ const page = async ({ params }: { params: Params }) => {
   return (
     <div>
       {application.status === "APPROVED" && <Confetti />}
+      {application.status === "APPROVED" && (
+        <ApprovedApplicationModal
+          id={application.id}
+          title={application.Listing.title!}
+        />
+      )}
+      {application.status === "PENDING" && (
+        <UncompletedApplicationModal
+          slug={application.Listing.slug!}
+          id={application.id}
+          title={application.Listing.title!}
+          employmentStatus={application.employmentStatus!}
+        />
+      )}
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div>
@@ -483,7 +504,39 @@ const page = async ({ params }: { params: Params }) => {
               </Button>
             </CardContent>
           </Card>
-          {/* <QuickActions id={application.id} status={application.status} /> */}
+          <Card>
+            <CardHeader className="border-b flex items-center justify-between gap-4">
+              <CardTitle>Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm font-medium">
+              {application.status === "APPROVED" && (
+                <Link
+                  href={`/applications/${application.id}/agreement`}
+                  className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+                >
+                  <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+                    <IconContract className="size-4" />
+                  </div>
+                  Continue to leasing & agreement
+                </Link>
+              )}
+              {application.status === "PENDING" && (
+                <Link
+                  href={
+                    application.employmentStatus
+                      ? `/listings/${application.Listing.slug}/application/${application.id}/rental-history`
+                      : `/listings/${application.Listing.slug}/application/${application.id}/employment`
+                  }
+                  className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+                >
+                  <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-lg">
+                    <IconArrowNarrowRightDashed className="size-4" />
+                  </div>
+                  Complete application
+                </Link>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </div>{" "}
     </div>

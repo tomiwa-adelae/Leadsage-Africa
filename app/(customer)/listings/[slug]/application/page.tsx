@@ -26,7 +26,6 @@ const page = async ({ params }: { params: Params }) => {
             Complete your application to move forward with this property.
           </p>
         </div>
-
         <PersonalInformationForm
           data={user}
           listingId={listing.id}

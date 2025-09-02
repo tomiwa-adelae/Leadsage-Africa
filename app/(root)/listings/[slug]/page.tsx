@@ -136,6 +136,11 @@ const page = async ({ params }: { params: Params }) => {
                         : "No parties allowed"}
                     </span>
                   </p>
+                  {listing.additionalPolicies && (
+                    <p className="text-muted-foreground text-base mt-4">
+                      {listing.additionalPolicies}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

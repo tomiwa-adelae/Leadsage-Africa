@@ -49,6 +49,7 @@ model User {
   notification    Notification[]
   bookingTimeline BookingTimeline[]
   application     Application[]
+  lease           Lease[]
 
   role       String?
   banned     Boolean?
@@ -156,6 +157,7 @@ model Listing {
   listingAvailability ListingAvailability[]
   savedListing        SavedListing[]
   application         Application[]
+  Lease               Lease[]
 
   @@unique([slug, userId])
   @@unique([listingId])
@@ -445,4 +447,45 @@ enum ApplicationStatus {
   APPROVED
   REJECTED
   DELETED
+}
+
+model Lease {
+  id String @id @default(uuid())
+
+  startDate  String
+  endDate    String
+  moveInDate String
+
+  leaseId String
+
+  status        LeaseStatus   @default(PENDING)
+  depositStatus DepositStatus @default(PENDING) // pending, paid, refunded
+
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  Listing   Listing @relation(fields: [listingId], references: [id])
+  listingId String
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([listingId, status], name: "unique_active_lease_per_listing")
+}
+
+enum LeaseStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  RENEWED
+  DELETED
+  CANCELLED
+  TERMINATED
+}
+
+enum DepositStatus {
+  PENDING
+  PAID
+  REFUNDED
 }

@@ -42,6 +42,11 @@ export const getApplication = async (id: string) => {
           price: true,
           securityDeposit: true,
           paymentFrequency: true,
+          availabilityDate: true,
+          petPolicy: true,
+          smokingPolicy: true,
+          partyPolicy: true,
+          additionalPolicies: true,
           Category: {
             select: {
               id: true,
