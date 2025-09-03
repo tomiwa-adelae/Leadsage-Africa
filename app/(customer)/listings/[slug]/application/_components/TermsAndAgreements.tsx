@@ -64,7 +64,6 @@ export const TermsAndAgreements = ({ data, slug, applicationId }: Props) => {
         return;
       }
     });
-    console.log("yess");
   }
 
   return (

@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
+import { IconDownload } from "@tabler/icons-react";
+import { Loader } from "./Loader";
 
 interface Props {
   leaseId: string;
@@ -25,10 +27,10 @@ interface Props {
   additionalRule: string | null;
   moveInDate: string;
   tenantSignature: any;
-  buttonText?: string;
+  landlordSignature: any;
 }
 
-export const PreviewLease = ({
+export const DownloadLeaseButton = ({
   leaseId,
   createdAt,
   landlordName,
@@ -50,7 +52,7 @@ export const PreviewLease = ({
   additionalRule,
   moveInDate,
   tenantSignature,
-  buttonText = "Preview Lease",
+  landlordSignature,
 }: Props) => {
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -221,43 +223,23 @@ export const PreviewLease = ({
     doc.save(`lease-agreement-${leaseId}.pdf`);
   };
 
-  const handleEmbeddedPreview = async () => {
-    const doc = await generateLeasePDF();
-    const pdfDataUri = doc.output("datauristring");
-
-    const previewWindow = document.createElement("div");
-    previewWindow.style.cssText = `
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.8); z-index: 9999; display: flex; 
-      align-items: center; justify-content: center;
-    `;
-    previewWindow.innerHTML = `
-      <div style="width: 90%; height: 90%; background: white; border-radius: 8px; position: relative;">
-        <button onclick="this.parentElement.parentElement.remove()" 
-                style="position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer;">
-          ×
-        </button>
-        <iframe src="${pdfDataUri}" style="width: 100%; height: 100%; border: none; border-radius: 8px;"></iframe>
-      </div>
-    `;
-    document.body.appendChild(previewWindow);
-  };
-
   return (
     <div className="space-y-3">
       <Button
+        size="md"
         className="w-full"
-        onClick={handleEmbeddedPreview}
+        onClick={handleDownload}
         disabled={isGenerating || !tenantSignature || !moveInDate}
-        variant={"outline"}
       >
-        {buttonText}
+        {isGenerating ? (
+          <Loader text="Downloading..." />
+        ) : (
+          <>
+            <IconDownload />
+            Download Lease PDF
+          </>
+        )}
       </Button>
-      {isGenerating && (
-        <p className="text-sm text-yellow-600">
-          Generating PDF... Please wait.
-        </p>
-      )}
     </div>
   );
 };

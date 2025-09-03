@@ -72,6 +72,7 @@ export const acceptAgreement = async (data: {
         listingId: application?.Listing.id,
         userId: user.id,
         leaseId,
+        tenantSignature: data.signature,
       },
     });
 
@@ -82,7 +83,6 @@ export const acceptAgreement = async (data: {
       data: lease,
     };
   } catch (error) {
-    console.log(error);
     return { status: "error", message: "Failed to sign lease" };
   }
 };

@@ -33,8 +33,6 @@ const page = async ({ params }: { params: Params }) => {
     application.Listing.User.image ? application.Listing.User.image : ""
   );
 
-  console.log(landlordProfilePictureUrl);
-
   return (
     <div>
       <SiteHeader />

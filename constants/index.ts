@@ -35,6 +35,7 @@ import {
   IconCheckbox,
   IconClipboardList,
   IconCoins,
+  IconContract,
   IconCurrencyNaira,
   IconFolder,
   IconFolderCheck,
@@ -555,6 +556,11 @@ export const customerNavLinks = {
       title: "My Applications",
       slug: "/applications",
       icon: IconFolderCheck,
+    },
+    {
+      title: "My Leases",
+      slug: "/leases",
+      icon: IconContract,
     },
     {
       title: "Saved Properties",

@@ -283,6 +283,7 @@ export const AgreementForm = ({ application }: Props) => {
           }
           additionalRule={application.Listing.additionalPolicies}
           moveInDate={date?.toString()!}
+          tenantSignature={signature}
         />
         <Button
           className="w-full"

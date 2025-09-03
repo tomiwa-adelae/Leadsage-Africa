@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 export const getApplications = async () => {
   const { user } = await requireUser();
 
-  const application = await prisma.application.findMany({
+  const applications = await prisma.application.findMany({
     where: {
       userId: user.id,
     },
@@ -48,9 +48,9 @@ export const getApplications = async () => {
     },
   });
 
-  if (!application) return notFound();
+  // if (!application) return notFound();
 
-  return application;
+  return applications;
 };
 
 export type GetApplicationsType = Awaited<

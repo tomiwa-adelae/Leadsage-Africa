@@ -108,7 +108,6 @@ export function ApplicationActions({ id, status }: Props) {
           onClick={(e) => {
             e.preventDefault(); // stops the Link from navigating
             e.stopPropagation();
-            console.log("yess");
           }}
         >
           <Mail size={16} className="opacity-60" aria-hidden="true" />
