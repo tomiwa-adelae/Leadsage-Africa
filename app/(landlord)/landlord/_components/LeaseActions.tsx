@@ -25,10 +25,8 @@ import {
 import Link from "next/link";
 import { BookingStatus, LeaseStatus } from "@/lib/generated/prisma";
 import { useState } from "react";
-import { CancelBookingModal } from "./CancelBookingModal";
 import { useDownloadLease } from "@/hooks/use-download-lease";
-import { CancelLeaseModal } from "./CancelLeaseModal";
-import { GetLeaseDetailsType } from "@/app/data/user/lease/get-lease-details";
+import { GetLeaseDetailsType } from "@/app/data/landlord/lease/get-lease-details";
 
 interface Props {
   landlordSignature: string | null;
@@ -38,8 +36,6 @@ interface Props {
 }
 
 export function LeaseActions({ id, status, lease }: Props) {
-  const [openCancelModal, setOpenCancelModal] = useState(false);
-
   const { isGenerating, handleDownload } = useDownloadLease({
     leaseId: lease.leaseId,
     createdAt: lease.createdAt,
@@ -82,7 +78,7 @@ export function LeaseActions({ id, status, lease }: Props) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href={`/leases/${id}`}>
+          <Link href={`/landlord/leases/${id}`}>
             <IconEye size={16} className="opacity-60" aria-hidden="true" />
             View details
           </Link>
@@ -91,27 +87,7 @@ export function LeaseActions({ id, status, lease }: Props) {
           <IconDownload size={16} className="opacity-60" aria-hidden="true" />
           {isGenerating ? "Downloading..." : "Download Lease Agreement"}
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <IconCreditCard size={16} className="opacity-60" aria-hidden="true" />
-          Make Payment
-        </DropdownMenuItem>
-        {status !== "TERMINATED" &&
-          status !== "ACTIVE" &&
-          status !== "EXPIRED" && (
-            <DropdownMenuItem onClick={() => setOpenCancelModal(true)}>
-              <IconBan size={16} className="opacity-60" aria-hidden="true" />
-              Cancel Lease
-            </DropdownMenuItem>
-          )}
       </DropdownMenuContent>
-
-      {openCancelModal && (
-        <CancelLeaseModal
-          open={openCancelModal}
-          closeModal={() => setOpenCancelModal(false)}
-          id={id}
-        />
-      )}
     </DropdownMenu>
   );
 }

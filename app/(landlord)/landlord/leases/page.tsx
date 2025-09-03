@@ -1,9 +1,9 @@
-import { getMyLeases } from "@/app/data/user/lease/get-my-leases";
 import { EmptyState } from "@/components/EmptyState";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import React from "react";
 import { LeasesTable } from "../_components/LeasesTable";
 import { LeasesList } from "../_components/LeasesList";
+import { getMyLeases } from "@/app/data/landlord/lease/get-my-leases";
 
 const page = async () => {
   const leases = await getMyLeases();

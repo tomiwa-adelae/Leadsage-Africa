@@ -1,5 +1,4 @@
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
-import { getLeaseDetails } from "@/app/data/user/lease/get-lease-details";
 import { CopyToClipboard } from "@/components/CopyToClipboard";
 import { DownloadLeaseButton } from "@/components/DownloadLeaseButton";
 import { NairaIcon } from "@/components/NairaIcon";
@@ -14,6 +13,7 @@ import { CheckCircle, Hourglass } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { QuickActions } from "./_components/QuickActions";
+import { getLeaseDetails } from "@/app/data/landlord/lease/get-lease-details";
 
 type Params = Promise<{
   id: string;
@@ -241,47 +241,6 @@ const page = async ({ params }: { params: Params }) => {
                   </p>
                 </>
               )}
-            </CardContent>
-          </Card>
-          <Card className="@container/card gap-0">
-            <CardHeader className="border-b">
-              <CardTitle>Signatures</CardTitle>
-            </CardHeader>
-            <CardContent className="mt-4 space-y-3 text-sm font-medium grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p className="text-muted-foreground text-base mt-4">
-                  Tenant's Signature
-                </p>
-                <div className="border-2 w-fit rounded-lg border-dashed mt-2.5">
-                  <Image
-                    src={lease.tenantSignature}
-                    alt="Tenant's signature"
-                    width={200}
-                    height={200}
-                    className="aspect-auto object-cover"
-                  />
-                </div>
-              </div>
-              <div>
-                <p className="text-muted-foreground text-base mt-4">
-                  Landlord's Signature
-                </p>
-                {lease.landlordSignature ? (
-                  <div className="border-2 w-fit rounded-lg border-dashed">
-                    <Image
-                      src={lease.landlordSignature}
-                      alt="Landlord's signature"
-                      width={200}
-                      height={200}
-                      className="aspect-auto object-cover"
-                    />
-                  </div>
-                ) : (
-                  <p className="italic mt-2.5">
-                    Awaiting landlord's signature...
-                  </p>
-                )}
-              </div>
             </CardContent>
           </Card>
           <QuickActions

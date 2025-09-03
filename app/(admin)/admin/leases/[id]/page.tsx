@@ -1,5 +1,5 @@
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
-import { getLeaseDetails } from "@/app/data/user/lease/get-lease-details";
+import { getLeaseDetails } from "@/app/data/admin/lease/get-lease";
 import { CopyToClipboard } from "@/components/CopyToClipboard";
 import { DownloadLeaseButton } from "@/components/DownloadLeaseButton";
 import { NairaIcon } from "@/components/NairaIcon";
@@ -31,7 +31,7 @@ const page = async ({ params }: { params: Params }) => {
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-semibold">
-              Lease Agreement for {lease.Listing.title}{" "}
+              Lease Agreement for {lease.Listing.title} by {lease.User.name}{" "}
               <Badge
                 variant={
                   lease.status === "PENDING"

@@ -25,6 +25,7 @@ import {
   Archive,
 } from "lucide-react";
 import {
+  IconActivity,
   IconArchive,
   IconBan,
   IconCalendarCheck,
@@ -42,6 +43,7 @@ import {
   IconLineScan,
   IconMoneybag,
   IconReceipt,
+  IconShieldCancel,
   IconTrash,
   IconTrendingUp,
   IconUsers,
@@ -467,6 +469,38 @@ export const adminNavLinks = {
         {
           title: "Rejected Applications",
           slug: "/admin/applications/rejected",
+          icon: IconBan,
+        },
+      ],
+    },
+    {
+      title: "Leases & Agreements",
+      icon: IconContract,
+      group: true,
+      items: [
+        {
+          title: "All Leases",
+          slug: "/admin/leases",
+          icon: IconContract,
+        },
+        {
+          title: "Active Leases",
+          slug: "/admin/leases/active",
+          icon: IconActivity,
+        },
+        {
+          title: "Pending Leases",
+          slug: "/admin/leases/pending",
+          icon: Hourglass,
+        },
+        {
+          title: "Expired Leases",
+          slug: "/admin/leases/expired",
+          icon: IconShieldCancel,
+        },
+        {
+          title: "Terminated Leases",
+          slug: "/admin/leases/terminated",
           icon: IconBan,
         },
       ],

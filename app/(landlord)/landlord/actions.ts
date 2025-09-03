@@ -98,3 +98,29 @@ export const draftListing = async (id: string): Promise<ApiResponse> => {
     return { status: "error", message: "Failed to draft listing" };
   }
 };
+
+export const signLease = async (
+  id: string,
+  signature: string
+): Promise<ApiResponse> => {
+  await requireLandlord();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.lease.update({
+      where: {
+        id,
+      },
+      data: {
+        landlordSignature: signature,
+      },
+    });
+
+    revalidatePath("/landlord");
+
+    return { status: "success", message: "Lease successfully siged" };
+  } catch (error) {
+    return { status: "error", message: "Failed to sign lease agreement" };
+  }
+};

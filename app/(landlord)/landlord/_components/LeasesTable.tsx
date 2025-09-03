@@ -19,9 +19,9 @@ import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { BookingActions } from "./BookingActions";
-import { GetMyLeasesType } from "@/app/data/user/lease/get-my-leases";
 import { NairaIcon } from "@/components/NairaIcon";
 import { LeaseActions } from "./LeaseActions";
+import { GetMyLeasesType } from "@/app/data/landlord/lease/get-my-leases";
 
 interface Props {
   leases: GetMyLeasesType[];
@@ -36,7 +36,7 @@ export function LeasesTable({ leases }: Props) {
           <TableRow>
             <TableHead>Lease ID</TableHead>
             <TableHead>Property</TableHead>
-            <TableHead>Landlord's name</TableHead>
+            <TableHead>Tenant's name</TableHead>
             <TableHead>Start & End Dates</TableHead>
             <TableHead>Rent Amount</TableHead>
             <TableHead>Status</TableHead>
@@ -56,7 +56,7 @@ export function LeasesTable({ leases }: Props) {
                 className="group cursor-pointer"
                 key={lease.id}
                 onClick={() => {
-                  router.push(`/leases/${lease.leaseId}`);
+                  router.push(`/landlord/leases/${lease.leaseId}`);
                 }}
               >
                 <TableCell className="font-medium">{lease.leaseId}</TableCell>
@@ -72,7 +72,7 @@ export function LeasesTable({ leases }: Props) {
                     {lease.Listing.title}
                   </p>
                 </TableCell>
-                <TableCell>{lease.Listing.User.name}</TableCell>
+                <TableCell>{lease.User.name}</TableCell>
                 <TableCell>
                   {formatDate(lease.startDate)}/{formatDate(lease.endDate)}
                 </TableCell>

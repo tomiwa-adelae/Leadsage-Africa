@@ -1,13 +1,15 @@
 import "server-only";
-import { requireUser } from "../require-user";
 import { prisma } from "@/lib/db";
+import { requireLandlord } from "../require-landlord";
 
 export const getMyLeases = async () => {
-  const { user } = await requireUser();
+  const { user } = await requireLandlord();
 
   const leases = await prisma.lease.findMany({
     where: {
-      userId: user.id,
+      Listing: {
+        userId: user.id,
+      },
     },
     select: {
       id: true,

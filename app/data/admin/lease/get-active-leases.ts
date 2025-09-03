@@ -1,13 +1,13 @@
 import "server-only";
-import { requireUser } from "../require-user";
+import { requireAdmin } from "../require-admin";
 import { prisma } from "@/lib/db";
 
-export const getMyLeases = async () => {
-  const { user } = await requireUser();
+export const getActiveLeases = async () => {
+  await requireAdmin();
 
-  const leases = await prisma.lease.findMany({
+  const listings = await prisma.lease.findMany({
     where: {
-      userId: user.id,
+      status: "ACTIVE",
     },
     select: {
       id: true,
@@ -110,7 +110,9 @@ export const getMyLeases = async () => {
     },
   });
 
-  return leases;
+  return listings;
 };
 
-export type GetMyLeasesType = Awaited<ReturnType<typeof getMyLeases>>[0];
+export type GetActiveLeasesType = Awaited<
+  ReturnType<typeof getActiveLeases>
+>[0];

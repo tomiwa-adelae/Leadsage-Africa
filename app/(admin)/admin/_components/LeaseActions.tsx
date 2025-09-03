@@ -26,9 +26,13 @@ import Link from "next/link";
 import { BookingStatus, LeaseStatus } from "@/lib/generated/prisma";
 import { useState } from "react";
 import { CancelBookingModal } from "./CancelBookingModal";
+import { RenewLeaseModal } from "./RenewLeaseModal";
+import { MarkLeaseAsExpiredModal } from "./MarkLeaseAsExpiredModal";
+import { ActivateLeaseModal } from "./ActivateLeaseModal";
+import { TerminateLeaseModal } from "./TerminateLeaseModal";
 import { useDownloadLease } from "@/hooks/use-download-lease";
 import { CancelLeaseModal } from "./CancelLeaseModal";
-import { GetLeaseDetailsType } from "@/app/data/user/lease/get-lease-details";
+import { GetLeaseDetailsType } from "@/app/data/admin/lease/get-lease";
 
 interface Props {
   landlordSignature: string | null;
@@ -37,7 +41,13 @@ interface Props {
   lease: GetLeaseDetailsType;
 }
 
-export function LeaseActions({ id, status, lease }: Props) {
+export function LeaseActions({ landlordSignature, id, status, lease }: Props) {
+  const [openMarkPaymentModal, setOpenMarkPaymentModal] = useState(false);
+  const [openActivateLeaseModal, setOpenActiveLeaseModal] = useState(false);
+  const [openMarkLeaseAsExpiredModal, setOpenMarkLeaseAsExpiredModal] =
+    useState(false);
+  const [openTerminateModal, setOpenTerminateModal] = useState(false);
+  const [openRenewLeaseModal, setOpenRenewLeaseModal] = useState(false);
   const [openCancelModal, setOpenCancelModal] = useState(false);
 
   const { isGenerating, handleDownload } = useDownloadLease({
@@ -87,13 +97,44 @@ export function LeaseActions({ id, status, lease }: Props) {
             View details
           </Link>
         </DropdownMenuItem>
+        {status !== "ACTIVE" &&
+          status !== "EXPIRED" &&
+          status !== "RENEWED" &&
+          landlordSignature && (
+            <DropdownMenuItem onClick={() => setOpenActiveLeaseModal(true)}>
+              <IconActivity
+                size={16}
+                className="opacity-60"
+                aria-hidden="true"
+              />
+              Activate Lease
+            </DropdownMenuItem>
+          )}
+        {status === "ACTIVE" && (
+          <DropdownMenuItem
+            onClick={() => setOpenMarkLeaseAsExpiredModal(true)}
+          >
+            <IconShieldCancel
+              size={16}
+              className="opacity-60"
+              aria-hidden="true"
+            />
+            Mark Lease as Expired
+          </DropdownMenuItem>
+        )}
+        {status === "EXPIRED" && (
+          <DropdownMenuItem onClick={() => setOpenRenewLeaseModal(true)}>
+            <IconCreditCard
+              size={16}
+              className="opacity-60"
+              aria-hidden="true"
+            />
+            Renew lease
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem onClick={handleDownload}>
           <IconDownload size={16} className="opacity-60" aria-hidden="true" />
           {isGenerating ? "Downloading..." : "Download Lease Agreement"}
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <IconCreditCard size={16} className="opacity-60" aria-hidden="true" />
-          Make Payment
         </DropdownMenuItem>
         {status !== "TERMINATED" &&
           status !== "ACTIVE" &&
@@ -103,8 +144,48 @@ export function LeaseActions({ id, status, lease }: Props) {
               Cancel Lease
             </DropdownMenuItem>
           )}
+        {status !== "TERMINATED" && status !== "EXPIRED" && (
+          <DropdownMenuItem onClick={() => setOpenTerminateModal(true)}>
+            <IconCircleDashedX
+              size={16}
+              className="opacity-60"
+              aria-hidden="true"
+            />
+            Terminate Lease
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
 
+      {openTerminateModal && (
+        <TerminateLeaseModal
+          open={openTerminateModal}
+          closeModal={() => setOpenTerminateModal(false)}
+          id={id}
+        />
+      )}
+      {openActivateLeaseModal && (
+        <ActivateLeaseModal
+          open={openActivateLeaseModal}
+          closeModal={() => setOpenActiveLeaseModal(false)}
+          id={id}
+        />
+      )}
+
+      {openMarkLeaseAsExpiredModal && (
+        <MarkLeaseAsExpiredModal
+          open={openMarkLeaseAsExpiredModal}
+          closeModal={() => setOpenMarkLeaseAsExpiredModal(false)}
+          id={id}
+        />
+      )}
+
+      {openRenewLeaseModal && (
+        <RenewLeaseModal
+          open={openRenewLeaseModal}
+          closeModal={() => setOpenRenewLeaseModal(false)}
+          id={id}
+        />
+      )}
       {openCancelModal && (
         <CancelLeaseModal
           open={openCancelModal}

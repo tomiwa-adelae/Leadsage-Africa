@@ -1017,3 +1017,118 @@ export const deleteApplication = async (id: string): Promise<ApiResponse> => {
     return { status: "error", message: "Failed to delete application" };
   }
 };
+
+export const terminateLease = async (id: string): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.lease.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "TERMINATED",
+      },
+    });
+
+    revalidatePath("/admin");
+
+    return { status: "success", message: "Lease successfully terminated" };
+  } catch (error) {
+    return { status: "error", message: "Failed to terminate lease agreement" };
+  }
+};
+
+export const activateLease = async (id: string): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.lease.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "ACTIVE",
+      },
+    });
+
+    revalidatePath("/admin");
+
+    return { status: "success", message: "Lease successfully activated" };
+  } catch (error) {
+    return { status: "error", message: "Failed to activate lease agreement" };
+  }
+};
+
+export const markLeaseAsExpired = async (id: string): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.lease.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "EXPIRED",
+      },
+    });
+
+    revalidatePath("/admin");
+
+    return { status: "success", message: "Lease successfully expired" };
+  } catch (error) {
+    return { status: "error", message: "Failed to expire lease agreement" };
+  }
+};
+
+export const markLeaseAsRenewed = async (id: string): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.lease.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "RENEWED",
+      },
+    });
+
+    revalidatePath("/admin");
+
+    return { status: "success", message: "Lease successfully renewed" };
+  } catch (error) {
+    return { status: "error", message: "Failed to renew lease agreement" };
+  }
+};
+
+export const cancelLease = async (id: string): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.lease.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "CANCELLED",
+      },
+    });
+
+    revalidatePath("/admin");
+
+    return { status: "success", message: "Lease successfully cancelled" };
+  } catch (error) {
+    return { status: "error", message: "Failed to cancel lease agreement" };
+  }
+};
