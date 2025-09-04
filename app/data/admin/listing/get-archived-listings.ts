@@ -23,6 +23,14 @@ export const getArchivedListings = async () => {
           cover: true,
         },
       },
+      Lease: {
+        where: {
+          status: "ACTIVE",
+        },
+        select: {
+          status: true,
+        },
+      },
     },
   });
 

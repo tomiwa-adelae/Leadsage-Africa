@@ -58,6 +58,14 @@ export const getLandlordListings = async (limit: number = 10) => {
           src: true,
         },
       },
+      Lease: {
+        where: {
+          status: "ACTIVE",
+        },
+        select: {
+          status: true,
+        },
+      },
     },
   });
 

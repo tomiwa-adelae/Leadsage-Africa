@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   IconCircleDashedX,
+  IconLockAccess,
   IconMapPin,
   IconRestore,
   IconTrash,
@@ -43,6 +44,9 @@ import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { BookingsTable } from "../../_components/BookingsTable";
 import { BookingsList } from "../../_components/BookingsList";
 import { QuickActions } from "./_components/QuickActions";
+import { getListingLeases } from "@/app/data/landlord/lease/get-listing-leases";
+import { LeasesTable } from "../../_components/LeasesTable";
+import { LeasesList } from "../../_components/LeasesList";
 
 type Params = Promise<{
   slug: string;
@@ -54,65 +58,82 @@ const page = async ({ params }: { params: Params }) => {
   const pendingBookings = await getListingUpcomingBookings(listing.id);
   const pastBookings = await getListingPastBookings(listing.id);
 
+  const leases = await getListingLeases(listing.id);
+
   return (
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-semibold">
-              {listing.title ? (
-                listing.title
-              ) : (
-                <span className="italic">No title</span>
-              )}{" "}
-              {listing.status === "Published" && !listing.isApproved && (
-                <Badge variant={"pending"}>
-                  <Hourglass /> Pending approval
-                </Badge>
-              )}
-              {listing.status === "Draft" && (
-                <Badge variant={"pending"}>
-                  <Component /> {listing.status}
-                </Badge>
-              )}
-              {listing.isApproved && listing.status === "Published" && (
+        <div>
+          <h1 className="text-3xl md:text-4xl font-semibold">
+            {listing.title ? (
+              listing.title
+            ) : (
+              <span className="italic">No title</span>
+            )}{" "}
+            {listing.status === "Published" && !listing.isApproved && (
+              <Badge variant={"pending"}>
+                <Hourglass /> Pending approval
+              </Badge>
+            )}
+            {listing.status === "Draft" && (
+              <Badge variant={"pending"}>
+                <Component /> {listing.status}
+              </Badge>
+            )}
+            {listing.isApproved && listing.status === "Published" && (
+              <div className="inline-flex gap-2">
                 <Badge variant={"default"}>
                   <Radio /> Live
                 </Badge>
-              )}
-              {listing.status === "Rejected" && (
-                <Badge variant={"destructive"}>
-                  <IconCircleDashedX /> Rejected
-                </Badge>
-              )}
-              {listing.status === "Restored" && (
-                <Badge variant={"secondary"}>
-                  <IconRestore /> Restored
-                </Badge>
-              )}
-              {listing.status === "Archived" && (
-                <Badge variant={"secondary"}>
-                  <Archive /> Archived
-                </Badge>
-              )}
-              {listing.status === "Deleted" && (
-                <Badge variant={"destructive"}>
-                  <IconTrash /> Deleted
-                </Badge>
-              )}
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              <IconMapPin className="inline-block mr-1 size-4" />
-              {listing.address}, {listing.city}, {listing.state},{" "}
-              {listing.country}
-            </p>
-          </div>
-          {/* <ListingActions
-            isApproved={listing.isApproved}
-            id={listing.id}
-            status={listing.status}
-          /> */}
+                {listing.Lease[0].status === "ACTIVE" && (
+                  <Badge variant={"success"}>
+                    <IconLockAccess /> Unavailable
+                  </Badge>
+                )}
+              </div>
+            )}
+            {listing.status === "Rejected" && (
+              <Badge variant={"destructive"}>
+                <IconCircleDashedX /> Rejected
+              </Badge>
+            )}
+            {listing.status === "Restored" && (
+              <Badge variant={"secondary"}>
+                <IconRestore /> Restored
+              </Badge>
+            )}
+            {listing.status === "Archived" && (
+              <Badge variant={"secondary"}>
+                <Archive /> Archived
+              </Badge>
+            )}
+            {listing.status === "Deleted" && (
+              <Badge variant={"destructive"}>
+                <IconTrash /> Deleted
+              </Badge>
+            )}
+          </h1>
+          <p className="text-muted-foreground text-base mt-2.5">
+            <IconMapPin className="inline-block mr-1 size-4" />
+            {listing.address}, {listing.city}, {listing.state},{" "}
+            {listing.country}
+          </p>
+          {listing.Lease[0].status === "ACTIVE" && (
+            <div className="bg-muted p-4 rounded-md w-full mt-2">
+              <p className="text-base font-medium">
+                Listing Unavailable – Active Lease
+              </p>
+              <p className="text-sm text-muted-foreground">
+                This listing is currently under an active lease with{" "}
+                {listing.Lease[0].User.name} from{" "}
+                {formatDate(listing.Lease[0].startDate)} to{" "}
+                {formatDate(listing.Lease[0].endDate)}. This listing would
+                automatically become available again on{" "}
+                {formatDate(listing.Lease[0].endDate)} unless renewed{" "}
+              </p>
+            </div>
+          )}
         </div>
         <div className="mt-4">
           {listing.photos.length === 0 ? (
@@ -389,19 +410,35 @@ const page = async ({ params }: { params: Params }) => {
               </Card>
             </CardContent>
           </Card>
+
           <Card className="@container/card gap-0">
             <CardHeader className="border-b">
-              <CardTitle>Activities logs</CardTitle>
+              <CardTitle>Leases for {listing.title}</CardTitle>
             </CardHeader>
-            <CardContent className="mt-4 grid gap-6"></CardContent>
+            <CardContent className="mt-2.5 grid gap-6">
+              {leases.length === 0 && (
+                <EmptyState
+                  title={`No leases`}
+                  description={`You have no leases for ${listing.title} yet! They would appear here once you do`}
+                />
+              )}
+              {leases.length !== 0 && (
+                <div className="mt-2.5">
+                  <LeasesTable leases={leases} />
+                  <LeasesList leases={leases} />
+                </div>
+              )}
+            </CardContent>
           </Card>
-          <QuickActions
-            slug={listing.slug}
-            id={listing.id}
-            status={listing.status}
-            isApproved={listing.isApproved}
-            listing={listing}
-          />
+          {listing.Lease[0].status !== "ACTIVE" && (
+            <QuickActions
+              slug={listing.slug}
+              id={listing.id}
+              status={listing.status}
+              isApproved={listing.isApproved}
+              listing={listing}
+            />
+          )}
         </div>
       </div>
     </div>

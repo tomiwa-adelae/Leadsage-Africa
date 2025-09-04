@@ -9,6 +9,11 @@ export const getApprovedListings = async (
   const listing = await prisma.listing.findMany({
     where: {
       isApproved: true,
+      Lease: {
+        none: {
+          status: "ACTIVE",
+        },
+      },
     },
     take: limit,
     select: {

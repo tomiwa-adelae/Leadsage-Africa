@@ -14,7 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { useSignout } from "@/hooks/use-signout";
-import { landlordDropdownLinks, userDropdownLinks } from "@/constants";
+import {
+  adminDropdownLinks,
+  landlordDropdownLinks,
+  userDropdownLinks,
+} from "@/constants";
 
 interface Props {
   image: string;
@@ -55,7 +59,7 @@ export function UserDropdown({ image, name, email, role }: Props) {
             ? userDropdownLinks
             : role === "landlord"
             ? landlordDropdownLinks
-            : []
+            : adminDropdownLinks
           ).map(({ slug, label, icon }, index) => {
             const Icon = icon;
             return (

@@ -24,6 +24,14 @@ export const getRejectedListings = async () => {
           cover: true,
         },
       },
+      Lease: {
+        where: {
+          status: "ACTIVE",
+        },
+        select: {
+          status: true,
+        },
+      },
     },
   });
 

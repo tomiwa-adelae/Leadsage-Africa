@@ -276,6 +276,11 @@ export const deleteListing = async (id: string): Promise<ApiResponse> => {
       },
       select: {
         title: true,
+        Lease: {
+          where: {
+            status: "ACTIVE",
+          },
+        },
         User: {
           select: {
             id: true,
@@ -286,6 +291,13 @@ export const deleteListing = async (id: string): Promise<ApiResponse> => {
 
     if (!listing)
       return { status: "error", message: "Oops! An error occurred!" };
+
+    if (listing?.Lease[0].status === "ACTIVE")
+      return {
+        status: "error",
+        message:
+          "Oops! You cannot delete this listing as it is currently occupied",
+      };
 
     await prisma.listing.update({
       where: {

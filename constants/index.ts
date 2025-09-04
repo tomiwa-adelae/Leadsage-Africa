@@ -320,6 +320,11 @@ export const landlordNavLinks = {
       icon: IconFolderCheck,
     },
     {
+      title: "My Leases",
+      slug: "/leases",
+      icon: IconContract,
+    },
+    {
       title: "Messages",
       slug: "/landlord/messages",
       icon: MessageSquareMore,
@@ -749,6 +754,54 @@ export const landlordDropdownLinks = [
   },
   {
     slug: "/notifications",
+    label: "Notifications",
+    icon: Bell,
+  },
+];
+
+export const adminDropdownLinks = [
+  {
+    slug: "/admin/dashboard",
+    label: "Dashbaord",
+    icon: LayoutDashboardIcon,
+  },
+  {
+    slug: "/admin/users",
+    label: "All Users",
+    icon: IconUsersGroup,
+  },
+  {
+    slug: "/admin/listings",
+    label: "All Listings",
+    icon: LayoutList,
+  },
+  {
+    slug: "/admin/bookings",
+    label: "All Bookings",
+    icon: ClipboardList,
+  },
+  {
+    slug: "/admin/applications",
+    label: "All Applications",
+    icon: IconFolder,
+  },
+  {
+    slug: "/admin/leases",
+    label: "All Leases",
+    icon: IconContract,
+  },
+  {
+    slug: "/admin/payments",
+    label: "All Payments",
+    icon: IconCreditCard,
+  },
+  {
+    slug: "/messages",
+    label: "Messages",
+    icon: Mail,
+  },
+  {
+    slug: "/admin/notifications",
     label: "Notifications",
     icon: Bell,
   },

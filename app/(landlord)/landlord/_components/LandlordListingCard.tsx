@@ -12,7 +12,12 @@ import ListingDropdown from "./ListingDropDown";
 import { GetLandlordListingsType } from "@/app/data/landlord/get-landlord-listings";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { useRouter } from "next/navigation";
-import { IconCircleDashedX, IconRestore, IconTrash } from "@tabler/icons-react";
+import {
+  IconCircleDashedX,
+  IconLockAccess,
+  IconRestore,
+  IconTrash,
+} from "@tabler/icons-react";
 
 interface Props {
   listing: GetLandlordListingsType;
@@ -78,9 +83,16 @@ export const LandlordListingCard = ({ listing }: Props) => {
           )}
 
           {listing.isApproved && listing.status === "Published" && (
-            <Badge variant={"default"} className="absolute top-2 left-2">
-              <Radio /> Live
-            </Badge>
+            <div className="absolute top-2 left-2 flex gap-2">
+              <Badge variant={"default"}>
+                <Radio /> Live
+              </Badge>
+              {listing.Lease[0].status === "ACTIVE" && (
+                <Badge variant={"success"}>
+                  <IconLockAccess /> Unavailable
+                </Badge>
+              )}
+            </div>
           )}
 
           {listing.status === "Rejected" && (

@@ -906,67 +906,69 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
               />
             </CardContent>
           </Card>
-          <Card className="gap-0">
-            <CardHeader>
-              <CardTitle>Visibility & Status</CardTitle>
-            </CardHeader>
-            <Separator className="my-4" />
-            <CardContent className="space-y-6">
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="grid gap-4">
-                        {listingVisibilities.map(
-                          ({ icon, name, description, id }) => {
-                            const Icon = icon;
-                            return (
-                              <Card
-                                key={id}
-                                className={cn(
-                                  "cursor-pointer border-2 hover:bg-accent transition-all",
-                                  selectedVisibility === name &&
-                                    "border-primary bg-muted"
-                                )}
-                                onClick={() => {
-                                  setSelectedVisibility(name);
-                                  field.onChange(name);
-                                }}
-                              >
-                                <CardContent className="flex flex-col md:flex-row items-start md:items-center justify-start gap-2">
-                                  <div
-                                    className={cn(
-                                      "p-4 inline-block text-white rounded-full",
-                                      name === "Draft" && "bg-yellow-600",
-                                      name === "Published" && "bg-green-600",
-                                      name === "Archived" &&
-                                        "bg-secondary text-secondary-foreground"
-                                    )}
-                                  >
-                                    <Icon className="size-5" />
-                                  </div>
-                                  <div>
-                                    <h5 className="font-medium text-lg">
-                                      {name}
-                                    </h5>
-                                    <p className="text-muted-foreground text-sm">
-                                      {description}
-                                    </p>
-                                  </div>
-                                </CardContent>
-                              </Card>
-                            );
-                          }
-                        )}
-                      </div>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
+          {listing.Lease[0].status !== "ACTIVE" && (
+            <Card className="gap-0">
+              <CardHeader>
+                <CardTitle>Visibility & Status</CardTitle>
+              </CardHeader>
+              <Separator className="my-4" />
+              <CardContent className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="grid gap-4">
+                          {listingVisibilities.map(
+                            ({ icon, name, description, id }) => {
+                              const Icon = icon;
+                              return (
+                                <Card
+                                  key={id}
+                                  className={cn(
+                                    "cursor-pointer border-2 hover:bg-accent transition-all",
+                                    selectedVisibility === name &&
+                                      "border-primary bg-muted"
+                                  )}
+                                  onClick={() => {
+                                    setSelectedVisibility(name);
+                                    field.onChange(name);
+                                  }}
+                                >
+                                  <CardContent className="flex flex-col md:flex-row items-start md:items-center justify-start gap-2">
+                                    <div
+                                      className={cn(
+                                        "p-4 inline-block text-white rounded-full",
+                                        name === "Draft" && "bg-yellow-600",
+                                        name === "Published" && "bg-green-600",
+                                        name === "Archived" &&
+                                          "bg-secondary text-secondary-foreground"
+                                      )}
+                                    >
+                                      <Icon className="size-5" />
+                                    </div>
+                                    <div>
+                                      <h5 className="font-medium text-lg">
+                                        {name}
+                                      </h5>
+                                      <p className="text-muted-foreground text-sm">
+                                        {description}
+                                      </p>
+                                    </div>
+                                  </CardContent>
+                                </Card>
+                              );
+                            }
+                          )}
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </Card>
+          )}
           <div className="grid grid-cols-2 gap-4 mt-8">
             <Button
               type="button"

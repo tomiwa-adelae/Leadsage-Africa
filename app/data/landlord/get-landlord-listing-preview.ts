@@ -66,6 +66,24 @@ export const getLandlordListingPreview = async (slug: string) => {
           createdAt: true,
         },
       },
+      Lease: {
+        where: {
+          status: "ACTIVE",
+        },
+        select: {
+          id: true,
+          endDate: true,
+          startDate: true,
+          moveInDate: true,
+          status: true,
+          User: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
     },
   });
 

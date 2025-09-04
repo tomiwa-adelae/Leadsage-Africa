@@ -11,15 +11,23 @@ import { ApproveListingModal } from "../../../_components/ApproveListingModal";
 import { UnarchivedListingModal } from "../../../_components/UnarchivedListingModal";
 import Link from "next/link";
 import { PublishListingModal } from "../../../_components/PublishListingModal";
+import { GetListingType } from "@/app/data/admin/listing/get-listing";
 
 interface Props {
   id: string;
   slug: string | null;
   status: ListingStatus;
   isApproved: boolean;
+  listing: GetListingType;
 }
 
-export const QuickActions = ({ id, isApproved, status, slug }: Props) => {
+export const QuickActions = ({
+  id,
+  isApproved,
+  status,
+  slug,
+  listing,
+}: Props) => {
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [openPublishModal, setOpenPublishModal] = useState<boolean>(false);
   const [openApproveModal, setOpenApproveModal] = useState<boolean>(false);
@@ -121,7 +129,7 @@ export const QuickActions = ({ id, isApproved, status, slug }: Props) => {
             Unarchive listing
           </div>
         )}
-        {status !== "Deleted" && (
+        {listing.Lease[0].status !== "ACTIVE" && status !== "Deleted" && (
           <div
             onClick={() => setOpenDeleteModal(true)}
             className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"

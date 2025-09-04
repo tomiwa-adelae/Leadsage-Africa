@@ -9,7 +9,12 @@ import { NairaIcon } from "@/components/NairaIcon";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { GetTotalListingsType } from "@/app/data/admin/listing/get-all-listings";
 import ListingDropdown from "./ListingDropdown";
-import { IconCircleDashedX, IconRestore, IconTrash } from "@tabler/icons-react";
+import {
+  IconCircleDashedX,
+  IconLockAccess,
+  IconRestore,
+  IconTrash,
+} from "@tabler/icons-react";
 
 interface Props {
   listing: GetTotalListingsType;
@@ -49,9 +54,16 @@ export const AdminListingCard = ({ listing }: Props) => {
           )}
 
           {listing.isApproved && listing.status === "Published" && (
-            <Badge variant={"default"} className="absolute top-2 left-2">
-              <Radio /> Live
-            </Badge>
+            <div className="absolute top-2 left-2 flex gap-2">
+              <Badge variant={"default"}>
+                <Radio /> Live
+              </Badge>
+              {listing.Lease[0].status === "ACTIVE" && (
+                <Badge variant={"success"}>
+                  <IconLockAccess /> Unavailable
+                </Badge>
+              )}
+            </div>
           )}
 
           {listing.status === "Rejected" && (

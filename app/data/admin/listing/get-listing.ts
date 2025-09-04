@@ -73,6 +73,14 @@ export const getListing = async (slug: string) => {
           bio: true,
         },
       },
+      Lease: {
+        where: {
+          status: "ACTIVE",
+        },
+        select: {
+          status: true,
+        },
+      },
     },
   });
 

@@ -23,6 +23,14 @@ export const getDeletedListings = async () => {
           cover: true,
         },
       },
+      Lease: {
+        where: {
+          status: "ACTIVE",
+        },
+        select: {
+          status: true,
+        },
+      },
     },
   });
 

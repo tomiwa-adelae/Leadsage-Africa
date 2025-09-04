@@ -18,8 +18,20 @@ export const deleteListing = async (id: string): Promise<ApiResponse> => {
       },
       select: {
         title: true,
+        Lease: {
+          where: {
+            status: "ACTIVE",
+          },
+        },
       },
     });
+
+    if (listing?.Lease[0].status === "ACTIVE")
+      return {
+        status: "error",
+        message:
+          "Oops! You cannot delete this listing as it is currently occupied",
+      };
 
     await prisma.listing.update({
       where: {
@@ -65,8 +77,20 @@ export const draftListing = async (id: string): Promise<ApiResponse> => {
       },
       select: {
         title: true,
+        Lease: {
+          where: {
+            status: "ACTIVE",
+          },
+        },
       },
     });
+
+    if (listing?.Lease[0].status === "ACTIVE")
+      return {
+        status: "error",
+        message:
+          "Oops! You cannot draft this listing as it is currently occupied",
+      };
 
     await prisma.listing.update({
       where: {

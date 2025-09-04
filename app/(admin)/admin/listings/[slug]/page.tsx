@@ -44,6 +44,9 @@ import ListingDropdown from "../../_components/ListingDropdown";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { getListingUpcomingBookings } from "@/app/data/booking/get-upcoming-bookings";
 import { getListingPastBookings } from "@/app/data/booking/get-listing-past-bookings";
+import { getListingLeases } from "@/app/data/admin/lease/get-listing-leases";
+import { LeasesTable } from "../../_components/LeasesTable";
+import { LeasesList } from "../../_components/LeasesList";
 
 type Params = Promise<{
   slug: string;
@@ -54,6 +57,8 @@ const page = async ({ params }: { params: Params }) => {
   const listing = await getListing(slug);
   const pendingBookings = await getListingUpcomingBookings(listing.id);
   const pastBookings = await getListingPastBookings(listing.id);
+
+  const leases = await getListingLeases(listing.id);
 
   return (
     <div>
@@ -468,15 +473,29 @@ const page = async ({ params }: { params: Params }) => {
           </Card>
           <Card className="@container/card gap-0">
             <CardHeader className="border-b">
-              <CardTitle>Activities logs</CardTitle>
+              <CardTitle>Leases for {listing.title}</CardTitle>
             </CardHeader>
-            <CardContent className="mt-4 grid gap-6"></CardContent>
+            <CardContent className="mt-2.5 grid gap-6">
+              {leases.length === 0 && (
+                <EmptyState
+                  title={`No leases`}
+                  description={`You have no leases for ${listing.title} yet! They would appear here once you do`}
+                />
+              )}
+              {leases.length !== 0 && (
+                <div className="mt-2.5">
+                  <LeasesTable leases={leases} />
+                  <LeasesList leases={leases} />
+                </div>
+              )}
+            </CardContent>
           </Card>
           <QuickActions
             slug={listing.slug}
             id={listing.id}
             status={listing.status}
             isApproved={listing.isApproved}
+            listing={listing}
           />
         </div>
       </div>
