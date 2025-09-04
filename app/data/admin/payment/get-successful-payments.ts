@@ -9,6 +9,9 @@ export const getSuccessfulPayments = async () => {
     where: {
       status: "SUCCESS",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       amount: true,

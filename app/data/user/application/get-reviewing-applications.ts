@@ -11,6 +11,9 @@ export const getReviewingApplications = async () => {
       status: "UNDER_REVIEW",
       userId: user.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       currentLandlordPhoneNumber: true,

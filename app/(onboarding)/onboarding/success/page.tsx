@@ -18,14 +18,14 @@ const page = async ({ searchParams }: Props) => {
           : "Your profile is ready. You can now create your first listing and connect with potential renters."}
       </p>
       <div className="grid mt-8 grid-cols-2 gap-4">
-        <Button className="w-full" asChild variant={"outline"}>
+        <Button size={"md"} className="w-full" asChild variant={"outline"}>
           <Link
             href={role === "landlord" ? "/landlord/listings/new" : "/listings"}
           >
             {role === "landlord" ? "Create first listing" : "Browse listings"}
           </Link>
         </Button>
-        <Button className="w-full" asChild>
+        <Button size={"md"} className="w-full" asChild>
           <Link
             href={role === "landlord" ? "/landlord/dashboard" : "/dashboard"}
           >

@@ -78,7 +78,17 @@ export const getListing = async (slug: string) => {
           status: "ACTIVE",
         },
         select: {
+          id: true,
+          endDate: true,
+          startDate: true,
+          moveInDate: true,
           status: true,
+          User: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
         },
       },
     },

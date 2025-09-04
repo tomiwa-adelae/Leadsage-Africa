@@ -86,7 +86,7 @@ const page = async ({ params }: { params: Params }) => {
                 <Badge variant={"default"}>
                   <Radio /> Live
                 </Badge>
-                {listing.Lease[0].status === "ACTIVE" && (
+                {listing?.Lease[0]?.status === "ACTIVE" && (
                   <Badge variant={"success"}>
                     <IconLockAccess /> Unavailable
                   </Badge>
@@ -119,7 +119,7 @@ const page = async ({ params }: { params: Params }) => {
             {listing.address}, {listing.city}, {listing.state},{" "}
             {listing.country}
           </p>
-          {listing.Lease[0].status === "ACTIVE" && (
+          {listing?.Lease[0]?.status === "ACTIVE" && (
             <div className="bg-muted p-4 rounded-md w-full mt-2">
               <p className="text-base font-medium">
                 Listing Unavailable – Active Lease
@@ -430,7 +430,7 @@ const page = async ({ params }: { params: Params }) => {
               )}
             </CardContent>
           </Card>
-          {listing.Lease[0].status !== "ACTIVE" && (
+          {listing?.Lease[0]?.status !== "ACTIVE" && (
             <QuickActions
               slug={listing.slug}
               id={listing.id}

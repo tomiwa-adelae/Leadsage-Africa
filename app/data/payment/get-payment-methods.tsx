@@ -9,6 +9,9 @@ export const getPaymentMethods = async () => {
     where: {
       userId: user.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       cardType: true,

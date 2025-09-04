@@ -11,6 +11,9 @@ export const getAllLeases = async () => {
         not: "DELETED",
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       leaseId: true,

@@ -10,6 +10,9 @@ export const getPendingListings = async () => {
       status: "Published",
       isApproved: false,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       title: true,

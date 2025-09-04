@@ -325,8 +325,19 @@ export async function bookTour(
             id: true,
           },
         },
+        Lease: {
+          where: {
+            status: "ACTIVE",
+          },
+        },
       },
     });
+
+    if (listing?.Lease.length !== 0)
+      return {
+        status: "error",
+        message: "Oops! You cannot book this listing.",
+      };
 
     if (!listing)
       return { status: "error", message: "Oops! An error occurred" };

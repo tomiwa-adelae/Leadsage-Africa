@@ -85,7 +85,7 @@ export const QuickActions = ({
         <CardTitle>Quick Actions</CardTitle>
       </CardHeader>
       <CardContent className="mt-2.5 grid gap-4">
-        {lease.status !== "ACTIVE" && (
+        {landlordSignature && lease.status !== "ACTIVE" && (
           <div
             onClick={() => setOpenMarkPaymentModal(true)}
             className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"

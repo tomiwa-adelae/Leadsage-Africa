@@ -13,6 +13,9 @@ export const getLandlordListings = async (limit: number = 10) => {
         notIn: ["Archived", "Deleted"],
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     take: limit,
     select: {
       id: true,

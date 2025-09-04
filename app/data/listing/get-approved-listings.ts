@@ -6,7 +6,7 @@ export const getApprovedListings = async (
   limit: number = 10,
   userId?: string
 ) => {
-  const listing = await prisma.listing.findMany({
+  const listings = await prisma.listing.findMany({
     where: {
       isApproved: true,
       Lease: {
@@ -14,6 +14,9 @@ export const getApprovedListings = async (
           status: "ACTIVE",
         },
       },
+    },
+    orderBy: {
+      createdAt: "desc",
     },
     take: limit,
     select: {
@@ -54,9 +57,7 @@ export const getApprovedListings = async (
     },
   });
 
-  if (!listing) return notFound();
-
-  return listing;
+  return listings;
 };
 
 export type GetApprovedListingsType = Awaited<

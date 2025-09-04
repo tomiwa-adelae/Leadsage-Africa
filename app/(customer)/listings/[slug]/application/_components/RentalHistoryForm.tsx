@@ -168,7 +168,12 @@ export function RentalHistoryForm({ data, slug, applicationId }: Props) {
                 </FormItem>
               )}
             />
-            <Button disabled={pending} type="submit" size={"md"}>
+            <Button
+              disabled={pending}
+              type="submit"
+              size={"md"}
+              className="w-full"
+            >
               {pending ? <Loader text="Proceeding..." /> : "Proceed"}
             </Button>
           </form>

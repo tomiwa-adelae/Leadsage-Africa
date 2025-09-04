@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
 import { useSignout } from "@/hooks/use-signout";
+import Link from "next/link";
 
 export function NavUser() {
   const { data: session, isPending } = authClient.useSession();
@@ -99,17 +100,17 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUserCircle />
-                Account
+              <DropdownMenuItem asChild>
+                <Link href="/notifications">
+                  <IconUserCircle />
+                  Dashboard
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconNotification />
-                Notifications
+              <DropdownMenuItem asChild>
+                <Link href="/notifications">
+                  <IconNotification />
+                  Notifications
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

@@ -9,6 +9,9 @@ export const getTerminatedLeases = async () => {
     where: {
       status: "TERMINATED",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       leaseId: true,

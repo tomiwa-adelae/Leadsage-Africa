@@ -84,7 +84,7 @@ export const QuickActions = ({
             Publish listing
           </div>
         )}
-        {listing.Lease[0].status !== "ACTIVE" && status === "Published" && (
+        {listing?.Lease[0]?.status !== "ACTIVE" && status === "Published" && (
           <div
             onClick={() => setOpenDraftModal(true)}
             className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
@@ -95,7 +95,7 @@ export const QuickActions = ({
             Draft listing
           </div>
         )}
-        {listing.Lease[0].status !== "ACTIVE" && status !== "Deleted" && (
+        {listing?.Lease[0]?.status !== "ACTIVE" && status !== "Deleted" && (
           <div
             onClick={handleDraft}
             className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
@@ -106,7 +106,7 @@ export const QuickActions = ({
             Edit listing
           </div>
         )}
-        {listing.Lease[0].status !== "ACTIVE" && status !== "Deleted" && (
+        {listing?.Lease[0]?.status !== "ACTIVE" && status !== "Deleted" && (
           <div
             onClick={() => setOpenDeleteModal(true)}
             className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"

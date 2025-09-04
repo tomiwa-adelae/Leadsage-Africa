@@ -12,6 +12,9 @@ export const getListingLeases = async (id: string) => {
         userId: user.id,
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       leaseId: true,

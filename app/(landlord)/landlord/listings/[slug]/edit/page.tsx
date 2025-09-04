@@ -47,7 +47,7 @@ const page = async ({ params }: { params: Params }) => {
             </Button>
           )}
         </div>
-        {listing.Lease[0].status === "ACTIVE" && (
+        {listing?.Lease[0]?.status === "ACTIVE" && (
           <div className="bg-muted p-4 rounded-md w-full mt-2">
             <p className="text-base font-medium">
               Listing Unavailable – Active Lease

@@ -9,6 +9,9 @@ export const getTotalCancelledBookings = async () => {
     where: {
       status: "Cancelled",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       date: true,

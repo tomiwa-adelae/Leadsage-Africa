@@ -19,6 +19,7 @@ import { tryCatch } from "@/hooks/use-try-catch";
 import { toast } from "sonner";
 import { applyForListing, cancelBooking } from "../bookings/[id]/actions";
 import { useRouter } from "next/navigation";
+import { useConfetti } from "@/hooks/use-confetti";
 
 export function InterestedModal({
   open,
@@ -35,6 +36,7 @@ export function InterestedModal({
   const animationRef = useRef<LottieRefCurrentProps>(null);
 
   const [pending, startPending] = useTransition();
+  const { triggerConfetti } = useConfetti();
 
   const handleInterested = () => {
     startPending(async () => {
@@ -48,6 +50,7 @@ export function InterestedModal({
       if (result.status === "success") {
         toast.success(result.message);
         closeModal();
+        triggerConfetti();
         router.push(`/listings/${slug}/application`);
       } else {
         toast.error(result.message);

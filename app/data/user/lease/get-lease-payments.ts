@@ -10,6 +10,9 @@ export const getLeasePayments = async (id: string) => {
       userId: user.id,
       leaseId: id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       amount: true,

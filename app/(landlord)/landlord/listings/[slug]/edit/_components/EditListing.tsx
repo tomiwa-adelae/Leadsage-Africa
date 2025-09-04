@@ -906,7 +906,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
               />
             </CardContent>
           </Card>
-          {listing.Lease[0].status !== "ACTIVE" && (
+          {listing?.Lease[0]?.status !== "ACTIVE" && (
             <Card className="gap-0">
               <CardHeader>
                 <CardTitle>Visibility & Status</CardTitle>

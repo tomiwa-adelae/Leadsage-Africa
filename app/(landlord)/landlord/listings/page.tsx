@@ -10,6 +10,8 @@ import { LandlordListingCard } from "../_components/LandlordListingCard";
 const page = async () => {
   const listings = await getLandlordListings();
 
+  console.log(listings);
+
   return (
     <div>
       <SiteHeader />

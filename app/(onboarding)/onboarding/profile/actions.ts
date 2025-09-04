@@ -25,6 +25,7 @@ export const editProfile = async (
       },
       data: {
         ...data,
+        onboardingCompleted: true,
       },
     });
 
@@ -44,7 +45,13 @@ export const editProfile = async (
       status: "success",
       message: "Your profile has been successfully updated. Redirecting...",
     };
-  } catch (error) {
-    return { status: "error", message: "Failed to update profile." };
+  } catch (error: any) {
+    return {
+      status: "error",
+      message:
+        error.code === "P2002"
+          ? "This email is already in use. Please choose another one."
+          : "Failed to update profile.",
+    };
   }
 };

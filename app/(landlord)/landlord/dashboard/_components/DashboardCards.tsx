@@ -14,13 +14,15 @@ import { Calendar, Clock, Eye, House, Wallet } from "lucide-react";
 import Image from "next/image";
 import { GetLandlordPendingBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { NairaIcon } from "@/components/NairaIcon";
+import { GetMyLeasesType } from "@/app/data/landlord/lease/get-my-leases";
 
 interface Props {
   listings: GetLandlordListingsType[];
   pendingBookings: GetLandlordPendingBookingsType[];
+  leases: GetMyLeasesType[];
 }
 
-export function DashboardCards({ listings, pendingBookings }: Props) {
+export function DashboardCards({ listings, pendingBookings, leases }: Props) {
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       <Card className="@container/card">
@@ -80,9 +82,9 @@ export function DashboardCards({ listings, pendingBookings }: Props) {
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Total views</CardDescription>
+          <CardDescription>My Leases</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            4.5%
+            {leases.length}
           </CardTitle>
           <CardAction>
             <div className="p-4 inline-block bg-purple-400/20 dark:bg-purple-400/70 text-purple-400 dark:text-white rounded-full">

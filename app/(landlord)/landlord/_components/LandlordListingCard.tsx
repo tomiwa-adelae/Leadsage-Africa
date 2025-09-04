@@ -87,7 +87,7 @@ export const LandlordListingCard = ({ listing }: Props) => {
               <Badge variant={"default"}>
                 <Radio /> Live
               </Badge>
-              {listing.Lease[0].status === "ACTIVE" && (
+              {listing?.Lease[0]?.status === "ACTIVE" && (
                 <Badge variant={"success"}>
                   <IconLockAccess /> Unavailable
                 </Badge>

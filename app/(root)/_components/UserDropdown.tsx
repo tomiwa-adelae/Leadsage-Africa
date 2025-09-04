@@ -55,11 +55,13 @@ export function UserDropdown({ image, name, email, role }: Props) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {(role === "user"
+          {(role === "user" || role === "renter"
             ? userDropdownLinks
             : role === "landlord"
             ? landlordDropdownLinks
-            : adminDropdownLinks
+            : role === "admin"
+            ? adminDropdownLinks
+            : []
           ).map(({ slug, label, icon }, index) => {
             const Icon = icon;
             return (

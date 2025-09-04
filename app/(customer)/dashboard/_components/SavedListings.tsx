@@ -18,9 +18,11 @@ export const SavedListings = ({ listings }: Props) => {
     <Card className="gap-0">
       <CardHeader className="flex items-center justify-between gap-4">
         <CardTitle>Saved for You</CardTitle>
-        <Button size="sm" variant={"ghost"} asChild>
-          <Link href={"/saved-listings"}>View All</Link>
-        </Button>
+        {listings.length !== 0 && (
+          <Button size="sm" variant={"ghost"} asChild>
+            <Link href={"/saved-listings"}>View All</Link>
+          </Button>
+        )}
       </CardHeader>
       <CardContent>
         {listings.length === 0 && (

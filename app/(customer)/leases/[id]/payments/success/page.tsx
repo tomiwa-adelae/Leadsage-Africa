@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import React from "react";
 import { QuickActions } from "./_components/QuickActions";
+import { Confetti } from "@/components/Confetti";
 
 interface Props {
   searchParams: any;
@@ -19,6 +20,7 @@ const page = async ({ searchParams }: Props) => {
   return (
     <div>
       <SiteHeader />
+      <Confetti />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div>
           <h1 className="text-3xl md:text-4xl font-semibold">

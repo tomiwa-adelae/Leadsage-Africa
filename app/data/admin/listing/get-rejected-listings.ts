@@ -10,6 +10,9 @@ export const getRejectedListings = async () => {
       status: "Rejected",
       isApproved: false,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       title: true,

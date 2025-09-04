@@ -11,6 +11,9 @@ export const getSavedListings = async (limit: number = 10) => {
       userId: user.id,
     },
     take: limit,
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       Listing: {

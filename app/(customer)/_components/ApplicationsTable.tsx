@@ -20,6 +20,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { BookingActions } from "./BookingActions";
 import { GetApplicationsType } from "@/app/data/user/application/get-applications";
+import { ApplicationActions } from "./ApplicationActions";
+import { GetApplicationType } from "@/app/data/user/application/get-application";
 
 interface Props {
   applications: GetApplicationsType[];
@@ -94,13 +96,11 @@ export function ApplicationsTable({ applications }: Props) {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center justify-end">
-                    {/* <BookingActions
-                      id={booking.id}
-                      status={booking.status}
-                      title={booking.listing.title!}
-                      date={booking.date}
-                      time={booking.timeSlot}
-                    /> */}
+                    <ApplicationActions
+                      id={application.id}
+                      application={application}
+                      status={application.status}
+                    />
                   </div>
                 </TableCell>
               </TableRow>

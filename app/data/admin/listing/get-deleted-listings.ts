@@ -9,6 +9,9 @@ export const getDeletedListings = async () => {
     where: {
       status: "Deleted",
     },
+    orderBy: {
+      updatedAt: "desc",
+    },
     select: {
       id: true,
       title: true,

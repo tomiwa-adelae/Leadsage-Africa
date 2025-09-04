@@ -14,6 +14,7 @@ import Link from "next/link";
 import React from "react";
 import { BookingActions } from "./BookingActions";
 import { GetApplicationsType } from "@/app/data/user/application/get-applications";
+import { ApplicationActions } from "./ApplicationActions";
 
 interface Props {
   applications: GetApplicationsType[];
@@ -77,13 +78,11 @@ export const ApplicationsList = ({ applications }: Props) => {
               }}
               className="absolute top-1/2 right-1 -translate-y-1/2 -translate-x-1"
             >
-              {/* <BookingActions
-                id={booking.id}
-                status={booking.status}
-                title={booking.listing.title!}
-                date={booking.date}
-                time={booking.timeSlot}
-              /> */}
+              <ApplicationActions
+                id={application.id}
+                status={application.status}
+                application={application}
+              />
             </div>
           </Link>
         );

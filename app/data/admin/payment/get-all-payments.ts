@@ -6,6 +6,9 @@ export const getAllPayments = async () => {
   await requireAdmin();
 
   const payments = await prisma.payment.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       amount: true,

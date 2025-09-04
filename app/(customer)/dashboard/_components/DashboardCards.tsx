@@ -1,4 +1,8 @@
-import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
+import {
+  IconContract,
+  IconTrendingDown,
+  IconTrendingUp,
+} from "@tabler/icons-react";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -24,23 +28,33 @@ import {
   GetCustomerCompletedBookingsType,
   GetCustomerPendingBookingsType,
 } from "@/app/data/booking/get-customer-bookings";
+import { GetSavedListingsType } from "@/app/data/listing/get-saved-listings";
+import { GetMyLeasesType } from "@/app/data/user/lease/get-my-leases";
+import { LeasesCards } from "@/app/(admin)/admin/_components/LeasesCards";
 
 interface Props {
   pendingBookings: GetCustomerPendingBookingsType[];
   completedBookings: GetCustomerCompletedBookingsType[];
+  totalSavedListings: GetSavedListingsType[];
+  leases: GetMyLeasesType[];
 }
 
-export function DashboardCards({ pendingBookings, completedBookings }: Props) {
+export function DashboardCards({
+  pendingBookings,
+  completedBookings,
+  totalSavedListings,
+  leases,
+}: Props) {
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Active Bookings</CardDescription>
+          <CardDescription>Pending Tours</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {pendingBookings?.length}
           </CardTitle>
           <CardAction>
-            <div className="p-4 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-full">
+            <div className="p-4 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-full">
               <Calendar />
             </div>
           </CardAction>
@@ -73,7 +87,7 @@ export function DashboardCards({ pendingBookings, completedBookings }: Props) {
         <CardHeader>
           <CardDescription>Saved Propreties</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            10
+            {totalSavedListings.length}
           </CardTitle>
           <CardAction>
             <div className="p-4 inline-block bg-red-600/20 dark:bg-red-600/70 text-red-600 dark:text-white rounded-full">
@@ -89,13 +103,13 @@ export function DashboardCards({ pendingBookings, completedBookings }: Props) {
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Total views</CardDescription>
+          <CardDescription>My Leases</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            4.5%
+            {leases.length}
           </CardTitle>
           <CardAction>
             <div className="p-4 inline-block bg-purple-400/20 dark:bg-purple-400/70 text-purple-400 dark:text-white rounded-full">
-              <Eye />
+              <IconContract />
             </div>
           </CardAction>
         </CardHeader>

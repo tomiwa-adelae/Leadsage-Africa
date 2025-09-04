@@ -131,7 +131,7 @@ export default function ListingDropdown({
               Unarchive listing
             </DropdownMenuItem>
           )}
-          {listing.Lease[0].status !== "ACTIVE" && status !== "Deleted" && (
+          {listing?.Lease[0]?.status !== "ACTIVE" && status !== "Deleted" && (
             <DropdownMenuItem onClick={() => setOpenModal(true)}>
               <Trash2 />
               Delete listing

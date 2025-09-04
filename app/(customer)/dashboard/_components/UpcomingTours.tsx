@@ -18,9 +18,11 @@ export const UpcomingTours = ({ bookings }: Props) => {
     <Card className="gap-0">
       <CardHeader className="flex items-center justify-between gap-4">
         <CardTitle>Upcoming Tours</CardTitle>
-        <Button size="sm" variant={"ghost"} asChild>
-          <Link href={"/bookings"}>View All</Link>
-        </Button>
+        {bookings.length !== 0 && (
+          <Button size="sm" variant={"ghost"} asChild>
+            <Link href={"/bookings"}>View All</Link>
+          </Button>
+        )}
       </CardHeader>
       <CardContent>
         {bookings.length === 0 && (

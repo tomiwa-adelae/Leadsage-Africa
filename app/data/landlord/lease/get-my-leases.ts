@@ -11,6 +11,9 @@ export const getMyLeases = async () => {
         userId: user.id,
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       leaseId: true,

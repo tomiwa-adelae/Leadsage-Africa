@@ -50,8 +50,6 @@ export const markLeaseAsPaid = async (
 
     if (!lease) return { status: "error", message: "Oops! An error occurred" };
 
-    console.log(id, amount, trxref, reference, transaction, status, method);
-
     const payment = await prisma.payment.create({
       data: {
         userId: user.id,

@@ -9,6 +9,9 @@ export const getTotalConfirmedBookings = async () => {
     where: {
       status: "Confirmed",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       date: true,

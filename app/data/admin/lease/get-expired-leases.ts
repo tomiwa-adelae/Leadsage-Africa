@@ -9,6 +9,9 @@ export const getExpiredLeases = async () => {
     where: {
       status: "EXPIRED",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       leaseId: true,

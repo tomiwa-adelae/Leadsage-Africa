@@ -9,6 +9,9 @@ export const getMyPayments = async () => {
     where: {
       userId: user.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       amount: true,

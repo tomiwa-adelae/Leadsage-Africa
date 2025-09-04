@@ -11,6 +11,9 @@ export const getTotalListings = async () => {
         not: "Deleted",
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       amenities: true,

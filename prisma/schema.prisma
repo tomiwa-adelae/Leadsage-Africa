@@ -52,6 +52,8 @@ model User {
   lease           Lease[]
   payment         Payment[]
 
+  onboardingCompleted Boolean? @default(false)
+
   role       String?
   banned     Boolean?
   banReason  String?

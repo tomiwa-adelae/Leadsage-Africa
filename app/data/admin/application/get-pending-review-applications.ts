@@ -9,6 +9,9 @@ export const getPendingReviewApplicaitons = async () => {
     where: {
       status: "UNDER_REVIEW",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       currentLandlordPhoneNumber: true,

@@ -27,6 +27,7 @@ import {
 import {
   IconActivity,
   IconArchive,
+  IconArrowsMinimize,
   IconBan,
   IconCalendarCheck,
   IconCalendarX,
@@ -125,7 +126,7 @@ export const onboardingRole = [
   {
     icon: Search,
     title: "I’m a Renter",
-    description: "I want to browse and book available apartments.",
+    description: "I want to browse and rent available apartments.",
     role: "renter",
   },
 ];
@@ -321,7 +322,7 @@ export const landlordNavLinks = {
     },
     {
       title: "My Leases",
-      slug: "/leases",
+      slug: "/landlord/leases",
       icon: IconContract,
     },
     {
@@ -650,11 +651,6 @@ export const settingsNavLinks = {
       slug: "/settings/login-and-security",
       icon: Shield,
     },
-    // {
-    //   title: "Privacy",
-    //   slug: "/settings/privacy",
-    //   icon: Hand,
-    // },
     {
       title: "Notifications",
       slug: "/settings/notifications",
@@ -669,6 +665,11 @@ export const settingsNavLinks = {
       title: "Billings & Payments",
       slug: "/settings/payments",
       icon: CreditCard,
+    },
+    {
+      title: "Exit settings",
+      slug: "/dashboard",
+      icon: IconArrowsMinimize,
     },
   ],
 };
@@ -719,7 +720,7 @@ export const landlordDropdownLinks = [
   },
   {
     slug: "/landlord/listings",
-    label: "My Lisitngs",
+    label: "My Listings",
     icon: LayoutList,
   },
   {
@@ -762,7 +763,7 @@ export const landlordDropdownLinks = [
 export const adminDropdownLinks = [
   {
     slug: "/admin/dashboard",
-    label: "Dashbaord",
+    label: "Dashboard",
     icon: LayoutDashboardIcon,
   },
   {

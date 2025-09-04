@@ -9,6 +9,9 @@ export const getApprovedApplicaitons = async () => {
     where: {
       status: "APPROVED",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       currentLandlordPhoneNumber: true,

@@ -11,6 +11,9 @@ export const getRejectedApplications = async () => {
       status: "REJECTED",
       userId: user.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       currentLandlordPhoneNumber: true,

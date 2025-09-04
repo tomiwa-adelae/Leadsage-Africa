@@ -9,6 +9,9 @@ export const getTotalPendingBookings = async () => {
     where: {
       status: "Pending",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       date: true,

@@ -367,7 +367,12 @@ export function PersonalInformationForm({ data, listingId, slug }: Props) {
                 />
               </CardContent>
             </Card>
-            <Button disabled={pending} type="submit" size={"md"}>
+            <Button
+              disabled={pending}
+              type="submit"
+              size={"md"}
+              className="w-full"
+            >
               {pending ? <Loader text="Proceeding..." /> : "Proceed"}
             </Button>
           </form>

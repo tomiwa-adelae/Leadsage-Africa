@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { getGreeting } from "@/lib/utils";
 import { headers } from "next/headers";
 import React from "react";
-import { DashboardCards } from "./_components/Dashboard";
+import { DashboardCards } from "./_components/DashboardCards";
 import { UpcomingTours } from "./_components/UpcomingTours";
 import {
   getCustomerBookings,
@@ -16,6 +16,7 @@ import { RecommendedListings } from "./_components/RecommendedListings";
 import { getApprovedListings } from "@/app/data/listing/get-approved-listings";
 import { SavedListings } from "./_components/SavedListings";
 import { getSavedListings } from "@/app/data/listing/get-saved-listings";
+import { getMyLeases } from "@/app/data/user/lease/get-my-leases";
 
 const page = async () => {
   const session = await auth.api.getSession({
@@ -24,11 +25,13 @@ const page = async () => {
 
   const recommendedListings = await getApprovedListings(3);
   const savedListings = await getSavedListings(3);
+  const totalSavedListings = await getSavedListings();
 
   const pendingBookings = await getCustomerPendingBookings();
   const completedBookings = await getCustomerCompletedBookings();
   const confirmedBookings = await getCustomerConfirmedBookings();
   const cancelledBookings = await getCustomerCancelledBookings();
+  const leases = await getMyLeases();
 
   return (
     <div>
@@ -39,6 +42,8 @@ const page = async () => {
         <DashboardCards
           pendingBookings={pendingBookings}
           completedBookings={completedBookings}
+          totalSavedListings={totalSavedListings}
+          leases={leases}
         />
         <UpcomingTours bookings={pendingBookings} />
         <RecommendedListings listings={recommendedListings} />

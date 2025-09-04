@@ -116,6 +116,21 @@ const page = async ({ params }: { params: Params }) => {
                 <span className="italic">No location</span>
               )}
             </p>
+            {listing?.Lease[0]?.status === "ACTIVE" && (
+              <div className="bg-muted p-4 rounded-md w-full mt-2">
+                <p className="text-base font-medium">
+                  Listing Unavailable – Active Lease
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  This listing is currently under an active lease with{" "}
+                  {listing.Lease[0].User.name} from{" "}
+                  {formatDate(listing.Lease[0].startDate)} to{" "}
+                  {formatDate(listing.Lease[0].endDate)}. This listing would
+                  automatically become available again on{" "}
+                  {formatDate(listing.Lease[0].endDate)} unless renewed{" "}
+                </p>
+              </div>
+            )}
           </div>
           <ListingActions
             isApproved={listing.isApproved}

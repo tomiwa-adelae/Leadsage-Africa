@@ -13,6 +13,9 @@ export const getListingUpcomingBookings = async (listingId: string) => {
       },
       listingId,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       date: true,

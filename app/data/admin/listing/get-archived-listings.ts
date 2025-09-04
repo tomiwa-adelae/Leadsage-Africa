@@ -9,6 +9,9 @@ export const getArchivedListings = async () => {
     where: {
       status: "Archived",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       title: true,

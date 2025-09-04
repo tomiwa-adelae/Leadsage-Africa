@@ -11,6 +11,9 @@ export const getApprovedApplications = async () => {
       status: "APPROVED",
       userId: user.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       currentLandlordPhoneNumber: true,

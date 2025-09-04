@@ -12,6 +12,9 @@ export const getApplications = async () => {
         userId: user.id,
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       currentLandlordPhoneNumber: true,

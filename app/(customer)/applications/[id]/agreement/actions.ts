@@ -44,6 +44,25 @@ export const acceptAgreement = async (data: {
     if (!application)
       return { status: "error", message: "Oops! An error occurred!" };
 
+    const listing = await prisma.listing.findUnique({
+      where: {
+        id: application.Listing.id,
+      },
+      select: {
+        Lease: {
+          where: {
+            status: "ACTIVE",
+          },
+        },
+      },
+    });
+
+    if (listing?.Lease.length !== 0)
+      return {
+        status: "error",
+        message: "Oops! You cannot sign an already active lease.",
+      };
+
     const year = new Date().getFullYear();
     let suffix = generateSuffix();
     let leaseId = `LEASE-${year}-${suffix}`;

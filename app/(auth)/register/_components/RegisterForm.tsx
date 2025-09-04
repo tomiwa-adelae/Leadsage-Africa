@@ -89,7 +89,7 @@ export function RegisterForm() {
             toast.success(
               `Your account was successfully created. You will be redirected...`
             );
-            router.push("/onboarding");
+            router.push("/?login=true");
             await triggerUserCreationNotifications();
           },
           onError: (error) => {
@@ -260,6 +260,7 @@ export function RegisterForm() {
             disabled={googlePending || emailPending}
             className="w-full"
             type="submit"
+            size={"md"}
           >
             {emailPending ? <Loader text="Registering..." /> : "Register"}
           </Button>
@@ -274,6 +275,7 @@ export function RegisterForm() {
             className="w-full"
             variant="outline"
             type="button"
+            size={"md"}
           >
             {googlePending ? (
               <Loader />

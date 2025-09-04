@@ -3,12 +3,15 @@ import { Logo } from "@/components/Logo";
 import { DEFAULT_PROFILE_PICTURE, navLinks } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { MobileNavbar } from "./MobileNavbar";
-import { getUserInfo } from "@/app/data/user/get-user-info";
 import { UserDropdown } from "./UserDropdown";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export const Header = async () => {
-  const user = await getUserInfo();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   return (
     <header className="z-50 bg-white dark:bg-black py-4 h-20 flex items-center justify-center fixed top-0 w-full shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]">
@@ -28,7 +31,7 @@ export const Header = async () => {
         <div className="flex items-center justify-end gap-6">
           <ThemeToggle />
           <div className="hidden md:flex items-center justify-end gap-4">
-            {!user && (
+            {!session?.user && (
               <>
                 <Button asChild variant="ghost">
                   <Link href={"/register"}>Become a landlord</Link>
@@ -40,12 +43,12 @@ export const Header = async () => {
             </Button>
           </div>
 
-          {user && (
+          {session?.user && (
             <UserDropdown
-              name={user?.name}
-              email={user?.email}
-              role={user?.role || "user"}
-              image={user?.image || DEFAULT_PROFILE_PICTURE}
+              name={session?.user?.name}
+              email={session?.user?.email}
+              role={session?.user?.role || "user"}
+              image={session?.user?.image || DEFAULT_PROFILE_PICTURE}
             />
           )}
           <div className="lg:hidden">

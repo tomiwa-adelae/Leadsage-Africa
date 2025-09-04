@@ -39,7 +39,7 @@ export const getCustomerBookings = async (limit: number = 10) => {
       },
     },
     orderBy: {
-      createdAt: "asc",
+      createdAt: "desc",
     },
   });
 

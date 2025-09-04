@@ -82,13 +82,12 @@ export const editProfileFormSchema = z.object({
   }),
   phoneNumber: z
     .string()
-    .regex(/^(\+?\d{10,15})$/, { message: "Enter a valid phone number." })
-    .optional(),
-  gender: z.enum(genders).optional(),
-  address: z.string().optional(),
-  city: z.string().optional(),
-  state: z.enum(states).optional(),
-  country: z.enum(countries).optional(),
+    .regex(/^(\+?\d{10,15})$/, { message: "Enter a valid phone number." }),
+  gender: z.enum(genders, { message: "Please select your gender" }).optional(),
+  address: z.string().min(2, { message: "Please enter your address" }),
+  city: z.string().min(2, { message: "Please enter your city" }),
+  state: z.enum(states, { message: "Please select your state" }),
+  country: z.enum(countries, { message: "Please select your country" }),
 });
 
 export const listingLocationFormSchema = z.object({

@@ -14,6 +14,9 @@ export const getTotalUsers = async () => {
         not: "admin",
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return users;

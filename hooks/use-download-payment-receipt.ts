@@ -36,7 +36,7 @@ export const useDownloadPaymentReceipt = (payment: PaymentProps) => {
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(12);
-      doc.text(`Receipt: ${payment.id}`, 20, yPos);
+      doc.text(`Receipt ID: ${payment.id}`, 20, yPos);
       yPos += 10;
       doc.text(`Reference: ${payment.reference}`, 20, yPos);
       yPos += 10;

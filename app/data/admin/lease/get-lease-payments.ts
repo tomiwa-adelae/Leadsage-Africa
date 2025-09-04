@@ -9,6 +9,9 @@ export const getLeasePayments = async (id: string) => {
     where: {
       leaseId: id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       amount: true,

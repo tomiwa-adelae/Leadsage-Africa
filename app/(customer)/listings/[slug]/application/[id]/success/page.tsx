@@ -29,7 +29,7 @@ const page = async ({ params }: { params: Params }) => {
             <Link href={`/dashboard`}>Back to Dashboard</Link>
           </Button>
           <Button className="w-full" asChild size="md">
-            <Link href={`/applications/${application.Listing.slug}`}>
+            <Link href={`/applications/${application.id}`}>
               Track Application Status
             </Link>
           </Button>

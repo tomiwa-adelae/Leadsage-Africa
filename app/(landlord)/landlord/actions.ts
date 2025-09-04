@@ -26,7 +26,7 @@ export const deleteListing = async (id: string): Promise<ApiResponse> => {
       },
     });
 
-    if (listing?.Lease[0].status === "ACTIVE")
+    if (listing?.Lease[0]?.status === "ACTIVE")
       return {
         status: "error",
         message:
@@ -85,7 +85,7 @@ export const draftListing = async (id: string): Promise<ApiResponse> => {
       },
     });
 
-    if (listing?.Lease[0].status === "ACTIVE")
+    if (listing?.Lease[0]?.status === "ACTIVE")
       return {
         status: "error",
         message:

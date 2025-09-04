@@ -110,6 +110,7 @@ export function MakePaymentModal({
           } else {
             toast.error(result.message);
           }
+          toast.dismiss();
         });
       },
       onClose: (error) => {

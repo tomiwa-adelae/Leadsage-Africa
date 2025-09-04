@@ -9,6 +9,9 @@ export const getPendingPayments = async () => {
     where: {
       status: "PENDING",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       amount: true,

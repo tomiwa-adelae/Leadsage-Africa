@@ -16,6 +16,7 @@ import { tryCatch } from "@/hooks/use-try-catch";
 import { approveListing } from "../actions";
 import { toast } from "sonner";
 import { Loader } from "@/components/Loader";
+import { useConfetti } from "@/hooks/use-confetti";
 
 interface Props {
   listingId: string;
@@ -25,6 +26,7 @@ interface Props {
 
 export const ApproveListingModal = ({ listingId, open, closeModal }: Props) => {
   const [pending, startPending] = useTransition();
+  const { triggerConfetti } = useConfetti();
 
   const handleApprove = () => {
     startPending(async () => {
@@ -38,6 +40,7 @@ export const ApproveListingModal = ({ listingId, open, closeModal }: Props) => {
       if (result.status === "success") {
         toast.success(result.message);
         closeModal();
+        triggerConfetti();
       } else {
         toast.error(result.message);
       }

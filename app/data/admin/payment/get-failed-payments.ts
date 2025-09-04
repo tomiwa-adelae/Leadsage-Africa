@@ -6,6 +6,9 @@ export const getFailedPayments = async () => {
   await requireAdmin();
 
   const payments = await prisma.payment.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
     where: {
       status: "FAILED",
     },

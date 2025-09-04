@@ -18,6 +18,7 @@ import { Loader } from "@/components/Loader";
 import { tryCatch } from "@/hooks/use-try-catch";
 import { toast } from "sonner";
 import { completedBooking, confirmBooking, restoreListing } from "../actions";
+import { useConfetti } from "@/hooks/use-confetti";
 
 export function CompletedBookingModal({
   open,
@@ -31,6 +32,7 @@ export function CompletedBookingModal({
   const animationRef = useRef<LottieRefCurrentProps>(null);
 
   const [pending, startPending] = useTransition();
+  const { triggerConfetti } = useConfetti();
 
   const handleCompleted = () => {
     startPending(async () => {
@@ -43,6 +45,7 @@ export function CompletedBookingModal({
 
       if (result.status === "success") {
         toast.success(result.message);
+        triggerConfetti();
         closeModal();
       } else {
         toast.error(result.message);

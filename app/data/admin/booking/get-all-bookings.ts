@@ -6,6 +6,9 @@ export const getTotalBookings = async () => {
   await requireAdmin();
 
   const bookings = await prisma.booking.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       date: true,

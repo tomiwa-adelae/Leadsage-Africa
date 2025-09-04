@@ -9,6 +9,9 @@ export const getUncompletedApplications = async () => {
     where: {
       status: "PENDING",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       currentLandlordPhoneNumber: true,

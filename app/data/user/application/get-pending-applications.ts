@@ -11,6 +11,9 @@ export const getPendingApplications = async () => {
       status: "PENDING",
       userId: user.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       currentLandlordPhoneNumber: true,

@@ -37,7 +37,7 @@ interface Props {
   lease: GetLeaseDetailsType;
 }
 
-export function LeaseActions({ id, status, lease }: Props) {
+export function LeaseActions({ id, status, lease, landlordSignature }: Props) {
   const [openCancelModal, setOpenCancelModal] = useState(false);
 
   const { isGenerating, handleDownload } = useDownloadLease({
@@ -91,10 +91,16 @@ export function LeaseActions({ id, status, lease }: Props) {
           <IconDownload size={16} className="opacity-60" aria-hidden="true" />
           {isGenerating ? "Downloading..." : "Download Lease Agreement"}
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <IconCreditCard size={16} className="opacity-60" aria-hidden="true" />
-          Make Payment
-        </DropdownMenuItem>
+        {landlordSignature && lease.status !== "ACTIVE" && (
+          <DropdownMenuItem>
+            <IconCreditCard
+              size={16}
+              className="opacity-60"
+              aria-hidden="true"
+            />
+            Make Payment
+          </DropdownMenuItem>
+        )}
         {status !== "TERMINATED" &&
           status !== "ACTIVE" &&
           status !== "EXPIRED" && (

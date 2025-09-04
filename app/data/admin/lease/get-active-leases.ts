@@ -9,6 +9,9 @@ export const getActiveLeases = async () => {
     where: {
       status: "ACTIVE",
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       leaseId: true,

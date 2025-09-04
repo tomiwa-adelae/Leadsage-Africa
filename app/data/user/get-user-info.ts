@@ -37,6 +37,7 @@ export const getUserInfo = async () => {
       listingNotifications: true,
       promotionalNotifications: true,
       accountNotifications: true,
+      onboardingCompleted: true,
       accounts: {
         select: {
           id: true,

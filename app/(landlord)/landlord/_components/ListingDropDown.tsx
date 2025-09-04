@@ -118,19 +118,22 @@ export default function ListingDropdown({
                   Copy link
                 </DropdownMenuItem>
               )}
-              {listing.Lease[0].status !== "ACTIVE" && status !== "Deleted" && (
-                <DropdownMenuItem asChild>
-                  <Link
-                    href={`/landlord/listings/${slug ? slug : listingId}/edit`}
-                  >
-                    <Pen />
-                    Edit listing
-                  </Link>
-                </DropdownMenuItem>
-              )}
+              {listing?.Lease[0]?.status !== "ACTIVE" &&
+                status !== "Deleted" && (
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href={`/landlord/listings/${
+                        slug ? slug : listingId
+                      }/edit`}
+                    >
+                      <Pen />
+                      Edit listing
+                    </Link>
+                  </DropdownMenuItem>
+                )}
             </>
           )}
-          {listing.Lease[0].status !== "ACTIVE" && status !== "Deleted" && (
+          {listing?.Lease[0]?.status !== "ACTIVE" && status !== "Deleted" && (
             <DropdownMenuItem onClick={() => setOpenModal(true)}>
               <Trash2 />
               Delete

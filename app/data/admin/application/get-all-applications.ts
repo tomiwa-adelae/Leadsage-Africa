@@ -11,6 +11,9 @@ export const getTotalApplicaitons = async () => {
         not: "DELETED",
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       currentLandlordPhoneNumber: true,

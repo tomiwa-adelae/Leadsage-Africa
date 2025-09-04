@@ -9,6 +9,9 @@ export const getListingLeases = async (id: string) => {
     where: {
       listingId: id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       id: true,
       leaseId: true,
