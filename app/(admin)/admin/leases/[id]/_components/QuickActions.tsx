@@ -18,7 +18,6 @@ import { CompletedBookingModal } from "../../../_components/CompletedBookingModa
 import { CancelBookingModal } from "../../../_components/CancelBookingModal";
 import { Mail } from "lucide-react";
 import { TerminateLeaseModal } from "../../../_components/TerminateLeaseModal";
-import { SignLeaseModal } from "../../../_components/SignLeaseModal";
 import { useDownloadLease } from "@/hooks/use-download-lease";
 import { GetLeaseDetailsType } from "@/app/data/admin/lease/get-lease";
 import { ActivateLeaseModal } from "../../../_components/ActivateLeaseModal";
