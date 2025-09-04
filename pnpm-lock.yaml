@@ -203,6 +203,9 @@ importers:
       react-svg-credit-card-payment-icons:
         specifier: ^4.0.0
         version: 4.0.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react-use-measure:
+        specifier: ^2.1.7
+        version: 2.1.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       recharts:
         specifier: ^3.0.2
         version: 3.1.2(@types/react@19.1.11)(react-dom@19.1.1(react@19.1.1))(react-is@17.0.2)(react@19.1.1)(redux@5.0.1)
@@ -4120,6 +4123,15 @@ packages:
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
+
+  react-use-measure@2.1.7:
+    resolution: {integrity: sha512-KrvcAo13I/60HpwGO5jpW7E9DfusKyLPLvuHlUyP5zqnmAPhNc6qTRjUQrdTADl0lpPpDVU2/Gg51UlOGHXbdg==}
+    peerDependencies:
+      react: '>=16.13'
+      react-dom: '>=16.13'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
 
   react@19.1.1:
     resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
@@ -9362,6 +9374,12 @@ snapshots:
   react-svg-credit-card-payment-icons@4.0.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+
+  react-use-measure@2.1.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+    dependencies:
+      react: 19.1.1
+    optionalDependencies:
       react-dom: 19.1.1(react@19.1.1)
 
   react@19.1.1: {}

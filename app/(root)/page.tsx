@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getUserInfo } from "../data/user/get-user-info";
 import { PopularProperties } from "./_components/PopularProperties";
 import { Showcase } from "./_components/Showcase";
+import { Testimonials } from "@/components/Testimonials";
 
 interface Props {
   searchParams: any;
@@ -20,6 +21,7 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <Showcase />
       <PopularProperties />
+      <Testimonials />
       {/* <FindProperties /> */}
       {/* <PartneringCompanies /> */}
     </div>

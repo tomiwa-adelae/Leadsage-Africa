@@ -21,13 +21,13 @@ export const PopularProperties = async () => {
           for their quality, location, and value.
         </p>
       </div>
+      {listings.length === 0 && (
+        <EmptyState
+          title="No properties"
+          description="There are no properties to showcase at this moment."
+        />
+      )}
       <ScrollArea className="w-full max-w-full">
-        {listings.length === 0 && (
-          <EmptyState
-            title="No properties"
-            description="There are no properties to showcase at this moment."
-          />
-        )}
         <div className="flex w-max space-x-2 md:space-x-3 lg:space-x-4 pt-4 pr-10 pb-2">
           {listings.map((listing) => (
             <ListingCard
