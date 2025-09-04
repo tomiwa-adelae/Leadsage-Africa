@@ -37,6 +37,7 @@ import {
   IconClipboardList,
   IconCoins,
   IconContract,
+  IconCreditCard,
   IconCurrencyNaira,
   IconFolder,
   IconFolderCheck,
@@ -595,6 +596,11 @@ export const customerNavLinks = {
       title: "My Leases",
       slug: "/leases",
       icon: IconContract,
+    },
+    {
+      title: "My Payments",
+      slug: "/payments",
+      icon: IconCreditCard,
     },
     {
       title: "Saved Properties",

@@ -14,6 +14,9 @@ import { CheckCircle, Hourglass } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { QuickActions } from "./_components/QuickActions";
+import { PaymentsList } from "../../_components/PaymentsList";
+import { PaymentsTable } from "../../_components/PaymentsTable";
+import { getLeasePayments } from "@/app/data/admin/lease/get-lease-payments";
 
 type Params = Promise<{
   id: string;
@@ -23,6 +26,7 @@ const page = async ({ params }: { params: Params }) => {
   const { id } = await params;
 
   const lease = await getLeaseDetails(id);
+  const payments = await getLeasePayments(lease.id);
 
   return (
     <div>
@@ -284,6 +288,17 @@ const page = async ({ params }: { params: Params }) => {
               </div>
             </CardContent>
           </Card>
+          {lease.status === "ACTIVE" && (
+            <Card className="@container/card gap-0">
+              <CardHeader className="border-b">
+                <CardTitle>Past payment</CardTitle>
+              </CardHeader>
+              <CardContent className="mt-2.5 space-y-3 text-sm font-medium">
+                <PaymentsTable payments={payments} />
+                <PaymentsList payments={payments} />
+              </CardContent>
+            </Card>
+          )}
           <QuickActions
             lease={lease}
             landlordSignature={lease.landlordSignature}

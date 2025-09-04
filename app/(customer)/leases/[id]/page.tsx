@@ -8,12 +8,22 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { formatDate, formatPhoneNumber } from "@/lib/utils";
+import {
+  formatDate,
+  formatMoneyInput,
+  formatPhoneNumber,
+  removeCommas,
+} from "@/lib/utils";
 import { IconDownload } from "@tabler/icons-react";
 import { CheckCircle, Hourglass } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { QuickActions } from "./_components/QuickActions";
+import { MakePaymentModal } from "../../_components/MakePaymentModal";
+import { getUserInfo } from "@/app/data/user/get-user-info";
+import { PaymentsTable } from "../../_components/PaymentsTable";
+import { PaymentsList } from "../../_components/PaymentsList";
+import { getLeasePayments } from "@/app/data/user/lease/get-lease-payments";
 
 type Params = Promise<{
   id: string;
@@ -23,6 +33,10 @@ const page = async ({ params }: { params: Params }) => {
   const { id } = await params;
 
   const lease = await getLeaseDetails(id);
+  const user = await getUserInfo();
+  const payments = await getLeasePayments(lease.id);
+
+  console.log(id);
 
   return (
     <div>
@@ -194,10 +208,21 @@ const page = async ({ params }: { params: Params }) => {
               </p>
               <Separator />
               <p>
-                SecurityDeposit:{" "}
+                Security deposit:{" "}
                 <span className="text-muted-foreground">
                   <NairaIcon />
                   {lease.Listing.securityDeposit}
+                </span>
+              </p>
+              <Separator />
+              <p>
+                Total:{" "}
+                <span className="text-muted-foreground">
+                  <NairaIcon />
+                  {formatMoneyInput(
+                    Number(removeCommas(lease.Listing.price)) +
+                      Number(removeCommas(lease.Listing.securityDeposit))
+                  )}
                 </span>
               </p>
             </CardContent>
@@ -284,11 +309,23 @@ const page = async ({ params }: { params: Params }) => {
               </div>
             </CardContent>
           </Card>
+          {lease.status === "ACTIVE" && (
+            <Card className="@container/card gap-0">
+              <CardHeader className="border-b">
+                <CardTitle>Past payment</CardTitle>
+              </CardHeader>
+              <CardContent className="mt-2.5 space-y-3 text-sm font-medium">
+                <PaymentsTable payments={payments} />
+                <PaymentsList payments={payments} />
+              </CardContent>
+            </Card>
+          )}
           <QuickActions
             lease={lease}
             landlordSignature={lease.landlordSignature}
             id={lease.id}
             status={lease.status}
+            user={user}
           />
         </div>
       </div>

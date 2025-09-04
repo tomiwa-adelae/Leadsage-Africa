@@ -50,6 +50,7 @@ model User {
   bookingTimeline BookingTimeline[]
   application     Application[]
   lease           Lease[]
+  payment         Payment[]
 
   role       String?
   banned     Boolean?
@@ -470,6 +471,8 @@ model Lease {
   Listing   Listing @relation(fields: [listingId], references: [id])
   listingId String
 
+  payment Payment[]
+
   // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -491,4 +494,42 @@ enum DepositStatus {
   PENDING
   PAID
   REFUNDED
+}
+
+model Payment {
+  id String @id @default(uuid())
+
+  Lease   Lease  @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+  leaseId String
+  User    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+
+  amount String
+  type   PaymentType
+  status PaymentStatus @default(PENDING)
+
+  reference   String? @unique // Payment gateway reference (e.g. Paystack/Stripe)
+  method      String? // e.g. "Card", "Bank Transfer", "Paystack", "Stripe"
+  description String? // Optional note for admin/logs
+  trxref      String? // Optional note for admin/logs
+  transaction String? // Optional note for admin/logs
+
+  paidAt    DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+enum PaymentType {
+  RENT
+  SECURITY_DEPOSIT
+  SERVICE_FEE
+  OTHER
+}
+
+enum PaymentStatus {
+  PENDING // Created but not yet paid
+  SUCCESS // Payment successful
+  FAILED // Attempt failed
+  REFUNDED // Payment refunded
+  CANCELLED // Cancelled by user/admin
 }

@@ -17,12 +17,15 @@ import { Mail } from "lucide-react";
 import { useDownloadLease } from "@/hooks/use-download-lease";
 import { GetLeaseDetailsType } from "@/app/data/user/lease/get-lease-details";
 import { CancelLeaseModal } from "@/app/(customer)/_components/CancelLeaseModal";
+import { MakePaymentModal } from "@/app/(customer)/_components/MakePaymentModal";
+import { GetUserInfoType } from "@/app/data/user/get-user-info";
 
 interface Props {
   landlordSignature: string | null;
   id: string;
   status: LeaseStatus;
   lease: GetLeaseDetailsType;
+  user: GetUserInfoType;
 }
 
 export const QuickActions = ({
@@ -30,8 +33,11 @@ export const QuickActions = ({
   id,
   status,
   lease,
+  user,
 }: Props) => {
-  const [openMarkPaymentModal, setOpenMarkPaymentModal] = useState(false);
+  const [openMarkPaymentModal, setOpenMarkPaymentModal] = useState(
+    lease.landlordSignature ? true : false
+  );
   const [openActivateLeaseModal, setOpenActiveLeaseModal] = useState(false);
   const [openMarkLeaseAsExpiredModal, setOpenMarkLeaseAsExpiredModal] =
     useState(false);
@@ -79,15 +85,17 @@ export const QuickActions = ({
         <CardTitle>Quick Actions</CardTitle>
       </CardHeader>
       <CardContent className="mt-2.5 grid gap-4">
-        <div
-          onClick={() => setOpenMarkPaymentModal(true)}
-          className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
-        >
-          <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
-            <IconCreditCard className="size-4" />
+        {lease.status !== "ACTIVE" && (
+          <div
+            onClick={() => setOpenMarkPaymentModal(true)}
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+          >
+            <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+              <IconCreditCard className="size-4" />
+            </div>
+            Make Payment
           </div>
-          Make Payment
-        </div>
+        )}
         <div
           onClick={handleDownload}
           className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
@@ -117,6 +125,15 @@ export const QuickActions = ({
             </div>
           )}
       </CardContent>
+
+      {lease.landlordSignature && lease.status !== "ACTIVE" && (
+        <MakePaymentModal
+          closeModal={() => setOpenMarkPaymentModal(false)}
+          open={openMarkPaymentModal}
+          lease={lease}
+          user={user}
+        />
+      )}
 
       {openCancelModal && (
         <CancelLeaseModal

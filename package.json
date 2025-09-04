@@ -74,6 +74,7 @@
 		"react-hook-form": "^7.59.0",
 		"react-leaflet": "^5.0.0",
 		"react-payment-inputs": "^1.2.0",
+		"react-paystack": "^6.0.0",
 		"react-phone-number-input": "^3.4.12",
 		"react-signature-canvas": "1.1.0-alpha.2",
 		"react-svg-credit-card-payment-icons": "^4.0.0",

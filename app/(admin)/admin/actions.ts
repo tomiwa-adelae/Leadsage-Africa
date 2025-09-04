@@ -1132,3 +1132,28 @@ export const cancelLease = async (id: string): Promise<ApiResponse> => {
     return { status: "error", message: "Failed to cancel lease agreement" };
   }
 };
+
+export const markPaymentSuccessful = async (
+  id: string
+): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    if (!id) return { status: "error", message: "Oops! An error occurred!" };
+
+    await prisma.payment.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "SUCCESS",
+      },
+    });
+
+    revalidatePath("/admin");
+
+    return { status: "success", message: "Payment successfully updated" };
+  } catch (error) {
+    return { status: "error", message: "Failed to update payment status" };
+  }
+};
