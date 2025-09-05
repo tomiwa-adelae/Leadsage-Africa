@@ -13,7 +13,7 @@ export const PopularProperties = async () => {
     headers: await headers(),
   });
   return (
-    <div className="container py-16">
+    <div className="container">
       <div className="space-y-2">
         <h2 className="font-medium text-3xl md:text-4xl">Popular Properties</h2>
         <p className="hidden lg:block text-base text-muted-foreground leading-relaxed">

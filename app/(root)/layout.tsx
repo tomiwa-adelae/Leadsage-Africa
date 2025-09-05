@@ -6,8 +6,8 @@ const layout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
       <Header />
-      <div className="py-20">{children}</div>
-      {/* <Footer /> */}
+      <div className="pt-20">{children}</div>
+      <Footer />
     </div>
   );
 };

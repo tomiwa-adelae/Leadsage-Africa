@@ -29,6 +29,12 @@ import {
   IconArchive,
   IconArrowsMinimize,
   IconBan,
+  IconBrandFacebook,
+  IconBrandInstagram,
+  IconBrandLinkedin,
+  IconBrandThreads,
+  IconBrandTiktok,
+  IconBrandX,
   IconCalendarCheck,
   IconCalendarX,
   IconChartArcs,
@@ -91,6 +97,173 @@ export const navLinks = [
   {
     slug: "/contact",
     label: "Contact us",
+  },
+];
+
+export const footerLinks = [
+  {
+    group: "Product",
+    items: [
+      {
+        title: "Features",
+        href: "#",
+      },
+      {
+        title: "Browse Listings",
+        href: "#",
+      },
+      {
+        title: "Testimonials",
+        href: "#",
+      },
+      {
+        title: "Help",
+        href: "#",
+      },
+      {
+        title: "About",
+        href: "#",
+      },
+    ],
+  },
+  {
+    group: "Services",
+    items: [
+      {
+        title: "Become a Landlord",
+        href: "#",
+      },
+      {
+        title: "Become an Artisan",
+        href: "#",
+      },
+      {
+        title: "Organizations",
+        href: "#",
+      },
+      {
+        title: "Students",
+        href: "#",
+      },
+      {
+        title: "Collaboration",
+        href: "#",
+      },
+      {
+        title: "Design",
+        href: "#",
+      },
+      {
+        title: "Management",
+        href: "#",
+      },
+    ],
+  },
+  {
+    group: "Company",
+    items: [
+      {
+        title: "About",
+        href: "#",
+      },
+      {
+        title: "Careers",
+        href: "#",
+      },
+      {
+        title: "Blog",
+        href: "#",
+      },
+      {
+        title: "Our Team",
+        href: "#",
+      },
+      {
+        title: "Contact",
+        href: "#",
+      },
+      {
+        title: "Help",
+        href: "#",
+      },
+    ],
+  },
+  {
+    group: "Legal",
+    items: [
+      {
+        title: "Licence",
+        href: "#",
+      },
+      {
+        title: "Privacy",
+        href: "#",
+      },
+      {
+        title: "Cookies",
+        href: "#",
+      },
+      {
+        title: "Security",
+        href: "#",
+      },
+    ],
+  },
+];
+
+export const socialLinks = [
+  {
+    icon: IconBrandX,
+    name: "Twitter",
+    url: "https://x.com",
+  },
+  {
+    icon: IconBrandLinkedin,
+    name: "Linkedin",
+    url: "https://linkedin.com",
+  },
+  {
+    icon: IconBrandFacebook,
+    name: "Facebook",
+    url: "https://facebook.com",
+  },
+  {
+    icon: IconBrandThreads,
+    name: "Threads",
+    url: "https://threds.com",
+  },
+  {
+    icon: IconBrandInstagram,
+    name: "Instagram",
+    url: "https://instagram.com",
+  },
+  {
+    icon: IconBrandTiktok,
+    name: "Tiktok",
+    url: "https://tiktok.com",
+  },
+];
+
+export const smallFooterLinks = [
+  {
+    title: "Features",
+    href: "#",
+  },
+  {
+    title: "Services",
+    href: "#",
+  },
+  {
+    title: "Company",
+    href: "/about",
+  },
+  {
+    title: "Help",
+    href: "help-center",
+  },
+  {
+    title: "Legal",
+    href: "/terms-and-services",
   },
 ];
 
@@ -977,3 +1150,52 @@ export const employmentStatus = [
   "Unemployed",
   "Others",
 ] as const;
+
+export const partneringCompanies = [
+  {
+    name: "Airbnb",
+    image: "/assets/icons/airbnb.svg",
+    url: "https://airbnb.com",
+  },
+  {
+    name: "Paystack",
+    image: "/assets/icons/paystack.svg",
+    url: "https://paystack.com",
+  },
+  {
+    name: "Flutterwave",
+    image: "/assets/icons/flutterwave.svg",
+    url: "https://flutterwave.com",
+  },
+];
+
+export const ourTeamMembers = [
+  {
+    id: 1,
+    name: "Israel Ibitoye",
+    role: "Chief Executive Officer",
+    email: "israel@leadsage.com",
+    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy.",
+    image: "/assets/images/israel-ibitoye.jpg",
+    socialMedia: {
+      facebook: "#",
+      twitter: "#",
+      instagram: "#",
+      website: "#",
+    },
+  },
+  {
+    id: 2,
+    name: "Tomiwa Adelae",
+    role: "Chief Technology Officer",
+    email: "tomiwa@leadsage.com",
+    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy.",
+    image: "/assets/images/tomiwa-adelae.jpg",
+    socialMedia: {
+      facebook: "#",
+      twitter: "#",
+      instagram: "#",
+      website: "#",
+    },
+  },
+];

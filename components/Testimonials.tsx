@@ -114,7 +114,7 @@ const testimonialChunks = chunkArray(
 export function Testimonials() {
   return (
     <section>
-      <div className="py-16 md:py-32">
+      <div className="py-16">
         <div className="container px-6">
           <div className="text-center">
             <h2 className="text-2xl md:text-3xl font-semibold">
@@ -130,7 +130,7 @@ export function Testimonials() {
               <div key={chunkIndex} className="space-y-3">
                 {chunk.map(({ name, role, quote, image }, index) => (
                   <Card key={index}>
-                    <CardContent className="grid grid-cols-[auto_1fr] gap-3 pt-6">
+                    <CardContent className="grid grid-cols-[auto_1fr] gap-3">
                       <Avatar className="size-9">
                         <AvatarImage
                           alt={name}
@@ -143,7 +143,7 @@ export function Testimonials() {
                       </Avatar>
 
                       <div>
-                        <h3 className="font-medium">{name}</h3>
+                        <h3 className="font-medium text-base">{name}</h3>
 
                         <span className="text-muted-foreground block text-sm tracking-wide">
                           {role}

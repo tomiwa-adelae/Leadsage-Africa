@@ -1,11 +1,7 @@
 import "server-only";
-import { requireLandlord } from "./require-landlord";
 import { prisma } from "@/lib/db";
-import { requireUser } from "../user/require-user";
 
 export const getCategories = async () => {
-  await requireUser();
-
   const data = await prisma.category.findMany({
     orderBy: {
       createdAt: "desc",
