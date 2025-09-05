@@ -4,9 +4,18 @@ import React from "react";
 import { PaymentsTable } from "../_components/PaymentsTable";
 import { getMyPayments } from "@/app/data/user/payment/get-my-payments";
 import { PaymentsList } from "../_components/PaymentsList";
+import { Pagination } from "@/components/Pagination";
+import { DEFAULT_LIMIT } from "@/constants";
+import { Searchbar } from "@/components/Searchbar";
 
-const page = async () => {
-  const payments = await getMyPayments();
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+
+  const payments = await getMyPayments({ query, page, limit: DEFAULT_LIMIT });
   return (
     <div>
       <SiteHeader />
@@ -17,7 +26,9 @@ const page = async () => {
             Manage and view all your payments from here
           </p>
         </div>
-        {payments.length === 0 && (
+        <Searchbar search={query} placeholder="Search by name, lease ID..." />
+
+        {payments.payments.length === 0 && (
           <EmptyState
             title={"No payments"}
             description={
@@ -25,11 +36,17 @@ const page = async () => {
             }
           />
         )}
-        {payments.length !== 0 && (
+        {payments.payments.length !== 0 && (
           <div className="mt-2.5">
-            <PaymentsTable payments={payments} />
-            <PaymentsList payments={payments} />
+            <PaymentsTable payments={payments.payments} />
+            <PaymentsList payments={payments.payments} />
           </div>
+        )}
+        {payments.payments.length !== 0 && (
+          <Pagination
+            page={payments.pagination.page}
+            totalPages={payments.pagination.totalPages}
+          />
         )}
       </div>
     </div>

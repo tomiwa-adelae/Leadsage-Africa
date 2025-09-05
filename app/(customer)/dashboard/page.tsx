@@ -23,8 +23,11 @@ const page = async () => {
     headers: await headers(),
   });
 
-  const recommendedListings = await getApprovedListings(3);
-  const savedListings = await getSavedListings(3);
+  const recommendedListings = await getApprovedListings({
+    limit: 5,
+    userId: session?.user.id,
+  });
+  const savedListings = await getSavedListings({ limit: 5 });
   const totalSavedListings = await getSavedListings();
 
   const pendingBookings = await getCustomerPendingBookings();
@@ -40,14 +43,14 @@ const page = async () => {
       />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-6">
         <DashboardCards
-          pendingBookings={pendingBookings}
-          completedBookings={completedBookings}
-          totalSavedListings={totalSavedListings}
-          leases={leases}
+          pendingBookings={pendingBookings.bookings}
+          completedBookings={completedBookings.bookings}
+          totalSavedListings={totalSavedListings.savedListings}
+          leases={leases.leases}
         />
-        <UpcomingTours bookings={pendingBookings} />
-        <RecommendedListings listings={recommendedListings} />
-        <SavedListings listings={savedListings} />
+        <UpcomingTours bookings={pendingBookings.bookings} />
+        <RecommendedListings listings={recommendedListings.listings} />
+        <SavedListings listings={savedListings.savedListings} />
       </div>
     </div>
   );

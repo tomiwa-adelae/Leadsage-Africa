@@ -3,9 +3,22 @@ import { EmptyState } from "@/components/EmptyState";
 import { BookingsTable } from "../../_components/BookingsTable";
 import { BookingsList } from "../../_components/BookingsList";
 import { getTotalCompletedBookings } from "@/app/data/admin/booking/get-completed-bookings";
+import { Pagination } from "@/components/Pagination";
+import { Searchbar } from "@/components/Searchbar";
+import { DEFAULT_LIMIT } from "@/constants";
 
-const page = async () => {
-  const completedBookings = await getTotalCompletedBookings();
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+
+  const completedBookings = await getTotalCompletedBookings({
+    query,
+    page,
+    limit: DEFAULT_LIMIT,
+  });
   return (
     <div>
       <SiteHeader />
@@ -16,19 +29,25 @@ const page = async () => {
         <p className="text-muted-foreground text-base mt-2.5">
           View and manage all completed bookings from here
         </p>
-
+        <Searchbar search={query} placeholder="Search by name, booking ID..." />
         <div className="mt-4 space-y-6">
-          {completedBookings.length === 0 && (
+          {completedBookings.bookings.length === 0 && (
             <EmptyState
               title={"No bookings"}
               description={"There are no completed bookings yet!"}
             />
           )}
-          {completedBookings.length !== 0 && (
+          {completedBookings.bookings.length !== 0 && (
             <div className="mt-2.5">
-              <BookingsTable bookings={completedBookings} />
-              <BookingsList bookings={completedBookings} />
+              <BookingsTable bookings={completedBookings.bookings} />
+              <BookingsList bookings={completedBookings.bookings} />
             </div>
+          )}
+          {completedBookings.bookings.length !== 0 && (
+            <Pagination
+              page={completedBookings.pagination.page}
+              totalPages={completedBookings.pagination.totalPages}
+            />
           )}
         </div>
       </div>

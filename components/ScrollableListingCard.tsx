@@ -18,7 +18,7 @@ interface Props {
   isAuthenticated: boolean;
 }
 
-export const ListingCard = ({ listing, isAuthenticated }: Props) => {
+export const ScrollableListingCard = ({ listing, isAuthenticated }: Props) => {
   const [pending, startTransition] = useTransition();
   const cover =
     listing.photos.find((photo: any) => photo.cover) || listing.photos[0];
@@ -73,7 +73,7 @@ export const ListingCard = ({ listing, isAuthenticated }: Props) => {
                 alt={`${listing.title}'s photo`}
                 width={1000}
                 height={1000}
-                className="aspect-square h-full w-full object-cover"
+                className="aspect-square h-full w-[250px] lg:w-[400px] object-cover"
               />
               <div className="absolute inset-0 bg-black/30" />
             </div>

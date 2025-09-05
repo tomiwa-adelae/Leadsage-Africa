@@ -84,6 +84,7 @@ export function RegisterForm() {
         email: data.email,
         password: data.password,
         name: `${data.firstName} ${data.lastName}`,
+        callbackURL: "/login?=true",
         fetchOptions: {
           onSuccess: async () => {
             toast.success(

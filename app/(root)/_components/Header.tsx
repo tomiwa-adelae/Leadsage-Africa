@@ -7,6 +7,7 @@ import { UserDropdown } from "./UserDropdown";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { SearchButton } from "./SearchButton";
 
 export const Header = async () => {
   const session = await auth.api.getSession({
@@ -28,9 +29,12 @@ export const Header = async () => {
             </Link>
           ))}
         </nav>
-        <div className="flex items-center justify-end gap-6">
-          <ThemeToggle />
+        <div className="flex items-center justify-end gap-4">
+          <div className="flex items-center justify-end gap-2">
+            <SearchButton />
+          </div>
           <div className="hidden md:flex items-center justify-end gap-4">
+            <ThemeToggle />
             {!session?.user && (
               <>
                 <Button asChild variant="ghost">

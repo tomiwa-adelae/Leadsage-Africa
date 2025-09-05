@@ -6,11 +6,21 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import { LandlordListingCard } from "../_components/LandlordListingCard";
+import { Searchbar } from "@/components/Searchbar";
+import { Pagination } from "@/components/Pagination";
+import { DEFAULT_LIMIT } from "@/constants";
 
-const page = async () => {
-  const listings = await getLandlordListings();
+interface Props {
+  searchParams: any;
+}
 
-  console.log(listings);
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+  const listings = await getLandlordListings({
+    query,
+    page,
+    limit: DEFAULT_LIMIT,
+  });
 
   return (
     <div>
@@ -30,17 +40,28 @@ const page = async () => {
             </Link>
           </Button>
         </div>
-        {listings.length === 0 && (
+        <Searchbar
+          search={query}
+          placeholder="Search by name, description..."
+        />
+
+        {listings.listings.length === 0 && (
           <EmptyState
             title={"No properties"}
             description={"Add your first property by clicking below"}
           />
         )}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {listings.map((listing) => (
+          {listings.listings.map((listing) => (
             <LandlordListingCard key={listing.id} listing={listing} />
           ))}
         </div>
+        {listings.listings.length !== 0 && (
+          <Pagination
+            page={listings.pagination.page}
+            totalPages={listings.pagination.totalPages}
+          />
+        )}
       </div>
     </div>
   );

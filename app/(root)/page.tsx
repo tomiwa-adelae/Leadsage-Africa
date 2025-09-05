@@ -15,7 +15,7 @@ interface Props {
 }
 
 const page = async ({ searchParams }: Props) => {
-  const { login } = await searchParams;
+  const { login, query } = await searchParams;
 
   if (login) {
     const user = await getUserInfo();

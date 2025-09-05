@@ -1,4 +1,5 @@
 "use client";
+import { GetApprovedListingsType } from "@/app/data/listing/get-approved-listings";
 import { EmptyState } from "@/components/EmptyState";
 import { ListingCard } from "@/components/ListingCard";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,7 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-  listings: any;
+  listings: GetApprovedListingsType[];
 }
 
 export const RecommendedListings = ({ listings }: Props) => {

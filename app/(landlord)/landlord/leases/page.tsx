@@ -4,9 +4,18 @@ import React from "react";
 import { LeasesTable } from "../_components/LeasesTable";
 import { LeasesList } from "../_components/LeasesList";
 import { getMyLeases } from "@/app/data/landlord/lease/get-my-leases";
+import { Searchbar } from "@/components/Searchbar";
+import { Pagination } from "@/components/Pagination";
+import { DEFAULT_LIMIT } from "@/constants";
 
-const page = async () => {
-  const leases = await getMyLeases();
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+
+  const leases = await getMyLeases({ query, page, limit: DEFAULT_LIMIT });
 
   return (
     <div>
@@ -20,7 +29,9 @@ const page = async () => {
             Manage and view all your leases and agreements from here
           </p>
         </div>
-        {leases.length === 0 && (
+        <Searchbar search={query} placeholder="Search by name, Lease ID..." />
+
+        {leases.leases.length === 0 && (
           <EmptyState
             title={"No leases & agreements"}
             description={
@@ -28,11 +39,17 @@ const page = async () => {
             }
           />
         )}
-        {leases.length !== 0 && (
+        {leases.leases.length !== 0 && (
           <div className="mt-2.5">
-            <LeasesTable leases={leases} />
-            <LeasesList leases={leases} />
+            <LeasesTable leases={leases.leases} />
+            <LeasesList leases={leases.leases} />
           </div>
+        )}
+        {leases.leases.length !== 0 && (
+          <Pagination
+            page={leases.pagination.page}
+            totalPages={leases.pagination.totalPages}
+          />
         )}
       </div>
     </div>

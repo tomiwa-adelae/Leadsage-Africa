@@ -63,6 +63,7 @@ export function LoginForm() {
       await authClient.signIn.email({
         email: data.email,
         password: data.password,
+        callbackURL: "/login?=true",
         fetchOptions: {
           onSuccess: async () => {
             toast.success(

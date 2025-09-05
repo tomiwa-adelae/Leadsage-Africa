@@ -8,12 +8,26 @@ import { getFailedPayments } from "@/app/data/admin/payment/get-failed-payments"
 import { PaymentsTable } from "../_components/PaymentsTable";
 import { PaymentsList } from "../_components/PaymentsList";
 import { PaymentsCards } from "../_components/PaymentsCards";
+import { DEFAULT_LIMIT } from "@/constants";
+import { Pagination } from "@/components/Pagination";
+import { Searchbar } from "@/components/Searchbar";
 
-const page = async () => {
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+
   const payments = await getAllPayments();
   const pendingPayments = await getPendingPayments();
   const successfulPayments = await getSuccessfulPayments();
   const failedPayments = await getFailedPayments();
+  const paginatedPayments = await getAllPayments({
+    query,
+    page,
+    limit: DEFAULT_LIMIT,
+  });
   return (
     <div>
       <SiteHeader />
@@ -26,13 +40,15 @@ const page = async () => {
         </p>
         <div className="mt-4 space-y-6">
           <PaymentsCards
-            pendingPayments={pendingPayments}
-            successfulPayments={successfulPayments}
-            failedPayments={failedPayments}
-            payments={payments}
+            pendingPayments={pendingPayments.payments}
+            successfulPayments={successfulPayments.payments}
+            failedPayments={failedPayments.payments}
+            payments={payments.payments}
           />
           <h3 className="font-medium text-lg mb-1.5">Payments</h3>
-          {payments.length === 0 && (
+          <Searchbar search={query} placeholder="Search by name, Lease ID..." />
+
+          {paginatedPayments.payments.length === 0 && (
             <EmptyState
               title={"No payments"}
               description={
@@ -40,11 +56,17 @@ const page = async () => {
               }
             />
           )}
-          {payments.length !== 0 && (
+          {paginatedPayments.payments.length !== 0 && (
             <div className="mt-2.5">
-              <PaymentsTable payments={payments} />
-              <PaymentsList payments={payments} />
+              <PaymentsTable payments={paginatedPayments.payments} />
+              <PaymentsList payments={paginatedPayments.payments} />
             </div>
+          )}
+          {paginatedPayments.payments.length !== 0 && (
+            <Pagination
+              page={paginatedPayments.pagination.page}
+              totalPages={paginatedPayments.pagination.totalPages}
+            />
           )}
         </div>
       </div>

@@ -20,10 +20,10 @@ import { CalendarCheck, CircleCheckBig, CircleX, Clock } from "lucide-react";
 import React from "react";
 
 interface Props {
-  pendingBookings: GetTotalPendingBookingsType[];
-  confirmedBookings: GetTotalConfirmedBookingsType[];
-  cancelledBookings: GetTotalCancelledBookingsType[];
-  completedBookings: GetTotalCompletedBookingsType[];
+  pendingBookings: GetTotalPendingBookingsType[] | any;
+  confirmedBookings: GetTotalConfirmedBookingsType[] | any;
+  cancelledBookings: GetTotalCancelledBookingsType[] | any;
+  completedBookings: GetTotalCompletedBookingsType[] | any;
   totalBookings: GetTotalBookingsType[];
 }
 

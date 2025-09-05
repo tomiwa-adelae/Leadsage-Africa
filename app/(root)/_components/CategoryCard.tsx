@@ -10,7 +10,7 @@ interface Props {
 export const CategoryCard = ({ icon, name }: Props) => {
   return (
     <Link
-      href={`/categories/${name}`}
+      href={`/search?query=${name}`}
       className="transform-gpu space-y-2 rounded-xl border bg-transparent p-4 [box-shadow:0_-20px_80px_-20px_#1A564B2f_inset] transition-all hover:bg-muted"
     >
       <div className="text-primary w-fit transform-gpu rounded-full border p-2 [box-shadow:0_-20px_80px_-20px_#1A564B3f_inset]">

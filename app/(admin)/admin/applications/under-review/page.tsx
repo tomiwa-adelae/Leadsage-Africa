@@ -3,11 +3,22 @@ import { SiteHeader } from "@/components/sidebar/site-header";
 import React from "react";
 import { ApplicationsTable } from "../../_components/ApplicationsTable";
 import { ApplicationsList } from "../../_components/ApplicationsList";
-import { getApprovedApplicaitons } from "@/app/data/admin/application/get-approved-applications";
-import { getPendingReviewApplicaitons } from "@/app/data/admin/application/get-pending-review-applications";
+import { getPendingReviewApplications } from "@/app/data/admin/application/get-pending-review-applications";
+import { Pagination } from "@/components/Pagination";
+import { Searchbar } from "@/components/Searchbar";
+import { DEFAULT_LIMIT } from "@/constants";
 
-const page = async () => {
-  const pendingReviewApplications = await getPendingReviewApplicaitons();
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+  const pendingReviewApplications = await getPendingReviewApplications({
+    query,
+    page,
+    limit: DEFAULT_LIMIT,
+  });
 
   return (
     <div>
@@ -23,17 +34,29 @@ const page = async () => {
             </p>
           </div>
         </div>
-        {pendingReviewApplications.length === 0 && (
+        <Searchbar search={query} placeholder="Search by name..." />
+
+        {pendingReviewApplications.applications.length === 0 && (
           <EmptyState
             title={"No applications"}
             description={"There are no applications pending review yet"}
           />
         )}
-        {pendingReviewApplications.length !== 0 && (
+        {pendingReviewApplications.applications.length !== 0 && (
           <div className="mt-2.5">
-            <ApplicationsTable applications={pendingReviewApplications} />
-            <ApplicationsList applications={pendingReviewApplications} />
+            <ApplicationsTable
+              applications={pendingReviewApplications.applications}
+            />
+            <ApplicationsList
+              applications={pendingReviewApplications.applications}
+            />
           </div>
+        )}
+        {pendingReviewApplications.applications.length !== 0 && (
+          <Pagination
+            page={pendingReviewApplications.pagination.page}
+            totalPages={pendingReviewApplications.pagination.totalPages}
+          />
         )}
       </div>
     </div>

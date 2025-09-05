@@ -3,9 +3,22 @@ import { EmptyState } from "@/components/EmptyState";
 import { getTotalPendingBookings } from "@/app/data/admin/booking/get-pending-bookings";
 import { BookingsTable } from "../../_components/BookingsTable";
 import { BookingsList } from "../../_components/BookingsList";
+import { DEFAULT_LIMIT } from "@/constants";
+import { Searchbar } from "@/components/Searchbar";
+import { Pagination } from "@/components/Pagination";
 
-const page = async () => {
-  const pendingBookings = await getTotalPendingBookings();
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+
+  const pendingBookings = await getTotalPendingBookings({
+    query,
+    page,
+    limit: DEFAULT_LIMIT,
+  });
   return (
     <div>
       <SiteHeader />
@@ -14,19 +27,25 @@ const page = async () => {
         <p className="text-muted-foreground text-base mt-2.5">
           View and manage all pending bookings from here
         </p>
-
+        <Searchbar search={query} placeholder="Search by name, booking ID..." />
         <div className="mt-4 space-y-6">
-          {pendingBookings.length === 0 && (
+          {pendingBookings.bookings.length === 0 && (
             <EmptyState
               title={"No bookings"}
               description={"There are no pending bookings yet!"}
             />
           )}
-          {pendingBookings.length !== 0 && (
+          {pendingBookings.bookings.length !== 0 && (
             <div className="mt-2.5">
-              <BookingsTable bookings={pendingBookings} />
-              <BookingsList bookings={pendingBookings} />
+              <BookingsTable bookings={pendingBookings.bookings} />
+              <BookingsList bookings={pendingBookings.bookings} />
             </div>
+          )}
+          {pendingBookings.bookings.length !== 0 && (
+            <Pagination
+              page={pendingBookings.pagination.page}
+              totalPages={pendingBookings.pagination.totalPages}
+            />
           )}
         </div>
       </div>

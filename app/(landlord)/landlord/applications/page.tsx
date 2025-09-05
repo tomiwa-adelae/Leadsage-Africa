@@ -8,13 +8,26 @@ import { getRejectedApplications } from "@/app/data/landlord/application/get-rej
 import { ApplicationsCards } from "./_components/ApplicationsCards";
 import { ApplicationsTable } from "../_components/ApplicationsTable";
 import { ApplicationsList } from "../_components/ApplicationsList";
+import { DEFAULT_LIMIT } from "@/constants";
+import { Pagination } from "@/components/Pagination";
+import { Searchbar } from "@/components/Searchbar";
 
-const page = async () => {
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
   const applications = await getApplications();
   const pendingApplications = await getPendingApplications();
   const approvedApplications = await getApprovedApplications();
   const reviewingApplications = await getReviewingApplications();
   const rejectedApplications = await getRejectedApplications();
+  const paginatedApplications = await getApplications({
+    query,
+    page,
+    limit: DEFAULT_LIMIT,
+  });
   return (
     <div>
       <SiteHeader />
@@ -31,7 +44,9 @@ const page = async () => {
             rejectedApplications={rejectedApplications}
           />
           <h3 className="font-medium text-lg mb-1.5">Applications</h3>
-          {applications.length === 0 && (
+          <Searchbar search={query} placeholder="Search by name..." />
+
+          {paginatedApplications.applications.length === 0 && (
             <EmptyState
               title={"No applications"}
               description={
@@ -39,11 +54,17 @@ const page = async () => {
               }
             />
           )}
-          {applications.length !== 0 && (
+          {paginatedApplications.applications.length !== 0 && (
             <div className="mt-2.5">
-              <ApplicationsTable applications={applications} />
-              <ApplicationsList applications={applications} />
+              <ApplicationsTable applications={applications.applications} />
+              <ApplicationsList applications={applications.applications} />
             </div>
+          )}
+          {paginatedApplications.applications.length !== 0 && (
+            <Pagination
+              page={paginatedApplications.pagination.page}
+              totalPages={paginatedApplications.pagination.totalPages}
+            />
           )}
         </div>
       </div>

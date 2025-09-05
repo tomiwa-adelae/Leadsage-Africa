@@ -22,9 +22,9 @@ const page = async () => {
 
   const notifications = await getAllNotifications();
   const totalUsers = await getTotalUsers();
-  const totalListings = await getTotalListings();
+  const totalListings = await getTotalListings({});
   const totalBookings = await getTotalBookings();
-  const pendingListings = await getPendingListings();
+  const pendingListings = await getPendingListings({});
 
   return (
     <div>
@@ -34,8 +34,8 @@ const page = async () => {
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-6">
         <DashboardCards
           users={totalUsers.length}
-          listings={totalListings.length}
-          bookings={totalBookings.length}
+          listings={totalListings.listings.length}
+          bookings={totalBookings.bookings.length}
         />
         <QuickActions />
         <RecentActivities notifications={notifications} />
@@ -43,8 +43,8 @@ const page = async () => {
           <ChartAreaInteractive />
           <ChartAreaInteractive />
         </div>
-        <PendingListings listings={pendingListings} />
-        <BookingOverview bookings={totalBookings} />
+        <PendingListings listings={pendingListings.listings} />
+        <BookingOverview bookings={totalBookings.bookings} />
       </div>
     </div>
   );

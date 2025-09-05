@@ -1,22 +1,35 @@
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { getPendingApplications } from "@/app/data/user/application/get-pending-applications";
-import { getApprovedApplications } from "@/app/data/user/application/get-approved-applications";
 import { getReviewingApplications } from "@/app/data/user/application/get-reviewing-applications";
 import { getApplications } from "@/app/data/user/application/get-applications";
 import { EmptyState } from "@/components/EmptyState";
-import { getTotalApplicaitons } from "@/app/data/admin/application/get-all-applications";
-import { getPendingReviewApplicaitons } from "@/app/data/admin/application/get-pending-review-applications";
-import { getApprovedApplicaitons } from "@/app/data/admin/application/get-approved-applications";
+import { getTotalApplications } from "@/app/data/admin/application/get-all-applications";
+import { getPendingReviewApplications } from "@/app/data/admin/application/get-pending-review-applications";
+import { getApprovedApplications } from "@/app/data/admin/application/get-approved-applications";
 import { ApplicationsCards } from "../_components/ApplicationsCard";
 import { ApplicationsTable } from "../_components/ApplicationsTable";
 import { ApplicationsList } from "../_components/ApplicationsList";
 import { getRejectedApplications } from "@/app/data/admin/application/get-rejected-applications";
+import { Pagination } from "@/components/Pagination";
+import { DEFAULT_LIMIT } from "@/constants";
+import { Searchbar } from "@/components/Searchbar";
 
-const page = async () => {
-  const applications = await getTotalApplicaitons();
-  const pendingReviewApplications = await getPendingReviewApplicaitons();
-  const approvedApplications = await getApprovedApplicaitons();
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+
+  const applications = await getTotalApplications();
+  const pendingReviewApplications = await getPendingReviewApplications();
+  const approvedApplications = await getApprovedApplications();
   const rejectedApplications = await getRejectedApplications();
+  const paginatedApplications = await getTotalApplications({
+    query,
+    page,
+    limit: DEFAULT_LIMIT,
+  });
   return (
     <div>
       <SiteHeader />
@@ -30,10 +43,12 @@ const page = async () => {
             pendingReviewApplications={pendingReviewApplications}
             approvedApplications={approvedApplications}
             rejectedApplications={rejectedApplications}
-            applications={applications}
+            applications={applications.applications}
           />
           <h3 className="font-medium text-lg mb-1.5">Applications</h3>
-          {applications.length === 0 && (
+          <Searchbar search={query} placeholder="Search by name..." />
+
+          {paginatedApplications.applications.length === 0 && (
             <EmptyState
               title={"No applications"}
               description={
@@ -41,11 +56,21 @@ const page = async () => {
               }
             />
           )}
-          {applications.length !== 0 && (
+          {applications.applications.length !== 0 && (
             <div className="mt-2.5">
-              <ApplicationsTable applications={applications} />
-              <ApplicationsList applications={applications} />
+              <ApplicationsTable
+                applications={paginatedApplications.applications}
+              />
+              <ApplicationsList
+                applications={paginatedApplications.applications}
+              />
             </div>
+          )}
+          {paginatedApplications.applications.length !== 0 && (
+            <Pagination
+              page={paginatedApplications.pagination.page}
+              totalPages={paginatedApplications.pagination.totalPages}
+            />
           )}
         </div>
       </div>

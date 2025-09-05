@@ -1,195 +1,83 @@
-// "use client";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { toast } from "sonner";
-// import { Button } from "@/components/ui/button";
-// import {
-// 	Form,
-// 	FormControl,
-// 	FormField,
-// 	FormItem,
-// 	FormLabel,
-// 	FormMessage,
-// } from "@/components/ui/form";
-// import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
-// import React from "react";
-// import {
-// 	Select,
-// 	SelectContent,
-// 	SelectGroup,
-// 	SelectItem,
-// 	SelectLabel,
-// 	SelectTrigger,
-// 	SelectValue,
-// } from "@/components/ui/select";
-// import { searchFormSchema, SearchFormSchemaType } from "@/lib/zodSchemas";
-// import { NumberInput } from "@/components/ui/NumberInput";
-// import { Search } from "lucide-react";
-
-// export const SearchForm = () => {
-// 	const form = useForm<SearchFormSchemaType>({
-// 		resolver: zodResolver(searchFormSchema),
-// 		defaultValues: {
-// 			listing: "",
-// 			bedrooms: 0,
-// 			bathrooms: 0,
-// 			availabilityDate: "",
-// 		},
-// 	});
-
-// 	function onSubmit(data: SearchFormSchemaType) {}
-
-// 	return (
-// 		<div className="pt-10 pb-10 bg-muted/10 border-b">
-// 			<Form {...form}>
-// 				<form
-// 					onSubmit={form.handleSubmit(onSubmit)}
-// 					className="hidden container max-w-5xl overflow-hidden rounded-full p-6 gap-4 md:flex items-center justify-center shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white dark:bg-black"
-// 				>
-// 					<FormField
-// 						control={form.control}
-// 						name="listing"
-// 						render={({ field }) => (
-// 							<FormItem className="flex-1">
-// 								<FormControl>
-// 									<div className="group relative">
-// 										<label className="origin-start text-muted-foreground/70 group-focus-within:text-foreground has-[+input:not(:placeholder-shown)]:text-foreground absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-xs group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-xs has-[+input:not(:placeholder-shown)]:font-medium">
-// 											<span className="bg-background inline-flex px-2">
-// 												Where
-// 											</span>
-// 										</label>
-// 										<Input placeholder="" {...field} />
-// 									</div>
-// 								</FormControl>
-// 								<FormMessage />
-// 							</FormItem>
-// 						)}
-// 					/>
-// 					<div className="h-14 w-[0.1px] bg-input" />
-// 					<FormField
-// 						control={form.control}
-// 						name="bathrooms"
-// 						render={({ field }) => (
-// 							<FormItem className="flex-1">
-// 								<FormControl>
-// 									<div className="group relative">
-// 										<label className="origin-start text-muted-foreground/70 group-focus-within:text-foreground has-[+input:not(:placeholder-shown)]:text-foreground absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-xs group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-xs has-[+input:not(:placeholder-shown)]:font-medium">
-// 											<span className="bg-background inline-flex px-2">
-// 												Bathrooms
-// 											</span>
-// 										</label>
-// 										<NumberInput field={field} />
-// 									</div>
-// 								</FormControl>
-// 								<FormMessage />
-// 							</FormItem>
-// 						)}
-// 					/>
-// 					<div className="h-14 w-[0.1px] bg-input" />
-// 					<FormField
-// 						control={form.control}
-// 						name="bedrooms"
-// 						render={({ field }) => (
-// 							<FormItem className="flex-1">
-// 								<FormLabel>Bedrooms</FormLabel>
-// 								<FormControl>
-// 									<NumberInput field={field} />
-// 								</FormControl>
-// 								<FormMessage />
-// 							</FormItem>
-// 						)}
-// 					/>
-// 					<Button size="icon" className="rounded-full size-12">
-// 						<Search size={16} />
-// 					</Button>
-// 				</form>
-// 			</Form>
-// 			<div className="container max-w-5xl overflow-hidden rounded-full p-5 gap-4 md:hidden items-center text-base text-center cursor-pointer font-semibold justify-center shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white dark:bg-black">
-// 				<Search className="size-4 mr-2 inline-block" /> Start your
-// 				search
-// 			</div>
-// 		</div>
-// 	);
-// };
-
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import React from "react";
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { searchFormSchema, SearchFormSchemaType } from "@/lib/zodSchemas";
-import { NumberInput } from "@/components/ui/NumberInput";
-import { Search } from "lucide-react";
+import { IconSearch } from "@tabler/icons-react";
+import { LoaderCircleIcon, Search } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-export const SearchForm = () => {
-	const form = useForm<SearchFormSchemaType>({
-		resolver: zodResolver(searchFormSchema),
-		defaultValues: {
-			listing: "",
-			bedrooms: 0,
-			bathrooms: 0,
-			availabilityDate: "",
-		},
-	});
+interface Props {
+  search?: string;
+}
 
-	function onSubmit(data: SearchFormSchemaType) {}
+export const SearchForm = ({ search }: Props) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-	return (
-		<div className="pt-10 pb-10 bg-muted/10 dark:bg-[#171718] border-b">
-			<Form {...form}>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className="border container max-w-3xl overflow-hidden rounded-full px-6 py-4 gap-4 flex items-center justify-center dark:bg-[#171718]"
-				>
-					<FormField
-						control={form.control}
-						name="listing"
-						render={({ field }) => (
-							<FormItem className="flex-1">
-								<FormControl className="bg-none dark:bg-[#171718]">
-									<div className="group relative">
-										<label className="origin-start text-muted-foreground/70 group-focus-within:text-muted-foreground has-[+input:not(:placeholder-shown)]:text-muted-foreground absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-xs group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-xs has-[+input:not(:placeholder-shown)]:font-medium">
-											<span className="inline-flex px-2">
-												Search location
-											</span>
-										</label>
-										<Input
-											className="border-none shadow-none"
-											placeholder=""
-											{...field}
-										/>
-									</div>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<Button size="icon" className="rounded-full size-12">
-						<Search size={16} />
-					</Button>
-				</form>
-			</Form>
-		</div>
-	);
+  const [query, setQuery] = useState(search || "");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // Keep query state in sync with URL param
+  useEffect(() => {
+    const urlQuery = searchParams.get("query") || "";
+    setQuery(urlQuery);
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (query) {
+      setIsLoading(true);
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+    setIsLoading(false);
+  }, [query]);
+
+  // Debounced update to URL when query changes
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (query.trim()) {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("query", query);
+        params.delete("page");
+
+        const newUrl = `/search?${params.toString()}`;
+        router.push(newUrl, { scroll: false });
+      }
+      // ✅ do nothing if query is empty
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [query, searchParams, router]);
+
+  return (
+    <div className="pt-10 pb-10 bg-muted/10 dark:bg-[#171718] border-b">
+      <div className="border container max-w-3xl overflow-hidden rounded-full px-6 py-4 gap-4 flex items-center justify-center dark:bg-[#171718]">
+        <div className="group relative w-full">
+          <label className="origin-start text-muted-foreground/70 group-focus-within:text-muted-foreground has-[+input:not(:placeholder-shown)]:text-muted-foreground absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-xs group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-xs has-[+input:not(:placeholder-shown)]:font-medium">
+            <span className="inline-flex px-2">Search title, location...</span>
+          </label>
+          <Input
+            className="border-none shadow-none"
+            placeholder=""
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+
+        {isLoading ? (
+          <LoaderCircleIcon
+            className="animate-spin"
+            size={16}
+            role="status"
+            aria-label="Loading..."
+          />
+        ) : (
+          <IconSearch size={16} aria-hidden="true" />
+        )}
+      </div>
+    </div>
+  );
 };

@@ -6,19 +6,31 @@ import { getApprovedListings } from "@/app/data/listing/get-approved-listings";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { EmptyState } from "@/components/EmptyState";
+import { DEFAULT_LIMIT } from "@/constants";
+import { ScrollableListingCard } from "@/components/ScrollableListingCard";
+interface Props {
+  searchParams: any;
+}
 
-const page = async () => {
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  const listings = await getApprovedListings(10, session?.user.id);
+  const listings = await getApprovedListings({
+    limit: DEFAULT_LIMIT,
+    userId: session?.user.id,
+    query,
+    page,
+  });
   return (
     <div className="w-full relative">
-      <SearchForm />
+      <SearchForm search={query} />
       <div className="container flex flex-col gap-4 py-10">
         <div>
           <h4 className="text-lg font-semibold">Popular homes</h4>
-          {listings.length === 0 && (
+          {listings.listings.length === 0 && (
             <EmptyState
               title="No properties"
               description="There are no properties to showcase at this moment."
@@ -26,8 +38,8 @@ const page = async () => {
           )}
           <ScrollArea className="w-full max-w-full">
             <div className="flex w-max space-x-2 md:space-x-3 lg:space-x-4 pt-4 pr-10 pb-2">
-              {listings.map((listing) => (
-                <ListingCard
+              {listings.listings.map((listing) => (
+                <ScrollableListingCard
                   isAuthenticated={session ? true : false}
                   listing={listing}
                   key={`${listing.id}`}

@@ -1,7 +1,5 @@
-import { GetTotalApplicationType } from "@/app/data/admin/application/get-all-applications";
-import { GetApprovedApplicationType } from "@/app/data/admin/application/get-approved-applications";
+import { GetTotalApplicationsType } from "@/app/data/admin/application/get-all-applications";
 import { GetPendingReviewApplicationType } from "@/app/data/admin/application/get-pending-review-applications";
-import { GetRejectedApplicationType } from "@/app/data/admin/application/get-rejected-applications";
 import { GetApprovedApplicationsType } from "@/app/data/user/application/get-approved-applications";
 import { GetPendingApplicationsType } from "@/app/data/user/application/get-pending-applications";
 import { GetRejectedApplicationsType } from "@/app/data/user/application/get-rejected-applications";
@@ -23,10 +21,10 @@ import {
 import { CircleCheckBig, Clock } from "lucide-react";
 
 interface Props {
-  applications: GetTotalApplicationType[];
-  pendingReviewApplications: GetPendingReviewApplicationType[];
-  approvedApplications: GetApprovedApplicationType[];
-  rejectedApplications: GetRejectedApplicationType[];
+  applications: GetTotalApplicationsType[] | any;
+  pendingReviewApplications: GetPendingReviewApplicationType[] | any;
+  approvedApplications: GetApprovedApplicationsType[] | any;
+  rejectedApplications: GetRejectedApplicationsType[] | any;
 }
 
 export const ApplicationsCards = ({

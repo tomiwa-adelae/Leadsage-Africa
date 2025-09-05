@@ -4,9 +4,21 @@ import { SiteHeader } from "@/components/sidebar/site-header";
 import React from "react";
 import { ApplicationsTable } from "../../_components/ApplicationsTable";
 import { ApplicationsList } from "../../_components/ApplicationsList";
+import { Pagination } from "@/components/Pagination";
+import { Searchbar } from "@/components/Searchbar";
+import { DEFAULT_LIMIT } from "@/constants";
 
-const page = async () => {
-  const uncompletedApplications = await getUncompletedApplications();
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+  const uncompletedApplications = await getUncompletedApplications({
+    query,
+    page,
+    limit: DEFAULT_LIMIT,
+  });
 
   return (
     <div>
@@ -22,17 +34,29 @@ const page = async () => {
             </p>
           </div>
         </div>
-        {uncompletedApplications.length === 0 && (
+        <Searchbar search={query} placeholder="Search by name, booking ID..." />
+
+        {uncompletedApplications.applications.length === 0 && (
           <EmptyState
             title={"No applications"}
             description={"There are no uncompleted applications yet"}
           />
         )}
-        {uncompletedApplications.length !== 0 && (
+        {uncompletedApplications.applications.length !== 0 && (
           <div className="mt-2.5">
-            <ApplicationsTable applications={uncompletedApplications} />
-            <ApplicationsList applications={uncompletedApplications} />
+            <ApplicationsTable
+              applications={uncompletedApplications.applications}
+            />
+            <ApplicationsList
+              applications={uncompletedApplications.applications}
+            />
           </div>
+        )}
+        {uncompletedApplications.applications.length !== 0 && (
+          <Pagination
+            page={uncompletedApplications.pagination.page}
+            totalPages={uncompletedApplications.pagination.totalPages}
+          />
         )}
       </div>
     </div>

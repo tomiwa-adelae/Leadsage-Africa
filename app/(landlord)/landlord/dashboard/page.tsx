@@ -17,8 +17,8 @@ import { getMyLeases } from "@/app/data/landlord/lease/get-my-leases";
 
 const page = async () => {
   const listings = await getLandlordListings();
-  const recentListings = await getLandlordListings(3);
-  const bookings = await getLandlordBookings(3);
+  const recentListings = await getLandlordListings({ limit: 5 });
+  const recentBookings = await getLandlordBookings({ limit: 5 });
   const pendingBookings = await getLandlordPendingBookings();
   const leases = await getMyLeases();
 
@@ -33,14 +33,14 @@ const page = async () => {
       />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-6">
         <DashboardCards
-          listings={listings}
-          pendingBookings={pendingBookings}
-          leases={leases}
+          listings={listings.listings}
+          pendingBookings={pendingBookings.bookings}
+          leases={leases.leases}
         />
         <ChartAreaInteractive />
-        <RecentBookings bookings={bookings} />
+        <RecentBookings bookings={recentBookings.bookings} />
         <Separator />
-        <MyListings listings={recentListings} />
+        <MyListings listings={recentListings.listings} />
         <Separator />
         <QuickActions />
       </div>

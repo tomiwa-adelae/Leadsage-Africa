@@ -16,13 +16,27 @@ import { getTotalPendingBookings } from "@/app/data/admin/booking/get-pending-bo
 import { getTotalCancelledBookings } from "@/app/data/admin/booking/get-cancelled-bookings";
 import { getTotalCompletedBookings } from "@/app/data/admin/booking/get-completed-bookings";
 import { getTotalConfirmedBookings } from "@/app/data/admin/booking/get-confirmed-bookings";
+import { DEFAULT_LIMIT } from "@/constants";
+import { Searchbar } from "@/components/Searchbar";
+import { Pagination } from "@/components/Pagination";
 
-const page = async () => {
+interface Props {
+  searchParams: any;
+}
+
+const page = async ({ searchParams }: Props) => {
+  const { query, page } = await searchParams;
+
   const pendingBookings = await getTotalPendingBookings();
   const confirmedBookings = await getTotalConfirmedBookings();
-  const cancelledBookings = await getTotalCancelledBookings();
+  const cancelledBookings = await getTotalCancelledBookings({});
   const completedBookings = await getTotalCompletedBookings();
   const totalBookings = await getTotalBookings();
+  const paginatedBookings = await getTotalBookings({
+    query,
+    page,
+    limit: DEFAULT_LIMIT,
+  });
   return (
     <div>
       <SiteHeader />
@@ -38,19 +52,29 @@ const page = async () => {
             confirmedBookings={confirmedBookings}
             cancelledBookings={cancelledBookings}
             completedBookings={completedBookings}
-            totalBookings={totalBookings}
+            totalBookings={totalBookings.bookings}
           />
-          {totalBookings.length === 0 && (
+          <Searchbar
+            search={query}
+            placeholder="Search by name, booking ID..."
+          />
+          {paginatedBookings.bookings.length === 0 && (
             <EmptyState
               title={"No bookings"}
               description={"There are no bookings yet!"}
             />
           )}
-          {totalBookings.length !== 0 && (
+          {paginatedBookings.bookings.length !== 0 && (
             <div className="mt-2.5">
-              <BookingsTable bookings={totalBookings} />
-              <BookingsList bookings={totalBookings} />
+              <BookingsTable bookings={paginatedBookings.bookings} />
+              <BookingsList bookings={paginatedBookings.bookings} />
             </div>
+          )}
+          {paginatedBookings.bookings.length !== 0 && (
+            <Pagination
+              page={paginatedBookings.pagination.page}
+              totalPages={paginatedBookings.pagination.totalPages}
+            />
           )}
         </div>
       </div>

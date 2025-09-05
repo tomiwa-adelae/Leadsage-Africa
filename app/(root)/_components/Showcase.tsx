@@ -78,8 +78,8 @@ export const Showcase = () => {
           type="video/mp4"
         />
       </video>
-      <div className="grid container text-white z-50">
-        <div className="z-50">
+      <div className="grid container text-white z-20">
+        <div className="z-20">
           <main className="py-20 grid grid-cols-1 lg:grid-cols-5 gap-14">
             <div className="col-span-3">
               <h1 className="font-semibold text-4xl leading-snug md:text-5xl md:leading-snug">
@@ -151,7 +151,7 @@ export const Showcase = () => {
 //                     asChild
 //                     size="lg"
 //                     variant="ghost"
-//                     className="h-12 rounded-full px-5 text-base hover:bg-zinc-950/5 dark:hover:bg-white/5"
+//                     className="h-12 rounded-full px-5 text-base hover:bg-zinc-920/5 dark:hover:bg-white/5"
 //                   >
 //                     <Link href="#link">
 //                       <span className="text-nowrap">Request a demo</span>
