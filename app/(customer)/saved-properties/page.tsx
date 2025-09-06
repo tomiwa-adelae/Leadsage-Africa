@@ -6,6 +6,12 @@ import { Searchbar } from "@/components/Searchbar";
 import { Pagination } from "@/components/Pagination";
 import { DEFAULT_LIMIT } from "@/constants";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My saved | Leadsage",
+};
+
 interface Props {
   searchParams: any;
 }

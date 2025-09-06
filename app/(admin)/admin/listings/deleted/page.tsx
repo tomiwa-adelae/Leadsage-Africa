@@ -6,6 +6,12 @@ import { Pagination } from "@/components/Pagination";
 import { Searchbar } from "@/components/Searchbar";
 import { DEFAULT_LIMIT } from "@/constants";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Deleted listings - Admin | Leadsage",
+};
+
 interface Props {
   searchParams: any;
 }

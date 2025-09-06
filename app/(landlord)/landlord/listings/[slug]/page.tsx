@@ -37,6 +37,28 @@ import { getListingLeases } from "@/app/data/landlord/lease/get-listing-leases";
 import { LeasesTable } from "../../_components/LeasesTable";
 import { LeasesList } from "../../_components/LeasesList";
 
+import { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+  { params }: any,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const listing = await getLandlordListing(slug);
+    return {
+      title: `${listing?.title} - Leadsage`,
+      description: listing?.description,
+    };
+  } catch (error) {
+    return {
+      title: "Leadsage | Find Your Dream Home in Nigeria",
+      description:
+        "Discover verified rental properties and homes for sale in Nigeria. With Leadsage, searching, booking, and managing your next home is simple, fast, and secure.",
+    };
+  }
+}
+
 type Params = Promise<{
   slug: string;
 }>;

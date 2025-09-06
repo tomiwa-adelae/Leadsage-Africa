@@ -15,6 +15,14 @@ import { headers } from "next/headers";
 import { DashboardCards } from "./_components/DashboardCards";
 import { getMyLeases } from "@/app/data/landlord/lease/get-my-leases";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Landlord Dashboard | Leadsage",
+  description:
+    "Manage your property listings, applications, leases, and payments all in one place. Leadsage makes it easy for landlords to connect with tenants.",
+};
+
 const page = async () => {
   const listings = await getLandlordListings();
   const recentListings = await getLandlordListings({ limit: 5 });

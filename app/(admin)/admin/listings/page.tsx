@@ -1,11 +1,17 @@
 import { EmptyState } from "@/components/EmptyState";
 import { SiteHeader } from "@/components/sidebar/site-header";
-import { Plus } from "lucide-react";
 import { AdminListingCard } from "../_components/AdminListingCard";
 import { getTotalListings } from "@/app/data/admin/listing/get-all-listings";
 import { Searchbar } from "@/components/Searchbar";
 import { Pagination } from "@/components/Pagination";
 import { DEFAULT_LIMIT } from "@/constants";
+
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Leadsage | Find Your Dream Home in Nigeria",
+  description:
+    "Discover verified rental properties and homes for sale in Nigeria. With Leadsage, searching, booking, and managing your next home is simple, fast, and secure.",
+};
 
 interface Props {
   searchParams: any;

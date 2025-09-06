@@ -14,6 +14,12 @@ import { BookingsTable } from "../_components/BookingsTable";
 import { BookingsList } from "../_components/BookingsList";
 import { Pagination } from "@/components/Pagination";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My bookings | Leadsage",
+};
+
 interface Props {
   searchParams: any;
 }

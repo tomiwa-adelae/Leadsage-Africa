@@ -1,8 +1,12 @@
 import React from "react";
 import { ProfileForm } from "./_components/ProfileForm";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { getUserInfo, GetUserInfoType } from "@/app/data/user/get-user-info";
+import { getUserInfo } from "@/app/data/user/get-user-info";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Completed your profile | Leadsage",
+};
 
 const page = async () => {
   const user = await getUserInfo();

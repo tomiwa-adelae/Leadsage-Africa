@@ -12,6 +12,12 @@ import { PaymentCard } from "./_components/PaymentCard";
 import { AddPaymentMethod } from "./_components/AddPaymentMethod";
 import { getPaymentMethods } from "@/app/data/payment/get-payment-methods";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Billings & Payments | Leadsage",
+};
+
 const page = async () => {
   const methods = await getPaymentMethods();
   return (

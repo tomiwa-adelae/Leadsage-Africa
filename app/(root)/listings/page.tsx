@@ -7,6 +7,15 @@ import { headers } from "next/headers";
 import { EmptyState } from "@/components/EmptyState";
 import { DEFAULT_LIMIT } from "@/constants";
 import { ScrollableListingCard } from "@/components/ScrollableListingCard";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Browse Property Listings | Leadsage Nigeria",
+  description:
+    "Explore verified property listings across Nigeria. Filter by price, location, and type to find apartments, houses, or commercial spaces that fit your needs.",
+};
+
 interface Props {
   searchParams: any;
 }

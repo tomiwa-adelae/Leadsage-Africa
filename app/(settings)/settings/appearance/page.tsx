@@ -2,6 +2,12 @@ import { SiteHeader } from "@/components/sidebar/site-header";
 import React from "react";
 import { Themes } from "./_components/Themes";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Apperance | Leadsage",
+};
+
 const page = () => {
   return (
     <div>

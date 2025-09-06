@@ -4,6 +4,12 @@ import { NotificationBox } from "./_components/NotificationBox";
 import { EmptyState } from "@/components/EmptyState";
 import { getNotifications } from "@/app/data/notification/get-notifications";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My notifications | Leadsage",
+};
+
 const page = async () => {
   const notifications = await getNotifications();
 

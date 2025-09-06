@@ -15,6 +15,12 @@ import { SavedListings } from "./_components/SavedListings";
 import { getSavedListings } from "@/app/data/listing/get-saved-listings";
 import { getMyLeases } from "@/app/data/user/lease/get-my-leases";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My dashboard | Leadsage",
+};
+
 const page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),

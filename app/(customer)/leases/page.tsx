@@ -8,6 +8,12 @@ import { Searchbar } from "@/components/Searchbar";
 import { DEFAULT_LIMIT } from "@/constants";
 import { Pagination } from "@/components/Pagination";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My leases | Leadsage",
+};
+
 interface Props {
   searchParams: any;
 }

@@ -7,6 +7,14 @@ import { EmptyState } from "@/components/EmptyState";
 import { Searchbar } from "@/components/Searchbar";
 import { Pagination } from "@/components/Pagination";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Search Properties | Leadsage",
+  description:
+    "Find properties faster with Leadsage’s advanced search. Browse houses, apartments, and rentals across Nigeria with filters for price, city, and amenities.",
+};
+
 interface Props {
   searchParams: any;
 }

@@ -8,6 +8,14 @@ import { ResidentialAddressBox } from "./_components/ResidentialAddressBox";
 import { MailingAddressBox } from "./_components/MailingAddressBox";
 import { EmergencyBox } from "./_components/EmergencyBox";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Account Settings | Leadsage",
+  description:
+    "Manage your Leadsage account settings, update your profile, adjust notifications, and keep your information secure.",
+};
+
 const page = async () => {
   const user = await getUserInfo();
 

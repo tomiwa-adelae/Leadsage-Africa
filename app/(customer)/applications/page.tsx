@@ -9,6 +9,12 @@ import { EmptyState } from "@/components/EmptyState";
 import { ApplicationsTable } from "../_components/ApplicationsTable";
 import { ApplicationsList } from "../_components/ApplicationsList";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My applications | Leadsage",
+};
+
 const page = async () => {
   const applications = await getApplications();
   const pendingApplications = await getPendingApplications();

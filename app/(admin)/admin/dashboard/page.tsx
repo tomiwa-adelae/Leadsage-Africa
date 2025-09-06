@@ -15,6 +15,14 @@ import { getPendingListings } from "@/app/data/admin/listing/get-pending-listing
 import { PendingListings } from "./_components/PendingListings";
 import { BookingOverview } from "./_components/BookingOverview";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard | Leadsage",
+  description:
+    "Access the Leadsage admin dashboard. Manage property listings, applications, leases, and payments with ease.",
+};
+
 const page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),

@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import React from "react";
 import { PasswordBox } from "./_components/PasswordBox";
 import { getUserInfo } from "@/app/data/user/get-user-info";
@@ -8,6 +7,12 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { SocialBox } from "./_components/SocialBox";
 import { EmptyState } from "@/components/EmptyState";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login & Security | Leadsage",
+};
 
 const page = async () => {
   const session = await auth.api.getSession({

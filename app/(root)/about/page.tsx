@@ -6,6 +6,14 @@ import { Features } from "../_components/Features";
 import { CTAs } from "../_components/CTAs";
 import { PartneringCompanies } from "../_components/PartneringCompanies";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us | Leadsage - Your Trusted Housing Partner",
+  description:
+    "Learn about Leadsage’s mission to simplify real estate in Nigeria. We connect tenants, landlords, and agents with verified listings and trusted housing solutions.",
+};
+
 export default function AboutUs2() {
   return (
     <section className="relative w-full overflow-hidden">

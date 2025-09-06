@@ -43,6 +43,28 @@ import { LeasesList } from "../../_components/LeasesList";
 import { NairaIcon } from "@/components/NairaIcon";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
 
+import { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+  { params }: any,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const listing = await getListing(slug);
+    return {
+      title: `${listing?.title} - Admin | Leadsage`,
+      description: listing?.description,
+    };
+  } catch (error) {
+    return {
+      title: "Leadsage | Find Your Dream Home in Nigeria",
+      description:
+        "Discover verified rental properties and homes for sale in Nigeria. With Leadsage, searching, booking, and managing your next home is simple, fast, and secure.",
+    };
+  }
+}
+
 type Params = Promise<{
   slug: string;
 }>;

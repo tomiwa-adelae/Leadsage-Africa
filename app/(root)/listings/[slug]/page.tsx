@@ -23,6 +23,27 @@ import React from "react";
 import { BookingButton } from "./_components/BookingButton";
 import { ListingMap } from "@/components/ListingMap";
 import { getExistingBooking } from "@/app/data/booking/get-existing-booking";
+import { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+  { params }: any,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const listing = await getListingDetails(slug);
+    return {
+      title: `${listing?.title} - Leadsage`,
+      description: listing?.description,
+    };
+  } catch (error) {
+    return {
+      title: "Leadsage | Find Your Dream Home in Nigeria",
+      description:
+        "Discover verified rental properties and homes for sale in Nigeria. With Leadsage, searching, booking, and managing your next home is simple, fast, and secure.",
+    };
+  }
+}
 
 type Params = Promise<{
   slug: string;

@@ -7,6 +7,12 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { Searchbar } from "@/components/Searchbar";
 import { Pagination } from "@/components/Pagination";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pending bookings - Admin | Leadsage",
+};
+
 interface Props {
   searchParams: any;
 }

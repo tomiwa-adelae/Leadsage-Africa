@@ -10,6 +10,14 @@ import { CTAs } from "./_components/CTAs";
 import { Categories } from "./_components/Categories";
 import { SecondCTA } from "./_components/SecondCTA";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Leadsage | Find Your Dream Home in Nigeria",
+  description:
+    "Discover verified rental properties and homes for sale in Nigeria. With Leadsage, searching, booking, and managing your next home is simple, fast, and secure.",
+};
+
 interface Props {
   searchParams: any;
 }

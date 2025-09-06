@@ -5,6 +5,12 @@ import { ListingBox } from "./_components/ListingBox";
 import { PromotionalBox } from "./_components/PromotionalBox";
 import { AccountBox } from "./_components/AccountBox";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Notifications | Leadsage",
+};
+
 const page = async () => {
   const user = await getUserInfo();
   return (

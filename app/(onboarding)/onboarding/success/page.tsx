@@ -3,6 +3,14 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Welcome to Leadsage | Account Created Successfully",
+  description:
+    "Your Leadsage account has been created. Start exploring properties, managing applications, and connecting with trusted landlords and tenants.",
+};
+
 interface Props {
   searchParams: any;
 }

@@ -4,6 +4,14 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import React from "react";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Get Started | Leadsage Onboarding",
+  description:
+    "Join Leadsage and start your journey to better housing. Create your account to access verified listings, manage bookings, and connect with landlords.",
+};
+
 const page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),

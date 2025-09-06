@@ -1,8 +1,14 @@
 import React from "react";
 import { RoleForm } from "./_components/RoleForm";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
 import { getUserInfo } from "@/app/data/user/get-user-info";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Select role | Leadsage Onboarding",
+  description:
+    "Join Leadsage and start your journey to better housing. Create your account to access verified listings, manage bookings, and connect with landlords.",
+};
 
 const page = async () => {
   const user = await getUserInfo();
