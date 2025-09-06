@@ -507,7 +507,6 @@ export async function bookTour(
       },
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       error: "Failed to book tour. Please try again.",

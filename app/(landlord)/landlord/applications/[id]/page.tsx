@@ -13,6 +13,7 @@ import { CircleCheckBig } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
 import { getApplication } from "@/app/data/landlord/application/get-application";
+import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
 
 type Params = Promise<{
   id: string;
@@ -23,13 +24,7 @@ const page = async ({ params }: { params: Params }) => {
 
   const application = await getApplication(id);
 
-  const profilePictureUrl = useConstructUrl(
-    application.User.image ? application.User.image : ""
-  );
-
-  const landlordProfilePictureUrl = useConstructUrl(
-    application.Listing.User.image ? application.Listing.User.image : ""
-  );
+  const profilePicture = constructProfilePictureUrl(application.User.image);
 
   return (
     <div>
@@ -71,11 +66,7 @@ const page = async ({ params }: { params: Params }) => {
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">
               <Image
-                src={
-                  application.User.image
-                    ? profilePictureUrl
-                    : DEFAULT_PROFILE_PICTURE
-                }
+                src={profilePicture}
                 alt="User profile picture"
                 width={1000}
                 height={1000}
@@ -220,7 +211,7 @@ const page = async ({ params }: { params: Params }) => {
               </p>
               <Separator />{" "}
               <Button asChild size="md" className="w-full">
-                <Link href={`/admin/listings/${application.Listing.slug}`}>
+                <Link href={`/landlord/listings/${application.Listing.slug}`}>
                   View Full Property
                 </Link>
               </Button>

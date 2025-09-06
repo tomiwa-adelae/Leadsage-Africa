@@ -11,8 +11,6 @@ import { RenderDescription } from "@/components/text-editor/RenderDescription";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { DEFAULT_PROFILE_PICTURE } from "@/constants";
-import { useConstructUrl } from "@/hooks/use-construct-url";
 import { auth } from "@/lib/auth";
 import { formatMoneyInput, removeCommas } from "@/lib/utils";
 import { CheckCircle, MapPin, Star } from "lucide-react";
@@ -24,6 +22,7 @@ import { BookingButton } from "./_components/BookingButton";
 import { ListingMap } from "@/components/ListingMap";
 import { getExistingBooking } from "@/app/data/booking/get-existing-booking";
 import { Metadata, ResolvingMetadata } from "next";
+import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
 
 export async function generateMetadata(
   { params }: any,
@@ -285,7 +284,7 @@ const page = async ({ params }: { params: Params }) => {
               {listing.address}, {listing.city}, {listing.state},{" "}
               {listing.country}
             </p>
-            {/* <ListingMap /> */}
+            <ListingMap />
           </div>
           <Separator className="my-8" />
           <div>
@@ -293,14 +292,12 @@ const page = async ({ params }: { params: Params }) => {
             <div className="mt-4 flex flex-col md:flex-row items-center justify-center text-center md:text-left md:justify-start gap-10">
               <div>
                 {(() => {
-                  const profilePicture = listing.User.image?.startsWith("https")
-                    ? listing.User.image
-                    : useConstructUrl(
-                        listing?.User?.image || DEFAULT_PROFILE_PICTURE
-                      );
+                  const profilePicture = constructProfilePictureUrl(
+                    listing.User.image
+                  );
                   return (
                     <Image
-                      src={profilePicture || DEFAULT_PROFILE_PICTURE}
+                      src={profilePicture}
                       alt={`${listing.User.image}'s picture`}
                       width={1000}
                       height={1000}

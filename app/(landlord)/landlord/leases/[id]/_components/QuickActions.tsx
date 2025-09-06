@@ -89,7 +89,7 @@ export const QuickActions = ({
             <p className="text-muted-foreground text-base mt-4">
               Tenant's Signature
             </p>
-            <div className="border-2 w-fit rounded-lg border-dashed mt-2.5">
+            <div className="border-2 max-w-[200px] rounded-lg border-dashed mt-2.5">
               <Image
                 src={lease.tenantSignature}
                 alt="Tenant's signature"
@@ -116,7 +116,7 @@ export const QuickActions = ({
             ) : (
               <div className="mt-4">
                 <p className="text-muted-foreground">Sign here</p>
-                <div className="border-2 w-full overflow-hidden rounded-lg border-dashed">
+                <div className="border-2 w-[200px] h-[200px] overflow-hidden rounded-lg border-dashed">
                   {signature && (
                     <Image
                       src={signature}

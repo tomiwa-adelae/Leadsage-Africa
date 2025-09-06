@@ -212,7 +212,7 @@ export const AgreementForm = ({ application }: Props) => {
         </CardHeader>
         <CardContent className="mt-4 space-y-3 text-sm font-medium">
           <p className="text-muted-foreground">Sign here</p>
-          <div className="border-2 w-fit rounded-lg border-dashed">
+          <div className="border-2 max-w-[200px] rounded-lg border-dashed">
             {signature && (
               <Image
                 src={signature}

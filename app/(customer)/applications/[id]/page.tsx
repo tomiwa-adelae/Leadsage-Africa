@@ -17,6 +17,7 @@ import { Confetti } from "@/components/Confetti";
 import { ApprovedApplicationModal } from "../../_components/ApprovedApplicationModal";
 import { UncompletedApplicationModal } from "../../_components/UncompletedApplicationModal";
 import { IconArrowNarrowRightDashed, IconContract } from "@tabler/icons-react";
+import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
 
 type Params = Promise<{
   id: string;
@@ -27,12 +28,10 @@ const page = async ({ params }: { params: Params }) => {
 
   const application = await getApplication(id);
 
-  const profilePictureUrl = useConstructUrl(
-    application.User.image ? application.User.image : ""
-  );
+  const profilePicture = constructProfilePictureUrl(application.User.image);
 
-  const landlordProfilePictureUrl = useConstructUrl(
-    application.Listing.User.image ? application.Listing.User.image : ""
+  const landlordPicture = constructProfilePictureUrl(
+    application.Listing.User.image
   );
 
   return (
@@ -89,11 +88,7 @@ const page = async ({ params }: { params: Params }) => {
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">
               <Image
-                src={
-                  application.User.image
-                    ? profilePictureUrl
-                    : DEFAULT_PROFILE_PICTURE
-                }
+                src={profilePicture}
                 alt="User profile picture"
                 width={1000}
                 height={1000}
@@ -238,7 +233,7 @@ const page = async ({ params }: { params: Params }) => {
               </p>
               <Separator />{" "}
               <Button asChild size="md" className="w-full">
-                <Link href={`/admin/listings/${application.Listing.slug}`}>
+                <Link href={`/listings/${application.Listing.slug}`}>
                   View Full Property
                 </Link>
               </Button>
@@ -447,11 +442,7 @@ const page = async ({ params }: { params: Params }) => {
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">
               <Image
-                src={
-                  application.Listing.User.image
-                    ? landlordProfilePictureUrl
-                    : DEFAULT_PROFILE_PICTURE
-                }
+                src={landlordPicture}
                 alt="Landlord's profile picture"
                 width={1000}
                 height={1000}

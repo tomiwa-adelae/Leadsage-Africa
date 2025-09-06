@@ -16,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RequiredAsterisk } from "@/components/RequiredAsterisk";
 import { registerFormSchema, RegisterFormSchemaType } from "@/lib/zodSchemas";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
@@ -127,9 +126,7 @@ export function RegisterForm() {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  First name <RequiredAsterisk />
-                </FormLabel>
+                <FormLabel>First name</FormLabel>
                 <FormControl>
                   <Input placeholder="John" {...field} />
                 </FormControl>
@@ -142,9 +139,7 @@ export function RegisterForm() {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  Last name <RequiredAsterisk />
-                </FormLabel>
+                <FormLabel>Last name</FormLabel>
                 <FormControl>
                   <Input placeholder="Doe" {...field} />
                 </FormControl>
@@ -157,9 +152,7 @@ export function RegisterForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  Email <RequiredAsterisk />
-                </FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input type="email" placeholder="john@gmail.com" {...field} />
                 </FormControl>
@@ -172,9 +165,7 @@ export function RegisterForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  Password <RequiredAsterisk />
-                </FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input

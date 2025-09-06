@@ -18,6 +18,8 @@ import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { ListingPhotos } from "@/components/ListingPhotos";
 import { CheckCircle, MapPin, Star } from "lucide-react";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
+import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
+import { ListingMap } from "@/components/ListingMap";
 
 type Params = Promise<{
   slug: string;
@@ -298,7 +300,11 @@ const page = async ({ params }: { params: Params }) => {
               <span className="italic">No location</span>
             )}
           </p>
-          {listing.address && <>{/* <ListingMap /> */}</>}
+          {listing.address && (
+            <>
+              <ListingMap />
+            </>
+          )}
         </div>
         <Separator className="my-8" />
         <div>
@@ -306,14 +312,12 @@ const page = async ({ params }: { params: Params }) => {
           <div className="mt-4 flex flex-col md:flex-row items-center justify-center text-center md:text-left md:justify-start gap-10">
             <div>
               {(() => {
-                const profilePicture = listing.User.image?.startsWith("https")
-                  ? listing.User.image
-                  : useConstructUrl(
-                      listing?.User?.image || DEFAULT_PROFILE_PICTURE
-                    );
+                const profilePicture = constructProfilePictureUrl(
+                  listing.User.image
+                );
                 return (
                   <Image
-                    src={profilePicture || DEFAULT_PROFILE_PICTURE}
+                    src={profilePicture}
                     alt={`${listing.User.image}'s picture`}
                     width={1000}
                     height={1000}

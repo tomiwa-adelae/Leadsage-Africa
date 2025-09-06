@@ -12,12 +12,14 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 interface Props {
-  role: string | null;
+  role: any;
 }
 
 export const RoleForm = ({ role }: Props) => {
   const router = useRouter();
-  const [selectedRole, setSelectedRole] = useState<string>(role || "");
+  const [selectedRole, setSelectedRole] = useState<string>(
+    role === "user" ? "" : role
+  );
 
   const [pending, startTransition] = useTransition();
 

@@ -15,7 +15,7 @@ import { markPaymentSuccessful } from "../actions";
 import { toast } from "sonner";
 import { Loader } from "@/components/Loader";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import RestoreAnimation from "@/public/assets/animations/delete-animation.json";
+import RestoreAnimation from "@/public/assets/animations/payment.json";
 import { useConfetti } from "@/hooks/use-confetti";
 
 interface Props {

@@ -21,7 +21,7 @@ import {
 } from "@/lib/zodSchemas";
 import { Textarea } from "@/components/ui/textarea";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import RestoreAnimation from "@/public/assets/animations/delete-animation.json";
+import RestoreAnimation from "@/public/assets/animations/information.json";
 import {
   Dialog,
   DialogContent,

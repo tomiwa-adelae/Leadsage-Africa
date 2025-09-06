@@ -44,7 +44,7 @@ export const Features = () => {
                     100%
                   </span>
                 </div>
-                <h2 className="mt-6 text-center text-3xl font-semibold">
+                <h2 className="mt-6 text-center text-2xl md:text-3xl font-semibold">
                   Verified Listings
                 </h2>
               </CardContent>

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import UnarchiveAnimation from "@/public/assets/animations/delete-animation.json";
+import UnarchiveAnimation from "@/public/assets/animations/approve.json";
 import { useRef, useTransition } from "react";
 import { Loader } from "@/components/Loader";
 import { tryCatch } from "@/hooks/use-try-catch";

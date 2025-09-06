@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import RestoreAnimation from "@/public/assets/animations/delete-animation.json";
+import Animation from "@/public/assets/animations/activate.json";
 import { useRef, useTransition } from "react";
 import { Loader } from "@/components/Loader";
 import { tryCatch } from "@/hooks/use-try-catch";
@@ -57,10 +57,7 @@ export function ActivateLeaseModal({
         <AlertDialogHeader>
           <div className="flex items-center justify-center">
             <div className="h-60 w-60">
-              <Lottie
-                lottieRef={animationRef}
-                animationData={RestoreAnimation}
-              />
+              <Lottie lottieRef={animationRef} animationData={Animation} />
             </div>
           </div>
           <AlertDialogTitle className="text-center">

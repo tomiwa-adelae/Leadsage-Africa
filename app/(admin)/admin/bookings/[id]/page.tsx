@@ -36,6 +36,7 @@ import { getAdminBooking } from "@/app/data/admin/booking/get-booking";
 import { BookingActions } from "./_components/BookingActions";
 import Link from "next/link";
 import { QuickActions } from "./_components/QuickActions";
+import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
 
 type Params = Promise<{
   id: string;
@@ -48,6 +49,11 @@ const page = async ({ params }: { params: Params }) => {
   const timelines = await getBookingTimelines(id);
 
   const booking = await getAdminBooking(id);
+
+  const profilePicture = constructProfilePictureUrl(booking.user.image);
+  const landlordPicture = constructProfilePictureUrl(
+    booking.listing.User.image
+  );
   return (
     <div>
       <SiteHeader />
@@ -286,11 +292,7 @@ const page = async ({ params }: { params: Params }) => {
           <CardContent className="mt-2.5 grid gap-6">
             <div className="flex items-center justify-start gap-4">
               <Image
-                src={
-                  booking.user.image !== null && booking.user.image
-                    ? booking.user.image
-                    : DEFAULT_PROFILE_PICTURE
-                }
+                src={profilePicture}
                 alt={`User profile picture`}
                 width={1000}
                 height={1000}
@@ -359,12 +361,7 @@ const page = async ({ params }: { params: Params }) => {
           <CardContent className="mt-2.5 grid gap-6">
             <div className="flex items-center justify-start gap-4">
               <Image
-                src={
-                  booking.listing.User.image !== null &&
-                  booking.listing.User.image
-                    ? booking.listing.User.image
-                    : DEFAULT_PROFILE_PICTURE
-                }
+                src={landlordPicture}
                 alt={`Landlord profile picture`}
                 width={1000}
                 height={1000}

@@ -40,7 +40,6 @@ export function LeasesTable({ leases }: Props) {
         </TableHeader>
         <TableBody>
           {leases.map((lease) => {
-            console.log(lease);
             const cover =
               lease.Listing.photos.find((photo) => photo.cover) ||
               lease.Listing?.photos[0];

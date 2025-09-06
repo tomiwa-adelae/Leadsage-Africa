@@ -61,9 +61,7 @@ const page = async ({ params }: { params: Params }) => {
                 }
               >
                 {lease.status === "ACTIVE" && "Active"}
-                {lease.status === "PENDING" && !lease.landlordSignature
-                  ? "Awaiting Landlord's signature"
-                  : "Pending Payment"}
+                {lease.status === "PENDING" && "Pending"}
                 {lease.status === "CANCELLED" && "Cancelled"}
                 {lease.status === "DELETED" && "Deleted"}
                 {lease.status === "EXPIRED" && "Expired"}

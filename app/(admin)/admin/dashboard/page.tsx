@@ -46,11 +46,11 @@ const page = async () => {
           bookings={totalBookings.bookings.length}
         />
         <QuickActions />
-        <RecentActivities notifications={notifications} />
-        <div className="grid grid-cols-2 gap-4">
+        <RecentActivities notifications={notifications.splice(0, 5)} />
+        {/* <div className="grid grid-cols-2 gap-4">
           <ChartAreaInteractive />
           <ChartAreaInteractive />
-        </div>
+        </div> */}
         <PendingListings listings={pendingListings.listings} />
         <BookingOverview bookings={totalBookings.bookings} />
       </div>

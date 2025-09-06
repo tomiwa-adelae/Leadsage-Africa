@@ -47,13 +47,13 @@ const page = async ({ searchParams }: Props) => {
         </p>
 
         <div className="mt-4 space-y-6">
-          <BookingsCards
+          {/* <BookingsCards
             pendingBookings={pendingBookings.bookings}
             confirmedBookings={confirmedBookings.bookings}
             cancelledBookings={cancelledBookings.bookings}
             completedBookings={completedBookings.bookings}
-          />
-          <h3 className="font-medium text-lg mb-1.5">Bookings</h3>
+          /> */}
+          <h3 className="font-medium text-lg mb-1.5">My Tours & Bookings</h3>
           <Searchbar search={query} placeholder="Search by name..." />
 
           {paginatedBookings.bookings.length === 0 && (

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import {
   countries,
   employmentStatus,
@@ -98,8 +97,8 @@ export const listingLocationFormSchema = z.object({
     message: "City must be at least 2 characters.",
   }),
   postalCode: z.string().optional(),
-  state: z.enum(states),
-  country: z.enum(countries),
+  state: z.enum(states, { message: "Please select the state" }),
+  country: z.enum(countries, { message: "Please select the country" }),
 });
 
 export const listingDescribeFormSchema = z.object({
@@ -135,9 +134,11 @@ export const listingDescriptionFormSchema = z.object({
 
 export const listingPolicyFormSchema = z.object({
   additionalPolicies: z.string().optional(),
-  petPolicy: z.enum(["Yes", "No"]),
-  smokingPolicy: z.enum(["Yes", "No"]),
-  partyPolicy: z.enum(["Yes", "No"]),
+  petPolicy: z.enum(["Yes", "No"], { message: "Please select your policy" }),
+  smokingPolicy: z.enum(["Yes", "No"], {
+    message: "Please select your policy",
+  }),
+  partyPolicy: z.enum(["Yes", "No"], { message: "Please select your policy" }),
 });
 
 export const listingPriceFormSchema = z.object({
@@ -147,7 +148,9 @@ export const listingPriceFormSchema = z.object({
       message: "Price must be at least 1000 naira.",
     })
     .regex(/^\d{1,3}(,\d{3})*(\.\d{1,2})?$/, "Invalid price format"),
-  paymentFrequency: z.enum(["Monthly", "Yearly"]),
+  paymentFrequency: z.enum(["Monthly", "Yearly"], {
+    message: "Please select the frequency",
+  }),
   securityDeposit: z.string().optional(),
   discount: z.string().optional(),
 });
@@ -172,8 +175,8 @@ export const editListingFormSchema = z.object({
     message: "City must be at least 2 characters.",
   }),
   postalCode: z.string().optional(),
-  state: z.enum(states),
-  country: z.enum(countries),
+  state: z.enum(states, { message: "Please select the state" }),
+  country: z.enum(countries, { message: "Please select the country" }),
   propertySize: z.string().min(1, {
     message: "Property size must be at least 2sq. meters.",
   }),
@@ -190,16 +193,20 @@ export const editListingFormSchema = z.object({
       message: "Invalid date format.",
     }),
   additionalPolicies: z.string().optional(),
-  petPolicy: z.enum(["Yes", "No"]),
-  smokingPolicy: z.enum(["Yes", "No"]),
-  partyPolicy: z.enum(["Yes", "No"]),
+  petPolicy: z.enum(["Yes", "No"], { message: "Please select your policy" }),
+  smokingPolicy: z.enum(["Yes", "No"], {
+    message: "Please select your policy",
+  }),
+  partyPolicy: z.enum(["Yes", "No"], { message: "Please select your policy" }),
   price: z
     .string()
     .min(2, {
       message: "Price must be at least 1000 naira.",
     })
     .regex(/^\d{1,3}(,\d{3})*(\.\d{1,2})?$/, "Invalid price format"),
-  paymentFrequency: z.enum(["Monthly", "Yearly"]),
+  paymentFrequency: z.enum(["Monthly", "Yearly"], {
+    message: "Please select the frequency",
+  }),
   securityDeposit: z.string().optional(),
   discount: z.string().optional(),
   status: z.string().min(2, {
@@ -320,7 +327,7 @@ export const rejectListingFormSchema = z.object({
 
 export const uninterestedModalFormSchema = z.object({
   reasons: z.enum(uninterestedReasons, {
-    required_error: "You need to select a reason.",
+    message: "You need to select a reason.",
   }),
 });
 

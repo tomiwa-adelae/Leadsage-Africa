@@ -115,7 +115,6 @@ export const acceptAgreement = async (data: {
       data: lease,
     };
   } catch (error) {
-    console.log(error);
     return { status: "error", message: "Failed to sign lease" };
   }
 };

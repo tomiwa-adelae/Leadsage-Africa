@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import RestoreAnimation from "@/public/assets/animations/delete-animation.json";
+import RestoreAnimation from "@/public/assets/animations/payment.json";
 import { useRef, useTransition } from "react";
 import { Loader } from "@/components/Loader";
 import { tryCatch } from "@/hooks/use-try-catch";
@@ -50,7 +50,7 @@ export function MakePaymentModal({
     reference: new Date().getTime().toString(),
     email: user.email,
     // amount: Number(removeCommas(lease.Listing.price)) * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    amount: 10000, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
     publicKey: env.NEXT_PUBLIC_PS_PUBLIC_KEY,
     metadata: {
       name: user.name,
@@ -75,7 +75,6 @@ export function MakePaymentModal({
     closeModal();
     initializePayment({
       onSuccess: (reference) => {
-        console.log(reference);
         startTransition(async () => {
           toast.loading("Saving payment...");
           const { data: result, error } = await tryCatch(

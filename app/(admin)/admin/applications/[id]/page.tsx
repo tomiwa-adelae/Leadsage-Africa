@@ -14,6 +14,7 @@ import { CircleCheckBig } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
 import Link from "next/link";
+import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
 
 type Params = Promise<{
   id: string;
@@ -24,12 +25,9 @@ const page = async ({ params }: { params: Params }) => {
 
   const application = await getApplication(id);
 
-  const profilePictureUrl = useConstructUrl(
-    application.User.image ? application.User.image : ""
-  );
-
-  const landlordProfilePictureUrl = useConstructUrl(
-    application.Listing.User.image ? application.Listing.User.image : ""
+  const profilePicture = constructProfilePictureUrl(application.User.image);
+  const landlordPicture = constructProfilePictureUrl(
+    application.Listing.User.image
   );
 
   return (
@@ -72,11 +70,7 @@ const page = async ({ params }: { params: Params }) => {
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">
               <Image
-                src={
-                  application.User.image
-                    ? profilePictureUrl
-                    : DEFAULT_PROFILE_PICTURE
-                }
+                src={profilePicture}
                 alt="User profile picture"
                 width={1000}
                 height={1000}
@@ -430,11 +424,7 @@ const page = async ({ params }: { params: Params }) => {
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">
               <Image
-                src={
-                  application.Listing.User.image
-                    ? landlordProfilePictureUrl
-                    : DEFAULT_PROFILE_PICTURE
-                }
+                src={landlordPicture}
                 alt="Landlord's profile picture"
                 width={1000}
                 height={1000}

@@ -44,6 +44,7 @@ import { NairaIcon } from "@/components/NairaIcon";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
 
 import { Metadata, ResolvingMetadata } from "next";
+import { ListingMap } from "@/components/ListingMap";
 
 export async function generateMetadata(
   { params }: any,
@@ -340,7 +341,11 @@ const page = async ({ params }: { params: Params }) => {
                     <span className="italic">No location</span>
                   )}
                 </p>
-                {listing.address && <>{/* <ListingMap /> */}</>}
+                {listing.address && (
+                  <>
+                    <ListingMap />
+                  </>
+                )}
               </div>
               <Separator />
               <div>

@@ -16,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RequiredAsterisk } from "@/components/RequiredAsterisk";
 import { loginFormSchema, LoginFormSchemaType } from "@/lib/zodSchemas";
 import Image from "next/image";
 import Link from "next/link";
@@ -87,9 +86,7 @@ export function LoginForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  Email <RequiredAsterisk />
-                </FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input type="email" placeholder="john@gmail.com" {...field} />
                 </FormControl>
@@ -102,9 +99,7 @@ export function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  Password <RequiredAsterisk />
-                </FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input
