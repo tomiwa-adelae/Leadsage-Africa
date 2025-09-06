@@ -7,13 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  IconCalendarCheck,
-  IconCalendarX,
-  IconCheckbox,
-  IconDots,
-  IconEye,
-} from "@tabler/icons-react";
+import { IconCheckbox, IconDots, IconEye } from "@tabler/icons-react";
 import Link from "next/link";
 import { BookingStatus } from "@/lib/generated/prisma";
 import { useState } from "react";

@@ -9,18 +9,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   IconArrowNarrowRightDashed,
-  IconBan,
-  IconCalendarCheck,
-  IconCalendarX,
-  IconCheckbox,
   IconContract,
   IconDots,
   IconEye,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import { ApplicationStatus, BookingStatus } from "@/lib/generated/prisma";
-import { useState } from "react";
-import { Info, Mail } from "lucide-react";
+import { ApplicationStatus } from "@/lib/generated/prisma";
 import { GetApplicationType } from "@/app/data/user/application/get-application";
 
 interface Props {

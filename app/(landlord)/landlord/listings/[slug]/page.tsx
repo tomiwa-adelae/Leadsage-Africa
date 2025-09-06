@@ -1,10 +1,5 @@
-import {
-  getListing,
-  GetListingType,
-} from "@/app/data/admin/listing/get-listing";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   IconCircleDashedX,
   IconLockAccess,
@@ -15,13 +10,9 @@ import {
 import {
   Archive,
   CheckCircle,
-  CircleCheckBig,
   Component,
   Hourglass,
-  Mail,
-  Phone,
   Radio,
-  Star,
 } from "lucide-react";
 import React from "react";
 import { ListingPhotos } from "@/components/ListingPhotos";
@@ -29,10 +20,8 @@ import { Separator } from "@/components/ui/separator";
 import { RenderDescription } from "@/components/text-editor/RenderDescription";
 import Image from "next/image";
 import { CopyToClipboard } from "@/components/CopyToClipboard";
-import { formatDate, formatPhoneNumber } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DEFAULT_LISTING_IMAGE, DEFAULT_PROFILE_PICTURE } from "@/constants";
-import { ListingMap } from "@/components/ListingMap";
 import { NairaIcon } from "@/components/NairaIcon";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { AmenityBox } from "@/components/AmenityBox";

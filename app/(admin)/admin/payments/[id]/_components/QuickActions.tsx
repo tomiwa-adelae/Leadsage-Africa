@@ -1,26 +1,7 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookingStatus, LeaseStatus } from "@/lib/generated/prisma";
-import {
-  IconActivity,
-  IconBan,
-  IconCalendarCheck,
-  IconCheck,
-  IconCheckbox,
-  IconContract,
-  IconCreditCard,
-  IconDownload,
-  IconRestore,
-  IconShieldCancel,
-  IconSignature,
-} from "@tabler/icons-react";
+import { IconCheck, IconContract, IconDownload } from "@tabler/icons-react";
 import React, { useState } from "react";
-import { LayoutDashboardIcon, Mail } from "lucide-react";
-import { useDownloadLease } from "@/hooks/use-download-lease";
-import { GetLeaseDetailsType } from "@/app/data/user/lease/get-lease-details";
-import { CancelLeaseModal } from "@/app/(customer)/_components/CancelLeaseModal";
-import { MakePaymentModal } from "@/app/(customer)/_components/MakePaymentModal";
-import { GetUserInfoType } from "@/app/data/user/get-user-info";
 import Link from "next/link";
 import { useDownloadPaymentReceipt } from "@/hooks/use-download-payment-receipt";
 import { GetPaymentDetailsType } from "@/app/data/admin/payment/get-payment-details";

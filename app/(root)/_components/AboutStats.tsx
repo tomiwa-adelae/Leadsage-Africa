@@ -1,17 +1,6 @@
 "use client";
 
-import {
-  Users,
-  Award,
-  Briefcase,
-  Code,
-  Sparkles,
-  Building,
-  LineChart,
-  CheckCircle,
-  Clock,
-  Zap,
-} from "lucide-react";
+import { Users } from "lucide-react";
 import CountUp from "react-countup";
 import {
   IconFingerprint,

@@ -1,9 +1,4 @@
 "use client";
-import {
-  GetCustomerBookingsType,
-  GetCustomerPendingBookingsType,
-} from "@/app/data/booking/get-customer-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { useConstructUrl } from "@/hooks/use-construct-url";
@@ -11,8 +6,6 @@ import { formatDate } from "@/lib/utils";
 import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { BookingActions } from "./BookingActions";
 import { GetApplicationsType } from "@/app/data/user/application/get-applications";
 import { ApplicationActions } from "./ApplicationActions";
 

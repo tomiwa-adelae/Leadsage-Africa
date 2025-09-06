@@ -4,8 +4,6 @@ import { requireLandlord } from "@/app/data/landlord/require-landlord";
 import { prisma } from "@/lib/db";
 import { Photo } from "./_components/PhotosForm";
 import { revalidatePath } from "next/cache";
-import { ApiResponse } from "@/lib/types";
-import { PrismaClientRustPanicError } from "@/lib/generated/prisma/runtime/library";
 
 export const savePhotos = async (photos: Photo[], id: string) => {
   const { user } = await requireLandlord();

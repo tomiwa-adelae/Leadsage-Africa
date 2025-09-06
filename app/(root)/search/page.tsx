@@ -4,7 +4,6 @@ import { getApprovedListings } from "@/app/data/listing/get-approved-listings";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { EmptyState } from "@/components/EmptyState";
-import { DEFAULT_LIMIT } from "@/constants";
 import { Searchbar } from "@/components/Searchbar";
 import { Pagination } from "@/components/Pagination";
 

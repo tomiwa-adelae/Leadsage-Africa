@@ -13,7 +13,6 @@ import {
   RequestMoreInfoApplicationFormSchemaType,
 } from "@/lib/zodSchemas";
 import { revalidatePath } from "next/cache";
-import { VALID_LOADERS } from "next/dist/shared/lib/image-config";
 
 export const approveListing = async (id: string): Promise<ApiResponse> => {
   await requireAdmin();

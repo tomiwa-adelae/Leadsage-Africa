@@ -1,5 +1,4 @@
 "use client";
-import { GetTotalBookingsType } from "@/app/data/admin/booking/get-all-bookings";
 import { Badge } from "@/components/ui/badge";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { useConstructUrl } from "@/hooks/use-construct-url";
@@ -7,25 +6,20 @@ import { formatDate } from "@/lib/utils";
 import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { BookingActions } from "./BookingActions";
-import { GetTotalApplicationType } from "@/app/data/admin/application/get-all-applications";
-import { ApplicationActions } from "./ApplicationActions";
-import { GetUncompletedApplicationType } from "@/app/data/admin/application/get-uncompleted-applications";
-import { GetApprovedApplicationType } from "@/app/data/admin/application/get-approved-applications";
-import { GetRejectedApplicationType } from "@/app/data/admin/application/get-rejected-applications";
-import { GetPendingReviewApplicationType } from "@/app/data/admin/application/get-pending-review-applications";
 import { GetAllLeasesType } from "@/app/data/admin/lease/get-all-leases";
 import { GetExpiredLeasesType } from "@/app/data/admin/lease/get-expired-leases";
 import { GetTerminatedLeasesType } from "@/app/data/admin/lease/get-terminated-leases";
 import { GetActiveLeasesType } from "@/app/data/admin/lease/get-active-leases";
 import { LeaseActions } from "./LeaseActions";
+import { GetListingLeasesType } from "@/app/data/admin/lease/get-listing-leases";
 
 interface Props {
   leases:
     | GetAllLeasesType[]
     | GetExpiredLeasesType[]
     | GetTerminatedLeasesType[]
-    | GetActiveLeasesType[];
+    | GetActiveLeasesType[]
+    | GetListingLeasesType[];
 }
 
 export const LeasesList = ({ leases }: Props) => {

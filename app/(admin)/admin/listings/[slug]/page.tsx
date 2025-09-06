@@ -1,7 +1,4 @@
-import {
-  getListing,
-  GetListingType,
-} from "@/app/data/admin/listing/get-listing";
+import { getListing } from "@/app/data/admin/listing/get-listing";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -31,22 +28,20 @@ import Image from "next/image";
 import { CopyToClipboard } from "@/components/CopyToClipboard";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DEFAULT_LISTING_IMAGE, DEFAULT_PROFILE_PICTURE } from "@/constants";
-import { ListingMap } from "@/components/ListingMap";
-import { NairaIcon } from "@/components/NairaIcon";
+import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { AmenityBox } from "@/components/AmenityBox";
 import { EmptyState } from "@/components/EmptyState";
 import { BookingsTable } from "../../_components/BookingsTable";
 import { BookingsList } from "../../_components/BookingsList";
 import { QuickActions } from "./_components/QuickActions";
-import ListingDropdown from "../../_components/ListingDropdown";
-import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { getListingUpcomingBookings } from "@/app/data/booking/get-upcoming-bookings";
 import { getListingPastBookings } from "@/app/data/booking/get-listing-past-bookings";
 import { getListingLeases } from "@/app/data/admin/lease/get-listing-leases";
 import { LeasesTable } from "../../_components/LeasesTable";
 import { LeasesList } from "../../_components/LeasesList";
+import { NairaIcon } from "@/components/NairaIcon";
+import { PlaceholderImage } from "@/components/PlaceholderImage";
 
 type Params = Promise<{
   slug: string;

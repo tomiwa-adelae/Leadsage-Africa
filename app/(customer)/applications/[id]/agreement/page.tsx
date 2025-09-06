@@ -1,10 +1,8 @@
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
 import { getApplication } from "@/app/data/user/application/get-application";
-import { NairaIcon } from "@/components/NairaIcon";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import React from "react";
 import { AgreementForm } from "./_components/AgreementForm";
 
 type Params = Promise<{

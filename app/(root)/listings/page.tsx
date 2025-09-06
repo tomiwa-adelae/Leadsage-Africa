@@ -1,7 +1,6 @@
 import React from "react";
 import { SearchForm } from "./_components/SearchForm";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { ListingCard } from "@/components/ListingCard";
 import { getApprovedListings } from "@/app/data/listing/get-approved-listings";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

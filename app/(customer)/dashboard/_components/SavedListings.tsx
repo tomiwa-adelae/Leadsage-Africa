@@ -1,10 +1,9 @@
 "use client";
 import { GetSavedListingsType } from "@/app/data/listing/get-saved-listings";
 import { EmptyState } from "@/components/EmptyState";
-import { ListingCard } from "@/components/ListingCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Pen, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { SavedListing } from "../../saved-properties/_components/SavedListing";

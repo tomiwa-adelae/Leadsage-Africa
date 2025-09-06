@@ -2,7 +2,6 @@
 
 import { requireUser } from "@/app/data/user/require-user";
 import { prisma } from "@/lib/db";
-import { ApiResponse } from "@/lib/types";
 import { generateSuffix } from "@/lib/utils";
 
 export const acceptAgreement = async (data: {
@@ -43,6 +42,20 @@ export const acceptAgreement = async (data: {
 
     if (!application)
       return { status: "error", message: "Oops! An error occurred!" };
+
+    const existingLease = await prisma.lease.findFirst({
+      where: {
+        listingId: application.Listing.id,
+        status: "PENDING",
+      },
+    });
+
+    if (existingLease)
+      return {
+        status: "error",
+        message:
+          "Oops! Someone else already signed a lease for this property. Please contact our support",
+      };
 
     const listing = await prisma.listing.findUnique({
       where: {
@@ -102,6 +115,7 @@ export const acceptAgreement = async (data: {
       data: lease,
     };
   } catch (error) {
+    console.log(error);
     return { status: "error", message: "Failed to sign lease" };
   }
 };

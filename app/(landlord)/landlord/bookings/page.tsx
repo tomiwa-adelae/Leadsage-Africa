@@ -4,7 +4,6 @@ import { BookingsCards } from "./_components/BookingsCards";
 import {
   getLandlordBookings,
   getLandlordCancelledBookings,
-  getLandlordCompletedBookings,
   getLandlordConfirmedBookings,
   getLandlordPendingBookings,
 } from "@/app/data/landlord/get-landlord-bookings";
@@ -26,7 +25,6 @@ const page = async ({ searchParams }: Props) => {
   const pendingBookings = await getLandlordPendingBookings();
   const confirmedBookings = await getLandlordConfirmedBookings();
   const cancelledBookings = await getLandlordCancelledBookings();
-  const completedBookings = await getLandlordCompletedBookings();
 
   const paginatedBookings = await getLandlordBookings({
     query,

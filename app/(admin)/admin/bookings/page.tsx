@@ -1,12 +1,4 @@
 import { SiteHeader } from "@/components/sidebar/site-header";
-import React from "react";
-import {
-  getLandlordBookings,
-  getLandlordCancelledBookings,
-  getLandlordCompletedBookings,
-  getLandlordConfirmedBookings,
-  getLandlordPendingBookings,
-} from "@/app/data/landlord/get-landlord-bookings";
 import { BookingsCards } from "../_components/BookingsCards";
 import { EmptyState } from "@/components/EmptyState";
 import { BookingsTable } from "../_components/BookingsTable";
@@ -48,10 +40,10 @@ const page = async ({ searchParams }: Props) => {
 
         <div className="mt-4 space-y-6">
           <BookingsCards
-            pendingBookings={pendingBookings}
-            confirmedBookings={confirmedBookings}
-            cancelledBookings={cancelledBookings}
-            completedBookings={completedBookings}
+            pendingBookings={pendingBookings.bookings}
+            confirmedBookings={confirmedBookings.bookings}
+            cancelledBookings={cancelledBookings.bookings}
+            completedBookings={completedBookings.bookings}
             totalBookings={totalBookings.bookings}
           />
           <Searchbar

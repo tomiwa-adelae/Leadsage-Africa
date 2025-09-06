@@ -1,25 +1,12 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookingStatus, LeaseStatus } from "@/lib/generated/prisma";
-import {
-  IconActivity,
-  IconBan,
-  IconCalendarCheck,
-  IconCheckbox,
-  IconContract,
-  IconCreditCard,
-  IconDownload,
-  IconRestore,
-  IconShieldCancel,
-  IconSignature,
-  IconWashDrycleanOff,
-} from "@tabler/icons-react";
+import { LeaseStatus } from "@/lib/generated/prisma";
+import { IconContract, IconDownload } from "@tabler/icons-react";
 import SignaturePad from "react-signature-canvas";
 import React, { useRef, useState } from "react";
 import { Mail } from "lucide-react";
 import { useDownloadLease } from "@/hooks/use-download-lease";
 import { GetLeaseDetailsType } from "@/app/data/user/lease/get-lease-details";
-import { CancelLeaseModal } from "@/app/(customer)/_components/CancelLeaseModal";
 import { SignLeaseModal } from "../../../_components/SignLeaseModal";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";

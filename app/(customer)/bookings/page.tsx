@@ -21,7 +21,6 @@ interface Props {
 const page = async ({ searchParams }: Props) => {
   const { query, page } = await searchParams;
 
-  const bookings = await getCustomerBookings();
   const pendingBookings = await getCustomerPendingBookings();
   const confirmedBookings = await getCustomerConfirmedBookings();
   const cancelledBookings = await getCustomerCancelledBookings();

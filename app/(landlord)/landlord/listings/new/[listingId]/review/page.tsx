@@ -1,15 +1,9 @@
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Separator } from "@/components/ui/separator";
-import { listingAmenities } from "@/constants";
 import Image from "next/image";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { cn, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import {
   getLandlordListing,
   GetLandlordListingType,
@@ -20,7 +14,6 @@ import { PublishButton } from "./_components/PublishButton";
 import { AmenityBox } from "@/components/AmenityBox";
 import { NairaIcon } from "@/components/NairaIcon";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
-// import { ImageBoxes } from "./_components/ImageBoxes";
 
 type Params = Promise<{
   listingId: string;

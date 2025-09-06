@@ -1,22 +1,21 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ListingStatus } from "@/lib/generated/prisma";
-import { IconBan, IconFolder, IconTrash } from "@tabler/icons-react";
-import { ArchiveRestore, CircleCheckBig, Edit, PowerOff } from "lucide-react";
+import { IconFolder, IconTrash } from "@tabler/icons-react";
+import { CircleCheckBig, Edit } from "lucide-react";
 import React, { useState } from "react";
-import Link from "next/link";
 import { DeleteListingModal } from "../../../_components/DeleteListingModal";
 import { PublishListingModal } from "../../../_components/PublishListingModal";
 import { DraftListingModal } from "../../../_components/DraftListingModal";
 import { useRouter } from "next/navigation";
-import { GetLandlordListingsType } from "@/app/data/landlord/get-landlord-listings";
+import { GetLandlordListingType } from "@/app/data/landlord/get-landlord-listing";
 
 interface Props {
   id: string;
   slug: string | null;
   status: ListingStatus;
   isApproved: boolean;
-  listing: GetLandlordListingsType;
+  listing: GetLandlordListingType;
 }
 
 export const QuickActions = ({

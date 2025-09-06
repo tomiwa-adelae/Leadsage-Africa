@@ -202,7 +202,7 @@ export async function getAvailableTimeSlots(
         listingId,
         date: formattedDate,
         status: {
-          in: ["Pending", "Confirmed"],
+          in: ["Pending", "Confirmed", "Completed", "Cancelled"],
         },
       },
       select: {
@@ -507,6 +507,7 @@ export async function bookTour(
       },
     };
   } catch (error) {
+    console.log(error);
     return {
       success: false,
       error: "Failed to book tour. Please try again.",

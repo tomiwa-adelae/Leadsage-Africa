@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import React from "react";
 import { PendingListingCard } from "../../_components/PendingListingCard";
 import { GetPendingListingsType } from "@/app/data/admin/listing/get-pending-listings";
 import { EmptyState } from "@/components/EmptyState";

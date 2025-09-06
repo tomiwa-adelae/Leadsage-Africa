@@ -7,20 +7,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  IconBan,
-  IconCalendarCheck,
-  IconCalendarX,
-  IconCheckbox,
-  IconDots,
-  IconEye,
-} from "@tabler/icons-react";
+import { IconBan, IconCheckbox, IconDots, IconEye } from "@tabler/icons-react";
 import Link from "next/link";
-import { ApplicationStatus, BookingStatus } from "@/lib/generated/prisma";
+import { ApplicationStatus } from "@/lib/generated/prisma";
 import { useState } from "react";
-import { ConfirmBookingModal } from "./ConfirmBookingModal";
-import { CompletedBookingModal } from "./CompletedBookingModal";
-import { CancelBookingModal } from "./CancelBookingModal";
 import { Info, Mail } from "lucide-react";
 import { ApproveApplicationModal } from "./ApproveApplicationModal";
 import { RejectApplicationModal } from "./RejectApplicationModal";

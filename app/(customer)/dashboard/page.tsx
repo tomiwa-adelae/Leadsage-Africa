@@ -6,10 +6,7 @@ import React from "react";
 import { DashboardCards } from "./_components/DashboardCards";
 import { UpcomingTours } from "./_components/UpcomingTours";
 import {
-  getCustomerBookings,
-  getCustomerCancelledBookings,
   getCustomerCompletedBookings,
-  getCustomerConfirmedBookings,
   getCustomerPendingBookings,
 } from "@/app/data/booking/get-customer-bookings";
 import { RecommendedListings } from "./_components/RecommendedListings";
@@ -32,8 +29,6 @@ const page = async () => {
 
   const pendingBookings = await getCustomerPendingBookings();
   const completedBookings = await getCustomerCompletedBookings();
-  const confirmedBookings = await getCustomerConfirmedBookings();
-  const cancelledBookings = await getCustomerCancelledBookings();
   const leases = await getMyLeases();
 
   return (

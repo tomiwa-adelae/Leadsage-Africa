@@ -1,13 +1,5 @@
 import { SiteHeader } from "@/components/sidebar/site-header";
-import { getPendingApplications } from "@/app/data/user/application/get-pending-applications";
-import { getApprovedApplications } from "@/app/data/user/application/get-approved-applications";
-import { getReviewingApplications } from "@/app/data/user/application/get-reviewing-applications";
-import { getApplications } from "@/app/data/user/application/get-applications";
 import { EmptyState } from "@/components/EmptyState";
-import { ApplicationsCards } from "../_components/ApplicationsCard";
-import { ApplicationsTable } from "../_components/ApplicationsTable";
-import { ApplicationsList } from "../_components/ApplicationsList";
-import { getRejectedApplications } from "@/app/data/admin/application/get-rejected-applications";
 import { LeasesCards } from "../_components/LeasesCards";
 import { getExpiredLeases } from "@/app/data/admin/lease/get-expired-leases";
 import { getAllLeases } from "@/app/data/admin/lease/get-all-leases";

@@ -1,7 +1,7 @@
 "use client";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { adminNavLinks, landlordNavLinks } from "@/constants";
+import { adminNavLinks } from "@/constants";
 import React, { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {

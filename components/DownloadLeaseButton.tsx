@@ -1,7 +1,5 @@
 "use client";
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import { IconDownload } from "@tabler/icons-react";
 import { Loader } from "./Loader";
 import { GetLeaseDetailsType } from "@/app/data/admin/lease/get-lease";

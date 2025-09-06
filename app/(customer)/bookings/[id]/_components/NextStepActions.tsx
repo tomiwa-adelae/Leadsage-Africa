@@ -1,5 +1,4 @@
 "use client";
-import { CancelBookingModal } from "@/app/(customer)/_components/CancelBookingModal";
 import { InterestedModal } from "@/app/(customer)/_components/InterestedModal";
 import { NotSureModal } from "@/app/(customer)/_components/NotSureModal";
 import { UninterestedModal } from "@/app/(customer)/_components/UninterestedModal";
@@ -11,12 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BookingStatus } from "@/lib/generated/prisma";
 import {
-  IconBan,
   IconBrain,
-  IconCalendarCheck,
-  IconCheckbox,
   IconClipboardText,
   IconThumbDownFilled,
   IconThumbUpFilled,

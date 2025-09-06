@@ -1,6 +1,5 @@
 import { getLandlordListings } from "@/app/data/landlord/get-landlord-listings";
 import { EmptyState } from "@/components/EmptyState";
-import { ListingCard } from "@/components/ListingCard";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";

@@ -5,13 +5,13 @@ import { formatDate } from "@/lib/utils";
 import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { LeaseActions } from "./LeaseActions";
 import { GetMyPaymentsType } from "@/app/data/user/payment/get-my-payments";
 import { PaymentActions } from "./PaymentActions";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
+import { GetLeasePaymentsType } from "@/app/data/user/lease/get-lease-payments";
 
 interface Props {
-  payments: GetMyPaymentsType[];
+  payments: GetMyPaymentsType[] | GetLeasePaymentsType[];
 }
 
 export const PaymentsList = ({ payments }: Props) => {

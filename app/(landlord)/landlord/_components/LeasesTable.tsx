@@ -1,9 +1,4 @@
 "use client";
-import {
-  GetCustomerBookingsType,
-  GetCustomerPendingBookingsType,
-} from "@/app/data/booking/get-customer-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -18,13 +13,13 @@ import { useConstructUrl } from "@/hooks/use-construct-url";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { BookingActions } from "./BookingActions";
 import { NairaIcon } from "@/components/NairaIcon";
 import { LeaseActions } from "./LeaseActions";
 import { GetMyLeasesType } from "@/app/data/landlord/lease/get-my-leases";
+import { GetListingLeasesType } from "@/app/data/landlord/lease/get-listing-leases";
 
 interface Props {
-  leases: GetMyLeasesType[];
+  leases: GetMyLeasesType[] | GetListingLeasesType[];
 }
 
 export function LeasesTable({ leases }: Props) {

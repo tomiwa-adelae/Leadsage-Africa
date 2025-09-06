@@ -1,36 +1,24 @@
-import { getLandlordBooking } from "@/app/data/landlord/get-landlord-booking";
 import { NairaIcon } from "@/components/NairaIcon";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { cn, formatDate, formatMoneyInput } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn, formatDate } from "@/lib/utils";
 import {
   Bell,
   Calendar,
   CalendarCheck,
   CalendarX,
   CircleCheckBig,
-  CircleX,
   Clock,
   CreditCard,
-  Dot,
-  Download,
   History,
   Mail,
   MapPin,
-  Navigation,
   Star,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { AmenityBox } from "@/components/AmenityBox";
-import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { RenderDescription } from "@/components/text-editor/RenderDescription";
 import { Badge } from "@/components/ui/badge";

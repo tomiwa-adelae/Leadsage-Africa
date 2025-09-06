@@ -8,9 +8,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { LeaseActions } from "./LeaseActions";
 import { GetMyLeasesType } from "@/app/data/landlord/lease/get-my-leases";
+import { GetListingLeasesType } from "@/app/data/landlord/lease/get-listing-leases";
 
 interface Props {
-  leases: GetMyLeasesType[];
+  leases: GetMyLeasesType[] | GetListingLeasesType[];
 }
 
 export const LeasesList = ({ leases }: Props) => {

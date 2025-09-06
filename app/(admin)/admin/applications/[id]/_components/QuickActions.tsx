@@ -1,11 +1,8 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ApplicationStatus, BookingStatus } from "@/lib/generated/prisma";
-import { IconBan, IconCalendarCheck, IconCheckbox } from "@tabler/icons-react";
+import { ApplicationStatus } from "@/lib/generated/prisma";
+import { IconBan, IconCheckbox } from "@tabler/icons-react";
 import React, { useState } from "react";
-import { ConfirmBookingModal } from "../../../_components/ConfirmBookingModal";
-import { CompletedBookingModal } from "../../../_components/CompletedBookingModal";
-import { CancelBookingModal } from "../../../_components/CancelBookingModal";
 import { Info, Mail } from "lucide-react";
 import { ApproveApplicationModal } from "../../../_components/ApproveApplicationModal";
 import { RejectApplicationModal } from "../../../_components/RejectApplicationModal";

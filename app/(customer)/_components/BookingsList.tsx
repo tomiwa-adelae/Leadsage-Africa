@@ -3,7 +3,6 @@ import {
   GetCustomerBookingsType,
   GetCustomerPendingBookingsType,
 } from "@/app/data/booking/get-customer-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { useConstructUrl } from "@/hooks/use-construct-url";

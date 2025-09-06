@@ -1,5 +1,5 @@
 "use client";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles } from "lucide-react";
 

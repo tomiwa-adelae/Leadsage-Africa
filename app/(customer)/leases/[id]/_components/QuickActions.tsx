@@ -1,17 +1,7 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookingStatus, LeaseStatus } from "@/lib/generated/prisma";
-import {
-  IconActivity,
-  IconBan,
-  IconCalendarCheck,
-  IconCheckbox,
-  IconCreditCard,
-  IconDownload,
-  IconRestore,
-  IconShieldCancel,
-  IconSignature,
-} from "@tabler/icons-react";
+import { LeaseStatus } from "@/lib/generated/prisma";
+import { IconBan, IconCreditCard, IconDownload } from "@tabler/icons-react";
 import React, { useState } from "react";
 import { Mail } from "lucide-react";
 import { useDownloadLease } from "@/hooks/use-download-lease";
@@ -38,11 +28,6 @@ export const QuickActions = ({
   const [openMarkPaymentModal, setOpenMarkPaymentModal] = useState(
     lease.landlordSignature ? true : false
   );
-  const [openActivateLeaseModal, setOpenActiveLeaseModal] = useState(false);
-  const [openMarkLeaseAsExpiredModal, setOpenMarkLeaseAsExpiredModal] =
-    useState(false);
-  const [openTerminateModal, setOpenTerminateModal] = useState(false);
-  const [openRenewLeaseModal, setOpenRenewLeaseModal] = useState(false);
   const [openCancelModal, setOpenCancelModal] = useState(false);
 
   const { isGenerating, handleDownload } = useDownloadLease({

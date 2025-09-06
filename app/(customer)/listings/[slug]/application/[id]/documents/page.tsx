@@ -1,8 +1,6 @@
 import { getListingDetails } from "@/app/data/listing/get-listing-details";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import React from "react";
-import { getApplication } from "@/app/data/user/application/get-application";
-import { RentalHistoryForm } from "../../_components/RentalHistoryForm";
 import { DocumentsForm } from "../../_components/DocumentsForm";
 
 type Params = Promise<{
@@ -14,7 +12,6 @@ const page = async ({ params }: { params: Params }) => {
   const { slug, id } = await params;
 
   const listing = await getListingDetails(slug);
-  const application = await getApplication(id);
 
   return (
     <div>
@@ -29,11 +26,7 @@ const page = async ({ params }: { params: Params }) => {
           </p>
         </div>
 
-        <DocumentsForm
-          data={application}
-          applicationId={application.id}
-          slug={listing.slug!}
-        />
+        <DocumentsForm />
       </div>
     </div>
   );

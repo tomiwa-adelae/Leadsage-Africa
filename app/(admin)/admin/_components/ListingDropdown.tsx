@@ -1,15 +1,12 @@
 "use client";
 import {
-  Archive,
   ArchiveRestore,
   CircleCheckBig,
   Clipboard,
   EllipsisIcon,
   Eye,
-  GalleryThumbnails,
   Pen,
   PowerOff,
-  Trash,
   Trash2,
 } from "lucide-react";
 
@@ -21,13 +18,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
-import { useState, useTransition } from "react";
-import { Loader } from "@/components/Loader";
-import DeleteModal from "@/components/DeleteModal";
+import { useState } from "react";
 import Link from "next/link";
 import { env } from "@/lib/env";
 import { useRouter } from "next/navigation";
-import { GetLandlordListingsType } from "@/app/data/landlord/get-landlord-listings";
 import { DeleteListingModal } from "./DeleteListingModal";
 import { GetTotalListingsType } from "@/app/data/admin/listing/get-all-listings";
 import { ApproveListingModal } from "./ApproveListingModal";

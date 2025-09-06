@@ -5,12 +5,10 @@ import { DownloadLeaseButton } from "@/components/DownloadLeaseButton";
 import { NairaIcon } from "@/components/NairaIcon";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
-import { IconDownload } from "@tabler/icons-react";
-import { CheckCircle, Hourglass } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { QuickActions } from "./_components/QuickActions";
@@ -288,7 +286,7 @@ const page = async ({ params }: { params: Params }) => {
               </div>
             </CardContent>
           </Card>
-          {lease.status === "ACTIVE" && (
+          {lease.status !== "PENDING" && (
             <Card className="@container/card gap-0">
               <CardHeader className="border-b">
                 <CardTitle>Past payment</CardTitle>

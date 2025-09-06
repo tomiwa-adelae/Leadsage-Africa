@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { IconBan } from "@tabler/icons-react";
-import { Calendar, CircleCheckBig, Download, User } from "lucide-react";
+import { Calendar, CircleCheckBig } from "lucide-react";
 import React from "react";
 
 export const QuickActions = () => {

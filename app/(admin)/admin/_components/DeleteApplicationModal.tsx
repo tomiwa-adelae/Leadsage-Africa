@@ -1,14 +1,12 @@
 "use client";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
@@ -18,7 +16,7 @@ import { Loader } from "@/components/Loader";
 import { tryCatch } from "@/hooks/use-try-catch";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { deleteApplication, deleteListing } from "../actions";
+import { deleteApplication } from "../actions";
 
 export function DeleteApplicationModal({
   open,

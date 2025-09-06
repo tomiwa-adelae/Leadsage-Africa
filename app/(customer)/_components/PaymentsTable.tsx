@@ -1,9 +1,4 @@
 "use client";
-import {
-  GetCustomerBookingsType,
-  GetCustomerPendingBookingsType,
-} from "@/app/data/booking/get-customer-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -15,18 +10,15 @@ import {
 } from "@/components/ui/table";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { useConstructUrl } from "@/hooks/use-construct-url";
-import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { BookingActions } from "./BookingActions";
-import { GetMyLeasesType } from "@/app/data/user/lease/get-my-leases";
 import { NairaIcon } from "@/components/NairaIcon";
-import { LeaseActions } from "./LeaseActions";
 import { GetMyPaymentsType } from "@/app/data/user/payment/get-my-payments";
 import { PaymentActions } from "./PaymentActions";
+import { GetLeasePaymentsType } from "@/app/data/user/lease/get-lease-payments";
 
 interface Props {
-  payments: GetMyPaymentsType[];
+  payments: GetMyPaymentsType[] | GetLeasePaymentsType[];
 }
 
 export function PaymentsTable({ payments }: Props) {

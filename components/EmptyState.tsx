@@ -2,7 +2,6 @@
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { Plus } from "lucide-react";
 import EmptyAnimation from "@/public/assets/animations/empty-animation.json";
 import { useRef } from "react";
 

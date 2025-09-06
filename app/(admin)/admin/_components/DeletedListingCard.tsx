@@ -6,14 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { useConstructUrl } from "@/hooks/use-construct-url";
-import { IconCircleDashedX, IconTrash } from "@tabler/icons-react";
-import { CircleCheckBig, Component, Hourglass, Radio } from "lucide-react";
+import { IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import ListingDropdown from "./ListingDropdown";
-import { ApproveListingModal } from "./ApproveListingModal";
-import { RejectListingModal } from "./RejectListingModal";
 import { RestoreListingModal } from "./RestoreListingModal";
 
 interface Props {

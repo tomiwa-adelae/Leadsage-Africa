@@ -1,9 +1,6 @@
 import { getSavedListings } from "@/app/data/listing/get-saved-listings";
 import { EmptyState } from "@/components/EmptyState";
-import { ListingCard } from "@/components/ListingCard";
 import { SiteHeader } from "@/components/sidebar/site-header";
-import { Search } from "lucide-react";
-import React from "react";
 import { SavedListing } from "./_components/SavedListing";
 import { Searchbar } from "@/components/Searchbar";
 import { Pagination } from "@/components/Pagination";

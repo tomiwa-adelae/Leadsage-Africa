@@ -2,7 +2,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import Image from "next/image";
-import { Component, Heart, Loader2 } from "lucide-react";
+import { Component, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useTransition } from "react";
 import { tryCatch } from "@/hooks/use-try-catch";

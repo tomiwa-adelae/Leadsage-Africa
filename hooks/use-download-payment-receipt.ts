@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { formatDate, formatPhoneNumber } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { PaymentStatus } from "@/lib/generated/prisma";
 
 interface PaymentProps {

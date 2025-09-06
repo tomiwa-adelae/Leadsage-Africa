@@ -4,7 +4,6 @@ import {
   IconTrendingUp,
 } from "@tabler/icons-react";
 
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardAction,
@@ -13,24 +12,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { GetLandlordListingsType } from "@/app/data/landlord/get-landlord-listings";
-import {
-  Calendar,
-  CircleCheckBig,
-  Clock,
-  Eye,
-  Heart,
-  House,
-  Wallet,
-} from "lucide-react";
-import Image from "next/image";
+import { Calendar, CircleCheckBig, Heart } from "lucide-react";
 import {
   GetCustomerCompletedBookingsType,
   GetCustomerPendingBookingsType,
 } from "@/app/data/booking/get-customer-bookings";
 import { GetSavedListingsType } from "@/app/data/listing/get-saved-listings";
 import { GetMyLeasesType } from "@/app/data/user/lease/get-my-leases";
-import { LeasesCards } from "@/app/(admin)/admin/_components/LeasesCards";
 
 interface Props {
   pendingBookings: GetCustomerPendingBookingsType[];

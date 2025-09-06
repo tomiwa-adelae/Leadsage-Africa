@@ -1,6 +1,5 @@
 import { EmptyState } from "@/components/EmptyState";
 import { SiteHeader } from "@/components/sidebar/site-header";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Link from "next/link";
 import React from "react";
 import { PaymentCard } from "./_components/PaymentCard";
 import { AddPaymentMethod } from "./_components/AddPaymentMethod";

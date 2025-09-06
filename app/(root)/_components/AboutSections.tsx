@@ -2,24 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import {
-  Users,
-  Award,
-  Briefcase,
-  Code,
-  Sparkles,
-  Building,
-  LineChart,
-  CheckCircle,
-  Clock,
-  Zap,
-} from "lucide-react";
-import CountUp from "react-countup";
-import {
-  IconFingerprint,
-  IconGlobeFilled,
-  IconHome,
-} from "@tabler/icons-react";
+import { LineChart, Zap } from "lucide-react";
 export const AboutSections = () => {
   const aboutRef = useRef(null);
   const timelineRef = useRef(null);

@@ -1,15 +1,7 @@
-import { GetTotalApplicationType } from "@/app/data/admin/application/get-all-applications";
-import { GetApprovedApplicationType } from "@/app/data/admin/application/get-approved-applications";
-import { GetPendingReviewApplicationType } from "@/app/data/admin/application/get-pending-review-applications";
-import { GetRejectedApplicationType } from "@/app/data/admin/application/get-rejected-applications";
 import { GetActiveLeasesType } from "@/app/data/admin/lease/get-active-leases";
 import { GetAllLeasesType } from "@/app/data/admin/lease/get-all-leases";
 import { GetExpiredLeasesType } from "@/app/data/admin/lease/get-expired-leases";
 import { GetTerminatedLeasesType } from "@/app/data/admin/lease/get-terminated-leases";
-import { GetApprovedApplicationsType } from "@/app/data/user/application/get-approved-applications";
-import { GetPendingApplicationsType } from "@/app/data/user/application/get-pending-applications";
-import { GetRejectedApplicationsType } from "@/app/data/user/application/get-rejected-applications";
-import { GetReviewingApplicationsType } from "@/app/data/user/application/get-reviewing-applications";
 import {
   Card,
   CardAction,

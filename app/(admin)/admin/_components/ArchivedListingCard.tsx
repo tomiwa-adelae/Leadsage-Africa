@@ -1,25 +1,15 @@
 "use client";
-import { GetPendingListingsType } from "@/app/data/admin/listing/get-pending-listings";
 import { NairaIcon } from "@/components/NairaIcon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { useConstructUrl } from "@/hooks/use-construct-url";
-import { IconCircleDashedX } from "@tabler/icons-react";
-import {
-  Archive,
-  CircleCheckBig,
-  Component,
-  Hourglass,
-  Radio,
-} from "lucide-react";
+import { Archive } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import ListingDropdown from "./ListingDropdown";
-import { ApproveListingModal } from "./ApproveListingModal";
-import { RejectListingModal } from "./RejectListingModal";
 import { UnarchivedListingModal } from "./UnarchivedListingModal";
 import { GetArchivedListingsType } from "@/app/data/admin/listing/get-archived-listings";
 

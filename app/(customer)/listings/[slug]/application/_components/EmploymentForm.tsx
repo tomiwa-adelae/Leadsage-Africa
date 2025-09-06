@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import * as RPNInput from "react-phone-number-input";
@@ -15,7 +14,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,14 +24,7 @@ import {
   employmentFormSchema,
   EmploymentFormSchemaType,
 } from "@/lib/zodSchemas";
-import { GetUserInfoType } from "@/app/data/user/get-user-info";
-import {
-  countries,
-  employmentStatus,
-  genders,
-  languages,
-  states,
-} from "@/constants";
+import { employmentStatus } from "@/constants";
 import {
   Select,
   SelectContent,

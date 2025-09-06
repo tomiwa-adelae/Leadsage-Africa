@@ -1,5 +1,4 @@
 "use client";
-import { X } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -13,29 +12,19 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useRef, useTransition } from "react";
 import { tryCatch } from "@/hooks/use-try-catch";
-import {
-  rejectApplication,
-  rejectListing,
-  requestMoreInformationApplication,
-} from "../actions";
+import { requestMoreInformationApplication } from "../actions";
 import { toast } from "sonner";
 import { Loader } from "@/components/Loader";
 import {
-  rejectApplicationFormSchema,
-  RejectApplicationFormSchemaType,
-  rejectListingFormSchema,
-  RejectListingFormSchemaType,
   requestMoreInfoApplicationFormSchema,
   RequestMoreInfoApplicationFormSchemaType,
 } from "@/lib/zodSchemas";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import RestoreAnimation from "@/public/assets/animations/delete-animation.json";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,

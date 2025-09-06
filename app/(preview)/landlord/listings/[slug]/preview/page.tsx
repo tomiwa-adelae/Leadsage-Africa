@@ -3,7 +3,6 @@ import { AmenityBox } from "@/components/AmenityBox";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ListingTestimonial } from "@/components/ListingTestimonial";
-import { ListingMap } from "@/components/ListingMap";
 import { Card, CardContent } from "@/components/ui/card";
 import { NairaIcon } from "@/components/NairaIcon";
 import Link from "next/link";

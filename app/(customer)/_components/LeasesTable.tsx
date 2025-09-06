@@ -1,9 +1,4 @@
 "use client";
-import {
-  GetCustomerBookingsType,
-  GetCustomerPendingBookingsType,
-} from "@/app/data/booking/get-customer-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -18,7 +13,6 @@ import { useConstructUrl } from "@/hooks/use-construct-url";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { BookingActions } from "./BookingActions";
 import { GetMyLeasesType } from "@/app/data/user/lease/get-my-leases";
 import { NairaIcon } from "@/components/NairaIcon";
 import { LeaseActions } from "./LeaseActions";

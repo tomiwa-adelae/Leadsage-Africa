@@ -8,26 +8,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  IconCalendarCheck,
-  IconCalendarX,
   IconCheck,
-  IconCheckbox,
   IconDots,
   IconDownload,
   IconEye,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import { BookingStatus } from "@/lib/generated/prisma";
 import { useState } from "react";
-import { CancelBookingModal } from "./CancelBookingModal";
-import { GetMyPaymentsType } from "@/app/data/user/payment/get-my-payments";
 import { useDownloadPaymentReceipt } from "@/hooks/use-download-payment-receipt";
 import { GetAllPaymentsType } from "@/app/data/admin/payment/get-all-payments";
 import { MarkPaymentSuccessfulModal } from "./MarkPaymentSuccessfulModal";
+import { GetLeasePaymentsType } from "@/app/data/admin/lease/get-lease-payments";
 
 interface Props {
   id: string;
-  payment: GetAllPaymentsType;
+  payment: GetAllPaymentsType | GetLeasePaymentsType;
 }
 
 export function PaymentActions({ id, payment }: Props) {

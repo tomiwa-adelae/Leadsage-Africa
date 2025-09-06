@@ -45,7 +45,6 @@ import { NairaIcon } from "@/components/NairaIcon";
 import { Separator } from "@/components/ui/separator";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import PhotoDropdown from "../../../new/[listingId]/photos/_components/PhotoDropdown";
-import { Badge } from "@/components/ui/badge";
 import { GetAmenitiesType } from "@/app/data/landlord/get-amenities";
 import { Plus, X } from "lucide-react";
 import { Uploader, UploaderHandle } from "@/components/file-uploader/Uploader";

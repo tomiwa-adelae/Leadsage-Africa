@@ -1,6 +1,5 @@
 "use client";
 import { GetTotalBookingsType } from "@/app/data/admin/booking/get-all-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -16,9 +15,10 @@ import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { BookingActions } from "./BookingActions";
+import { GetListingPastBookingsType } from "@/app/data/booking/get-listing-past-bookings";
 
 interface Props {
-  bookings: GetTotalBookingsType[];
+  bookings: GetTotalBookingsType[] | GetListingPastBookingsType[];
 }
 
 export function BookingsTable({ bookings }: Props) {

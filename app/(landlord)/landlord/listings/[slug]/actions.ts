@@ -2,7 +2,6 @@
 
 import { requireLandlord } from "@/app/data/landlord/require-landlord";
 import { prisma } from "@/lib/db";
-import { ApiResponse } from "@/lib/types";
 import {
   editListingFormSchema,
   EditListingFormSchemaType,

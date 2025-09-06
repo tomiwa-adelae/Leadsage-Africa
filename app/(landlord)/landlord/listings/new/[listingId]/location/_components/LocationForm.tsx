@@ -2,28 +2,28 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 
 import { Button } from "@/components/ui/button";
 import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
-	listingLocationFormSchema,
-	ListingLocationFormSchemaType,
+  listingLocationFormSchema,
+  ListingLocationFormSchemaType,
 } from "@/lib/zodSchemas";
 import { countries, states } from "@/constants";
 import Link from "next/link";
@@ -35,190 +35,166 @@ import { Loader } from "@/components/Loader";
 import { GetLandlordListingType } from "@/app/data/landlord/get-landlord-listing";
 
 interface Props {
-	id: string;
-	listing: GetLandlordListingType;
+  id: string;
+  listing: GetLandlordListingType;
 }
 
 export function LocationForm({ id, listing }: Props) {
-	const router = useRouter();
+  const router = useRouter();
 
-	const [pending, startTransition] = useTransition();
+  const [pending, startTransition] = useTransition();
 
-	const form = useForm<ListingLocationFormSchemaType>({
-		resolver: zodResolver(listingLocationFormSchema),
-		defaultValues: {
-			address: listing.address || "",
-			city: listing.city || "",
-			postalCode: listing.postalCode || "",
-			state:
-				(listing.state as ListingLocationFormSchemaType["state"]) ||
-				("" as ListingLocationFormSchemaType["state"]),
-			country:
-				(listing.country as ListingLocationFormSchemaType["country"]) ||
-				("" as ListingLocationFormSchemaType["country"]),
-		},
-	});
+  const form = useForm<ListingLocationFormSchemaType>({
+    resolver: zodResolver(listingLocationFormSchema),
+    defaultValues: {
+      address: listing.address || "",
+      city: listing.city || "",
+      postalCode: listing.postalCode || "",
+      state:
+        (listing.state as ListingLocationFormSchemaType["state"]) ||
+        ("" as ListingLocationFormSchemaType["state"]),
+      country:
+        (listing.country as ListingLocationFormSchemaType["country"]) ||
+        ("" as ListingLocationFormSchemaType["country"]),
+    },
+  });
 
-	function onSubmit(data: ListingLocationFormSchemaType) {
-		startTransition(async () => {
-			const { data: result, error } = await tryCatch(
-				saveLocation(data, id)
-			);
+  function onSubmit(data: ListingLocationFormSchemaType) {
+    startTransition(async () => {
+      const { data: result, error } = await tryCatch(saveLocation(data, id));
 
-			if (error) {
-				toast.error(error.message);
-				return;
-			}
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
 
-			if (result.status === "success") {
-				toast.success(result.message);
-				router.push(`/landlord/listings/new/${id}/describe`);
-			} else {
-				toast.error(result.message);
-			}
-		});
-	}
+      if (result.status === "success") {
+        toast.success(result.message);
+        router.push(`/landlord/listings/new/${id}/describe`);
+      } else {
+        toast.error(result.message);
+      }
+    });
+  }
 
-	return (
-		<div className="mt-8">
-			<Form {...form}>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className="space-y-6"
-				>
-					<FormField
-						control={form.control}
-						name="address"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Address</FormLabel>
-								<FormControl>
-									<Input
-										placeholder="123 main street"
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="city"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>City</FormLabel>
-								<FormControl>
-									<Input placeholder="Ikeja" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="state"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>State</FormLabel>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-								>
-									<FormControl>
-										<SelectTrigger>
-											<SelectValue placeholder="Select your state" />
-										</SelectTrigger>
-									</FormControl>
-									<SelectContent>
-										{states.map((state) => (
-											<SelectItem
-												value={state}
-												key={state}
-											>
-												{state}
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="country"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Country</FormLabel>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-								>
-									<FormControl>
-										<SelectTrigger>
-											<SelectValue placeholder="Select your country" />
-										</SelectTrigger>
-									</FormControl>
-									<SelectContent>
-										{countries.map((country) => (
-											<SelectItem
-												value={country}
-												key={country}
-											>
-												{country}
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="postalCode"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Postal code</FormLabel>
-								<FormControl>
-									<Input
-										type="number"
-										placeholder="100001"
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<div className="grid grid-cols-2 gap-4 mt-8">
-						<Button
-							type="button"
-							size="md"
-							asChild
-							variant={"outline"}
-							className="w-full"
-						>
-							<Link href={`/landlord/listings/new?id=${id}`}>
-								Back
-							</Link>
-						</Button>
-						<Button
-							disabled={pending}
-							type="submit"
-							className="w-full"
-							size="md"
-						>
-							{pending ? (
-								<Loader text={"Saving..."} />
-							) : (
-								"Proceed"
-							)}
-						</Button>
-					</div>
-				</form>
-			</Form>
-		</div>
-	);
+  return (
+    <div className="mt-8">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <FormField
+            control={form.control}
+            name="address"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Address</FormLabel>
+                <FormControl>
+                  <Input placeholder="123 main street" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="city"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>City</FormLabel>
+                <FormControl>
+                  <Input placeholder="Ikeja" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="state"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>State</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your state" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {states.map((state) => (
+                      <SelectItem value={state} key={state}>
+                        {state}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Country</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your country" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {countries.map((country) => (
+                      <SelectItem value={country} key={country}>
+                        {country}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="postalCode"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Postal code</FormLabel>
+                <FormControl>
+                  <Input type="number" placeholder="100001" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="grid grid-cols-2 gap-4 mt-8">
+            <Button
+              type="button"
+              size="md"
+              asChild
+              variant={"outline"}
+              className="w-full"
+            >
+              <Link href={`/landlord/listings/new?id=${id}`}>Back</Link>
+            </Button>
+            <Button
+              disabled={pending}
+              type="submit"
+              className="w-full"
+              size="md"
+            >
+              {pending ? <Loader text={"Saving..."} /> : "Proceed"}
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
+  );
 }

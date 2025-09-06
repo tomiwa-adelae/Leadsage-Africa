@@ -1,28 +1,17 @@
 "use client";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import RestoreAnimation from "@/public/assets/animations/delete-animation.json";
-import { useEffect, useRef, useState, useTransition } from "react";
-import { Loader } from "@/components/Loader";
-import { tryCatch } from "@/hooks/use-try-catch";
-import { toast } from "sonner";
-import {
-  applyForListing,
-  cancelBooking,
-  notSureBooking,
-} from "../bookings/[id]/actions";
-import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import Link from "next/link";
 
 export function ApprovedApplicationModal({

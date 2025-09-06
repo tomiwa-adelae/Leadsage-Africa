@@ -1,30 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  LoaderCircleIcon,
-  MonitorIcon,
-  MoonIcon,
-  SearchIcon,
-  SunIcon,
-} from "lucide-react";
+import { LoaderCircleIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IconSearch } from "@tabler/icons-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
-
-type Theme = "light" | "dark" | "system";
 
 export function SearchButton() {
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [query, setQuery] = useState("");

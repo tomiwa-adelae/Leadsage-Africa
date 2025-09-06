@@ -6,7 +6,6 @@ import {
   IconBrandFacebook,
   IconBrandInstagram,
   IconBrandX,
-  IconGlobe,
 } from "@tabler/icons-react";
 import { Globe } from "lucide-react";
 

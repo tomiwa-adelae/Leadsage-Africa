@@ -1,9 +1,4 @@
 "use client";
-import {
-  GetCustomerBookingsType,
-  GetCustomerPendingBookingsType,
-} from "@/app/data/booking/get-customer-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { useConstructUrl } from "@/hooks/use-construct-url";
@@ -12,8 +7,8 @@ import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { BookingActions } from "./BookingActions";
 import { GetApplicationsType } from "@/app/data/landlord/application/get-applications";
+import { ApplicationActions } from "./ApplicationActions";
 
 interface Props {
   applications: GetApplicationsType[];
@@ -77,13 +72,7 @@ export const ApplicationsList = ({ applications }: Props) => {
               }}
               className="absolute top-1/2 right-1 -translate-y-1/2 -translate-x-1"
             >
-              {/* <BookingActions
-                id={booking.id}
-                status={booking.status}
-                title={booking.listing.title!}
-                date={booking.date}
-                time={booking.timeSlot}
-              /> */}
+              <ApplicationActions id={application.id} />
             </div>
           </Link>
         );

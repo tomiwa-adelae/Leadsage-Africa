@@ -2,12 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { BookingStatus } from "@/lib/generated/prisma";
-import {
-  IconBan,
-  IconCalendarCheck,
-  IconCalendarX,
-  IconCheckbox,
-} from "@tabler/icons-react";
+import { IconBan, IconCalendarCheck, IconCheckbox } from "@tabler/icons-react";
 import { useState } from "react";
 import { ConfirmBookingModal } from "../../../_components/ConfirmBookingModal";
 import { CompletedBookingModal } from "../../../_components/CompletedBookingModal";

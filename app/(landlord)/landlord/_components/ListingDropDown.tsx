@@ -4,9 +4,7 @@ import {
   ClipboardList,
   EllipsisIcon,
   Eye,
-  GalleryThumbnails,
   Pen,
-  Trash,
   Trash2,
 } from "lucide-react";
 
@@ -18,9 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
-import { useState, useTransition } from "react";
-import { Loader } from "@/components/Loader";
-import DeleteModal from "@/components/DeleteModal";
+import { useState } from "react";
 import { DeleteListingModal } from "./DeleteListingModal";
 import Link from "next/link";
 import { env } from "@/lib/env";

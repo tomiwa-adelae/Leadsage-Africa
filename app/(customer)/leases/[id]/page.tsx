@@ -5,7 +5,6 @@ import { DownloadLeaseButton } from "@/components/DownloadLeaseButton";
 import { NairaIcon } from "@/components/NairaIcon";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -14,12 +13,10 @@ import {
   formatPhoneNumber,
   removeCommas,
 } from "@/lib/utils";
-import { IconDownload } from "@tabler/icons-react";
-import { CheckCircle, Hourglass } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { QuickActions } from "./_components/QuickActions";
-import { MakePaymentModal } from "../../_components/MakePaymentModal";
 import { getUserInfo } from "@/app/data/user/get-user-info";
 import { PaymentsTable } from "../../_components/PaymentsTable";
 import { PaymentsList } from "../../_components/PaymentsList";
@@ -35,8 +32,6 @@ const page = async ({ params }: { params: Params }) => {
   const lease = await getLeaseDetails(id);
   const user = await getUserInfo();
   const payments = await getLeasePayments(lease.id);
-
-  console.log(id);
 
   return (
     <div>

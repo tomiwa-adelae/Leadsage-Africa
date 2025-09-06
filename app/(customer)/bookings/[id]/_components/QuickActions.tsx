@@ -2,7 +2,7 @@
 import { CancelBookingModal } from "@/app/(customer)/_components/CancelBookingModal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookingStatus } from "@/lib/generated/prisma";
-import { IconBan, IconCalendarCheck, IconCheckbox } from "@tabler/icons-react";
+import { IconBan } from "@tabler/icons-react";
 import React, { useState } from "react";
 
 interface Props {

@@ -1,6 +1,4 @@
 "use client";
-import { CircleCheck } from "lucide-react";
-
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -13,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useRef, useTransition } from "react";
 import { tryCatch } from "@/hooks/use-try-catch";
-import { approveApplication, approveListing } from "../actions";
+import { approveApplication } from "../actions";
 import { toast } from "sonner";
 import { Loader } from "@/components/Loader";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";

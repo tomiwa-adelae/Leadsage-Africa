@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { IconContract, IconPhone, IconTrendingUp } from "@tabler/icons-react";
-import { Shield, Users } from "lucide-react";
+import { IconPhone, IconTrendingUp } from "@tabler/icons-react";
 import Image from "next/image";
 
 export const Features = () => {

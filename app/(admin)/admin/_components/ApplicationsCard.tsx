@@ -1,9 +1,7 @@
 import { GetTotalApplicationsType } from "@/app/data/admin/application/get-all-applications";
-import { GetPendingReviewApplicationType } from "@/app/data/admin/application/get-pending-review-applications";
+import { GetPendingReviewApplicationsType } from "@/app/data/admin/application/get-pending-review-applications";
 import { GetApprovedApplicationsType } from "@/app/data/user/application/get-approved-applications";
-import { GetPendingApplicationsType } from "@/app/data/user/application/get-pending-applications";
 import { GetRejectedApplicationsType } from "@/app/data/user/application/get-rejected-applications";
-import { GetReviewingApplicationsType } from "@/app/data/user/application/get-reviewing-applications";
 import {
   Card,
   CardAction,
@@ -22,7 +20,7 @@ import { CircleCheckBig, Clock } from "lucide-react";
 
 interface Props {
   applications: GetTotalApplicationsType[] | any;
-  pendingReviewApplications: GetPendingReviewApplicationType[] | any;
+  pendingReviewApplications: GetPendingReviewApplicationsType[] | any;
   approvedApplications: GetApprovedApplicationsType[] | any;
   rejectedApplications: GetRejectedApplicationsType[] | any;
 }

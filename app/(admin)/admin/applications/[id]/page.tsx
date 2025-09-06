@@ -7,15 +7,13 @@ import { Separator } from "@/components/ui/separator";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import React from "react";
 import { QuickActions } from "./_components/QuickActions";
-import { alpha } from "motion";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import Image from "next/image";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
-import { AmenityBox } from "@/components/AmenityBox";
-import Link from "next/link";
 import { CircleCheckBig } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
+import Link from "next/link";
 
 type Params = Promise<{
   id: string;

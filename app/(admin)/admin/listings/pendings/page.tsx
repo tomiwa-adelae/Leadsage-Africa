@@ -1,6 +1,5 @@
 import { EmptyState } from "@/components/EmptyState";
 import { SiteHeader } from "@/components/sidebar/site-header";
-import { Plus } from "lucide-react";
 import { getPendingListings } from "@/app/data/admin/listing/get-pending-listings";
 import { PendingListingCard } from "../../_components/PendingListingCard";
 import { Searchbar } from "@/components/Searchbar";

@@ -1,6 +1,5 @@
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardAction,
@@ -11,7 +10,6 @@ import {
 } from "@/components/ui/card";
 import { GetLandlordListingsType } from "@/app/data/landlord/get-landlord-listings";
 import { Calendar, Clock, Eye, House, Wallet } from "lucide-react";
-import Image from "next/image";
 import { GetLandlordPendingBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { NairaIcon } from "@/components/NairaIcon";
 import { GetMyLeasesType } from "@/app/data/landlord/lease/get-my-leases";

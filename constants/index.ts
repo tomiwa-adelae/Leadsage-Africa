@@ -94,10 +94,6 @@ export const navLinks = [
     slug: "/about",
     label: "About us",
   },
-  {
-    slug: "/contact",
-    label: "Contact us",
-  },
 ];
 
 export const footerLinks = [

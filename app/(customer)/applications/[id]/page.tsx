@@ -5,11 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import React from "react";
-import { alpha } from "motion";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import Image from "next/image";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
-import { AmenityBox } from "@/components/AmenityBox";
 import Link from "next/link";
 import { CircleCheckBig } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -18,11 +16,7 @@ import { getApplication } from "@/app/data/user/application/get-application";
 import { Confetti } from "@/components/Confetti";
 import { ApprovedApplicationModal } from "../../_components/ApprovedApplicationModal";
 import { UncompletedApplicationModal } from "../../_components/UncompletedApplicationModal";
-import {
-  IconArrowNarrowRightDashed,
-  IconCalendarCheck,
-  IconContract,
-} from "@tabler/icons-react";
+import { IconArrowNarrowRightDashed, IconContract } from "@tabler/icons-react";
 
 type Params = Promise<{
   id: string;

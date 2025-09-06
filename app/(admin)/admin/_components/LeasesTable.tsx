@@ -1,6 +1,4 @@
 "use client";
-import { GetTotalBookingsType } from "@/app/data/admin/booking/get-all-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -15,27 +13,21 @@ import { useConstructUrl } from "@/hooks/use-construct-url";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { BookingActions } from "./BookingActions";
-import { GetTotalApplicationType } from "@/app/data/admin/application/get-all-applications";
-import { ApplicationActions } from "./ApplicationActions";
-import { GetUncompletedApplicationType } from "@/app/data/admin/application/get-uncompleted-applications";
-import { GetApprovedApplicationType } from "@/app/data/admin/application/get-approved-applications";
-import { GetRejectedApplicationType } from "@/app/data/admin/application/get-rejected-applications";
-import { GetPendingReviewApplicationType } from "@/app/data/admin/application/get-pending-review-applications";
 import { GetAllLeasesType } from "@/app/data/admin/lease/get-all-leases";
 import { GetExpiredLeasesType } from "@/app/data/admin/lease/get-expired-leases";
 import { GetTerminatedLeasesType } from "@/app/data/admin/lease/get-terminated-leases";
 import { GetActiveLeasesType } from "@/app/data/admin/lease/get-active-leases";
 import { NairaIcon } from "@/components/NairaIcon";
 import { LeaseActions } from "./LeaseActions";
-import { GetLeaseDetailsType } from "@/app/data/admin/lease/get-lease";
+import { GetListingLeasesType } from "@/app/data/admin/lease/get-listing-leases";
 
 interface Props {
   leases:
     | GetAllLeasesType[]
     | GetExpiredLeasesType[]
     | GetTerminatedLeasesType[]
-    | GetActiveLeasesType[];
+    | GetActiveLeasesType[]
+    | GetListingLeasesType[];
 }
 
 export function LeasesTable({ leases }: Props) {

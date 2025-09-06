@@ -1,28 +1,10 @@
 "use client";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { tryCatch } from "@/hooks/use-try-catch";
-import {
-  CalendarCheck,
-  CalendarX,
-  CircleAlertIcon,
-  CircleCheckBig,
-  CircleX,
-} from "lucide-react";
+import { CircleX } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import { Loader } from "@/components/Loader";
 import { useConfetti } from "@/hooks/use-confetti";
-import { formatDate } from "@/lib/utils";
 import { cancelBooking } from "../actions";
 import { CancelBookingModal } from "@/app/(customer)/_components/CancelBookingModal";
 

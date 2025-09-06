@@ -2,7 +2,6 @@ import { getListingDetails } from "@/app/data/listing/get-listing-details";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import React from "react";
 import { getApplication } from "@/app/data/user/application/get-application";
-import { RentalHistoryForm } from "../../_components/RentalHistoryForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

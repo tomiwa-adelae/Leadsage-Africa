@@ -7,24 +7,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  IconCalendarCheck,
-  IconCalendarX,
-  IconCheckbox,
-  IconDots,
-  IconDownload,
-  IconEye,
-} from "@tabler/icons-react";
+import { IconDots, IconDownload, IconEye } from "@tabler/icons-react";
 import Link from "next/link";
-import { BookingStatus } from "@/lib/generated/prisma";
-import { useState } from "react";
-import { CancelBookingModal } from "./CancelBookingModal";
 import { GetMyPaymentsType } from "@/app/data/user/payment/get-my-payments";
 import { useDownloadPaymentReceipt } from "@/hooks/use-download-payment-receipt";
+import { GetLeasePaymentsType } from "@/app/data/user/lease/get-lease-payments";
 
 interface Props {
   id: string;
-  payment: GetMyPaymentsType;
+  payment: GetMyPaymentsType | GetLeasePaymentsType;
 }
 
 export function PaymentActions({ id, payment }: Props) {

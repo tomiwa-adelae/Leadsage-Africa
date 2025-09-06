@@ -7,21 +7,20 @@ import { formatDate } from "@/lib/utils";
 import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { BookingActions } from "./BookingActions";
-import { GetTotalApplicationType } from "@/app/data/admin/application/get-all-applications";
 import { ApplicationActions } from "./ApplicationActions";
 import { GetUncompletedApplicationType } from "@/app/data/admin/application/get-uncompleted-applications";
-import { GetApprovedApplicationType } from "@/app/data/admin/application/get-approved-applications";
-import { GetRejectedApplicationType } from "@/app/data/admin/application/get-rejected-applications";
-import { GetPendingReviewApplicationType } from "@/app/data/admin/application/get-pending-review-applications";
+import { GetTotalApplicationsType } from "@/app/data/admin/application/get-all-applications";
+import { GetApprovedApplicationsType } from "@/app/data/admin/application/get-approved-applications";
+import { GetRejectedApplicationsType } from "@/app/data/admin/application/get-rejected-applications";
+import { GetPendingReviewApplicationsType } from "@/app/data/admin/application/get-pending-review-applications";
 
 interface Props {
   applications:
-    | GetTotalApplicationType[]
+    | GetTotalApplicationsType[]
     | GetUncompletedApplicationType[]
-    | GetApprovedApplicationType[]
-    | GetRejectedApplicationType[]
-    | GetPendingReviewApplicationType[];
+    | GetApprovedApplicationsType[]
+    | GetRejectedApplicationsType[]
+    | GetPendingReviewApplicationsType[];
 }
 
 export const ApplicationsList = ({ applications }: Props) => {

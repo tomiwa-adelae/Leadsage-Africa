@@ -8,9 +8,10 @@ import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { BookingActions } from "./BookingActions";
+import { GetListingPastBookingsType } from "@/app/data/booking/get-listing-past-bookings";
 
 interface Props {
-  bookings: GetTotalBookingsType[];
+  bookings: GetTotalBookingsType[] | GetListingPastBookingsType[];
 }
 
 export const BookingsList = ({ bookings }: Props) => {

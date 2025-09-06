@@ -1,8 +1,6 @@
 import React, { ReactNode } from "react";
 import { Logo } from "@/components/Logo";
 import { Testimonials } from "../(auth)/_components/Testimonials";
-import { redirect } from "next/navigation";
-import { getUserInfo } from "../data/user/get-user-info";
 
 const layout = async ({ children }: { children: ReactNode }) => {
   return (

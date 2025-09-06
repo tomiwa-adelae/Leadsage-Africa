@@ -7,24 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  IconActivity,
-  IconBan,
-  IconCalendarCheck,
-  IconCalendarX,
-  IconCheckbox,
-  IconCircleDashedX,
-  IconCreditCard,
-  IconCreditCardPay,
-  IconDots,
-  IconDownload,
-  IconEye,
-  IconEyeDotted,
-  IconShieldCancel,
-} from "@tabler/icons-react";
+import { IconDots, IconDownload, IconEye } from "@tabler/icons-react";
 import Link from "next/link";
-import { BookingStatus, LeaseStatus } from "@/lib/generated/prisma";
-import { useState } from "react";
+import { LeaseStatus } from "@/lib/generated/prisma";
 import { useDownloadLease } from "@/hooks/use-download-lease";
 import { GetLeaseDetailsType } from "@/app/data/landlord/lease/get-lease-details";
 

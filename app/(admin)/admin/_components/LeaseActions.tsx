@@ -10,22 +10,16 @@ import {
 import {
   IconActivity,
   IconBan,
-  IconCalendarCheck,
-  IconCalendarX,
-  IconCheckbox,
   IconCircleDashedX,
   IconCreditCard,
-  IconCreditCardPay,
   IconDots,
   IconDownload,
   IconEye,
-  IconEyeDotted,
   IconShieldCancel,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import { BookingStatus, LeaseStatus } from "@/lib/generated/prisma";
+import { LeaseStatus } from "@/lib/generated/prisma";
 import { useState } from "react";
-import { CancelBookingModal } from "./CancelBookingModal";
 import { RenewLeaseModal } from "./RenewLeaseModal";
 import { MarkLeaseAsExpiredModal } from "./MarkLeaseAsExpiredModal";
 import { ActivateLeaseModal } from "./ActivateLeaseModal";

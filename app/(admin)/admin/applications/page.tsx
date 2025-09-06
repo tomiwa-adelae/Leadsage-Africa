@@ -1,7 +1,4 @@
 import { SiteHeader } from "@/components/sidebar/site-header";
-import { getPendingApplications } from "@/app/data/user/application/get-pending-applications";
-import { getReviewingApplications } from "@/app/data/user/application/get-reviewing-applications";
-import { getApplications } from "@/app/data/user/application/get-applications";
 import { EmptyState } from "@/components/EmptyState";
 import { getTotalApplications } from "@/app/data/admin/application/get-all-applications";
 import { getPendingReviewApplications } from "@/app/data/admin/application/get-pending-review-applications";

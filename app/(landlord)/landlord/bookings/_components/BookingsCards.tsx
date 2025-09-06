@@ -1,7 +1,6 @@
 import {
   GetLandlordBookingsType,
   GetLandlordCancelledBookingsType,
-  GetLandlordCompletedBookingsType,
   GetLandlordConfirmedBookingsType,
   GetLandlordPendingBookingsType,
 } from "@/app/data/landlord/get-landlord-bookings";
@@ -18,7 +17,7 @@ import {
   IconTrendingDown,
   IconTrendingUp,
 } from "@tabler/icons-react";
-import { CalendarCheck, CircleCheckBig, CircleX, Clock } from "lucide-react";
+import { CalendarCheck, CircleX, Clock } from "lucide-react";
 import React from "react";
 
 interface Props {

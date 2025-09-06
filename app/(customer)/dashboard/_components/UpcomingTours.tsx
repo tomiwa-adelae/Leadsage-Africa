@@ -3,7 +3,7 @@ import { GetCustomerPendingBookingsType } from "@/app/data/booking/get-customer-
 import { EmptyState } from "@/components/EmptyState";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { BookingsTable } from "../../_components/BookingsTable";

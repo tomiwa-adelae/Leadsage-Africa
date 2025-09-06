@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import * as RPNInput from "react-phone-number-input";
@@ -15,7 +14,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,30 +24,13 @@ import {
   rentalHistoryFormSchema,
   RentalHistoryFormSchemaType,
 } from "@/lib/zodSchemas";
-import { GetUserInfoType } from "@/app/data/user/get-user-info";
-import {
-  countries,
-  employmentStatus,
-  genders,
-  languages,
-  states,
-} from "@/constants";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader } from "@/components/Loader";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { tryCatch } from "@/hooks/use-try-catch";
 import { useRouter } from "next/navigation";
-import { NairaIcon } from "@/components/NairaIcon";
-import { formatMoneyInput } from "@/lib/utils";
 import { GetApplicationType } from "@/app/data/user/application/get-application";
-import { updateEmploymentDetails, updateRentalHistory } from "../actions";
+import { updateRentalHistory } from "../actions";
 import { Textarea } from "@/components/ui/textarea";
 
 interface Props {

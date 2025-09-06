@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { useState, useTransition } from "react";
-import { Loader } from "@/components/Loader";
 import DeleteModal from "@/components/DeleteModal";
 import { tryCatch } from "@/hooks/use-try-catch";
 import { Photo } from "@/app/(landlord)/landlord/listings/new/[listingId]/photos/_components/PhotosForm";

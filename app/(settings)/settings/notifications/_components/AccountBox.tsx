@@ -2,11 +2,7 @@
 import { Switch, SwitchWrapper } from "@/components/ui/switch";
 import { tryCatch } from "@/hooks/use-try-catch";
 import { useState, useTransition } from "react";
-import {
-  saveAccountNotifications,
-  saveBookingNotifications,
-  savePromotionalNotifications,
-} from "../actions";
+import { saveAccountNotifications } from "../actions";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";

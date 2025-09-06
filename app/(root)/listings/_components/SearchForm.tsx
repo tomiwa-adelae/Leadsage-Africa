@@ -2,8 +2,8 @@
 
 import { Input } from "@/components/ui/input";
 import { IconSearch } from "@tabler/icons-react";
-import { LoaderCircleIcon, Search } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { LoaderCircleIcon } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface Props {
@@ -12,7 +12,6 @@ interface Props {
 
 export const SearchForm = ({ search }: Props) => {
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [query, setQuery] = useState(search || "");

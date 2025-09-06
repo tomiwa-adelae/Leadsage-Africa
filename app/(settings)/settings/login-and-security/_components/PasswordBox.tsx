@@ -27,7 +27,6 @@ import { Progress } from "@/components/ui/progress";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { createPassword, triggerUpdateUser } from "../actions";
-import { auth } from "@/lib/auth";
 
 interface Props {
   password: string | null;

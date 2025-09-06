@@ -1,5 +1,5 @@
 "use client";
-import { CircleCheck, Info } from "lucide-react";
+import { Info } from "lucide-react";
 
 import {
   AlertDialog,

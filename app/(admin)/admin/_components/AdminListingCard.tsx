@@ -2,7 +2,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import Image from "next/image";
-import { Archive, Component, Heart, Hourglass, Radio } from "lucide-react";
+import { Archive, Component, Hourglass, Radio } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { NairaIcon } from "@/components/NairaIcon";

@@ -1,9 +1,4 @@
 "use client";
-import {
-  GetCustomerBookingsType,
-  GetCustomerPendingBookingsType,
-} from "@/app/data/booking/get-customer-bookings";
-import { GetLandlordBookingsType } from "@/app/data/landlord/get-landlord-bookings";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -18,10 +13,8 @@ import { useConstructUrl } from "@/hooks/use-construct-url";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { BookingActions } from "./BookingActions";
 import { GetApplicationsType } from "@/app/data/user/application/get-applications";
 import { ApplicationActions } from "./ApplicationActions";
-import { GetApplicationType } from "@/app/data/user/application/get-application";
 
 interface Props {
   applications: GetApplicationsType[];

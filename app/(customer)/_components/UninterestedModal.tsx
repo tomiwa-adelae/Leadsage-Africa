@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -14,14 +13,12 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
@@ -29,11 +26,7 @@ import RestoreAnimation from "@/public/assets/animations/delete-animation.json";
 import { useRef, useTransition } from "react";
 import { Loader } from "@/components/Loader";
 import { tryCatch } from "@/hooks/use-try-catch";
-import {
-  applyForListing,
-  cancelBooking,
-  uninterestedBooking,
-} from "../bookings/[id]/actions";
+import { uninterestedBooking } from "../bookings/[id]/actions";
 import { useRouter } from "next/navigation";
 import {
   uninterestedModalFormSchema,

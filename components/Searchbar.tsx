@@ -1,5 +1,5 @@
 "use client";
-import { LoaderCircleIcon, Search } from "lucide-react";
+import { LoaderCircleIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

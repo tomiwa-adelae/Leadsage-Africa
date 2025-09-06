@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useState, useTransition } from "react";
-import { EyeIcon, EyeOffIcon, XIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +23,6 @@ import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { Loader } from "@/components/Loader";
-import { getUserInfo } from "@/app/data/user/get-user-info";
 
 export function LoginForm() {
   const router = useRouter();
