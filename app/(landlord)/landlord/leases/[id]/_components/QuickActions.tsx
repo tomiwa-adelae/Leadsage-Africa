@@ -39,7 +39,7 @@ export const QuickActions = ({
 
   const save = () => {
     if (!sigCanvas.current.isEmpty()) {
-      setSignature(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
+      setSignature(sigCanvas.current.getCanvas().toDataURL("image/png"));
       setIsEmpty(false);
     }
   };
