@@ -41,7 +41,10 @@ export const AgreementForm = ({ application }: Props) => {
   };
 
   const save = () =>
-    setSignature(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
+  setSignature(sigCanvas.current.getCanvas().toDataURL("image/png"));
+
+
+  console.log(signature);
 
   const now = today(getLocalTimeZone());
   const parsedAvailability = parseDate(application.Listing.availabilityDate!);
