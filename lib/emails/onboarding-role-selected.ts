@@ -58,7 +58,7 @@ export const onboardingRoleSelected = ({ name, role }: Props) => `
 
 				<div class="text-center my-8">
 					<a
-						href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/onboarding/profile}"
+						href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/onboarding/profile"
 						class="inline-block bg-primary-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-primary-700 transition-colors"
 					>
 						Complete your onboarding

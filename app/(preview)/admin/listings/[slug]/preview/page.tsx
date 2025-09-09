@@ -260,7 +260,7 @@ const page = async ({ params }: { params: Params }) => {
             </Card>
           </div>
         </div>
-        <Separator className="my-8" />
+        {/* <Separator className="my-8" />
         <div>
           <div className="text-5xl md:text-6xl lg:text-8xl flex items-center justify-center gap-2">
             <Star className="text-muted-foreground" />
@@ -276,7 +276,7 @@ const page = async ({ params }: { params: Params }) => {
           <Button className="mt-4" size="md" variant="outline">
             Show all 583 reviews
           </Button>
-        </div>
+        </div> */}
         <Separator className="my-8" />
         <div>
           <h3 className="font-medium text-lg">Where you'll be</h3>

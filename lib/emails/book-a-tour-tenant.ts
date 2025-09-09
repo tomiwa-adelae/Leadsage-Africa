@@ -51,7 +51,7 @@ export const bookATourTenant = ({
 						<p><span class="font-semibold">Date:</span> ${date}</p>
 						<p><span class="font-semibold">Time:</span> ${time}</p>
 						<p><span class="font-semibold">Property Type:</span> ${category}</p>
-						<p><span class="font-semibold">Monthly Rent:</span> ₦${price}</p>
+						<p><span class="font-semibold">Rent:</span> ₦${price}</p>
 						<p class="sm:col-span-2"><span class="font-semibold">Meeting Point:</span> ${location}</p>
 					</div>
 				</div>

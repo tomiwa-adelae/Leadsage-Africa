@@ -31,7 +31,7 @@ export const NextStepActions = ({ id, slug, feedback }: Props) => {
   const [openUninterestedModal, setOpenUninterestedModal] = useState(false);
   const [openNotSureModal, setOpenNotSureModal] = useState(false);
   return (
-    <Card className="@container/card gap-0">
+    <Card id="#interested" className="@container/card gap-0">
       <CardHeader>
         <CardTitle>Next step</CardTitle>
         <CardDescription>Did you like this place?</CardDescription>

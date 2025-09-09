@@ -44,7 +44,7 @@ export const tourCompletedTenant = ({
 
       <div class="text-center my-8 space-y-4">
         <a
-          href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/bookings/${id}?interested=true"
+          href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/bookings/${id}/#interested"
           class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700"
         >
           Apply for This Property

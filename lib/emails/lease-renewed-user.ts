@@ -39,7 +39,7 @@ export const leaseRenewedUser = ({
         <ul class="list-disc list-inside space-y-2 text-gray-700">
           <li><span class="font-semibold">Start Date:</span> ${startDate}</li>
           <li><span class="font-semibold">New End Date:</span> ${endDate}</li>
-          <li><span class="font-semibold">Monthly Rent:</span> ₦${rent}</li>
+          <li><span class="font-semibold">Rent:</span> ₦${rent}</li>
           <li><span class="font-semibold">Property:</span> ${property}</li>
         </ul>
       </div>

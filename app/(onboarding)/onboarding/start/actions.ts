@@ -58,7 +58,7 @@ export const selectRole = async (role: string): Promise<ApiResponse> => {
           TextPart: `Welcome to your onboarding at Leadsage Africa`,
           HTMLPart: onboardingRoleSelected({
             name: user.name,
-            role: user.role,
+            role,
           }),
         },
       ],

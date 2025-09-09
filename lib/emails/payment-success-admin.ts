@@ -45,7 +45,7 @@ export const paymentSuccessAdmin = ({
 
       <div class="text-center my-8">
         <a
-          href="\${env.NEXT_PUBLIC_BETTER_AUTH_URL}/admin/payments/${id}"
+          href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/admin/payments/${id}"
           class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
         >
           Review Payment in Admin Dashboard

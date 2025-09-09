@@ -178,8 +178,8 @@ export const approveListing = async (id: string): Promise<ApiResponse> => {
             Email: env.SENDER_EMAIL_ADDRESS,
             Name: "Leadsage Support",
           },
-          Subject: `Leadsage Africa – Listing Submitted`,
-          TextPart: `Leadsage Africa – Listing Submitted`,
+          Subject: `Leadsage Africa – Listing Approved`,
+          TextPart: `Leadsage Africa – Listing Approved`,
           HTMLPart: listingApprovedLandlord({
             property: listing.title!,
             landlordName: listing.User.name,
@@ -266,8 +266,8 @@ export const unapproveListing = async (id: string): Promise<ApiResponse> => {
             Email: env.SENDER_EMAIL_ADDRESS,
             Name: "Leadsage Support",
           },
-          Subject: `Leadsage Africa – Listing Submitted`,
-          TextPart: `Leadsage Africa – Listing Submitted`,
+          Subject: `Leadsage Africa – Listing Unapproved`,
+          TextPart: `Leadsage Africa – Listing Unapproved`,
           HTMLPart: listingUnapprovedLandlord({
             property: listing.title!,
             landlordName: listing.User.name,

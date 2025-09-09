@@ -325,7 +325,7 @@ export const LeaseGenerator = ({
                 <strong>Tenant:</strong> {sampleLeaseData.tenant.name}
               </p>
               <p>
-                <strong>Monthly Rent:</strong> $
+                <strong>Rent:</strong> $
                 {sampleLeaseData.terms.monthlyRent.toLocaleString()}
               </p>
             </div>
