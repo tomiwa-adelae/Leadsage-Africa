@@ -6,6 +6,16 @@ import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { PaymentStatus } from "@/lib/generated/prisma";
 
+import Mailjet from "node-mailjet";
+import { env } from "@/lib/env";
+import { paymentSuccessUser } from "@/lib/emails/payment-success-user";
+import { paymentSuccessAdmin } from "@/lib/emails/payment-success-admin";
+import { leaseActiveUser } from "@/lib/emails/lease-active-user";
+const mailjet = Mailjet.apiConnect(
+  env.MAILJET_API_PUBLIC_KEY,
+  env.MAILJET_API_PRIVATE_KEY
+);
+
 export const cancelLease = async (id: string): Promise<ApiResponse> => {
   const { user } = await requireUser();
 
@@ -46,6 +56,18 @@ export const markLeaseAsPaid = async (
       where: {
         id,
       },
+      select: {
+        id: true,
+        startDate: true,
+        endDate: true,
+        leaseId: true,
+        Listing: {
+          select: {
+            title: true,
+            price: true,
+          },
+        },
+      },
     });
 
     if (!lease) return { status: "error", message: "Oops! An error occurred" };
@@ -72,6 +94,96 @@ export const markLeaseAsPaid = async (
       data: {
         status: "ACTIVE",
       },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: user.email,
+              Name: user.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Payment Successful`,
+          TextPart: `Leadsage Africa – Payment Successful`,
+          HTMLPart: paymentSuccessUser({
+            amount,
+            property: lease.Listing.title,
+            reference,
+            userName: user.name,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: env.ADMIN_EMAIL_ADDRESS,
+              Name: "Leadsage Africa Admin",
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – User Payment Notification`,
+          TextPart: `Leadsage Africa – User Payment Notification`,
+          HTMLPart: paymentSuccessAdmin({
+            amount,
+            property: lease.Listing.title,
+            reference,
+            userName: user.name,
+            id: payment.id,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: user.email,
+              Name: user.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Lease Activation`,
+          TextPart: `Leadsage Africa – Lease Activation`,
+          HTMLPart: leaseActiveUser({
+            property: lease.Listing.title!,
+            userName: user.name,
+            endDate: lease.endDate,
+            id: lease.leaseId,
+            rent: lease.Listing.price!,
+            startDate: lease.startDate,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/leases");

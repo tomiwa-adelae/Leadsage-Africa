@@ -19,6 +19,7 @@ export const env = createEnv({
     MAILJET_API_PRIVATE_KEY: z.string().min(1),
     SENDER_EMAIL_ADDRESS: z.string().min(1),
     ADMIN_EMAIL_ADDRESS: z.string().min(1),
+    SUPPORT_EMAIL_ADDRESS: z.string().min(1),
     PS_SECRET_KEY: z.string().min(1),
   },
   client: {

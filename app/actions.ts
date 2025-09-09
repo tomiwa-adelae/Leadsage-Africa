@@ -5,6 +5,15 @@ import { requireUser } from "./data/user/require-user";
 import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
+import Mailjet from "node-mailjet";
+import { env } from "@/lib/env";
+import { accountCreationSuccess } from "@/lib/emails/account-creation-success";
+
+const mailjet = Mailjet.apiConnect(
+  env.MAILJET_API_PUBLIC_KEY,
+  env.MAILJET_API_PRIVATE_KEY
+);
+
 export const saveProfilePicture = async (
   value: string
 ): Promise<ApiResponse> => {
@@ -187,6 +196,32 @@ export const triggerUserCreationNotifications =
           title: `Welcome to Leadsage Africa`,
           message: `Your account has been successfully created. Let’s get you started.`,
         },
+      });
+
+      await mailjet.post("send", { version: "v3.1" }).request({
+        Messages: [
+          {
+            From: {
+              Email: env.SENDER_EMAIL_ADDRESS,
+              Name: "Leadsage Africa",
+            },
+            To: [
+              {
+                Email: user.email,
+                Name: user.name,
+              },
+            ],
+            ReplyTo: {
+              Email: env.SENDER_EMAIL_ADDRESS,
+              Name: "Leadsage Support",
+            },
+            Subject: `Welcome to Leadsage Africa. Your Housing Journey Starts Here`,
+            TextPart: `Welcome to Leadsage Africa`,
+            HTMLPart: accountCreationSuccess({
+              name: user.name,
+            }),
+          },
+        ],
       });
 
       revalidatePath("/notifications");

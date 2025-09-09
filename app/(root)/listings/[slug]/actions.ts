@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 import { env } from "../../../../lib/env";
 import Mailjet from "node-mailjet";
 import { revalidatePath } from "next/cache";
-import { bookATourTenant } from "@/lib/emails/book-a-tour";
+import { bookATourTenant } from "@/lib/emails/book-a-tour-tenant";
 import {
   AVAILABLE_TIME_SLOTS,
   formatDate,
@@ -14,6 +14,8 @@ import {
   getBookingDateRange,
   isWeekend,
 } from "@/lib/utils";
+import { bookATourLandlord } from "@/lib/emails/book-a-tour-landlord";
+import { bookATourAdmin } from "@/lib/emails/book-a-tour-admin";
 
 const mailjet = Mailjet.apiConnect(
   env.MAILJET_API_PUBLIC_KEY,
@@ -323,6 +325,8 @@ export async function bookTour(
         User: {
           select: {
             id: true,
+            name: true,
+            email: true,
           },
         },
         Lease: {
@@ -441,6 +445,75 @@ export async function bookTour(
             TextPart: `Booking successful - Leadsage`,
             HTMLPart: bookATourTenant({
               name: user.name,
+              category: listing?.Category.name!,
+              date: dateString,
+              time: timeSlot,
+              location,
+              price: listing?.price!,
+            }),
+          },
+        ],
+      });
+
+      await mailjet.post("send", { version: "v3.1" }).request({
+        Messages: [
+          {
+            From: {
+              Email: env.SENDER_EMAIL_ADDRESS,
+              Name: "Leadsage Africa",
+            },
+            To: [
+              {
+                Email: listing.User.email,
+                Name: listing.User.name,
+              },
+            ],
+            ReplyTo: {
+              Email: env.SENDER_EMAIL_ADDRESS,
+              Name: "Leadsage Support",
+            },
+            Subject: `Tour Notification: ${location} - ${formatDate(
+              dateString
+            )} (${timeSlot}) | Leadsage Africa`,
+            TextPart: `Leadsage Africa – Tour Notification`,
+            HTMLPart: bookATourLandlord({
+              landlordName: listing.User.name,
+              tenantName: user.name,
+              category: listing?.Category.name!,
+              date: dateString,
+              time: timeSlot,
+              location,
+              price: listing?.price!,
+            }),
+          },
+        ],
+      });
+
+      await mailjet.post("send", { version: "v3.1" }).request({
+        Messages: [
+          {
+            From: {
+              Email: env.SENDER_EMAIL_ADDRESS,
+              Name: "Leadsage Africa",
+            },
+            To: [
+              {
+                Email: env.ADMIN_EMAIL_ADDRESS,
+                Name: "Leadsage Africa Admin",
+              },
+            ],
+            ReplyTo: {
+              Email: env.SENDER_EMAIL_ADDRESS,
+              Name: "Leadsage Support",
+            },
+            Subject: `Tour Alert: ${location} - ${formatDate(
+              dateString
+            )} (${timeSlot}) | Leadsage Africa`,
+            TextPart: `Leadsage Africa – Tour Notification`,
+            HTMLPart: bookATourAdmin({
+              landlordName: listing.User.name,
+              tenantName: user.name,
+              id: booking.id,
               category: listing?.Category.name!,
               date: dateString,
               time: timeSlot,

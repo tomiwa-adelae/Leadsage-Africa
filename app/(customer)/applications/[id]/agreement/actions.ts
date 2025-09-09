@@ -2,7 +2,17 @@
 
 import { requireUser } from "@/app/data/user/require-user";
 import { prisma } from "@/lib/db";
+import { leaseSignPromptLandlord } from "@/lib/emails/lease-sign-prompt-landlord";
+import { leaseSignedAdmin } from "@/lib/emails/lease-signed-admin";
+import { leaseSignedTenant } from "@/lib/emails/lease-signed-tenant";
+import { env } from "@/lib/env";
 import { generateSuffix } from "@/lib/utils";
+
+import Mailjet from "node-mailjet";
+const mailjet = Mailjet.apiConnect(
+  env.MAILJET_API_PUBLIC_KEY,
+  env.MAILJET_API_PRIVATE_KEY
+);
 
 export const acceptAgreement = async (data: {
   moveInDate: string;
@@ -34,7 +44,17 @@ export const acceptAgreement = async (data: {
       select: {
         Listing: {
           select: {
+            address: true,
+            city: true,
+            country: true,
+            state: true,
             id: true,
+            User: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
           },
         },
       },
@@ -106,6 +126,95 @@ export const acceptAgreement = async (data: {
         leaseId,
         tenantSignature: data.signature,
       },
+    });
+
+    const location = `${application.Listing?.address!}, ${application.Listing
+      ?.city!}, ${application.Listing?.state!}, ${application.Listing
+      ?.country!}`;
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: user.email,
+              Name: user.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Agreement Signed`,
+          TextPart: `Leadsage Africa – Agreement Signed`,
+          HTMLPart: leaseSignedTenant({
+            name: user.name,
+            id: leaseId,
+            location,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: application.Listing.User.email,
+              Name: application.Listing.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Agreement Pending`,
+          TextPart: `Leadsage Africa – Agreement Pending`,
+          HTMLPart: leaseSignPromptLandlord({
+            landlordName: application.Listing.User.name,
+            location,
+            id: leaseId,
+            tenantName: user.name,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: env.ADMIN_EMAIL_ADDRESS,
+              Name: "Leadsage Africa Admin",
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Lease Signed`,
+          TextPart: `Leadsage Africa – Lease Signed`,
+          HTMLPart: leaseSignedAdmin({
+            tenantName: user.name,
+            id: leaseId,
+            location,
+          }),
+        },
+      ],
     });
 
     return {

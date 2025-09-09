@@ -2,6 +2,26 @@
 
 import { requireAdmin } from "@/app/data/admin/require-admin";
 import { prisma } from "@/lib/db";
+import { adminCancelTourLandlord } from "@/lib/emails/admin-cancel-tour-landlord";
+import { adminCancelTourTenant } from "@/lib/emails/admin-cancel-tour-tenant";
+import { adminConfirmTourLandlord } from "@/lib/emails/admin-confirm-tour-landlord";
+import { adminConfirmTourTenant } from "@/lib/emails/admin-confirm-tour-tenant";
+import { applicationApprovedLandlord } from "@/lib/emails/application-approved-landlord";
+import { applicationApprovedTenant } from "@/lib/emails/application-approved-tenant";
+import { applicationRejectedLandlord } from "@/lib/emails/application-rejected-landlord";
+import { applicationRejectedTenant } from "@/lib/emails/application-rejected-tenant";
+import { applicationRequestInformation } from "@/lib/emails/application-request-information";
+import { leaseActiveUser } from "@/lib/emails/lease-active-user";
+import { leaseCancelledUser } from "@/lib/emails/lease-cancelled-user";
+import { leaseExpiredUser } from "@/lib/emails/lease-expired-user";
+import { leaseRenewedUser } from "@/lib/emails/lease-renewed-user";
+import { leaseTerminatedUser } from "@/lib/emails/lease-terminated-user";
+import { listingApprovedLandlord } from "@/lib/emails/listing-approved-landlord";
+import { listingRejectedLandlord } from "@/lib/emails/listing-rejected-landlord";
+import { listingUnapprovedLandlord } from "@/lib/emails/listing-unapproved-landlord";
+import { tourCompletedLandlord } from "@/lib/emails/tour-completed-landlord";
+import { tourCompletedTenant } from "@/lib/emails/tour-completed-tenant";
+import { env } from "@/lib/env";
 import { ApiResponse } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
 import {
@@ -13,6 +33,12 @@ import {
   RequestMoreInfoApplicationFormSchemaType,
 } from "@/lib/zodSchemas";
 import { revalidatePath } from "next/cache";
+
+import Mailjet from "node-mailjet";
+const mailjet = Mailjet.apiConnect(
+  env.MAILJET_API_PUBLIC_KEY,
+  env.MAILJET_API_PRIVATE_KEY
+);
 
 export const approveListing = async (id: string): Promise<ApiResponse> => {
   await requireAdmin();
@@ -26,6 +52,7 @@ export const approveListing = async (id: string): Promise<ApiResponse> => {
       },
       select: {
         title: true,
+        slug: true,
         description: true,
         smallDescription: true,
         address: true,
@@ -48,6 +75,8 @@ export const approveListing = async (id: string): Promise<ApiResponse> => {
         User: {
           select: {
             id: true,
+            name: true,
+            email: true,
           },
         },
       },
@@ -132,6 +161,34 @@ export const approveListing = async (id: string): Promise<ApiResponse> => {
       },
     });
 
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: listing.User.email,
+              Name: listing.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Listing Submitted`,
+          TextPart: `Leadsage Africa – Listing Submitted`,
+          HTMLPart: listingApprovedLandlord({
+            property: listing.title!,
+            landlordName: listing.User.name,
+            slug: listing.slug!,
+          }),
+        },
+      ],
+    });
+
     revalidatePath("/notifications");
 
     revalidatePath("/landlord/dashboard");
@@ -157,9 +214,12 @@ export const unapproveListing = async (id: string): Promise<ApiResponse> => {
       },
       select: {
         title: true,
+        slug: true,
         User: {
           select: {
             id: true,
+            email: true,
+            name: true,
           },
         },
       },
@@ -187,6 +247,34 @@ export const unapproveListing = async (id: string): Promise<ApiResponse> => {
         title: `Listing is down`,
         message: `Your listing "${listing.title}" has been unapproved. Please review the feedback and update your listing.`,
       },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: listing.User.email,
+              Name: listing.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Listing Submitted`,
+          TextPart: `Leadsage Africa – Listing Submitted`,
+          HTMLPart: listingUnapprovedLandlord({
+            property: listing.title!,
+            landlordName: listing.User.name,
+            slug: listing.slug!,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/landlord/dashboard");
@@ -218,9 +306,12 @@ export const rejectListing = async (
       },
       select: {
         title: true,
+        slug: true,
         User: {
           select: {
             id: true,
+            name: true,
+            email: true,
           },
         },
       },
@@ -249,6 +340,35 @@ export const rejectListing = async (
         title: `Listing requires changes`,
         message: `Your listing "${listing.title}" couldn’t be approved. Please review the feedback and update your listing.`,
       },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: listing.User.email,
+              Name: listing.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Listing Submitted`,
+          TextPart: `Leadsage Africa – Listing Submitted`,
+          HTMLPart: listingRejectedLandlord({
+            property: listing.title!,
+            landlordName: listing.User.name,
+            slug: listing.slug!,
+            reason: validation.data?.reasons!,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/landlord/dashboard");
@@ -462,14 +582,27 @@ export const confirmBooking = async (id: string): Promise<ApiResponse> => {
           select: {
             name: true,
             id: true,
+            email: true,
           },
         },
         listing: {
           select: {
             title: true,
+            address: true,
+            state: true,
+            city: true,
+            country: true,
+            price: true,
             User: {
               select: {
                 id: true,
+                name: true,
+                email: true,
+              },
+            },
+            Category: {
+              select: {
+                name: true,
               },
             },
           },
@@ -527,6 +660,74 @@ export const confirmBooking = async (id: string): Promise<ApiResponse> => {
       },
     });
 
+    const location = `${booking.listing?.address!}, ${booking.listing
+      ?.city!}, ${booking.listing?.state!}, ${booking.listing?.country!}`;
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: booking.user.email,
+              Name: booking.user.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Tour Confirmed`,
+          TextPart: `Leadsage Africa – Tour Confirmed`,
+          HTMLPart: adminConfirmTourTenant({
+            name: booking.user.name,
+            date: formatDate(booking.date),
+            location,
+            time: booking.timeSlot,
+            category: booking.listing.Category.name,
+            id: booking.id,
+            price: booking.listing.price,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: booking.listing.User.email,
+              Name: booking.listing.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Tour Confirmed`,
+          TextPart: `Leadsage Africa – Tour Confirmed`,
+          HTMLPart: adminConfirmTourLandlord({
+            landlordName: booking.listing.User.name,
+            tenantName: user.name,
+            date: formatDate(booking.date),
+            location,
+            time: booking.timeSlot,
+            category: booking.listing.Category.name,
+            id: booking.id,
+            price: booking.listing.price,
+          }),
+        },
+      ],
+    });
+
     revalidatePath("/notifications");
     revalidatePath("/admin/bookings");
     revalidatePath("/bookings");
@@ -555,15 +756,28 @@ export const completedBooking = async (id: string): Promise<ApiResponse> => {
         user: {
           select: {
             name: true,
+            email: true,
             id: true,
           },
         },
         listing: {
           select: {
             title: true,
+            address: true,
+            state: true,
+            country: true,
+            city: true,
+            price: true,
             User: {
               select: {
                 id: true,
+                name: true,
+                email: true,
+              },
+            },
+            Category: {
+              select: {
+                name: true,
               },
             },
           },
@@ -615,6 +829,70 @@ export const completedBooking = async (id: string): Promise<ApiResponse> => {
       },
     });
 
+    const location = `${booking.listing?.address!}, ${booking.listing
+      ?.city!}, ${booking.listing?.state!}, ${booking.listing?.country!}`;
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: booking.user.email,
+              Name: booking.user.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Tour Completed`,
+          TextPart: `Leadsage Africa – Tour Completed`,
+          HTMLPart: tourCompletedTenant({
+            name: booking.user.name,
+            date: formatDate(booking.date),
+            location,
+            time: booking.timeSlot,
+            id: booking.id,
+            landlordName: booking.listing.User.name,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: booking.listing.User.email,
+              Name: booking.listing.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Tour Completed`,
+          TextPart: `Leadsage Africa – Tour Completed`,
+          HTMLPart: tourCompletedLandlord({
+            landlordName: booking.listing.User.name,
+            tenantName: user.name,
+            date: formatDate(booking.date),
+            location,
+            time: booking.timeSlot,
+          }),
+        },
+      ],
+    });
+
     revalidatePath("/notifications");
     revalidatePath("/admin/bookings");
     revalidatePath("/bookings");
@@ -646,14 +924,21 @@ export const cancelBooking = async (id: string): Promise<ApiResponse> => {
           select: {
             name: true,
             id: true,
+            email: true,
           },
         },
         listing: {
           select: {
             title: true,
+            address: true,
+            city: true,
+            state: true,
+            country: true,
             User: {
               select: {
                 id: true,
+                name: true,
+                email: true,
               },
             },
           },
@@ -709,6 +994,68 @@ export const cancelBooking = async (id: string): Promise<ApiResponse> => {
           booking.timeSlot
         } has been cancelled.`,
       },
+    });
+
+    const location = `${booking.listing?.address!}, ${booking.listing
+      ?.city!}, ${booking.listing?.state!}, ${booking.listing?.country!}`;
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: booking.user.email,
+              Name: booking.user.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Tour Canceled`,
+          TextPart: `Leadsage Africa – Tour Canceled`,
+          HTMLPart: adminCancelTourTenant({
+            name: user.name,
+            date: formatDate(booking.date),
+            location,
+            time: booking.timeSlot,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: booking.listing.User.email,
+              Name: booking.listing.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Tour Canceled`,
+          TextPart: `Leadsage Africa – Tour Canceled`,
+          HTMLPart: adminCancelTourLandlord({
+            landlordName: booking.listing.User.name,
+            tenantName: user.name,
+            date: formatDate(booking.date),
+            location,
+            time: booking.timeSlot,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/notifications");
@@ -865,6 +1212,27 @@ export const approveApplication = async (id: string): Promise<ApiResponse> => {
       },
       select: {
         status: true,
+        id: true,
+        User: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        Listing: {
+          select: {
+            address: true,
+            city: true,
+            state: true,
+            country: true,
+            User: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -884,6 +1252,67 @@ export const approveApplication = async (id: string): Promise<ApiResponse> => {
       data: {
         status: "APPROVED",
       },
+    });
+
+    const location = `${application.Listing?.address!}, ${application.Listing
+      ?.city!}, ${application.Listing?.state!}, ${application.Listing
+      ?.country!}`;
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: application.User.email,
+              Name: application.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Application Approved`,
+          TextPart: `Leadsage Africa – Application Approved`,
+          HTMLPart: applicationApprovedTenant({
+            name: application.User.name,
+            id: application.id,
+            location,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: application.Listing.User.email,
+              Name: application.Listing.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Application Approved`,
+          TextPart: `Leadsage Africa – Application Approved`,
+          HTMLPart: applicationApprovedLandlord({
+            id: application.id,
+            landlordName: application.Listing.User.name,
+            location,
+            tenantName: application.User.name,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/admin");
@@ -914,6 +1343,27 @@ export const rejectApplication = async (
       },
       select: {
         status: true,
+        id: true,
+        User: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        Listing: {
+          select: {
+            address: true,
+            city: true,
+            state: true,
+            country: true,
+            User: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -934,6 +1384,65 @@ export const rejectApplication = async (
         status: "REJECTED",
         rejectedReasons: validation.data.reasons,
       },
+    });
+
+    const location = `${application.Listing?.address!}, ${application.Listing
+      ?.city!}, ${application.Listing?.state!}, ${application.Listing
+      ?.country!}`;
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: application.User.email,
+              Name: application.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Application Rejected`,
+          TextPart: `Leadsage Africa – Application Rejected`,
+          HTMLPart: applicationRejectedTenant({
+            name: application.User.name,
+            location,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: application.Listing.User.email,
+              Name: application.Listing.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Application Rejected`,
+          TextPart: `Leadsage Africa – Application Rejected`,
+          HTMLPart: applicationRejectedLandlord({
+            landlordName: application.Listing.User.name,
+            location,
+            tenantName: application.User.name,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/admin");
@@ -964,6 +1473,27 @@ export const requestMoreInformationApplication = async (
       },
       select: {
         status: true,
+        id: true,
+        User: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        Listing: {
+          select: {
+            address: true,
+            city: true,
+            state: true,
+            country: true,
+            User: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -985,6 +1515,39 @@ export const requestMoreInformationApplication = async (
         status: "UNDER_REVIEW",
         additionalInfo: validation.data.additionalInformation,
       },
+    });
+
+    const location = `${application.Listing?.address!}, ${application.Listing
+      ?.city!}, ${application.Listing?.state!}, ${application.Listing
+      ?.country!}`;
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: application.User.email,
+              Name: application.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Requesting more Information`,
+          TextPart: `Leadsage Africa – Requesting more Information`,
+          HTMLPart: applicationRequestInformation({
+            name: application.User.name,
+            id: application.id,
+            location,
+            additionalInfo: validation.data.additionalInformation,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/admin");
@@ -1035,13 +1598,58 @@ export const terminateLease = async (id: string): Promise<ApiResponse> => {
   try {
     if (!id) return { status: "error", message: "Oops! An error occurred!" };
 
-    await prisma.lease.update({
+    const lease = await prisma.lease.update({
       where: {
         id,
       },
       data: {
         status: "TERMINATED",
       },
+      select: {
+        startDate: true,
+        endDate: true,
+        leaseId: true,
+        User: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        Listing: {
+          select: {
+            title: true,
+            price: true,
+          },
+        },
+      },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: lease.User.email,
+              Name: lease.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Lease Termination`,
+          TextPart: `Leadsage Africa – Lease Termination`,
+          HTMLPart: leaseTerminatedUser({
+            property: lease.Listing.title!,
+            userName: lease.User.name,
+            endDate: lease.endDate,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/admin");
@@ -1058,13 +1666,61 @@ export const activateLease = async (id: string): Promise<ApiResponse> => {
   try {
     if (!id) return { status: "error", message: "Oops! An error occurred!" };
 
-    await prisma.lease.update({
+    const lease = await prisma.lease.update({
       where: {
         id,
       },
       data: {
         status: "ACTIVE",
       },
+      select: {
+        startDate: true,
+        endDate: true,
+        leaseId: true,
+        User: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        Listing: {
+          select: {
+            title: true,
+            price: true,
+          },
+        },
+      },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: lease.User.email,
+              Name: lease.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Lease Activation`,
+          TextPart: `Leadsage Africa – Lease Activation`,
+          HTMLPart: leaseActiveUser({
+            property: lease.Listing.title!,
+            userName: lease.User.name,
+            endDate: lease.endDate,
+            id: lease.leaseId,
+            rent: lease.Listing.price!,
+            startDate: lease.startDate,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/admin");
@@ -1081,13 +1737,55 @@ export const markLeaseAsExpired = async (id: string): Promise<ApiResponse> => {
   try {
     if (!id) return { status: "error", message: "Oops! An error occurred!" };
 
-    await prisma.lease.update({
+    const lease = await prisma.lease.update({
       where: {
         id,
       },
       data: {
         status: "EXPIRED",
       },
+      select: {
+        endDate: true,
+        Listing: {
+          select: {
+            title: true,
+          },
+        },
+        User: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: lease.User.email,
+              Name: lease.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Lease Expiration`,
+          TextPart: `Leadsage Africa – Lease Expiration`,
+          HTMLPart: leaseExpiredUser({
+            property: lease.Listing.title!,
+            userName: lease.User.name,
+            expiryDate: lease.endDate,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/admin");
@@ -1104,13 +1802,59 @@ export const markLeaseAsRenewed = async (id: string): Promise<ApiResponse> => {
   try {
     if (!id) return { status: "error", message: "Oops! An error occurred!" };
 
-    await prisma.lease.update({
+    const lease = await prisma.lease.update({
       where: {
         id,
       },
       data: {
         status: "RENEWED",
       },
+      select: {
+        endDate: true,
+        startDate: true,
+        Listing: {
+          select: {
+            title: true,
+            price: true,
+          },
+        },
+        User: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: lease.User.email,
+              Name: lease.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Lease Renewal`,
+          TextPart: `Leadsage Africa – Lease Renewal`,
+          HTMLPart: leaseRenewedUser({
+            property: lease.Listing.title!,
+            userName: lease.User.name,
+            endDate: lease.endDate,
+            startDate: lease.startDate,
+            rent: lease.Listing.price!,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/admin");
@@ -1127,13 +1871,57 @@ export const cancelLease = async (id: string): Promise<ApiResponse> => {
   try {
     if (!id) return { status: "error", message: "Oops! An error occurred!" };
 
-    await prisma.lease.update({
+    const lease = await prisma.lease.update({
       where: {
         id,
       },
       data: {
         status: "CANCELLED",
       },
+      select: {
+        endDate: true,
+        startDate: true,
+        Listing: {
+          select: {
+            title: true,
+            price: true,
+          },
+        },
+        User: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: lease.User.email,
+              Name: lease.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Lease Cancelled`,
+          TextPart: `Leadsage Africa – Lease Cancelled`,
+          HTMLPart: leaseCancelledUser({
+            property: lease.Listing.title!,
+            userName: lease.User.name,
+            endDate: lease.endDate,
+          }),
+        },
+      ],
     });
 
     revalidatePath("/admin");

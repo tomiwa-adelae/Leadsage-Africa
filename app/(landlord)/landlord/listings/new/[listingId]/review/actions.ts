@@ -5,6 +5,15 @@ import { ApiResponse } from "@/lib/types";
 import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
+import Mailjet from "node-mailjet";
+import { env } from "@/lib/env";
+import { listingSubmittedLandlord } from "@/lib/emails/listing-submitted-landlord";
+import { listingSubmittedAdmin } from "@/lib/emails/listing-submitted-admin";
+const mailjet = Mailjet.apiConnect(
+  env.MAILJET_API_PUBLIC_KEY,
+  env.MAILJET_API_PRIVATE_KEY
+);
+
 export const publishListing = async (id: string): Promise<ApiResponse> => {
   const { user } = await requireLandlord();
   try {
@@ -16,6 +25,7 @@ export const publishListing = async (id: string): Promise<ApiResponse> => {
       },
       select: {
         title: true,
+        slug: true,
         description: true,
         smallDescription: true,
         address: true,
@@ -117,6 +127,61 @@ export const publishListing = async (id: string): Promise<ApiResponse> => {
       },
     });
 
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: user.email,
+              Name: user.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Listing Submitted`,
+          TextPart: `Leadsage Africa – Listing Submitted`,
+          HTMLPart: listingSubmittedLandlord({
+            property: listing.title!,
+            landlordName: user.name,
+          }),
+        },
+      ],
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: env.ADMIN_EMAIL_ADDRESS,
+              Name: "Leadsage Africa Admin",
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – New Listing Pending Approval`,
+          TextPart: `Leadsage Africa – New Listing pending approval`,
+          HTMLPart: listingSubmittedAdmin({
+            property: listing.title!,
+            landlordName: user.name,
+            slug: listing.slug!,
+          }),
+        },
+      ],
+    });
+
     revalidatePath("/notifications");
 
     return {
@@ -127,41 +192,3 @@ export const publishListing = async (id: string): Promise<ApiResponse> => {
     return { status: "error", message: "Failed to publish the listing." };
   }
 };
-
-// // Approved Notification
-// await prisma.notification.create({
-// 			  data: {
-// 				userId: user.id,
-// 				type: "Success",
-// 				color: "bg-green-600",
-// 				title: `Listing approved`,
-// 				message: `Congratulations! Your listing has been approved and is now visible to renters.`,
-// 			  },
-// 			});
-
-// 			revalidatePath("/notifications");
-
-// Rejected Notification
-// await prisma.notification.create({
-// 			  data: {
-// 				userId: user.id,
-// 				type: "Warning",
-// 				color: "bg-yellow-500",
-// 				title: `Listing requires changes`,
-// 				message: `Your listing couldn’t be approved. Please review the feedback and update your listing.`,
-// 			  },
-// 			});
-
-// 			revalidatePath("/notifications");
-// Archive Notification
-// await prisma.notification.create({
-// 			  data: {
-// 				userId: user.id,
-// 				type: "Archive",
-// 				color: "bg-muted",
-// 				title: `Listing archived`,
-// 				message: `Your listing has been archived. It’s no longer visible to renters but can be re-published later.`,
-// 			  },
-// 			});
-
-// 			revalidatePath("/notifications");
