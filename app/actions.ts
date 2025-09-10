@@ -8,6 +8,8 @@ import { revalidatePath } from "next/cache";
 import Mailjet from "node-mailjet";
 import { env } from "@/lib/env";
 import { accountCreationSuccess } from "@/lib/emails/account-creation-success";
+import { contactFormSchema, ContactFormSchemaType } from "@/lib/zodSchemas";
+import { contactAdmin } from "@/lib/emails/contact-admin";
 
 const mailjet = Mailjet.apiConnect(
   env.MAILJET_API_PUBLIC_KEY,
@@ -230,3 +232,54 @@ export const triggerUserCreationNotifications =
       return { status: "error", message: "Failed to create notification" };
     }
   };
+
+export const contactUs = async (
+  data: ContactFormSchemaType
+): Promise<ApiResponse> => {
+  try {
+    const validation = contactFormSchema.safeParse(data);
+
+    if (!validation.success)
+      return { status: "error", message: "Invalid data type" };
+
+    await prisma.contact.create({
+      data: {
+        ...validation.data,
+      },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: env.ADMIN_EMAIL_ADDRESS,
+              Name: "Leadsage Africa Admin",
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `New Contact Form Submission – Leadsage Africa`,
+          TextPart: `New Contact Form Submission – Leadsage Africa`,
+          HTMLPart: contactAdmin({
+            ...validation.data,
+          }),
+        },
+      ],
+    });
+
+    return {
+      status: "success",
+      message:
+        "Thanks for reaching out! Our team will get back to you within 24 hours.",
+    };
+  } catch (error) {
+    return { status: "error", message: " Failed to send message" };
+  }
+};

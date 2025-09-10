@@ -46,7 +46,7 @@ export function ShowcaseSearchForm() {
   }, [query, searchParams, router]);
 
   return (
-    <div className="relative w-full bg-white rounded-full pl-6 pr-2 py-1 mt-8">
+    <div className="relative w-full bg-white rounded-full pl-6 pr-2 py-1 mt-4 md:mt-8">
       <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
         {isLoading ? (
           <LoaderCircleIcon
@@ -60,7 +60,7 @@ export function ShowcaseSearchForm() {
         )}
       </div>
       <Input
-        className="border-0 text-black"
+        className="border-0 text-black h-8 md:h-11"
         placeholder="Search title, description..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}

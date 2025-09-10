@@ -10,12 +10,12 @@ import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur
 // export const Showcase = () => {
 //   return (
 //     <div
-//       className="text-white bg-scroll bg-no-repeat bg-cover bg-left min-h-[80vh] relative"
+//       className="text-white bg-scroll bg-no-repeat bg-cover bg-left md:min-h-[80vh] relative"
 //       style={{
 //         backgroundImage: `url(/assets/images/primary-bg.png)`,
 //       }}
 //     >
-//       <main className="container py-20 grid grid-cols-1 lg:grid-cols-5 gap-14">
+//       <main className="container py-10 md:py-20 grid grid-cols-1 lg:grid-cols-5 gap-14">
 //         <div className="col-span-3">
 //           <h1 className="font-medium text-4xl leading-snug md:text-5xl md:leading-snug">
 //             Find Your Perfect Home, Designed for You
@@ -56,14 +56,13 @@ import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur
 //           <ShowcaseBoxes />
 //         </div>
 //       </main>
-//       <PartneringCompanies />
 //     </div>
 //   );
 // };
 
 export const Showcase = () => {
   return (
-    <div className="min-h-[70vh] relative py-16 overflow-x-hidden">
+    <div className="md:min-h-[70vh] relative py-10 md:py-16 overflow-x-hidden">
       <video
         autoPlay
         loop
@@ -80,16 +79,16 @@ export const Showcase = () => {
       </video>
       <div className="grid container text-white z-20">
         <div className="z-20">
-          <main className="py-20 grid grid-cols-1 lg:grid-cols-5 gap-14">
+          <main className="md:py-20 grid grid-cols-1 lg:grid-cols-5 gap-14">
             <div className="col-span-3">
-              <h1 className="font-semibold text-4xl leading-snug md:text-5xl md:leading-snug">
+              <h1 className="font-semibold text-3xl sm:text-4xl leading-snug md:text-5xl md:leading-snug">
                 Find Your Perfect Home, Designed for You
               </h1>
               <ShowcaseSearchForm />
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                 {homeStats.map(({ number, title, suffix }, index) => (
                   <div key={index} className="grid gap-1">
-                    <h3 className="font-medium text-3xl lg:text-4xl">
+                    <h3 className="font-medium text-xl md:text-3xl lg:text-4xl">
                       <CountUp
                         start={0}
                         end={number}
@@ -98,7 +97,7 @@ export const Showcase = () => {
                         suffix={suffix}
                       />
                     </h3>
-                    <p className="text-sm lg:text-base">{title}</p>
+                    <p className="text-xs md:text-sm lg:text-base">{title}</p>
                   </div>
                 ))}
               </div>

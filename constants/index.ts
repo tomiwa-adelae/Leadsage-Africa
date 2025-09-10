@@ -69,16 +69,16 @@ export const homeStats = [
     suffix: "+",
     title: "listings",
   },
-  {
-    number: 3,
-    suffix: "+",
-    title: "Estates",
-  },
-  {
-    number: 10,
-    suffix: "+",
-    title: "Completed projects",
-  },
+  // {
+  //   number: 3,
+  //   suffix: "+",
+  //   title: "Estates",
+  // },
+  // {
+  //   number: 10,
+  //   suffix: "+",
+  //   title: "Completed projects",
+  // },
 ];
 
 export const navLinks = [
@@ -176,7 +176,7 @@ export const footerLinks = [
       },
       {
         title: "Contact",
-        href: "#",
+        href: "/contact",
       },
       {
         title: "Help",
@@ -1197,3 +1197,11 @@ export const ourTeamMembers = [
 ];
 
 export const DEFAULT_LIMIT = 10;
+
+export const subjects = [
+  "General Inquiry",
+  "Rental Support",
+  "Listing Support",
+  "Partnerships",
+  "Other",
+] as const;
