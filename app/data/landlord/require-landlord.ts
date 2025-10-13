@@ -4,13 +4,13 @@ import { redirect } from "next/navigation";
 import { cache } from "react";
 
 export const requireLandlord = cache(async () => {
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-	if (!session) return redirect("/login");
+  if (!session) return redirect("/login");
 
-	if (session.user.role !== "landlord") return redirect("/not-landlord");
+  if (session.user.role !== "landlord") return redirect("/not-landlord");
 
-	return session;
+  return session;
 });
