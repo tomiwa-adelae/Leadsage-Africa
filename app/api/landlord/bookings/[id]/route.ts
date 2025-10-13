@@ -1,13 +1,14 @@
 import { getLandlordBooking } from "@/app/data/landlord/get-landlord-booking";
 import { NextResponse } from "next/server";
 
-interface Params {
-  params: { id: string };
-}
-
-export async function GET(req: Request, { params }: Params) {
+export async function GET(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
-    const booking = await getLandlordBooking(params.id);
+    const { id } = await context.params; // ✅ Await params
+
+    const booking = await getLandlordBooking(id);
     return NextResponse.json(booking);
   } catch (error) {
     console.error("Error fetching landlord booking:", error);

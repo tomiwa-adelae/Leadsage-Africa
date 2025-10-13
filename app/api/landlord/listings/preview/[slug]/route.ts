@@ -1,13 +1,14 @@
 import { getLandlordListingPreview } from "@/app/data/landlord/get-landlord-listing-preview";
 import { NextResponse } from "next/server";
 
-interface Params {
-  params: { slug: string };
-}
-
-export async function GET(req: Request, { params }: Params) {
+export async function GET(
+  req: Request,
+  context: { params: Promise<{ slug: string }> }
+) {
   try {
-    const listing = await getLandlordListingPreview(params.slug);
+    const { slug } = await context.params; // ✅ Await params
+
+    const listing = await getLandlordListingPreview(slug);
     return NextResponse.json(listing);
   } catch (error) {
     console.error("Error fetching landlord listing preview:", error);
