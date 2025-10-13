@@ -257,10 +257,17 @@ model Category {
   description String?
   icon        String
 
+  status CategoryStatus @default(ACTIVE)
+
   listing Listing[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum CategoryStatus {
+  ACTIVE
+  INACTIVE
 }
 
 model Amenities {

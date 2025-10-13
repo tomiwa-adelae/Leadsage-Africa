@@ -2,24 +2,16 @@ import "server-only";
 import { requireAdmin } from "../require-admin";
 import { prisma } from "@/lib/db";
 
-export const getTotalUsers = async ({
-  query,
-  page = 1,
-  limit,
-}: Params = {}) => {
+export const getAdmins = async ({ query, page = 1, limit }: Params = {}) => {
   await requireAdmin();
-
-  // Only apply pagination if limit is provided and greater than 0
   const shouldPaginate = limit && limit > 0;
   const skip = shouldPaginate ? (page - 1) * limit : undefined;
   const take = shouldPaginate ? limit : undefined;
 
-  const [users, totalCount] = await Promise.all([
+  const [admins, totalCount] = await Promise.all([
     prisma.user.findMany({
       where: {
-        role: {
-          not: "admin",
-        },
+        role: "admin",
         ...(query
           ? {
               OR: [
@@ -50,9 +42,9 @@ export const getTotalUsers = async ({
         name: true,
         email: true,
         emailVerified: true,
-        image: true,
         role: true,
         address: true,
+        image: true,
         bio: true,
         country: true,
         state: true,
@@ -91,7 +83,7 @@ export const getTotalUsers = async ({
   ]);
 
   return {
-    users,
+    admins,
     pagination: {
       total: totalCount,
       page: shouldPaginate ? page : 1,
@@ -101,6 +93,4 @@ export const getTotalUsers = async ({
   };
 };
 
-export type GetTotalUsersType = Awaited<
-  ReturnType<typeof getTotalUsers>
->["users"][0];
+export type GetAdminsType = Awaited<ReturnType<typeof getAdmins>>["admins"][0];

@@ -38,7 +38,7 @@ const page = async ({ searchParams }: Props) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <h1 className="text-3xl md:text-4xl font-semibold">
-          All Leases & Agreementsss
+          All Leases & Agreement
         </h1>
         <p className="text-muted-foreground text-base mt-2.5">
           View and manage all leases & agreements

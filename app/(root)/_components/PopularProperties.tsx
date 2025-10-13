@@ -16,6 +16,8 @@ export const PopularProperties = async () => {
     userId: session?.user.id,
   });
 
+  // console.log(listings);
+
   return (
     <div className="container">
       <div className="space-y-2">

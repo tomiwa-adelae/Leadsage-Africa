@@ -29,18 +29,18 @@ export const Header = async () => {
             </Link>
           ))}
         </nav> */}
-        <div className="flex items-center justify-end gap-4">
+        <div className="flex items-center justify-end gap-2">
           <div className="flex items-center justify-end gap-2">
             <SearchButton />
           </div>
-          <div className="hidden md:flex items-center justify-end gap-4">
+          <div className="hidden md:flex items-center justify-end gap-2">
             <ThemeToggle />
             {!session?.user && (
               <>
                 <Button asChild variant="ghost">
                   <Link href={"/register"}>Become a landlord</Link>
                 </Button>
-                <Button asChild variant="ghost">
+                <Button asChild variant="outline">
                   <Link href={"/login"}>Sign in</Link>
                 </Button>
               </>

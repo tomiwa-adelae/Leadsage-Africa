@@ -51,48 +51,6 @@ const testimonials: Testimonial[] = [
     quote:
       "I absolutely love Tailus! The component blocks are beautifully designed and easy to use, which makes creating a great-looking website a breeze.",
   },
-  {
-    name: "Zeki",
-    role: "Founder of ChatExtend",
-    image: "https://randomuser.me/api/portraits/men/5.jpg",
-    quote:
-      "Using TailsUI has been like unlocking a secret design superpower. It's the perfect fusion of simplicity and versatility, enabling us to create UIs that are as stunning as they are user-friendly.",
-  },
-  {
-    name: "Joseph Kitheka",
-    role: "Fullstack Developer",
-    image: "https://randomuser.me/api/portraits/men/9.jpg",
-    quote:
-      "Tailus has transformed the way I develop web applications. Their extensive collection of UI components, blocks, and templates has significantly accelerated my workflow. The flexibility to customize every aspect allows me to create unique user experiences. Tailus is a game-changer for modern web development!",
-  },
-  {
-    name: "Khatab Wedaa",
-    role: "MerakiUI Creator",
-    image: "https://randomuser.me/api/portraits/men/10.jpg",
-    quote:
-      "Tailus is an elegant, clean, and responsive tailwind css components it's very helpful to start fast with your project.",
-  },
-  {
-    name: "Rodrigo Aguilar",
-    role: "TailwindAwesome Creator",
-    image: "https://randomuser.me/api/portraits/men/11.jpg",
-    quote:
-      "I love Tailus ❤️. The component blocks are well-structured, simple to use, and beautifully designed. It makes it really easy to have a good-looking website in no time.",
-  },
-  {
-    name: "Eric Ampire",
-    role: "Mobile Engineer at @BRPNews • @GoogleDevExpert for Android",
-    image: "https://randomuser.me/api/portraits/men/12.jpg",
-    quote:
-      "Tailus templates are the perfect solution for anyone who wants to create a beautiful and functional website without any web design experience. The templates are easy to use, customizable, and responsive, and the support team is always available to help. I highly recommend Tailus templates to anyone who is looking to create a website.",
-  },
-  {
-    name: "Roland Tubonge",
-    role: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/13.jpg",
-    quote:
-      "Tailus is so well designed that even with a very poor knowledge of web design you can do miracles. Let yourself be seduced!",
-  },
 ];
 
 const chunkArray = (

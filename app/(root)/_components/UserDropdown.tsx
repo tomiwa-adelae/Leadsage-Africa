@@ -32,7 +32,11 @@ export function UserDropdown({ image, name, email, role }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="hover:bg-transparent">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="ml-4 hover:bg-transparent"
+        >
           <Avatar>
             <AvatarImage src={image} alt={`${name}'s picture`} />
             <AvatarFallback>{name[0].toUpperCase()}</AvatarFallback>

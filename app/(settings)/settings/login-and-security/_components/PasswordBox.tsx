@@ -104,7 +104,7 @@ export const PasswordBox = ({
     startTransition(async () => {
       if (hashPassword) {
         if (!data.oldPassword) {
-          toast.error("Please enter your old password");
+          toast.error("Please enter your current password");
           return;
         }
 

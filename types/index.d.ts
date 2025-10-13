@@ -13,4 +13,5 @@ declare interface Params {
   query?: string;
   page?: number;
   limit?: number;
+  userId?: string;
 }

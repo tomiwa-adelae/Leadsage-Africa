@@ -48,6 +48,7 @@ import {
   IconCurrencyNaira,
   IconFolder,
   IconFolderCheck,
+  IconLayout,
   IconLineScan,
   IconMoneybag,
   IconReceipt,
@@ -547,8 +548,8 @@ export const adminNavLinks = {
           icon: IconUsers,
         },
         {
-          title: "Customers",
-          slug: "/admin/users/customers",
+          title: "Renters",
+          slug: "/admin/users/renters",
           icon: IconUsers,
         },
       ],
@@ -731,15 +732,20 @@ export const adminNavLinks = {
       ],
     },
     {
-      title: "Notifications",
-      slug: "/admin/notifications",
+      title: "Categories",
+      slug: "/admin/categories",
+      icon: IconLayout,
+    },
+    {
+      title: "Recent Activities",
+      slug: "/admin/recent-activities",
       icon: Bell,
     },
   ],
   navSecondary: [
     {
       title: "Settings",
-      slug: "/landlord/settings",
+      slug: "/admin/settings",
       icon: Settings,
     },
     {

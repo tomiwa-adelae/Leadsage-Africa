@@ -235,8 +235,8 @@ const page = async ({ params }: { params: Params }) => {
                         }
                       />
                     ) : (
-                      <Button className="w-full" size="md">
-                        Login
+                      <Button asChild className="w-full" size="md">
+                        <Link href={"/login"}>Login</Link>
                       </Button>
                     )}
                   </div>
@@ -281,8 +281,8 @@ const page = async ({ params }: { params: Params }) => {
           <div>
             <h3 className="font-medium text-lg">Where you'll be</h3>
             <p className="text-muted-foreground text-base mt-1.5">
-              {listing.address}, {listing.city}, {listing.state},{" "}
-              {listing.country}
+              {/* {listing.address}, */}
+              {listing.city}, {listing.state}, {listing.country}
             </p>
             <ListingMap />
           </div>

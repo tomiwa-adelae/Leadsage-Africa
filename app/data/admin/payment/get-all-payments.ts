@@ -2,12 +2,6 @@ import "server-only";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "../require-admin";
 
-interface Params {
-  query?: string;
-  page?: number;
-  limit?: number;
-}
-
 export const getAllPayments = async ({
   query,
   page = 1,

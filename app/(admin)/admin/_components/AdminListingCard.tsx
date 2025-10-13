@@ -15,9 +15,10 @@ import {
   IconRestore,
   IconTrash,
 } from "@tabler/icons-react";
+import { GetUserListingsType } from "@/app/data/admin/user/get-user-listings";
 
 interface Props {
-  listing: GetTotalListingsType;
+  listing: GetTotalListingsType | GetUserListingsType;
 }
 
 export const AdminListingCard = ({ listing }: Props) => {

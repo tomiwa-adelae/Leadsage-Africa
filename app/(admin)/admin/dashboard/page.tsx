@@ -41,7 +41,7 @@ const page = async () => {
       />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-6">
         <DashboardCards
-          users={totalUsers.length}
+          users={totalUsers.users.length}
           listings={totalListings.listings.length}
           bookings={totalBookings.bookings.length}
         />

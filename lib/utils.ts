@@ -274,3 +274,26 @@ export function timeAgoShort(date: Date): string {
   const years = Math.floor(days / 365);
   return `${years}yr${years !== 1 ? "s" : ""} ago`;
 }
+
+export const formattedStatus: Record<string, string> = {
+  PENDING: "Pending",
+  FAILED: "Failed",
+  REFUNDED: "Refunded",
+  SUCCESS: "Success",
+  APPROVED: "Approved",
+  REJECTED: "Rejected",
+  ACTIVE: "Active",
+  INACTIVE: "Active",
+  EXPIRED: "Expired",
+  CANCELED: "Canceled",
+  MONTHLY: "Monthly",
+  ANNUALLY: "Yearly",
+  DRAFT: "Draft",
+  PUBLISHED: "Published",
+  DELETED: "Deleted",
+  ARCHIVED: "Archived",
+  PAID: "Paid",
+  CREDIT: "Credit",
+  PROCESSING: "Processing",
+  DEBIT: "Debit",
+};
