@@ -149,7 +149,7 @@ export const listingPriceFormSchema = z.object({
       message: "Price must be at least 1000 naira.",
     })
     .regex(/^\d{1,3}(,\d{3})*(\.\d{1,2})?$/, "Invalid price format"),
-  paymentFrequency: z.enum(["Monthly", "Yearly"], {
+  paymentFrequency: z.enum(["Monthly", "Yearly", "Daily"], {
     message: "Please select the frequency",
   }),
   securityDeposit: z.string().optional(),

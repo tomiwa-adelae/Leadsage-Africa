@@ -8,6 +8,7 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { CategoriesTable } from "../_components/CategoriesTable";
 import { EmptyState } from "@/components/EmptyState";
 import { Pagination } from "@/components/Pagination";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Categories - Admin | Leadsage",
@@ -39,15 +40,17 @@ const page = async ({ searchParams }: Props) => {
               Manage property categories on Leadsage.
             </p>
           </div>
-          <Button className="w-full md:w-auto" size="md">
-            <IconPlus />
-            Add Category
+          <Button asChild className="w-full md:w-auto" size="md">
+            <Link href="/admin/categories/new">
+              <IconPlus />
+              Add Category
+            </Link>
           </Button>
         </div>
         <div className="mt-4 space-y-6">
           <Searchbar
             search={query}
-            placeholder="Search by name, booking ID..."
+            placeholder="Search by name, descriptions..."
           />
           {paginatedCategories.categories.length === 0 && (
             <EmptyState

@@ -52,6 +52,8 @@ model User {
   lease           Lease[]
   payment         Payment[]
 
+  shortlets ShortletBooking[]
+
   onboardingCompleted Boolean? @default(false)
 
   role       String?
@@ -161,6 +163,7 @@ model Listing {
   savedListing        SavedListing[]
   application         Application[]
   Lease               Lease[]
+  shortlets           ShortletBooking[]
 
   @@unique([slug, userId])
   @@unique([listingId])
@@ -554,4 +557,31 @@ model Contact {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ShortletBooking {
+  id String @id @default(uuid())
+
+  checkInDate  DateTime
+  checkOutDate DateTime
+  totalPrice   String
+  status       ShortletBookingStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userId], references: [id])
+  userId    String
+  Listing   Listing  @relation(fields: [listingId], references: [id])
+  listingId String
+
+  transactionId String?
+  trxref        String?
+}
+
+enum ShortletBookingStatus {
+  PENDING // Created but not yet paid
+  CHECKED_IN // Payment successful
+  CHECKED_OUT // Attempt failed
+  CONFIRMED // Payment refunded
+  CANCELLED // Cancelled by user/admin
 }

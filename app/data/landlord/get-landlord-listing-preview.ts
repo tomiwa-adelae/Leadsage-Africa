@@ -8,7 +8,7 @@ export const getLandlordListingPreview = async (slug: string) => {
 
   const data = await prisma.listing.findFirst({
     where: {
-      OR: [{ slug: slug }, { id: slug }, { userId: user.id }],
+      slug,
     },
     select: {
       id: true,

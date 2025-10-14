@@ -105,31 +105,16 @@ export function CategoryForm({ category }: Props) {
             name="icon"
             render={({ field }) => (
               <FormItem>
-                <FormControl className="flex items-center justify-center">
-                  <div>
-                    <div className="py-4 container bg-white flex items-center justify-center dark:bg-black">
-                      <h5 className="flex-1 text-center font-semibold text-lg">
-                        Upload profile picture
-                      </h5>
+                <FormControl>
+                  <div className="flex flex-col w-full justify-center">
+                    <FormLabel>Upload icon</FormLabel>
+                    <div className="w-full pt-4">
+                      <Uploader
+                        onChange={(value) => field.onChange(value)}
+                        value={field.value}
+                        fileTypeAccepted="image"
+                      />
                     </div>
-                    <div className="bg-muted py-8">
-                      <div className="container">
-                        <Uploader
-                          onChange={(value) => field.onChange(value)}
-                          value={field.value}
-                          fileTypeAccepted="image"
-                        />
-                      </div>
-                    </div>
-                    {/* <footer className="container py-4 bg-white dark:bg-dark flex items-center justify-end">
-                      <Button disabled={pending} onClick={onSubmit}>
-                        {pending ? (
-                          <Loader text="Saving..." />
-                        ) : (
-                          "Use this photo"
-                        )}
-                      </Button>
-                    </footer> */}
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -152,7 +137,7 @@ export function CategoryForm({ category }: Props) {
               className="w-full"
               size="md"
             >
-              {pending ? <Loader text={"Creating=..."} /> : "Create"}
+              {pending ? <Loader text={"Creating..."} /> : "Create"}
             </Button>
           </div>
         </form>

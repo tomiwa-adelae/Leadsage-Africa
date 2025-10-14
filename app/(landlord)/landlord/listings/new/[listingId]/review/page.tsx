@@ -14,6 +14,7 @@ import { PublishButton } from "./_components/PublishButton";
 import { AmenityBox } from "@/components/AmenityBox";
 import { NairaIcon } from "@/components/NairaIcon";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
+import { useConstructUrl } from "@/hooks/use-construct-url";
 
 type Params = Promise<{
   listingId: string;
@@ -23,6 +24,8 @@ const page = async ({ params }: { params: Params }) => {
   const { listingId } = await params;
 
   const listing: GetLandlordListingType = await getLandlordListing(listingId);
+
+  const categoryIcon = useConstructUrl(listing.Category.icon);
 
   return (
     <div>
@@ -87,7 +90,7 @@ const page = async ({ params }: { params: Params }) => {
             <div className="space-y-2 flex items-center justify-start gap-2 mt-2.5">
               <div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
                 <Image
-                  src={listing.Category.icon}
+                  src={categoryIcon}
                   alt={`${listing.Category.name}'s picture`}
                   width={1000}
                   height={1000}

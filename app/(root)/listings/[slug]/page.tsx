@@ -18,7 +18,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { BookingButton } from "./_components/BookingButton";
+import { BookingDetails } from "./_components/BookingDetails";
 import { ListingMap } from "@/components/ListingMap";
 import { getExistingBooking } from "@/app/data/booking/get-existing-booking";
 import { Metadata, ResolvingMetadata } from "next";
@@ -77,8 +77,7 @@ const page = async ({ params }: { params: Params }) => {
                 <p className="mt-1.5 text-muted-foreground text-base">
                   <MapPin className="size-5 inline-block mr-1" />
                   <span>
-                    {listing.address}, {listing.city}, {listing.state},{" "}
-                    {listing.country}
+                    {listing.city}, {listing.state}, {listing.country}
                   </span>
                 </p>
               </div>
@@ -164,101 +163,13 @@ const page = async ({ params }: { params: Params }) => {
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-2 ">
-              <Card className="py-0 gap-0 sticky top-25">
-                <CardContent className="py-8">
-                  <div className="space-y-1.5">
-                    <p className="text-muted-foreground text-sm">Rent price</p>
-                    <h2 className="font-semibold text-3xl">
-                      <NairaIcon />
-                      {listing.price}
-                      <span className="text-sm">
-                        /{listing.paymentFrequency}
-                      </span>
-                    </h2>
-                  </div>
-                  <div className="mt-4 text-base space-y-4">
-                    <p className="flex items-center justify-between gap-4">
-                      <span className="text-muted-foreground">Rent</span>
-                      <span>
-                        <NairaIcon />
-                        {listing.price}
-                      </span>
-                    </p>
-                    <p className="flex items-center justify-between gap-4">
-                      <span className="text-muted-foreground">
-                        Security deposit
-                      </span>
-                      <span>
-                        <NairaIcon />
-                        {listing.securityDeposit}
-                      </span>
-                    </p>
-                    <p className="flex items-center justify-between gap-4">
-                      <span className="text-muted-foreground">
-                        One-time legal fee
-                      </span>
-                      <span>
-                        <NairaIcon />
-                        0.00
-                      </span>
-                    </p>
-                    <p className="flex items-center justify-between gap-4">
-                      <span className="text-muted-foreground">
-                        One-time agency fee
-                      </span>
-                      <span>
-                        <NairaIcon />
-                        0.00
-                      </span>
-                    </p>
-                  </div>
-                  <Separator className="my-4" />
-                  <p className="flex font-medium items-center justify-between gap-4 text-lg">
-                    <span className="text-muted-foreground">Total</span>
-                    <span>
-                      <NairaIcon />
-                      {formatMoneyInput(
-                        Number(removeCommas(listing.price)) +
-                          Number(removeCommas(listing.securityDeposit))
-                      )}
-                    </span>
-                  </p>
-                  <div className="mt-4 space-y-4">
-                    {session ? (
-                      <BookingButton
-                        listingId={listing.id}
-                        slug={slug}
-                        hasBooked={
-                          booking?.status === "Pending" ||
-                          booking?.status === "Confirmed"
-                        }
-                      />
-                    ) : (
-                      <Button asChild className="w-full" size="md">
-                        <Link href={"/login"}>Login</Link>
-                      </Button>
-                    )}
-                  </div>
-                  {!session && (
-                    <div className="mt-6 space-y-2.5">
-                      <p className="text-muted-foreground text-sm text-center text-balance">
-                        You need to login to place a book a listing
-                      </p>
-                      <p className="text-muted-foreground text-sm text-center text-balance">
-                        Don't have an account?{" "}
-                        <Link
-                          className="text-primary hover:underline"
-                          href="/register"
-                        >
-                          Create an account on Leadsage Africa
-                        </Link>
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
+            <BookingDetails
+              session={session}
+              hasBooked={
+                booking?.status === "Pending" || booking?.status === "Confirmed"
+              }
+              listing={listing}
+            />
           </div>
           {/* <Separator className="my-8" />
           <div>

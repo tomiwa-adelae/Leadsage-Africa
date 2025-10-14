@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader } from "@/components/Loader";
 import { GetCategoriesType } from "@/app/data/landlord/get-categories";
+import { useConstructUrl } from "@/hooks/use-construct-url";
 
 interface Props {
   categories: GetCategoriesType[];
@@ -51,32 +52,35 @@ export const CategoryForm = ({ categories, categoryId, listingId }: Props) => {
   return (
     <>
       <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-3">
-        {categories.map(({ icon, name, description, id }) => (
-          <Card
-            key={id}
-            className={cn(
-              "cursor-pointer border-2 hover:bg-muted transition-all",
-              selectedCategory === id && "border-primary bg-muted"
-            )}
-            onClick={() => setSelectedCategory(id)}
-          >
-            <CardContent className="space-y-2">
-              <div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
-                <Image
-                  src={icon}
-                  alt={name}
-                  width={1000}
-                  height={1000}
-                  className="size-6 dark:invert"
-                />
-              </div>
-              <div>
-                <h5 className="font-medium text-lg">{name}</h5>
-                <p className="text-muted-foreground text-sm">{description}</p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+        {categories.map(({ icon, name, description, id }) => {
+          const photoUrl = useConstructUrl(icon);
+          return (
+            <Card
+              key={id}
+              className={cn(
+                "cursor-pointer border-2 hover:bg-muted transition-all",
+                selectedCategory === id && "border-primary bg-muted"
+              )}
+              onClick={() => setSelectedCategory(id)}
+            >
+              <CardContent className="space-y-2">
+                <div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
+                  <Image
+                    src={photoUrl}
+                    alt={name}
+                    width={1000}
+                    height={1000}
+                    className="size-6 dark:invert"
+                  />
+                </div>
+                <div>
+                  <h5 className="font-medium text-lg">{name}</h5>
+                  <p className="text-muted-foreground text-sm">{description}</p>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
       <div className="grid grid-cols-2 gap-4 mt-8">
         <Button size="md" asChild variant={"outline"} className="w-full">

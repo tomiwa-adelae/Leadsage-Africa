@@ -16,6 +16,9 @@ import {
 } from "@/lib/utils";
 import { bookATourLandlord } from "@/lib/emails/book-a-tour-landlord";
 import { bookATourAdmin } from "@/lib/emails/book-a-tour-admin";
+import { User } from "lucide-react";
+import { ApiResponse } from "@/lib/types";
+import { shortletBookedUser } from "@/lib/emails/shortlet-booked-user";
 
 const mailjet = Mailjet.apiConnect(
   env.MAILJET_API_PUBLIC_KEY,
@@ -641,3 +644,119 @@ export async function cancelBooking(bookingId: string) {
     };
   }
 }
+
+export const reserveShortlet = async ({
+  checkInDate,
+  checkOutDate,
+  totalPrice,
+  listingId,
+}: {
+  totalPrice: string;
+  checkInDate: string;
+  checkOutDate: string;
+  listingId: string;
+}) => {
+  const { user } = await requireUser();
+  try {
+    const shortlet = await prisma.shortletBooking.create({
+      data: {
+        checkInDate,
+        checkOutDate,
+        totalPrice,
+        userId: user.id,
+        listingId,
+      },
+    });
+
+    return {
+      status: "success",
+      message: "Shortlet reserved already. Proceed to payment",
+      shortlet: shortlet,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Failed to cancel reserve shortlet. Please try again.",
+    };
+  }
+};
+
+export const verifyShortletPayment = async ({
+  shortletId,
+  transactionId,
+  trxref,
+}: {
+  trxref: string;
+  totalPrice: string;
+  transactionId: string;
+  shortletId: string;
+}) => {
+  const { user } = await requireUser();
+  try {
+    const shortlet = await prisma.shortletBooking.update({
+      where: {
+        id: shortletId,
+      },
+      data: {
+        status: "CONFIRMED",
+        transactionId,
+        trxref,
+      },
+      select: {
+        User: { select: { name: true, email: true } },
+        checkInDate: true,
+        checkOutDate: true,
+        totalPrice: true,
+        id: true,
+        Listing: {
+          select: {
+            title: true,
+          },
+        },
+      },
+    });
+
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: shortlet.User.email,
+              Name: shortlet.User.name,
+            },
+          ],
+          ReplyTo: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Support",
+          },
+          Subject: `Leadsage Africa – Shortlet confirmed`,
+          TextPart: `Leadsage Africa – Shortlet confirmed`,
+          HTMLPart: shortletBookedUser({
+            userName: shortlet.User.name,
+            property: shortlet.Listing.title,
+            startDate: formatDate(shortlet.checkInDate),
+            endDate: formatDate(shortlet.checkOutDate),
+            totalPrice: shortlet.totalPrice,
+            id: shortlet.id,
+          }),
+        },
+      ],
+    });
+
+    return {
+      status: "success",
+      message: "Shortlet confirmed.",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Failed to cancel reserve shortlet. Please try again.",
+    };
+  }
+};
