@@ -13,14 +13,6 @@ Leadsage Africa allows:
 - **Landlords** to manage listings, track bookings, review tenant applications, and handle leases.
 - **Admins** to approve listings, monitor platform activity, and manage compliance and payments.
 
-Designed for scalability, the system is split across **three applications**:
-
-- 🌍 **Renter App** → `leadsage.com`
-- 🏠 **Landlord Portal** → `landlord.leadsage.com`
-- ⚙️ **Admin Dashboard** → `admin.leadsage.com`
-
-Each operates independently but shares a unified backend, authentication, and design system.
-
 ---
 
 ## ✨ Key Features

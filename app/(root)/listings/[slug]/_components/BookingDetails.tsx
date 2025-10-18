@@ -263,7 +263,7 @@ export const BookingDetails = ({
                 toast.loading("Saving payment...");
                 const { data, error } = await tryCatch(
                   verifyShortletPayment({
-                    shortletId: result?.shortlet.id,
+                    shortletId: result?.shortlet?.id!,
                     totalPrice: totalPrice.toString(),
                     trxref: reference.trxref,
                     transactionId: reference.transaction,
@@ -279,7 +279,8 @@ export const BookingDetails = ({
                   toast.success(data.message);
                   triggerConfetti();
                   router.push(
-                    `/listings/${listing.slug}/success?shortlet=true`
+                    `/listings/${listing.slug}/success?shortlet=true&id=${result
+                      ?.shortlet?.id!}`
                   );
                 } else {
                   toast.error(result.message);

@@ -658,6 +658,26 @@ export const reserveShortlet = async ({
 }) => {
   const { user } = await requireUser();
   try {
+    const year = new Date().getFullYear();
+    let suffix = generateSuffix();
+    let shortletID = `SH-${year}-${suffix}`;
+
+    let existing = await prisma.shortletBooking.findUnique({
+      where: {
+        shortletID,
+      },
+    });
+
+    while (existing) {
+      suffix = generateSuffix();
+      shortletID = `BK-${year}-${suffix}`;
+      existing = await prisma.shortletBooking.findUnique({
+        where: {
+          shortletID,
+        },
+      });
+    }
+
     const shortlet = await prisma.shortletBooking.create({
       data: {
         checkInDate,
@@ -665,6 +685,7 @@ export const reserveShortlet = async ({
         totalPrice,
         userId: user.id,
         listingId,
+        shortletID,
       },
     });
 
@@ -712,9 +733,15 @@ export const verifyShortletPayment = async ({
         Listing: {
           select: {
             title: true,
+            id: true,
           },
         },
       },
+    });
+
+    await prisma.listing.update({
+      where: { id: shortlet.Listing.id },
+      data: { status: "Archived" },
     });
 
     await mailjet.post("send", { version: "v3.1" }).request({
