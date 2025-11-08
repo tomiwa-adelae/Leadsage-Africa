@@ -19,8 +19,6 @@ const page = async ({ searchParams }: Props) => {
     shortletDetails = await getShortletDetails(id);
   }
 
-  console.log(shortlet);
-
   if (shortlet && shortletDetails)
     return (
       <div className="container py-16 text-center max-w-2xl mx-auto">

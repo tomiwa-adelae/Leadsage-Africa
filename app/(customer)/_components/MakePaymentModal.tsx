@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import RestoreAnimation from "@/public/assets/animations/payment.json";
-import { useRef, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { Loader } from "@/components/Loader";
 import { tryCatch } from "@/hooks/use-try-catch";
 import { toast } from "sonner";
@@ -38,19 +38,21 @@ export function MakePaymentModal({
 }) {
   const router = useRouter();
   const animationRef = useRef<LottieRefCurrentProps>(null);
+  const { triggerConfetti } = useConfetti();
 
+  const [gateway, setGateway] = useState<"paystack" | "interswitch">(
+    "paystack"
+  );
   const [pending, startTransition] = useTransition();
 
   const amount =
-    (Number(removeCommas(lease.Listing.price)) +
-      Number(removeCommas(lease.Listing.securityDeposit))) *
-    100;
+    Number(removeCommas(lease.Listing.price)) +
+    Number(removeCommas(lease.Listing.securityDeposit));
 
-  const config = {
+  const paystackConfig = {
     reference: new Date().getTime().toString(),
     email: user.email,
-    // amount: Number(removeCommas(lease.Listing.price)) * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    amount, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: amount * 100, // convert to kobo
     publicKey: env.NEXT_PUBLIC_PS_PUBLIC_KEY,
     metadata: {
       name: user.name,
@@ -68,51 +70,134 @@ export function MakePaymentModal({
       ],
     },
   };
-  const initializePayment = usePaystackPayment(config);
-  const { triggerConfetti } = useConfetti();
+
+  const initializePayment = usePaystackPayment(paystackConfig);
+
+  const handleSuccess = (reference: any) => {
+    startTransition(async () => {
+      toast.loading("Saving payment...");
+      const { data: result, error } = await tryCatch(
+        markLeaseAsPaid(
+          lease.id,
+          formatMoneyInput(amount),
+          reference.trxref,
+          reference.transaction,
+          reference.reference,
+          reference.status === "success" ? "SUCCESS" : "FAILED",
+          "Online Payment"
+        )
+      );
+
+      toast.dismiss();
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      if (result.status === "success") {
+        toast.success(result.message);
+        triggerConfetti();
+        router.push(
+          `/leases/${lease.leaseId}/payments/success?id=${result?.payment?.id}`
+        );
+      } else {
+        toast.error(result.message);
+      }
+    });
+  };
 
   const handlePayment = () => {
     closeModal();
-    initializePayment({
-      onSuccess: (reference) => {
-        startTransition(async () => {
-          toast.loading("Saving payment...");
-          const { data: result, error } = await tryCatch(
-            markLeaseAsPaid(
-              lease.id,
-              formatMoneyInput(
-                Number(removeCommas(lease.Listing.price)) +
-                  Number(removeCommas(lease.Listing.securityDeposit))
-              ),
-              reference.trxref,
-              reference.transaction,
-              reference.reference,
-              reference.status === "success" ? "SUCCESS" : "FAILED",
-              "Online Payment"
-            )
-          );
 
-          if (error) {
-            toast.error(error.message);
-            return;
-          }
+    if (gateway === "paystack") {
+      initializePayment({
+        onSuccess: handleSuccess,
+        onClose: () => console.log("Paystack closed"),
+      });
+    }
 
-          if (result.status === "success") {
-            toast.success(result.message);
-            triggerConfetti();
-            router.push(
-              `/leases/${lease.leaseId}/payments/success?id=${result?.payment?.id}`
-            );
-          } else {
-            toast.error(result.message);
-          }
-          toast.dismiss();
-        });
-      },
-      onClose: (error) => {
-        console.log(error);
-      },
+    if (gateway === "interswitch") {
+      closeModal();
+      startTransition(async () => {
+        await handleInterswitchPayment();
+      });
+    }
+  };
+
+  const handleInterswitchPayment = async () => {
+    toast.loading("Connecting to Interswitch...");
+
+    const res = await fetch("/api/payments/interswitch/initiate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        leaseId: lease.id,
+        amount,
+      }),
     });
+
+    toast.dismiss();
+
+    const data = await res.json();
+    if (!data?.params) {
+      toast.error("Failed to start Interswitch test payment");
+      return;
+    }
+
+    // Load inline checkout script dynamically
+    const script = document.createElement("script");
+    script.src = "https://newwebpay.qa.interswitchng.com/inline-checkout.js";
+    script.onload = () => {
+      const paymentRequest = {
+        ...data.params,
+        onComplete: async (response: any) => {
+          toast.loading("Saving payment...");
+
+          // Only consider successful payments
+          if (response.resp === "00") {
+            const { data: result, error } = await tryCatch(
+              markLeaseAsPaid(
+                lease.id,
+                formatMoneyInput(amount),
+                response.txnref, // txn reference from Interswitch
+                response.payRef, // payRef
+                response.retRef, // retRef
+                "SUCCESS", // status
+                "Online Payment" // method
+              )
+            );
+
+            toast.dismiss();
+
+            if (error) {
+              toast.error(error.message);
+              router.push(`/leases/payment-failed?ref=${response.txnref}`);
+              return;
+            }
+
+            if (result.status === "success") {
+              toast.success(result.message);
+              triggerConfetti();
+              router.push(
+                `/leases/${lease.leaseId}/payments/success?id=${result?.payment?.id}`
+              );
+            } else {
+              toast.error(result.message);
+              router.push(`/leases/payment-failed?ref=${response.txnref}`);
+            }
+          } else {
+            toast.dismiss();
+            toast.error(response.desc || "Payment failed");
+            router.push(`/leases/payment-failed?ref=${response.txnref}`);
+          }
+        },
+      };
+
+      // @ts-ignore
+      window.webpayCheckout(paymentRequest);
+    };
+    document.body.appendChild(script);
   };
 
   return (
@@ -131,42 +216,52 @@ export function MakePaymentModal({
             Landlord has signed the lease agreement
           </AlertDialogTitle>
           <AlertDialogDescription className="text-center">
-            Great news! Your landlord has signed the lease agreement for{" "}
+            Great news! Your landlord has signed the lease for{" "}
             {lease.Listing.address}, {lease.Listing.city}, {lease.Listing.state}
-            , {lease.Listing.country}. To complete your move-in process, please
-            make your first payment and confirm your move-in date.
+            . Please make your payment to complete the process.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div></div>
-        <AlertDialogFooter>
-          <AlertDialogCancel
-            onClick={(e) => {
-              e.preventDefault(); // stops the Link from navigating
-              e.stopPropagation();
-              closeModal();
-            }}
-            disabled={pending}
-          >
-            Cancel
-          </AlertDialogCancel>
-          <Button
-            size="md"
-            onClick={(e) => {
-              e.preventDefault(); // stops the Link from navigating
-              e.stopPropagation();
-              handlePayment();
-            }}
-            disabled={pending}
-          >
-            {pending ? (
-              <Loader text="Paying..." />
-            ) : (
-              `Pay now ₦${formatMoneyInput(
-                Number(removeCommas(lease.Listing.price)) +
-                  Number(removeCommas(lease.Listing.securityDeposit))
-              )}`
-            )}
-          </Button>
+
+        <AlertDialogFooter className="flex flex-col gap-2 sm:flex-row">
+          <div className="flex flex-col gap-2 w-full">
+            <AlertDialogCancel
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                closeModal();
+              }}
+              disabled={pending}
+            >
+              Cancel
+            </AlertDialogCancel>
+            <Button
+              variant={gateway === "paystack" ? "default" : "outline"}
+              onClick={() => {
+                setGateway("paystack");
+                handlePayment();
+              }}
+            >
+              Pay with Paystack
+            </Button>
+
+            <Button
+              variant={gateway === "interswitch" ? "default" : "outline"}
+              onClick={() => {
+                setGateway("interswitch");
+                handlePayment();
+              }}
+            >
+              Pay with Interswitch
+            </Button>
+
+            {/* <Button onClick={handlePayment} disabled={pending}>
+              {pending ? (
+                <Loader text="Processing..." />
+              ) : (
+                `Pay ₦${formatMoneyInput(amount)} via ${gateway}`
+              )}
+            </Button> */}
+          </div>
         </AlertDialogFooter>
       </AlertDialogContent>
       <Confetti />

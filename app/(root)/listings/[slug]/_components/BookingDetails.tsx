@@ -293,7 +293,6 @@ export const BookingDetails = ({
             },
           });
         } else {
-          console.log(result);
           toast.error(result.status || "Failed to book tour");
         }
       };

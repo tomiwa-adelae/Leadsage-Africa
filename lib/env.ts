@@ -21,6 +21,13 @@ export const env = createEnv({
     ADMIN_EMAIL_ADDRESS: z.string().min(1),
     SUPPORT_EMAIL_ADDRESS: z.string().min(1),
     PS_SECRET_KEY: z.string().min(1),
+    INTERSWITCH_SECRET_KEY: z.string().min(1),
+    INTERSWITCH_MERCHANT_CODE: z.string().min(1),
+    INTERSWITCH_REDIRECT_URL: z.string().min(1),
+    INTERSWITCH_BASE_URL: z.string().min(1),
+    INTERSWITCH_PAY_ITEM_ID: z.string().min(1),
+    INTERSWITCH_PRODUCT_ID: z.string().min(1),
+    NODE_ENV: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES: z.string().min(1),

@@ -695,7 +695,6 @@ export const reserveShortlet = async ({
       shortlet: shortlet,
     };
   } catch (error) {
-    console.log(error);
     return {
       status: "error",
       message: "Failed to cancel reserve shortlet. Please try again.",
@@ -780,7 +779,6 @@ export const verifyShortletPayment = async ({
       message: "Shortlet confirmed.",
     };
   } catch (error) {
-    console.log(error);
     return {
       status: "error",
       message: "Failed to cancel reserve shortlet. Please try again.",
