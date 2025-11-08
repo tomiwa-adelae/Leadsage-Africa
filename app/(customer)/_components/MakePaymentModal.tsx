@@ -238,7 +238,7 @@ export function MakePaymentModal({
               variant={gateway === "paystack" ? "default" : "outline"}
               onClick={() => {
                 setGateway("paystack");
-                handlePayment();
+                // handlePayment();
               }}
             >
               Pay with Paystack
@@ -248,19 +248,19 @@ export function MakePaymentModal({
               variant={gateway === "interswitch" ? "default" : "outline"}
               onClick={() => {
                 setGateway("interswitch");
-                handlePayment();
+                // handlePayment();
               }}
             >
               Pay with Interswitch
             </Button>
 
-            {/* <Button onClick={handlePayment} disabled={pending}>
+            <Button onClick={handlePayment} disabled={pending}>
               {pending ? (
                 <Loader text="Processing..." />
               ) : (
                 `Pay ₦${formatMoneyInput(amount)} via ${gateway}`
               )}
-            </Button> */}
+            </Button>
           </div>
         </AlertDialogFooter>
       </AlertDialogContent>
