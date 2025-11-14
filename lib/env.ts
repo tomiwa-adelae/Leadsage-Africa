@@ -27,6 +27,7 @@ export const env = createEnv({
     INTERSWITCH_BASE_URL: z.string().min(1),
     INTERSWITCH_PAY_ITEM_ID: z.string().min(1),
     INTERSWITCH_PRODUCT_ID: z.string().min(1),
+    ANCHOR_API_KEY: z.string().min(1),
     NODE_ENV: z.string().min(1),
   },
   client: {

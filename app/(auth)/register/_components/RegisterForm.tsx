@@ -25,6 +25,7 @@ import { authClient } from "@/lib/auth-client";
 import { Loader } from "@/components/Loader";
 import { useRouter } from "next/navigation";
 import { triggerUserCreationNotifications } from "@/app/actions";
+import axios from "axios";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -78,6 +79,25 @@ export function RegisterForm() {
   };
 
   function onSubmit(data: RegisterFormSchemaType) {
+    const options = {
+      method: "POST",
+      url: "https://api.sandbox.getanchor.co/api/v1/customers",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+      },
+      data: {
+        data: {
+          attributes: { address: { country: "NG", state: "KANO" } },
+        },
+      },
+    };
+
+    axios
+      .request(options)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
+
     startEmailTransition(async () => {
       await authClient.signUp.email({
         email: data.email,
