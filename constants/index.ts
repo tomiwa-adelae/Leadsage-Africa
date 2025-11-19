@@ -619,6 +619,11 @@ export const adminNavLinks = {
       ],
     },
     {
+      title: "Shortlet Bookings",
+      slug: "/admin/shortlets",
+      icon: IconCalendarCheck,
+    },
+    {
       title: "Applications",
       icon: IconFolderCheck,
       group: true,

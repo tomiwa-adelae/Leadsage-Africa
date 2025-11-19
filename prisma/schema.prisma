@@ -569,6 +569,20 @@ model ShortletBooking {
   totalPrice   String
   status       ShortletBookingStatus @default(PENDING)
 
+  // Admin confirmation workflow
+  confirmedByAdmin   Boolean   @default(false)
+  adminConfirmedAt   DateTime?
+  adminConfirmedById String?
+  rejectedByAdmin    Boolean   @default(false)
+  adminRejectedAt    DateTime?
+  adminRejectedById  String?
+  rejectionReason    String?
+
+  // Payment link token for secure access
+  paymentToken       String?   @unique
+  paymentTokenExpiry DateTime?
+  paymentCompletedAt DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User     @relation(fields: [userId], references: [id])
@@ -583,9 +597,12 @@ model ShortletBooking {
 }
 
 enum ShortletBookingStatus {
-  PENDING // Created but not yet paid
-  CHECKED_IN // Payment successful
-  CHECKED_OUT // Attempt failed
-  CONFIRMED // Payment refunded
+  PENDING // Awaiting admin confirmation
+  AWAITING_PAYMENT // Admin confirmed, awaiting payment
+  PAID // Payment successful
+  CHECKED_IN // Guest checked in
+  CHECKED_OUT // Guest checked out
+  CONFIRMED // Booking completed
+  REJECTED // Rejected by admin
   CANCELLED // Cancelled by user/admin
 }

@@ -257,43 +257,13 @@ export const BookingDetails = ({
 
         if (result.status === "success") {
           toast.success(result.message);
-          initializePayment({
-            onSuccess: (reference) => {
-              startTransition(async () => {
-                toast.loading("Saving payment...");
-                const { data, error } = await tryCatch(
-                  verifyShortletPayment({
-                    shortletId: result?.shortlet?.id!,
-                    totalPrice: totalPrice.toString(),
-                    trxref: reference.trxref,
-                    transactionId: reference.transaction,
-                  })
-                );
-
-                if (error) {
-                  toast.error(error.message);
-                  return;
-                }
-
-                if (data.status === "success") {
-                  toast.success(data.message);
-                  triggerConfetti();
-                  router.push(
-                    `/listings/${listing.slug}/success?shortlet=true&id=${result
-                      ?.shortlet?.id!}`
-                  );
-                } else {
-                  toast.error(result.message);
-                }
-                toast.dismiss();
-              });
-            },
-            onClose: (error) => {
-              console.log(error);
-            },
-          });
+          triggerConfetti();
+          // Redirect to success page without payment
+          router.push(
+            `/listings/${listing.slug}/success?shortlet=true&id=${result?.shortlet?.id!}&pending=true`
+          );
         } else {
-          toast.error(result.status || "Failed to book tour");
+          toast.error(result.message || "Failed to submit booking request");
         }
       };
 
@@ -582,9 +552,9 @@ export const BookingDetails = ({
                       disabled={pending}
                     >
                       {pending ? (
-                        <Loader text="Reserving..." />
+                        <Loader text="Submitting request..." />
                       ) : (
-                        "Confirm & Pay"
+                        "Submit Booking Request"
                       )}
                     </Button>
 

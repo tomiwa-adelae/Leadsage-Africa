@@ -670,12 +670,33 @@ export const reserveShortlet = async ({
 
     while (existing) {
       suffix = generateSuffix();
-      shortletID = `BK-${year}-${suffix}`;
+      shortletID = `SH-${year}-${suffix}`;
       existing = await prisma.shortletBooking.findUnique({
         where: {
           shortletID,
         },
       });
+    }
+
+    // Get listing details for email
+    const listing = await prisma.listing.findUnique({
+      where: { id: listingId },
+      select: {
+        title: true,
+        User: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    if (!listing) {
+      return {
+        status: "error",
+        message: "Listing not found",
+      };
     }
 
     const shortlet = await prisma.shortletBooking.create({
@@ -686,18 +707,111 @@ export const reserveShortlet = async ({
         userId: user.id,
         listingId,
         shortletID,
+        status: "PENDING", // Awaiting admin confirmation
       },
+    });
+
+    // Import email templates
+    const { shortletBookingPendingUser } = await import(
+      "@/lib/emails/shortlet-booking-pending-user"
+    );
+    const { shortletBookingAdminNotification } = await import(
+      "@/lib/emails/shortlet-booking-admin-notification"
+    );
+    const Mailjet = await import("node-mailjet");
+    const { env } = await import("@/lib/env");
+
+    const mailjet = Mailjet.default.apiConnect(
+      env.MAILJET_API_PUBLIC_KEY,
+      env.MAILJET_API_PRIVATE_KEY
+    );
+
+    const formattedCheckIn = new Date(checkInDate).toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    const formattedCheckOut = new Date(checkOutDate).toLocaleDateString(
+      "en-US",
+      {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }
+    );
+
+    // Send confirmation email to user
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: user.email,
+              Name: user.name,
+            },
+          ],
+          Subject: `Booking Request Received - ${listing.title}`,
+          TextPart: `Your shortlet booking request has been received`,
+          HTMLPart: shortletBookingPendingUser({
+            userName: user.name,
+            property: listing.title,
+            startDate: formattedCheckIn,
+            endDate: formattedCheckOut,
+            totalPrice: totalPrice,
+            shortletID: shortletID,
+          }),
+        },
+      ],
+    });
+
+    // Send notification email to admin
+    await mailjet.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: env.SENDER_EMAIL_ADDRESS,
+            Name: "Leadsage Africa",
+          },
+          To: [
+            {
+              Email: env.ADMIN_EMAIL_ADDRESS,
+              Name: "Leadsage Admin",
+            },
+          ],
+          Subject: `🔔 New Shortlet Booking Request - ${shortletID}`,
+          TextPart: `New shortlet booking request from ${user.name}`,
+          HTMLPart: shortletBookingAdminNotification({
+            userName: user.name,
+            userEmail: user.email,
+            userPhone: user.phoneNumber,
+            property: listing.title,
+            startDate: formattedCheckIn,
+            endDate: formattedCheckOut,
+            totalPrice: totalPrice,
+            shortletID: shortletID,
+            bookingId: shortlet.id,
+          }),
+        },
+      ],
     });
 
     return {
       status: "success",
-      message: "Shortlet reserved already. Proceed to payment",
+      message:
+        "Booking request submitted! We'll review availability and send you a payment link within 24 hours.",
       shortlet: shortlet,
     };
   } catch (error) {
+    console.error("Error reserving shortlet:", error);
     return {
       status: "error",
-      message: "Failed to cancel reserve shortlet. Please try again.",
+      message: "Failed to submit booking request. Please try again.",
     };
   }
 };
