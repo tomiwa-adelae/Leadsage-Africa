@@ -2,15 +2,12 @@ import { prisma } from "@/lib/db";
 import { notFound, redirect } from "next/navigation";
 import { PaymentInterface } from "./_components/PaymentInterface";
 
-interface PageProps {
-  searchParams: {
-    token?: string;
-    id?: string;
-  };
+interface Props {
+  searchParams: any;
 }
 
-export default async function ShortletPaymentPage({ searchParams }: PageProps) {
-  const { token, id } = searchParams;
+export default async function ShortletPaymentPage({ searchParams }: Props) {
+  const { token, id } = await searchParams;
 
   if (!token || !id) {
     notFound();
