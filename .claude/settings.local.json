@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npx prisma migrate dev:*)",
-      "Bash(npx prisma db push:*)"
+      "Bash(npx prisma db push:*)",
+      "Bash(pnpm run build:*)"
     ],
     "deny": [],
     "ask": []

@@ -3,11 +3,12 @@ import { notFound, redirect } from "next/navigation";
 import { PaymentInterface } from "./_components/PaymentInterface";
 
 interface Props {
-  searchParams: any;
+  searchParams: Promise<{ token?: string; id?: string }>;
 }
 
 export default async function ShortletPaymentPage({ searchParams }: Props) {
-  const { token, id } = await searchParams;
+  const params = await searchParams;
+  const { token, id } = params;
 
   if (!token || !id) {
     notFound();
