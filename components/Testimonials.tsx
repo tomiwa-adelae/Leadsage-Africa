@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
 type Testimonial = {
   name: string;
@@ -71,6 +72,57 @@ const testimonialChunks = chunkArray(
 
 export function Testimonials() {
   return (
+    // <section>
+    //   <div className="py-16">
+    //     <div className="container px-6">
+    //       <div className="text-center">
+    //         <h2 className="text-2xl md:text-3xl font-semibold">
+    //           What Our Customers Say
+    //         </h2>
+    //         <p className="text-muted-foreground text-base mt-2.5">
+    //           Thousands of renters, landlords, and agents trust Leadsage to find
+    //           or list their properties.
+    //         </p>
+    //       </div>
+    //       <div className="mt-8 grid gap-3 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">
+    //         {testimonialChunks.map((chunk, chunkIndex) => (
+    //           <div key={chunkIndex} className="space-y-3">
+    //             {chunk.map(({ name, role, quote, image }, index) => (
+    //               <Card key={index}>
+    //                 <CardContent className="grid grid-cols-[auto_1fr] gap-3">
+    //                   <Avatar className="size-9">
+    //                     <AvatarImage
+    //                       alt={name}
+    //                       src={image}
+    //                       loading="lazy"
+    //                       width="120"
+    //                       height="120"
+    //                     />
+    //                     <AvatarFallback>ST</AvatarFallback>
+    //                   </Avatar>
+
+    //                   <div>
+    //                     <h3 className="font-medium text-base">{name}</h3>
+
+    //                     <span className="text-muted-foreground block text-sm tracking-wide">
+    //                       {role}
+    //                     </span>
+
+    //                     <blockquote className="mt-3">
+    //                       <p className="text-gray-700 dark:text-gray-300">
+    //                         {quote}
+    //                       </p>
+    //                     </blockquote>
+    //                   </div>
+    //                 </CardContent>
+    //               </Card>
+    //             ))}
+    //           </div>
+    //         ))}
+    //       </div>
+    //     </div>
+    //   </div>
+    // </section>
     <section>
       <div className="py-16">
         <div className="container px-6">
@@ -79,46 +131,39 @@ export function Testimonials() {
               What Our Customers Say
             </h2>
             <p className="text-muted-foreground text-base mt-2.5">
-              Thousands of renters, landlords, and agents trust Leadsage to find
-              or list their properties.
+              Thousands of renters, landlords, and agents trust Leadsage.
             </p>
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">
-            {testimonialChunks.map((chunk, chunkIndex) => (
-              <div key={chunkIndex} className="space-y-3">
-                {chunk.map(({ name, role, quote, image }, index) => (
-                  <Card key={index}>
-                    <CardContent className="grid grid-cols-[auto_1fr] gap-3">
-                      <Avatar className="size-9">
-                        <AvatarImage
-                          alt={name}
-                          src={image}
-                          loading="lazy"
-                          width="120"
-                          height="120"
-                        />
-                        <AvatarFallback>ST</AvatarFallback>
+
+          {/* Horizontal Scroll */}
+          <ScrollArea className="w-full mt-8">
+            <div className="flex w-max space-x-4 pb-4 pr-10">
+              {testimonials.map(({ name, role, quote, image }, i) => (
+                <Card key={i} className="w-80 flex-shrink-0">
+                  <CardContent className="p-4 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Avatar className="size-10">
+                        <AvatarImage src={image} alt={name} />
+                        <AvatarFallback>U</AvatarFallback>
                       </Avatar>
 
                       <div>
-                        <h3 className="font-medium text-base">{name}</h3>
-
-                        <span className="text-muted-foreground block text-sm tracking-wide">
-                          {role}
-                        </span>
-
-                        <blockquote className="mt-3">
-                          <p className="text-gray-700 dark:text-gray-300">
-                            {quote}
-                          </p>
-                        </blockquote>
+                        <h3 className="font-medium">{name}</h3>
+                        <p className="text-sm text-muted-foreground">{role}</p>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ))}
-          </div>
+                    </div>
+
+                    <blockquote>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                        {quote}
+                      </p>
+                    </blockquote>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         </div>
       </div>
     </section>

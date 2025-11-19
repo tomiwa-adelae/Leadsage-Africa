@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useConstructUrl } from "@/hooks/use-construct-url";
+import { DEFAULT_LISTING_IMAGE } from "@/constants";
 
 interface Props {
   icon: string;
@@ -8,6 +10,8 @@ interface Props {
 }
 
 export const CategoryCard = ({ icon, name }: Props) => {
+  const photoUrl = useConstructUrl(icon) || DEFAULT_LISTING_IMAGE;
+
   return (
     <Link
       href={`/search?query=${name}`}
@@ -15,7 +19,7 @@ export const CategoryCard = ({ icon, name }: Props) => {
     >
       <div className="text-primary w-fit transform-gpu rounded-full border p-2 [box-shadow:0_-20px_80px_-20px_#1A564B3f_inset]">
         <Image
-          src={icon}
+          src={photoUrl}
           alt={name}
           width={1000}
           height={1000}

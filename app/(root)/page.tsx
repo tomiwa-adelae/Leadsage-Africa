@@ -36,11 +36,11 @@ const page = async ({ searchParams }: Props) => {
       <Showcase />
       <Categories />
       <PopularProperties />
-      <Features />
-      <Spotlight />
+      {/* <Features /> */}
+      {/* <Spotlight /> */}
       <CTAs />
       <Testimonials />
-      <PartneringCompanies />
+      {/* <PartneringCompanies /> */}
       <SecondCTA />
     </div>
   );

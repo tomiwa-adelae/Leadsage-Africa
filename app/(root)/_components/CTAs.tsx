@@ -4,7 +4,7 @@ import React from "react";
 
 export const CTAs = () => {
   return (
-    <div className="container">
+    <div className="container mt-12">
       <div className="relative w-full max-w-screen overflow-hidden rounded-[40px] bg-primary container px-6 py-10 sm:p-10 md:p-20">
         <div className="absolute inset-0 hidden h-full w-full overflow-hidden md:block">
           <div className="absolute top-1/2 right-[-10%] aspect-square h-[800px] w-[800px] -translate-y-1/2">

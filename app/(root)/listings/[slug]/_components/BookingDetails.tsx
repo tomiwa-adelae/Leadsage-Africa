@@ -215,16 +215,16 @@ export const BookingDetails = ({
 
   const config = {
     reference: new Date().getTime().toString(),
-    email: session.user.email,
+    email: session?.user?.email,
     amount: totalPrice ? totalPrice * 100 : 0,
     publicKey: env.NEXT_PUBLIC_PS_PUBLIC_KEY,
     metadata: {
-      name: session.user.name,
+      name: session?.user?.name,
       custom_fields: [
         {
           display_name: "Full Name",
           variable_name: "full_name",
-          value: session.user.name,
+          value: session?.user?.name,
         },
       ],
     },
