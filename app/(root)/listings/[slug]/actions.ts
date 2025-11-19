@@ -656,8 +656,26 @@ export const reserveShortlet = async ({
   checkOutDate: string;
   listingId: string;
 }) => {
-  const { user } = await requireUser();
+  const { user: sessionUser } = await requireUser();
   try {
+    // Fetch full user data including phoneNumber
+    const user = await prisma.user.findUnique({
+      where: { id: sessionUser.id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phoneNumber: true,
+      },
+    });
+
+    if (!user) {
+      return {
+        status: "error",
+        message: "User not found",
+      };
+    }
+
     const year = new Date().getFullYear();
     let suffix = generateSuffix();
     let shortletID = `SH-${year}-${suffix}`;
@@ -687,6 +705,7 @@ export const reserveShortlet = async ({
           select: {
             name: true,
             email: true,
+            phoneNumber: true,
           },
         },
       },
@@ -789,7 +808,7 @@ export const reserveShortlet = async ({
           HTMLPart: shortletBookingAdminNotification({
             userName: user.name,
             userEmail: user.email,
-            userPhone: user.phoneNumber,
+            userPhone: user.phoneNumber || "Not provided",
             property: listing.title,
             startDate: formattedCheckIn,
             endDate: formattedCheckOut,
