@@ -3,7 +3,7 @@ import type {
   AISimilarListingsRequest,
   AISimilarListingsResponse,
 } from "@/lib/types/ai-search";
-import { auth } from "@/lib/auth-client";
+import { auth } from "@/lib/auth";
 
 /**
  * GET /api/ai/similar?listingId=...

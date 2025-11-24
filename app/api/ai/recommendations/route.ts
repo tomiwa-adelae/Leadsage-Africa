@@ -3,7 +3,7 @@ import type {
   AIRecommendationsRequest,
   AISearchResponse,
 } from "@/lib/types/ai-search";
-import { auth } from "@/lib/auth-client";
+import { auth } from "@/lib/auth";
 
 /**
  * GET /api/ai/recommendations
@@ -53,17 +53,14 @@ export async function GET(request: NextRequest) {
     }
 
     // Forward request to Python backend
-    const pythonResponse = await fetch(
-      `${pythonBackendUrl}/recommendations`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.PYTHON_AI_BACKEND_API_KEY || ""}`,
-        },
-        body: JSON.stringify(recommendationRequest),
-      }
-    );
+    const pythonResponse = await fetch(`${pythonBackendUrl}/recommendations`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.PYTHON_AI_BACKEND_API_KEY || ""}`,
+      },
+      body: JSON.stringify(recommendationRequest),
+    });
 
     if (!pythonResponse.ok) {
       const errorData = await pythonResponse.json().catch(() => ({
