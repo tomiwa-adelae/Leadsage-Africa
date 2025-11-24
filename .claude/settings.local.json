@@ -4,7 +4,8 @@
       "Bash(npx prisma migrate dev:*)",
       "Bash(npx prisma db push:*)",
       "Bash(pnpm run build:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []
