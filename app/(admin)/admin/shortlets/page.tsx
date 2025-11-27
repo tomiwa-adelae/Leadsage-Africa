@@ -199,7 +199,7 @@ export default async function page({ searchParams }: Props) {
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-semibold">All listings</h1>
+            <h1 className="text-3xl md:text-4xl font-medium">All listings</h1>
             <p className="text-muted-foreground text-base mt-2.5">
               Manage all listings in one place
             </p>

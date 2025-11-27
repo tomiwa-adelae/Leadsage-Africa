@@ -147,7 +147,9 @@ export function AIChatInterface({
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
         {messages.length === 0 ? (
-          <WelcomeScreen onSuggestionClick={(suggestion) => sendMessage(suggestion)} />
+          <WelcomeScreen
+            onSuggestionClick={(suggestion) => sendMessage(suggestion)}
+          />
         ) : (
           messages.map((message, index) => (
             <MessageBubble
@@ -204,7 +206,7 @@ export function AIChatInterface({
 
       {/* Input Area */}
       <div className="border-t bg-background p-4">
-        <div className="max-w-4xl mx-auto flex gap-2">
+        <div className="flex gap-2">
           <Textarea
             ref={textareaRef}
             value={inputMessage}
@@ -286,33 +288,37 @@ function WelcomeScreen({
 
       {/* Features */}
       <div className="bg-card border rounded-lg p-6 space-y-4">
-        <h3 className="font-semibold">What I can help with:</h3>
+        <h3 className="font-medium">What I can help with:</h3>
         <ul className="space-y-3 text-sm text-muted-foreground">
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">✓</span>
             <span>
-              <strong className="text-foreground">Natural Search:</strong> Describe
-              what you're looking for in your own words
+              <strong className="text-foreground">Natural Search:</strong>{" "}
+              Describe what you're looking for in your own words
             </span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">✓</span>
             <span>
-              <strong className="text-foreground">Smart Recommendations:</strong>{" "}
+              <strong className="text-foreground">
+                Smart Recommendations:
+              </strong>{" "}
               Get personalized property suggestions
             </span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">✓</span>
             <span>
-              <strong className="text-foreground">Market Insights:</strong> Learn
-              about pricing, availability, and trends
+              <strong className="text-foreground">Market Insights:</strong>{" "}
+              Learn about pricing, availability, and trends
             </span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5">✓</span>
             <span>
-              <strong className="text-foreground">Interactive Conversation:</strong>{" "}
+              <strong className="text-foreground">
+                Interactive Conversation:
+              </strong>{" "}
               Refine your search through back-and-forth chat
             </span>
           </li>

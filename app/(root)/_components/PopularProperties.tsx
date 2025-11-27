@@ -20,9 +20,7 @@ export const PopularProperties = async () => {
   return (
     <div className="container">
       <div className="space-y-2">
-        <h2 className="text-2xl md:text-3xl font-semibold">
-          Popular Properties
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-medium">Popular Properties</h2>
         {/* <p className="text-muted-foreground text-base mt-2.5">
           Check out our most viewed and top-selling properties—trusted by many
           for their quality, location, and value.

@@ -30,9 +30,7 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
         <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-semibold">
-            Booking Details
-          </h1>
+          <h1 className="text-2xl md:text-3xl font-medium">Booking Details</h1>
           <p className="text-muted-foreground mt-2">
             Review your shortlet reservation and property details below.
           </p>

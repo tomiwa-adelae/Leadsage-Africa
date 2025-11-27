@@ -38,7 +38,7 @@ export const BookingsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Total Bookings</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {totalBookings.length}
           </CardTitle>
           <CardAction>
@@ -56,7 +56,7 @@ export const BookingsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Pending bookings</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {pendingBookings.length}
           </CardTitle>
           <CardAction>
@@ -74,7 +74,7 @@ export const BookingsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Confirmed bookings</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {confirmedBookings.length}
           </CardTitle>
           <CardAction>
@@ -92,7 +92,7 @@ export const BookingsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Cancelled bookings</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {cancelledBookings.length}
           </CardTitle>
           <CardAction>

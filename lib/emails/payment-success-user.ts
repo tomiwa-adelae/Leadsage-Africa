@@ -23,7 +23,7 @@ export const paymentSuccessUser = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2 text-green-700">✅ Payment Successful</h1>
+    <h1 class="text-2xl font-medium mb-2 text-green-700">✅ Payment Successful</h1>
     <p class="opacity-90 m-0">We’ve received your payment</p>
 
     <div class="p-10">
@@ -35,16 +35,16 @@ export const paymentSuccessUser = ({
       </p>
 
       <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">Transaction Details:</h3>
-        <p class="text-gray-700 m-0"><span class="font-semibold">Amount:</span> ₦${amount}</p>
-        <p class="text-gray-700 m-0"><span class="font-semibold">Property:</span> ${property}</p>
-        <p class="text-gray-700 m-0"><span class="font-semibold">Reference ID:</span> ${reference}</p>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">Transaction Details:</h3>
+        <p class="text-gray-700 m-0"><span class="font-medium">Amount:</span> ₦${amount}</p>
+        <p class="text-gray-700 m-0"><span class="font-medium">Property:</span> ${property}</p>
+        <p class="text-gray-700 m-0"><span class="font-medium">Reference ID:</span> ${reference}</p>
       </div>
 
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/dashboard"
-          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700"
+          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-medium hover:bg-green-700"
         >
           View My Dashboard
         </a>

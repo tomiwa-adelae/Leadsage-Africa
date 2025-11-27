@@ -28,7 +28,7 @@ export const adminCancelTourLandlord = ({
 <body class="font-sans bg-gray-100 p-5">
   <div>
     <div>
-      <h1 class="text-2xl font-semibold mb-2">⚠️ Tour Canceled</h1>
+      <h1 class="text-2xl font-medium mb-2">⚠️ Tour Canceled</h1>
       <p class="opacity-90 m-0">A scheduled property viewing has been canceled</p>
     </div>
 
@@ -39,7 +39,7 @@ export const adminCancelTourLandlord = ({
         <span class="font-bold">${tenantName}</span> for your property at
         <span class="font-bold">${location}</span> on
         <strong>${date}</strong> at <strong>${time}</strong> has been
-        <span class="text-red-600 font-semibold">canceled</span> by Leadsage Admin.
+        <span class="text-red-600 font-medium">canceled</span> by Leadsage Admin.
       </p>
 
       ${
@@ -59,7 +59,7 @@ export const adminCancelTourLandlord = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/landlord/dashboard"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           View Dashboard
         </a>

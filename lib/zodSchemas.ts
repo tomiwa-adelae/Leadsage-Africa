@@ -555,3 +555,71 @@ export type RequestMoreInfoApplicationFormSchemaType = z.infer<
   typeof requestMoreInfoApplicationFormSchema
 >;
 export type ContactFormSchemaType = z.infer<typeof contactFormSchema>;
+
+// Blog Schemas
+export const createBlogPostFormSchema = z.object({
+  title: z.string().min(3, {
+    message: "Title must be at least 3 characters.",
+  }),
+  excerpt: z.string().min(10, {
+    message: "Excerpt must be at least 10 characters.",
+  }),
+  content: z.string().min(50, {
+    message: "Content must be at least 50 characters.",
+  }),
+  featuredImage: z.union([z.string(), z.instanceof(File)]),
+  categoryId: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  status: z.enum(["Draft", "Published"]),
+});
+
+// Server-side schema (after image upload)
+export const createBlogPostServerSchema = z.object({
+  title: z.string().min(3, {
+    message: "Title must be at least 3 characters.",
+  }),
+  excerpt: z.string().min(10, {
+    message: "Excerpt must be at least 10 characters.",
+  }),
+  content: z.string().min(50, {
+    message: "Content must be at least 50 characters.",
+  }),
+  featuredImage: z.string().optional(),
+  categoryId: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  status: z.enum(["Draft", "Published"]),
+});
+
+export const editBlogPostFormSchema = z.object({
+  title: z.string().min(3, {
+    message: "Title must be at least 3 characters.",
+  }),
+  excerpt: z.string().min(10, {
+    message: "Excerpt must be at least 10 characters.",
+  }),
+  content: z.string().min(50, {
+    message: "Content must be at least 50 characters.",
+  }),
+  featuredImage: z.string().optional(),
+  categoryId: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  status: z.enum(["Draft", "Published"]),
+});
+
+export const createBlogCategoryFormSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  description: z.string().optional(),
+});
+
+export type CreateBlogPostFormSchemaType = z.infer<
+  typeof createBlogPostFormSchema
+>;
+export type CreateBlogPostServerSchemaType = z.infer<
+  typeof createBlogPostServerSchema
+>;
+export type EditBlogPostFormSchemaType = z.infer<typeof editBlogPostFormSchema>;
+export type CreateBlogCategoryFormSchemaType = z.infer<
+  typeof createBlogCategoryFormSchema
+>;

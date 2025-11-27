@@ -81,7 +81,7 @@ export const Showcase = () => {
 //         <div className="z-20">
 //           <main className="md:py-20 grid grid-cols-1 lg:grid-cols-5 gap-14">
 //             <div className="col-span-3">
-//               <h1 className="font-semibold text-3xl sm:text-4xl leading-snug md:text-5xl md:leading-snug">
+//               <h1 className="font-medium text-3xl sm:text-4xl leading-snug md:text-5xl md:leading-snug">
 //                 Find Your Perfect Home, Designed for You
 //               </h1>
 //               <ShowcaseSearchForm />

@@ -84,7 +84,7 @@ const page = async ({ params }: { params: Params }) => {
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-semibold">
+            <h1 className="text-3xl md:text-4xl font-medium">
               {listing.title ? (
                 listing.title
               ) : (
@@ -215,7 +215,7 @@ const page = async ({ params }: { params: Params }) => {
                 </div>
               </div>
               <Separator />
-              <div className="flex flex-wrap gap-6 items-center justify-start font-semibold text-2xl">
+              <div className="flex flex-wrap gap-6 items-center justify-start font-medium text-2xl">
                 {listing.propertySize && (
                   <h3 className="tracking-tight">
                     {listing.propertySize}{" "}
@@ -350,7 +350,7 @@ const page = async ({ params }: { params: Params }) => {
               <Separator />
               <div>
                 <h3 className="font-medium text-base">Rent</h3>
-                <p className="text-muted-foreground font-semibold text-3xl">
+                <p className="text-muted-foreground font-medium text-3xl">
                   <NairaIcon />
                   {listing.price ? (
                     listing.price
@@ -366,7 +366,7 @@ const page = async ({ params }: { params: Params }) => {
               <Separator />
               <div>
                 <h3 className="font-medium text-base">Security deposit</h3>
-                <p className="text-muted-foreground font-semibold text-3xl">
+                <p className="text-muted-foreground font-medium text-3xl">
                   <NairaIcon />
                   {listing.securityDeposit ? (
                     listing.securityDeposit

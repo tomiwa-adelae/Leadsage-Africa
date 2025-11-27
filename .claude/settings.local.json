@@ -5,7 +5,11 @@
       "Bash(npx prisma db push:*)",
       "Bash(pnpm run build:*)",
       "Bash(find:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(git stash:*)",
+      "Bash(npx prisma generate:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

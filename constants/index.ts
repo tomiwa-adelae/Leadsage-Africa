@@ -51,6 +51,7 @@ import {
   IconLayout,
   IconLineScan,
   IconMoneybag,
+  IconNews,
   IconReceipt,
   IconShieldCancel,
   IconTrash,
@@ -92,6 +93,10 @@ export const navLinks = [
     label: "Our listings",
   },
   {
+    slug: "/blog",
+    label: "Blog",
+  },
+  {
     slug: "/about",
     label: "About us",
   },
@@ -102,142 +107,123 @@ export const footerLinks = [
     group: "Product",
     items: [
       {
-        title: "Features",
-        href: "#",
-      },
-      {
         title: "Browse Listings",
-        href: "#",
+        href: "/listings",
       },
-      {
-        title: "Testimonials",
-        href: "#",
-      },
-      {
-        title: "Help",
-        href: "#",
-      },
-      {
-        title: "About",
-        href: "#",
-      },
+      // {
+      //   title: "Testimonials",
+      //   href: "#",
+      // },
+      // {
+      //   title: "Help",
+      //   href: "#",
+      // },
+      // {
+      //   title: "About",
+      //   href: "#",
+      // },
     ],
   },
-  {
-    group: "Services",
-    items: [
-      {
-        title: "Become a Landlord",
-        href: "#",
-      },
-      {
-        title: "Become an Artisan",
-        href: "#",
-      },
-      {
-        title: "Organizations",
-        href: "#",
-      },
-      {
-        title: "Students",
-        href: "#",
-      },
-      {
-        title: "Collaboration",
-        href: "#",
-      },
-      {
-        title: "Design",
-        href: "#",
-      },
-      {
-        title: "Management",
-        href: "#",
-      },
-    ],
-  },
-  {
-    group: "Company",
-    items: [
-      {
-        title: "About",
-        href: "#",
-      },
-      {
-        title: "Careers",
-        href: "#",
-      },
-      {
-        title: "Blog",
-        href: "#",
-      },
-      {
-        title: "Our Team",
-        href: "#",
-      },
-      {
-        title: "Contact",
-        href: "/contact",
-      },
-      {
-        title: "Help",
-        href: "#",
-      },
-    ],
-  },
-  {
-    group: "Legal",
-    items: [
-      {
-        title: "Licence",
-        href: "#",
-      },
-      {
-        title: "Privacy",
-        href: "#",
-      },
-      {
-        title: "Cookies",
-        href: "#",
-      },
-      {
-        title: "Security",
-        href: "#",
-      },
-    ],
-  },
+  // {
+  //   group: "Services",
+  //   items: [
+  //     {
+  //       title: "Become a Landlord",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Become an Artisan",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Organizations",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Students",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Collaboration",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Design",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Management",
+  //       href: "#",
+  //     },
+  //   ],
+  // },
+  // {
+  //   group: "Company",
+  //   items: [
+  //     {
+  //       title: "About",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Careers",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Blog",
+  //       href: "/blog",
+  //     },
+  //     {
+  //       title: "Our Team",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Contact",
+  //       href: "/contact",
+  //     },
+  //     {
+  //       title: "Help",
+  //       href: "#",
+  //     },
+  //   ],
+  // },
+  // {
+  //   group: "Legal",
+  //   items: [
+  //     {
+  //       title: "Licence",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Privacy",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Cookies",
+  //       href: "#",
+  //     },
+  //     {
+  //       title: "Security",
+  //       href: "#",
+  //     },
+  //   ],
+  // },
 ];
 
 export const socialLinks = [
   {
     icon: IconBrandX,
     name: "Twitter",
-    url: "https://x.com",
+    url: "https://x.com/Leadsageafrica",
   },
   {
     icon: IconBrandLinkedin,
     name: "Linkedin",
-    url: "https://linkedin.com",
-  },
-  {
-    icon: IconBrandFacebook,
-    name: "Facebook",
-    url: "https://facebook.com",
-  },
-  {
-    icon: IconBrandThreads,
-    name: "Threads",
-    url: "https://threds.com",
+    url: "https://www.linkedin.com/company/leadsage-africa/posts/?feedView=all",
   },
   {
     icon: IconBrandInstagram,
     name: "Instagram",
-    url: "https://instagram.com",
-  },
-  {
-    icon: IconBrandTiktok,
-    name: "Tiktok",
-    url: "https://tiktok.com",
+    url: "https://www.instagram.com/leadsageafrica/",
   },
 ];
 
@@ -740,6 +726,11 @@ export const adminNavLinks = {
       title: "Categories",
       slug: "/admin/categories",
       icon: IconLayout,
+    },
+    {
+      title: "Blog",
+      slug: "/admin/blog",
+      icon: IconNews,
     },
     {
       title: "Recent Activities",

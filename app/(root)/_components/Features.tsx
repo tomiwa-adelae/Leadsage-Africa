@@ -17,7 +17,7 @@ export const Features = () => {
       <div className="container">
         <div className="relative z-10">
           <div>
-            <h2 className="text-2xl md:text-3xl font-semibold text-center text-black">
+            <h2 className="text-2xl md:text-3xl font-medium text-center text-black">
               Why Choose Leadsage?
             </h2>
             <p className="text-base text-muted-foreground text-center mt-2.5">
@@ -40,11 +40,11 @@ export const Features = () => {
                       fill="currentColor"
                     />
                   </svg>
-                  <span className="mx-auto block w-fit text-5xl font-semibold">
+                  <span className="mx-auto block w-fit text-5xl font-medium">
                     100%
                   </span>
                 </div>
-                <h2 className="mt-6 text-center text-2xl md:text-3xl font-semibold">
+                <h2 className="mt-6 text-center text-2xl md:text-3xl font-medium">
                   Verified Listings
                 </h2>
               </CardContent>

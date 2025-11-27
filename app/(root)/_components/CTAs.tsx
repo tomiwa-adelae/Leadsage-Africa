@@ -17,7 +17,7 @@ export const CTAs = () => {
           </div>
         </div>
         <div className="relative z-10 text-white">
-          <h2 className="text-2xl md:text-3xl font-semibold">
+          <h2 className="text-2xl md:text-3xl font-medium">
             Ready to Find Your Perfect Home?
           </h2>
           <p className="text-base mt-2.5">

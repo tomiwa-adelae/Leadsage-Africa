@@ -19,7 +19,7 @@ export const cancelTourTenant = ({ name, location, date, time }: Props) => `
 <body class="font-sans bg-gray-100 p-5">
   <div>
     <div>
-      <h1 class="text-2xl font-semibold mb-2">❌ Tour Canceled</h1>
+      <h1 class="text-2xl font-medium mb-2">❌ Tour Canceled</h1>
       <p class="opacity-90 m-0">Your property viewing has been canceled</p>
     </div>
 
@@ -37,7 +37,7 @@ export const cancelTourTenant = ({ name, location, date, time }: Props) => `
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/dashboard"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           Reschedule Tour
         </a>

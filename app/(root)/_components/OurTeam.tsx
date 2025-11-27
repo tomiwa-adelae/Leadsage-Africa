@@ -62,7 +62,7 @@ export function OurTeam() {
     <section className="pt-16 container">
       <div>
         <div className="text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold">
+          <h2 className="text-2xl md:text-3xl font-medium">
             Meet the Team Behind Leadsage
           </h2>
           <p className="text-muted-foreground text-base mt-2.5">

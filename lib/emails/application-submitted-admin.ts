@@ -23,7 +23,7 @@ export const applicationSubmittedAdmin = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2">🚨 New Application Submitted</h1>
+    <h1 class="text-2xl font-medium mb-2">🚨 New Application Submitted</h1>
     <p class="opacity-90 m-0">An application has been submitted through Leadsage</p>
 
     <div class="p-10">
@@ -39,7 +39,7 @@ export const applicationSubmittedAdmin = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/admin/applications/${id}"
-          class="inline-block bg-blue-700 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-800"
+          class="inline-block bg-blue-700 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-800"
         >
           View application
         </a>

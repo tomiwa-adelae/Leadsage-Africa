@@ -108,7 +108,7 @@ export const SavedListing = ({ listing }: Props) => {
             </Button>
           </div>
           <div className="py-2">
-            <h2 className="group-hover:text-primary hover:underline transition-all font-semibold text-base md:text-lg line-clamp-1">
+            <h2 className="group-hover:text-primary hover:underline transition-all font-medium text-base md:text-lg line-clamp-1">
               {listing.Listing.title}
             </h2>
             <p className="font-medium text-sm md:text-base">

@@ -36,7 +36,7 @@ export const PaymentsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Total payments</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {payments.length}
           </CardTitle>
           <CardAction>
@@ -54,7 +54,7 @@ export const PaymentsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Successful payments</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {successfulPayments.length}
           </CardTitle>
           <CardAction>
@@ -72,7 +72,7 @@ export const PaymentsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Pending payments</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {pendingPayments.length}
           </CardTitle>
           <CardAction>
@@ -90,7 +90,7 @@ export const PaymentsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Failed payments</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {failedPayments.length}
           </CardTitle>
           <CardAction>

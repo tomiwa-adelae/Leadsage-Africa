@@ -296,7 +296,7 @@ export const LeaseGenerator = ({
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-8">
       <div className="bg-white rounded-lg shadow-sm border p-6">
         <div className="flex items-center space-x-3 mb-4">
           <FileText className="w-8 h-8 text-blue-600" />
@@ -310,7 +310,7 @@ export const LeaseGenerator = ({
 
         {/* Preview Information */}
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
-          <h3 className="font-semibold mb-2">Document Preview:</h3>
+          <h3 className="font-medium mb-2">Document Preview:</h3>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <p>

@@ -42,7 +42,7 @@ const page = async ({ params }: { params: Params }) => {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="space-y-6 lg:col-span-3">
             <div>
-              <h1 className="font-semibold text-3xl tracking-tight">
+              <h1 className="font-medium text-3xl tracking-tight">
                 {listing.title ? (
                   listing.title
                 ) : (
@@ -61,7 +61,7 @@ const page = async ({ params }: { params: Params }) => {
               </p>
             </div>
             <Separator />
-            <div className="flex flex-wrap gap-6 items-center justify-start font-semibold text-2xl">
+            <div className="flex flex-wrap gap-6 items-center justify-start font-medium text-2xl">
               {listing.propertySize && (
                 <h3 className="tracking-tight">
                   {listing.propertySize}{" "}
@@ -175,7 +175,7 @@ const page = async ({ params }: { params: Params }) => {
               <CardContent className="py-8">
                 <div className="space-y-1.5">
                   <p className="text-muted-foreground text-sm">Rent price</p>
-                  <h2 className="font-semibold text-3xl">
+                  <h2 className="font-medium text-3xl">
                     <NairaIcon />
                     {listing.price ? (
                       listing.price
@@ -327,7 +327,7 @@ const page = async ({ params }: { params: Params }) => {
               })()}
             </div>
             <div>
-              <h3 className="font-semibold text-2xl md:text-3xl lg:text-5xl">
+              <h3 className="font-medium text-2xl md:text-3xl lg:text-5xl">
                 {listing.User.name}
               </h3>
             </div>

@@ -14,7 +14,7 @@ const page = async () => {
   const user = await getUserInfo();
   return (
     <div>
-      <h1 className="text-3xl md:text-4xl font-semibold">
+      <h1 className="text-3xl md:text-4xl font-medium">
         Let's begin! Which of these best describe you?
       </h1>
       <RoleForm role={user.role} />

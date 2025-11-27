@@ -19,7 +19,7 @@ const page = async ({ searchParams }: Props) => {
   const { role } = await searchParams;
   return (
     <div>
-      <h1 className="text-3xl md:text-4xl font-semibold">You're all set!</h1>
+      <h1 className="text-3xl md:text-4xl font-medium">You're all set!</h1>
       <p className="text-muted-foreground text-base mt-1.5">
         {role === "renter"
           ? "You’ve completed your profile. Start browsing spaces tailored to your preferences."

@@ -36,7 +36,7 @@ export const ApplicationsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Uncompleted applications</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {pendingApplications.length}
           </CardTitle>
           <CardAction>
@@ -54,7 +54,7 @@ export const ApplicationsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Submitted applications</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {reviewingApplications.length}
           </CardTitle>
           <CardAction>
@@ -72,7 +72,7 @@ export const ApplicationsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Approved applications</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {approvedApplications.length}
           </CardTitle>
           <CardAction>
@@ -90,7 +90,7 @@ export const ApplicationsCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Rejected applications</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {rejectedApplications.length}
           </CardTitle>
           <CardAction>

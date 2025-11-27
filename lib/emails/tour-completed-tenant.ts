@@ -27,7 +27,7 @@ export const tourCompletedTenant = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2">🏡 Tour Completed</h1>
+    <h1 class="text-2xl font-medium mb-2">🏡 Tour Completed</h1>
     <p class="opacity-90 m-0">Your property viewing has been marked complete</p>
 
     <div class="p-10">
@@ -45,14 +45,14 @@ export const tourCompletedTenant = ({
       <div class="text-center my-8 space-y-4">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/bookings/${id}/#interested"
-          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700"
+          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-medium hover:bg-green-700"
         >
           Apply for This Property
         </a>
         <br />
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/listings"
-          class="inline-block bg-gray-700 text-white py-3 px-8 rounded-full font-semibold hover:bg-gray-800"
+          class="inline-block bg-gray-700 text-white py-3 px-8 rounded-full font-medium hover:bg-gray-800"
         >
           Explore Other Properties
         </a>
@@ -65,7 +65,7 @@ export const tourCompletedTenant = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/feedback"
-          class="inline-block bg-yellow-500 text-white py-3 px-8 rounded-full font-semibold hover:bg-yellow-600"
+          class="inline-block bg-yellow-500 text-white py-3 px-8 rounded-full font-medium hover:bg-yellow-600"
         >
           Leave Feedback
         </a>

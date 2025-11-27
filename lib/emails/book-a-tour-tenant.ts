@@ -46,19 +46,19 @@ export const bookATourTenant = ({
 
 				<!-- TOUR DETAILS -->
 				<div class="bg-blue-50 border-l-4 border-blue-500 p-5 my-6 rounded-r-lg shadow-sm">
-					<h3 class="text-lg font-semibold text-gray-800 mb-4">📅 Tour Details</h3>
+					<h3 class="text-lg font-medium text-gray-800 mb-4">📅 Tour Details</h3>
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
-						<p><span class="font-semibold">Date:</span> ${date}</p>
-						<p><span class="font-semibold">Time:</span> ${time}</p>
-						<p><span class="font-semibold">Property Type:</span> ${category}</p>
-						<p><span class="font-semibold">Rent:</span> ₦${price}</p>
-						<p class="sm:col-span-2"><span class="font-semibold">Meeting Point:</span> ${location}</p>
+						<p><span class="font-medium">Date:</span> ${date}</p>
+						<p><span class="font-medium">Time:</span> ${time}</p>
+						<p><span class="font-medium">Property Type:</span> ${category}</p>
+						<p><span class="font-medium">Rent:</span> ₦${price}</p>
+						<p class="sm:col-span-2"><span class="font-medium">Meeting Point:</span> ${location}</p>
 					</div>
 				</div>
 
 				<!-- REMINDERS -->
 				<div class="bg-slate-50 p-5 rounded-lg my-5">
-					<h4 class="font-semibold text-gray-800 mb-4">📋 What to Bring:</h4>
+					<h4 class="font-medium text-gray-800 mb-4">📋 What to Bring:</h4>
 					<ul class="list-disc list-inside space-y-2 text-gray-600">
 						<li>Valid photo ID</li>
 						<li>Proof of income (if you’re interested in applying)</li>
@@ -67,7 +67,7 @@ export const bookATourTenant = ({
 				</div>
 
 				<div class="p-5 rounded-lg my-5 text-center bg-yellow-50 border border-yellow-200">
-					<h3 class="font-semibold text-gray-800 mb-2">⏰ Important Reminders</h3>
+					<h3 class="font-medium text-gray-800 mb-2">⏰ Important Reminders</h3>
 					<p class="text-gray-700 m-0">
 						✔ Please arrive 5–10 minutes early<br/>
 						✔ Give at least 2 hours notice if you need to reschedule<br/>
@@ -79,13 +79,13 @@ export const bookATourTenant = ({
 				<div class="text-center my-8">
 					<a
 						href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/dashboard"
-						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-blue-700 hover:transform hover:-translate-y-0.5 transition-transform"
+						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-blue-700 hover:transform hover:-translate-y-0.5 transition-transform"
 					>
 						View Your Dashboard
 					</a>
 					<a
 						href="[Reschedule Link]"
-						class="inline-block bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-gray-300 hover:transform hover:-translate-y-0.5 transition-transform"
+						class="inline-block bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-gray-300 hover:transform hover:-translate-y-0.5 transition-transform"
 					>
 						Reschedule Tour
 					</a>
@@ -103,16 +103,16 @@ export const bookATourTenant = ({
 
 				<!-- SUPPORT -->
 				<div class="bg-blue-50 p-5 rounded-lg my-6 text-center">
-					<h4 class="font-semibold text-gray-800 mb-3">📞 Contact Information</h4>
+					<h4 class="font-medium text-gray-800 mb-3">📞 Contact Information</h4>
 					<p class="m-0">
-						<span class="font-semibold">Support Email:</span>
-						<a href="mailto:${env.SUPPORT_EMAIL_ADDRESS}" class="text-blue-600 font-semibold">
+						<span class="font-medium">Support Email:</span>
+						<a href="mailto:${env.SUPPORT_EMAIL_ADDRESS}" class="text-blue-600 font-medium">
 							${env.SUPPORT_EMAIL_ADDRESS}
 						</a>
 					</p>
 					<p class="m-0">
-						<span class="font-semibold">Phone:</span>
-						<a href="tel:${env.NEXT_PUBLIC_LEADSAGE_PHONE_NUMBER}" class="text-blue-600 font-semibold">
+						<span class="font-medium">Phone:</span>
+						<a href="tel:${env.NEXT_PUBLIC_LEADSAGE_PHONE_NUMBER}" class="text-blue-600 font-medium">
 							${env.NEXT_PUBLIC_LEADSAGE_PHONE_NUMBER}
 						</a>
 					</p>

@@ -27,7 +27,7 @@ export function DashboardCards({ users, listings, bookings }: Props) {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Total Users</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {users}
           </CardTitle>
           <CardAction>
@@ -45,7 +45,7 @@ export function DashboardCards({ users, listings, bookings }: Props) {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Total Revenue</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             <NairaIcon />
             1,234
           </CardTitle>
@@ -64,7 +64,7 @@ export function DashboardCards({ users, listings, bookings }: Props) {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Total Listings</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {listings}
           </CardTitle>
           <CardAction>
@@ -82,7 +82,7 @@ export function DashboardCards({ users, listings, bookings }: Props) {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Tour Bookings</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {bookings}
           </CardTitle>
           <CardAction>

@@ -55,7 +55,7 @@ export const PendingListingCard = ({ listing }: Props) => {
         <div className="py-2">
           <Link
             href={`/admin/listings/${listing.slug}`}
-            className="group-hover:text-primary hover:underline transition-all font-semibold text-lg line-clamp-1"
+            className="group-hover:text-primary hover:underline transition-all font-medium text-lg line-clamp-1"
           >
             {listing.title}
           </Link>

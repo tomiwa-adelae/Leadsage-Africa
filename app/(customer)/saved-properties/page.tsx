@@ -27,7 +27,7 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-semibold">Saved Properties</h1>
+        <h1 className="text-3xl md:text-4xl font-medium">Saved Properties</h1>
         <p className="text-muted-foreground text-base mt-2.5">
           Track your favorite listings and price changes
         </p>{" "}

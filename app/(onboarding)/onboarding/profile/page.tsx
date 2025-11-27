@@ -13,7 +13,7 @@ const page = async () => {
 
   return (
     <div className="w-full">
-      <h1 className="text-3xl md:text-4xl font-semibold">
+      <h1 className="text-3xl md:text-4xl font-medium">
         Let's Complete Your Profile
       </h1>
       <p className="text-muted-foreground text-base mt-1.5">

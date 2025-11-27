@@ -17,7 +17,7 @@ export const onboardingSuccessEmail = ({ name, role }: Props) => `
 	<body class="font-sans bg-gray-100 p-5">
 		<div>
 			<div>
-				<h1 class="text-2xl font-semibold mb-2">🎉 Onboarding Complete!</h1>
+				<h1 class="text-2xl font-medium mb-2">🎉 Onboarding Complete!</h1>
 				<p class="opacity-90 m-0">Your Leadsage journey begins now</p>
 			</div>
 
@@ -32,7 +32,7 @@ export const onboardingSuccessEmail = ({ name, role }: Props) => `
 				</p>
 
 				<div class="bg-green-50 border-l-4 border-green-500 p-5 my-6 rounded-r-lg">
-					<h3 class="text-lg font-semibold text-gray-800 mb-4">✅ Next Steps</h3>
+					<h3 class="text-lg font-medium text-gray-800 mb-4">✅ Next Steps</h3>
 					<p class="text-gray-700 leading-relaxed">
 						As a <span class="font-bold">${role}</span>, here’s what you can do next:
 					</p>
@@ -58,7 +58,7 @@ export const onboardingSuccessEmail = ({ name, role }: Props) => `
 						href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/${
   role === "renter" ? "dashboard" : "/landlord/dashboard"
 }"
-						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-blue-700 hover:transform hover:-translate-y-0.5 transition-transform"
+						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-blue-700 hover:transform hover:-translate-y-0.5 transition-transform"
 					>
 						Go to Dashboard
 					</a>
@@ -66,7 +66,7 @@ export const onboardingSuccessEmail = ({ name, role }: Props) => `
 						href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/${
   role === "renter" ? "listings" : "landlord/listings/new"
 }"
-						class="inline-block bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-gray-300 hover:transform hover:-translate-y-0.5 transition-transform"
+						class="inline-block bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-gray-300 hover:transform hover:-translate-y-0.5 transition-transform"
 					>
 						${role === "renter" ? "Browse Properties" : "List Property"}
 					</a>
@@ -78,12 +78,10 @@ export const onboardingSuccessEmail = ({ name, role }: Props) => `
 				</p>
 
 				<div class="bg-blue-50 p-5 rounded-lg my-6 text-center">
-					<h4 class="font-semibold text-gray-800 mb-3">📞 Contact Support</h4>
+					<h4 class="font-medium text-gray-800 mb-3">📞 Contact Support</h4>
 					<p class="m-0">
-						<span class="font-semibold">Email us at:</span>
-						<a href="mailto:${
-              env.SUPPORT_EMAIL_ADDRESS
-            }" class="text-blue-600 font-semibold">
+						<span class="font-medium">Email us at:</span>
+						<a href="mailto:${env.SUPPORT_EMAIL_ADDRESS}" class="text-blue-600 font-medium">
 							${env.SUPPORT_EMAIL_ADDRESS}
 						</a>
 					</p>
@@ -91,7 +89,7 @@ export const onboardingSuccessEmail = ({ name, role }: Props) => `
 						Or call us:
 						<a href="tel:${
               env.NEXT_PUBLIC_LEADSAGE_PHONE_NUMBER
-            }" class="text-blue-600 font-semibold">
+            }" class="text-blue-600 font-medium">
 							${env.NEXT_PUBLIC_LEADSAGE_PHONE_NUMBER}
 						</a>
 					</p>

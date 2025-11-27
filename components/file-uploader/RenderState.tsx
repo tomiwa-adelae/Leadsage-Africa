@@ -14,7 +14,7 @@ const RenderEmptyState = ({ isDragActive }: { isDragActive: boolean }) => {
           )}
         />
       </div>
-      <p className="mt-4 text-base font-semibold text-muted-foreground">
+      <p className="mt-4 text-base font-medium text-muted-foreground">
         Drop your files here or{" "}
         <span className="text-primary font-bold cursor-pointer">
           click to upload
@@ -33,7 +33,7 @@ const RenderErrorState = ({ retryUpload }: { retryUpload: () => void }) => {
       <div className="flex items-center mx-auto justify-center size-12 rounded-full bg-destructive/20">
         <ImageIcon className={cn("size-6 text-destructive")} />
       </div>
-      <p className="mt-4 text-base font-semibold">Upload failed</p>
+      <p className="mt-4 text-base font-medium">Upload failed</p>
       <p className="text-xs text-muted-foreground mt-1">Something went wrong</p>
       <Button onClick={() => retryUpload()} type="button" className="mt-4">
         Retry upload

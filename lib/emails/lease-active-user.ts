@@ -27,7 +27,7 @@ export const leaseActiveUser = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2 text-green-600">✅ Lease Activated</h1>
+    <h1 class="text-2xl font-medium mb-2 text-green-600">✅ Lease Activated</h1>
     <p class="opacity-90 m-0">Your rental agreement is now officially active</p>
 
     <div class="p-10">
@@ -38,19 +38,19 @@ export const leaseActiveUser = ({
       </p>
 
       <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-3">Lease Details</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-3">Lease Details</h3>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
-          <li><span class="font-semibold">Start Date:</span> ${startDate}</li>
-          <li><span class="font-semibold">End Date:</span> ${endDate}</li>
-          <li><span class="font-semibold">Rent:</span> ₦${rent}</li>
-          <li><span class="font-semibold">Property:</span> ${property}</li>
+          <li><span class="font-medium">Start Date:</span> ${startDate}</li>
+          <li><span class="font-medium">End Date:</span> ${endDate}</li>
+          <li><span class="font-medium">Rent:</span> ₦${rent}</li>
+          <li><span class="font-medium">Property:</span> ${property}</li>
         </ul>
       </div>
 
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/leases/${id}"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           View My Lease
         </a>

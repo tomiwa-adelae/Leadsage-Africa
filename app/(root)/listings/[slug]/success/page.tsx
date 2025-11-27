@@ -23,7 +23,7 @@ const page = async ({ searchParams }: Props) => {
     return (
       <div className="container py-16 text-center max-w-2xl mx-auto">
         <Confetti />
-        <h1 className="text-3xl md:text-4xl font-semibold">
+        <h1 className="text-3xl md:text-4xl font-medium">
           🎉 Booking Confirmed!
         </h1>
         <p className="text-muted-foreground text-base mt-2.5">
@@ -94,7 +94,7 @@ const page = async ({ searchParams }: Props) => {
 
   return (
     <div className="container py-8">
-      <h1 className="text-3xl md:text-4xl font-semibold">You're all set!</h1>
+      <h1 className="text-3xl md:text-4xl font-medium">You're all set!</h1>
       <p className="text-muted-foreground text-base mt-2.5">
         Your visit has been scheduled. We’ve sent the details to your email.
       </p>

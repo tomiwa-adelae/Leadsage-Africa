@@ -76,7 +76,7 @@ export function AISearchResults({ query, page }: AISearchResultsProps) {
         <div className="w-20 h-20 mx-auto bg-muted rounded-full flex items-center justify-center">
           <AlertCircle className="w-10 h-10 text-muted-foreground" />
         </div>
-        <h3 className="text-xl font-semibold">No listings found</h3>
+        <h3 className="text-xl font-medium">No listings found</h3>
         <p className="text-muted-foreground max-w-md mx-auto">
           Try rephrasing your search or use different keywords. Our AI works
           best with specific details.
@@ -92,7 +92,7 @@ export function AISearchResults({ query, page }: AISearchResultsProps) {
         <div className="bg-card border rounded-lg p-6 space-y-4">
           <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-primary" />
-            <h3 className="font-semibold">AI Insights</h3>
+            <h3 className="font-medium">AI Insights</h3>
           </div>
 
           {data.aiInsights.interpretedQuery && (
@@ -190,7 +190,7 @@ export function AISearchResults({ query, page }: AISearchResultsProps) {
         <div className="border-t pt-8 space-y-6">
           <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-primary" />
-            <h3 className="text-xl font-semibold">AI Recommendations</h3>
+            <h3 className="text-xl font-medium">AI Recommendations</h3>
             <Badge variant="secondary">Personalized</Badge>
           </div>
           <p className="text-sm text-muted-foreground">

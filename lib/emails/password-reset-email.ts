@@ -17,7 +17,7 @@ export const passwordResetEmail = ({ name, resetLink }: Props) => `
 	<body class="font-sans bg-gray-100 p-5">
 		<div>
 			<div>
-				<h1 class="text-2xl font-semibold mb-2">🔑 Reset Your Password</h1>
+				<h1 class="text-2xl font-medium mb-2">🔑 Reset Your Password</h1>
 				<p class="opacity-90 m-0">We received a request to reset your password</p>
 			</div>
 
@@ -34,7 +34,7 @@ export const passwordResetEmail = ({ name, resetLink }: Props) => `
 				<div class="text-center my-8">
 					<a
 						href="${resetLink}"
-						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-blue-700 hover:transform hover:-translate-y-0.5 transition-transform"
+						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-blue-700 hover:transform hover:-translate-y-0.5 transition-transform"
 					>
 						Reset Password
 					</a>
@@ -51,16 +51,16 @@ export const passwordResetEmail = ({ name, resetLink }: Props) => `
 				</p>
 
 				<div class="bg-blue-50 p-5 rounded-lg my-6 text-center">
-					<h4 class="font-semibold text-gray-800 mb-3">📞 Need Help?</h4>
+					<h4 class="font-medium text-gray-800 mb-3">📞 Need Help?</h4>
 					<p class="m-0">
 						Email us at 
-						<a href="mailto:${env.SUPPORT_EMAIL_ADDRESS}" class="text-blue-600 font-semibold">
+						<a href="mailto:${env.SUPPORT_EMAIL_ADDRESS}" class="text-blue-600 font-medium">
 							${env.SUPPORT_EMAIL_ADDRESS}
 						</a>
 					</p>
 					<p class="m-0">
 						Or call 
-						<a href="tel:${env.NEXT_PUBLIC_LEADSAGE_PHONE_NUMBER}" class="text-blue-600 font-semibold">
+						<a href="tel:${env.NEXT_PUBLIC_LEADSAGE_PHONE_NUMBER}" class="text-blue-600 font-medium">
 							${env.NEXT_PUBLIC_LEADSAGE_PHONE_NUMBER}
 						</a>
 					</p>

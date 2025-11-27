@@ -28,7 +28,7 @@ export const cancelTourAdmin = ({
 <body class="font-sans bg-gray-100 p-5">
   <div>
     <div>
-      <h1 class="text-2xl font-semibold mb-2">📉 Tour Canceled</h1>
+      <h1 class="text-2xl font-medium mb-2">📉 Tour Canceled</h1>
       <p class="opacity-90 m-0">A booked tour has been canceled</p>
     </div>
 
@@ -54,13 +54,13 @@ export const cancelTourAdmin = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/admin/dashboard"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           Open Admin Dashboard
         </a>
          <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/admin/bookings/${id}"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-blue-700"
         >
           Check booking details
         </a>

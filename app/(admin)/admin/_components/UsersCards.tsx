@@ -36,7 +36,7 @@ export const UsersCards = ({ admins, renters, landlords }: Props) => {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Admins</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {admins.length}
           </CardTitle>
           <CardAction>
@@ -54,7 +54,7 @@ export const UsersCards = ({ admins, renters, landlords }: Props) => {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Landlords</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {landlords.length}
           </CardTitle>
           <CardAction>
@@ -72,7 +72,7 @@ export const UsersCards = ({ admins, renters, landlords }: Props) => {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Renters</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {renters.length}
           </CardTitle>
           <CardAction>
@@ -90,7 +90,7 @@ export const UsersCards = ({ admins, renters, landlords }: Props) => {
       {/* <Card className="@container/card">
         <CardHeader>
           <CardDescription>Terminated leases</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {terminatedLeases.length}
           </CardTitle>
           <CardAction>

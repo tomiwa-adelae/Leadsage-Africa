@@ -38,7 +38,7 @@ const page = async ({ searchParams }: Props) => {
   return (
     <div className="w-full relative">
       <div className="container py-10">
-        <h1 className="text-lg font-semibold text-muted-foreground">
+        <h1 className="text-lg font-medium text-muted-foreground">
           {totalListings.listings.length < 1 ? (
             <>
               {totalListings.listings.length} result for{" "}

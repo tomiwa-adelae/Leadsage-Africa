@@ -30,7 +30,7 @@ export const adminConfirmTourTenant = ({
 <body class="font-sans bg-gray-100 p-5">
   <div>
     <div>
-      <h1 class="text-2xl font-semibold mb-2">✅ Tour Confirmed!</h1>
+      <h1 class="text-2xl font-medium mb-2">✅ Tour Confirmed!</h1>
       <p class="opacity-90 m-0">Your property viewing has been officially approved</p>
     </div>
 
@@ -39,11 +39,11 @@ export const adminConfirmTourTenant = ({
         Hi <span class="font-bold">${name}</span>,<br /><br />
         Good news! Your property tour at
         <span class="font-bold">${location}</span> has been
-        <span class="text-green-600 font-semibold">confirmed by Leadsage Admin</span>.
+        <span class="text-green-600 font-medium">confirmed by Leadsage Admin</span>.
       </p>
 
       <div class="bg-blue-50 border-l-4 border-blue-500 p-5 my-6 rounded-r-lg">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">📅 Tour Details</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-4">📅 Tour Details</h3>
         <ul class="space-y-2 text-gray-700">
           <li><strong>Date:</strong> ${date}</li>
           <li><strong>Time:</strong> ${time}</li>
@@ -59,13 +59,13 @@ export const adminConfirmTourTenant = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/dashboard"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           View Dashboard
         </a>
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/bookings/${id}"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           View booking details
         </a>

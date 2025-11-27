@@ -19,7 +19,7 @@ const page = async () => {
 
   return (
     <div>
-      <h1 className="text-3xl md:text-4xl font-semibold">
+      <h1 className="text-3xl md:text-4xl font-medium">
         Welcome to Leadsage, {session?.user.name.split(" ")[0]}
       </h1>
       <p className="text-muted-foreground text-base mt-1.5">

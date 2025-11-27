@@ -23,7 +23,7 @@ export const landlordSignedLeaseLandlord = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2">🏠 Lease Agreement Complete</h1>
+    <h1 class="text-2xl font-medium mb-2">🏠 Lease Agreement Complete</h1>
     <p class="opacity-90 m-0">You’ve secured a new tenant</p>
 
     <div class="p-10">
@@ -36,7 +36,7 @@ export const landlordSignedLeaseLandlord = ({
       </p>
 
       <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">Next Steps:</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">Next Steps:</h3>
         <ul class="list-disc list-inside text-gray-700 space-y-2">
           <li>Prepare the property for the tenant’s move-in date</li>
           <li>Maintain communication with the tenant for a smooth transition</li>
@@ -47,7 +47,7 @@ export const landlordSignedLeaseLandlord = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/landlord/leases/${id}"
-          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700"
+          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-medium hover:bg-green-700"
         >
           View lease details
         </a>

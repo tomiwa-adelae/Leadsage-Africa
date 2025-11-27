@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <div>
-      <h1 className="text-3xl md:text-4xl font-semibold">Welcome back!</h1>
+      <h1 className="text-3xl md:text-4xl font-medium">Welcome back!</h1>
       <p className="text-muted-foreground text-base mt-1.5">
         Log in to continue your journey with Leadsage, whether you're listing a
         property or booking your dream apartment.

@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
@@ -10,8 +9,16 @@ const dmsans = DM_Sans({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { env } from "@/lib/env";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export const metadata: Metadata = {
   title: "Leadsage | Find Your Dream Home in Nigeria",
   description:
@@ -29,20 +36,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <meta property="og:image" content="/opengraph.png" />
-        <meta property="og:image" content="/assets/images/opengraph.png" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, user-scalable=no"
-        />
-        <meta
-          data-n-head="ssr"
-          data-hid="viewport"
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1"
-        />
-      </Head>
       <body className={`${dmsans.className} antialiased`}>
         <ThemeProvider
           attribute="class"

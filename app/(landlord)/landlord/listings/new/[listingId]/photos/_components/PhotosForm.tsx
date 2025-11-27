@@ -188,7 +188,7 @@ export const PhotosForm = ({ id, listing }: Props) => {
             >
               <X className="size-6" />
             </Button>
-            <h5 className="flex-1 text-center font-semibold text-lg">
+            <h5 className="flex-1 text-center font-medium text-lg">
               Upload photos
             </h5>
             <Button

@@ -32,7 +32,7 @@ export const bookATourAdmin = ({
 <body class="font-sans bg-gray-100 p-5">
   <div>
     <div>
-      <h1 class="text-2xl font-semibold mb-2">📊 Tour Booking Alert</h1>
+      <h1 class="text-2xl font-medium mb-2">📊 Tour Booking Alert</h1>
       <p class="opacity-90 m-0">A new property tour has been scheduled</p>
     </div>
 
@@ -42,7 +42,7 @@ export const bookATourAdmin = ({
       </p>
 
       <div class="bg-blue-50 border-l-4 border-blue-500 p-5 my-6 rounded-r-lg">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">🔎 Tour Details</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-4">🔎 Tour Details</h3>
         <ul class="space-y-2 text-gray-700">
           <li><strong>Tenant:</strong> ${tenantName}</li>
           <li><strong>Landlord:</strong> ${landlordName}</li>
@@ -61,13 +61,13 @@ export const bookATourAdmin = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/admin/dashboard"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-blue-700"
         >
           Open Admin Dashboard
         </a>
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/admin/bookings/${id}"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-blue-700"
         >
           Check booking details
         </a>

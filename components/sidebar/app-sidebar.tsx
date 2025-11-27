@@ -40,7 +40,7 @@ export function AppSidebar({ navLinks, ...props }: Props) {
         </SidebarMenu>
       </SidebarHeader>
       {navLinks.title && (
-        <h2 className="font-semibold container text-lg mt-2">
+        <h2 className="font-medium container text-base mt-2">
           {navLinks.title}
         </h2>
       )}

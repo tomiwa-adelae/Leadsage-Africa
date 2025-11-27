@@ -27,7 +27,7 @@ export const shortletRejectedUser = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2 text-orange-600">📋 Booking Request Update</h1>
+    <h1 class="text-2xl font-medium mb-2 text-orange-600">📋 Booking Request Update</h1>
     <p class="opacity-90 m-0">Regarding your shortlet booking request</p>
 
     <div class="p-10">
@@ -42,12 +42,12 @@ export const shortletRejectedUser = ({
       </p>
 
       <div class="bg-gray-50 border-l-4 border-gray-400 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-3">Booking Request Details</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-3">Booking Request Details</h3>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
-          <li><span class="font-semibold">Booking ID:</span> ${shortletID}</li>
-          <li><span class="font-semibold">Property:</span> ${property}</li>
-          <li><span class="font-semibold">Check-in:</span> ${startDate}</li>
-          <li><span class="font-semibold">Check-out:</span> ${endDate}</li>
+          <li><span class="font-medium">Booking ID:</span> ${shortletID}</li>
+          <li><span class="font-medium">Property:</span> ${property}</li>
+          <li><span class="font-medium">Check-in:</span> ${startDate}</li>
+          <li><span class="font-medium">Check-out:</span> ${endDate}</li>
         </ul>
       </div>
 
@@ -55,7 +55,7 @@ export const shortletRejectedUser = ({
         rejectionReason
           ? `
       <div class="bg-orange-50 border-l-4 border-orange-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">Reason</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">Reason</h3>
         <p class="text-gray-700">${rejectionReason}</p>
       </div>
       `
@@ -63,7 +63,7 @@ export const shortletRejectedUser = ({
       }
 
       <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">💡 What's Next?</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">💡 What's Next?</h3>
         <p class="text-gray-700 mb-3">
           We have many other amazing properties available! You can:
         </p>
@@ -77,7 +77,7 @@ export const shortletRejectedUser = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/listings?category=Short+let"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           Browse Available Shortlets
         </a>
@@ -93,7 +93,9 @@ export const shortletRejectedUser = ({
       <p class="font-bold text-white mb-2">Leadsage Africa</p>
       <p class="m-0">
         Need help? Contact us at
-        <a href="mailto:${env.SUPPORT_EMAIL_ADDRESS}" class="text-blue-400 hover:text-blue-300">
+        <a href="mailto:${
+          env.SUPPORT_EMAIL_ADDRESS
+        }" class="text-blue-400 hover:text-blue-300">
           ${env.SUPPORT_EMAIL_ADDRESS}
         </a>
         or call us at ${env.NEXT_PUBLIC_LEADSAGE_PHONE_NUMBER}.

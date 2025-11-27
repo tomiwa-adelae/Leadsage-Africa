@@ -17,7 +17,7 @@ export const leaseCancelledUser = ({ userName, property, endDate }: Props) => `
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2 text-red-600">⚠️ Lease Cancelled</h1>
+    <h1 class="text-2xl font-medium mb-2 text-red-600">⚠️ Lease Cancelled</h1>
     <p class="opacity-90 m-0">Your lease has been terminated by Leadsage Admin</p>
 
     <div class="p-10">
@@ -29,7 +29,7 @@ export const leaseCancelledUser = ({ userName, property, endDate }: Props) => `
       </p>
 
       <div class="bg-red-50 border-l-4 border-red-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-3">What This Means</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-3">What This Means</h3>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
           <li>You no longer have an active lease at <strong>${property}</strong>.</li>
           <li>Future rent payments will not be collected.</li>
@@ -40,13 +40,13 @@ export const leaseCancelledUser = ({ userName, property, endDate }: Props) => `
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/listings"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           Find a New Home
         </a>
         <a
           href="mailto:${env.SUPPORT_EMAIL_ADDRESS}"
-          class="inline-block bg-gray-700 text-white py-3 px-8 rounded-full font-semibold hover:bg-gray-800 ml-2"
+          class="inline-block bg-gray-700 text-white py-3 px-8 rounded-full font-medium hover:bg-gray-800 ml-2"
         >
           Contact Support
         </a>

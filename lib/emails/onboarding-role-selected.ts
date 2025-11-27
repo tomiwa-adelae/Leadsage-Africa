@@ -33,7 +33,7 @@ export const onboardingRoleSelected = ({ name, role }: Props) => `
 				</p>
 
 				<div class="bg-blue-50 border-l-4 border-blue-500 p-5 my-6 rounded-r-lg">
-					<h3 class="text-lg font-semibold text-gray-800 mb-4">🚀 Your Next Steps</h3>
+					<h3 class="text-lg font-medium text-gray-800 mb-4">🚀 Your Next Steps</h3>
 
 					${
             role === "renter"
@@ -59,7 +59,7 @@ export const onboardingRoleSelected = ({ name, role }: Props) => `
 				<div class="text-center my-8">
 					<a
 						href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/onboarding/profile"
-						class="inline-block bg-primary-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-primary-700 transition-colors"
+						class="inline-block bg-primary-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-primary-700 transition-colors"
 					>
 						Complete your onboarding
 					</a>
@@ -67,20 +67,18 @@ export const onboardingRoleSelected = ({ name, role }: Props) => `
 						href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/${
   role === "landlord" ? "landlord/dashboard" : "dashboard"
 }"
-						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-blue-700 transition-colors"
+						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-blue-700 transition-colors"
 					>
 						Go to Dashboard
 					</a>
 				</div>
 
 				<p class="text-gray-700 leading-relaxed mb-4">
-					We’re excited to support your journey as a <span class="font-semibold">${role}</span>.  
+					We’re excited to support your journey as a <span class="font-medium">${role}</span>.  
 					If you have any questions, reach out to our team anytime at 
 					<a href={mailto:${
             env.SUPPORT_EMAIL_ADDRESS
-          }} class="text-blue-600 font-semibold">${
-  env.SUPPORT_EMAIL_ADDRESS
-}</a>.
+          }} class="text-blue-600 font-medium">${env.SUPPORT_EMAIL_ADDRESS}</a>.
 				</p>
 
 				<p class="text-gray-700">

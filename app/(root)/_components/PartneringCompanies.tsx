@@ -4,7 +4,7 @@ export const PartneringCompanies = () => {
   return (
     <div className="md:h-[70vh] overflow-hidden bg-[#121212]">
       <div className="pt-10 md:pt-32 container">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-center text-white">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-center text-white">
           Trusted by Leading Companies
         </h2>
 

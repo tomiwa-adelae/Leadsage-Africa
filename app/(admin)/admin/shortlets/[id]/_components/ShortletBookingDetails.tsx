@@ -343,9 +343,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
               )}
 
               <div>
-                <h3 className="text-xl font-semibold">
-                  {booking.Listing.title}
-                </h3>
+                <h3 className="text-xl font-medium">{booking.Listing.title}</h3>
                 <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
                   <MapPin className="h-4 w-4" />
                   {booking.Listing.address}, {booking.Listing.city},{" "}
@@ -431,13 +429,13 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
 
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">Total nights</span>
-                <span className="font-semibold">
+                <span className="font-medium">
                   {nights} night{nights > 1 ? "s" : ""}
                 </span>
               </div>
 
               <div className="flex justify-between items-center text-lg">
-                <span className="font-semibold">Total Price</span>
+                <span className="font-medium">Total Price</span>
                 <span className="font-bold">₦{booking.totalPrice}</span>
               </div>
             </CardContent>
@@ -460,7 +458,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="font-semibold">{booking.User.name}</p>
+                  <p className="font-medium">{booking.User.name}</p>
                   <p className="text-sm text-muted-foreground">Guest</p>
                 </div>
               </div>

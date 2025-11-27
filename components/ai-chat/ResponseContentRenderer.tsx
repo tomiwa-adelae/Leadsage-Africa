@@ -4,12 +4,7 @@ import { ResponseContent } from "@/lib/types/ai-chat";
 import { ListingCard } from "@/components/ListingCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  ExternalLink,
-  Lightbulb,
-  TrendingUp,
-  Sparkles,
-} from "lucide-react";
+import { ExternalLink, Lightbulb, TrendingUp, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 interface ResponseContentRendererProps {
@@ -120,10 +115,15 @@ function ListingsContent({
 
           return (
             <div key={listing.id} className="space-y-2">
-              <ListingCard listing={transformedListing} isAuthenticated={true} />
+              <ListingCard
+                listing={transformedListing}
+                isAuthenticated={true}
+              />
 
               {/* AI Metadata */}
-              {(listing.relevanceScore || listing.matchReasons || listing.aiSummary) && (
+              {(listing.relevanceScore ||
+                listing.matchReasons ||
+                listing.aiSummary) && (
                 <div className="space-y-2 px-2">
                   {/* Relevance Score */}
                   {listing.relevanceScore && (
@@ -143,11 +143,17 @@ function ListingsContent({
                   {/* Match Reasons */}
                   {listing.matchReasons && listing.matchReasons.length > 0 && (
                     <div className="flex flex-wrap gap-1">
-                      {listing.matchReasons.slice(0, 3).map((reason: string, index: number) => (
-                        <Badge key={index} variant="outline" className="text-xs">
-                          {reason}
-                        </Badge>
-                      ))}
+                      {listing.matchReasons
+                        .slice(0, 3)
+                        .map((reason: string, index: number) => (
+                          <Badge
+                            key={index}
+                            variant="outline"
+                            className="text-xs"
+                          >
+                            {reason}
+                          </Badge>
+                        ))}
                     </div>
                   )}
 
@@ -269,7 +275,7 @@ function InsightsContent({
     <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-lg p-4 space-y-3 border border-primary/20">
       <div className="flex items-center gap-2">
         <TrendingUp className="h-4 w-4 text-primary" />
-        <h4 className="font-semibold text-sm">{title}</h4>
+        <h4 className="font-medium text-sm">{title}</h4>
       </div>
 
       <div className="space-y-2">

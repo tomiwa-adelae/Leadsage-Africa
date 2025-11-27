@@ -37,7 +37,7 @@ const page = async ({ searchParams }: Props) => {
       <SearchForm search={query} />
       <div className="container flex flex-col gap-4 py-10">
         <div>
-          <h4 className="text-lg font-semibold">Popular homes</h4>
+          <h4 className="text-lg font-medium">Popular homes</h4>
           {listings.listings.length === 0 && (
             <EmptyState
               title="No properties"

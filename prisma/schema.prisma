@@ -53,6 +53,7 @@ model User {
   payment         Payment[]
 
   shortlets ShortletBooking[]
+  blogPosts BlogPost[]
 
   onboardingCompleted Boolean? @default(false)
 
@@ -605,4 +606,53 @@ enum ShortletBookingStatus {
   CONFIRMED // Booking completed
   REJECTED // Rejected by admin
   CANCELLED // Cancelled by user/admin
+}
+
+// Blog Models
+model BlogPost {
+  id            String  @id @default(uuid())
+  title         String
+  slug          String  @unique
+  content       String // HTML/JSON from TipTap editor
+  excerpt       String?
+  featuredImage String?
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  status      BlogStatus @default(Draft)
+  publishedAt DateTime?
+
+  category   BlogCategory? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+
+  tags String[] // Array of tags
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([authorId])
+  @@index([slug])
+  @@index([status])
+  @@index([categoryId])
+}
+
+enum BlogStatus {
+  Draft
+  Published
+  Deleted
+  Archived
+  Restored
+}
+
+model BlogCategory {
+  id          String  @id @default(uuid())
+  name        String
+  slug        String  @unique
+  description String?
+
+  posts BlogPost[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

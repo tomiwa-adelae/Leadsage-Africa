@@ -30,7 +30,7 @@ export const bookATourLandlord = ({
 <body class="font-sans bg-gray-100 p-5">
   <div>
     <div>
-      <h1 class="text-2xl font-semibold mb-2">📢 New Tour Booked!</h1>
+      <h1 class="text-2xl font-medium mb-2">📢 New Tour Booked!</h1>
       <p class="opacity-90 m-0">A tenant has scheduled a property viewing</p>
     </div>
 
@@ -42,7 +42,7 @@ export const bookATourLandlord = ({
       </p>
 
       <div class="bg-blue-50 border-l-4 border-blue-500 p-5 my-6 rounded-r-lg">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">📅 Tour Details</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-4">📅 Tour Details</h3>
         <ul class="space-y-2 text-gray-700">
           <li><strong>Date:</strong> ${date}</li>
           <li><strong>Time:</strong> ${time}</li>
@@ -52,7 +52,7 @@ export const bookATourLandlord = ({
       </div>
 
       <div class="bg-slate-50 p-5 rounded-lg my-5">
-        <h4 class="font-semibold text-gray-800 mb-3">✅ What You Should Do</h4>
+        <h4 class="font-medium text-gray-800 mb-3">✅ What You Should Do</h4>
         <ul class="list-disc list-inside text-gray-700 space-y-2">
           <li>Confirm the meeting point at ${location}</li>
           <li>Be on time and have the property accessible</li>
@@ -67,7 +67,7 @@ export const bookATourLandlord = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/landlord/dashboard"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-blue-700"
         >
           View Dashboard
         </a>

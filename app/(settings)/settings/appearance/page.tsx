@@ -13,9 +13,7 @@ const page = () => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
-        <h1 className="text-3xl md:text-4xl font-semibold">
-          Theme Preferences
-        </h1>
+        <h1 className="text-3xl md:text-4xl font-medium">Theme Preferences</h1>
         <Themes />
       </div>
     </div>

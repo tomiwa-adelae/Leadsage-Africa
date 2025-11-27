@@ -33,7 +33,7 @@ export const shortletBookingAdminNotification = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2 text-orange-600">🔔 New Shortlet Booking Request</h1>
+    <h1 class="text-2xl font-medium mb-2 text-orange-600">🔔 New Shortlet Booking Request</h1>
     <p class="opacity-90 m-0">Action required: Review and confirm availability</p>
 
     <div class="p-10">
@@ -43,27 +43,29 @@ export const shortletBookingAdminNotification = ({
       </p>
 
       <div class="bg-orange-50 border-l-4 border-orange-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-3">Booking Details</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-3">Booking Details</h3>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
-          <li><span class="font-semibold">Booking ID:</span> ${shortletID}</li>
-          <li><span class="font-semibold">Property:</span> ${property}</li>
-          <li><span class="font-semibold">Check-in:</span> ${startDate}</li>
-          <li><span class="font-semibold">Check-out:</span> ${endDate}</li>
-          <li><span class="font-semibold">Total Price:</span> ₦${totalPrice}</li>
+          <li><span class="font-medium">Booking ID:</span> ${shortletID}</li>
+          <li><span class="font-medium">Property:</span> ${property}</li>
+          <li><span class="font-medium">Check-in:</span> ${startDate}</li>
+          <li><span class="font-medium">Check-out:</span> ${endDate}</li>
+          <li><span class="font-medium">Total Price:</span> ₦${totalPrice}</li>
         </ul>
       </div>
 
       <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-3">Customer Information</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-3">Customer Information</h3>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
-          <li><span class="font-semibold">Name:</span> ${userName}</li>
-          <li><span class="font-semibold">Email:</span> <a href="mailto:${userEmail}" class="text-blue-600">${userEmail}</a></li>
-          <li><span class="font-semibold">Phone:</span> ${userPhone || "Not provided"}</li>
+          <li><span class="font-medium">Name:</span> ${userName}</li>
+          <li><span class="font-medium">Email:</span> <a href="mailto:${userEmail}" class="text-blue-600">${userEmail}</a></li>
+          <li><span class="font-medium">Phone:</span> ${
+            userPhone || "Not provided"
+          }</li>
         </ul>
       </div>
 
       <div class="bg-red-50 border-l-4 border-red-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">⚡ Action Required</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">⚡ Action Required</h3>
         <p class="text-gray-700">
           Please verify the availability of this property for the requested dates and confirm or reject this booking.
         </p>
@@ -72,13 +74,13 @@ export const shortletBookingAdminNotification = ({
       <div class="text-center my-8 flex gap-4 justify-center">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/admin/shortlets/${bookingId}"
-          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700"
+          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-medium hover:bg-green-700"
         >
           Review & Confirm
         </a>
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/admin/shortlets"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           View All Requests
         </a>

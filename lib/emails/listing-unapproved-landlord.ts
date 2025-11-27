@@ -21,7 +21,7 @@ export const listingUnapprovedLandlord = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2 text-orange-600">⚠️ Listing Unapproved</h1>
+    <h1 class="text-2xl font-medium mb-2 text-orange-600">⚠️ Listing Unapproved</h1>
     <p class="opacity-90 m-0">Your property listing has been removed from the marketplace</p>
 
     <div class="p-10">
@@ -32,7 +32,7 @@ export const listingUnapprovedLandlord = ({
       </p>
 
       <div class="bg-slate-50 p-5 rounded-lg my-6">
-        <h4 class="font-semibold text-gray-800 mb-3">What You Can Do</h4>
+        <h4 class="font-medium text-gray-800 mb-3">What You Can Do</h4>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
           <li>Review the reason above carefully.</li>
           <li>Make the necessary corrections to your listing.</li>
@@ -43,7 +43,7 @@ export const listingUnapprovedLandlord = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/landlord/listings/${slug}"
-          class="inline-block bg-orange-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-orange-700"
+          class="inline-block bg-orange-600 text-white py-3 px-8 rounded-full font-medium hover:bg-orange-700"
         >
           Review & Resubmit
         </a>

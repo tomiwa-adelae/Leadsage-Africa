@@ -31,7 +31,7 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-semibold">
+        <h1 className="text-3xl md:text-4xl font-medium">
           Review Your Listing
         </h1>
         <p className="text-muted-foreground text-base mt-2.5">
@@ -42,7 +42,7 @@ const page = async ({ params }: { params: Params }) => {
         <div className="mt-8 space-y-4">
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h5 className="font-semibold text-lg">Title </h5>
+              <h5 className="font-medium text-lg">Title </h5>
               <Button className="text-xs" size={"sm"} variant={"ghost"} asChild>
                 <Link href={`/landlord/listings/new/${listingId}/title`}>
                   Edit
@@ -56,7 +56,7 @@ const page = async ({ params }: { params: Params }) => {
           <Separator />
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h5 className="font-semibold text-lg">Description</h5>
+              <h5 className="font-medium text-lg">Description</h5>
               <Button className="text-xs" size={"sm"} variant={"ghost"} asChild>
                 <Link href={`/landlord/listings/new/${listingId}/description`}>
                   Edit
@@ -108,7 +108,7 @@ const page = async ({ params }: { params: Params }) => {
           <Separator />
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h5 className="font-semibold text-lg">Location Details</h5>
+              <h5 className="font-medium text-lg">Location Details</h5>
               <Button className="text-xs" size={"sm"} variant={"ghost"} asChild>
                 <Link href={`/landlord/listings/new/${listingId}/location`}>
                   Edit
@@ -137,7 +137,7 @@ const page = async ({ params }: { params: Params }) => {
           <Separator />
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h5 className="font-semibold text-lg">Property info</h5>
+              <h5 className="font-medium text-lg">Property info</h5>
               <Button className="text-xs" size={"sm"} variant={"ghost"} asChild>
                 <Link href={`/landlord/listings/new/${listingId}/describe`}>
                   Edit
@@ -174,7 +174,7 @@ const page = async ({ params }: { params: Params }) => {
           <Separator />
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h5 className="font-semibold text-lg">Amenities</h5>
+              <h5 className="font-medium text-lg">Amenities</h5>
               <Button className="text-xs" size={"sm"} variant={"ghost"} asChild>
                 <Link href={`/landlord/listings/new/${listingId}/amenities`}>
                   Edit
@@ -201,7 +201,7 @@ const page = async ({ params }: { params: Params }) => {
           <Separator />
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h5 className="font-semibold text-lg">Photos</h5>
+              <h5 className="font-medium text-lg">Photos</h5>
               <Button className="text-xs" size={"sm"} variant={"ghost"} asChild>
                 <Link href={`/landlord/listings/new/${listingId}/photos`}>
                   Edit
@@ -213,7 +213,7 @@ const page = async ({ params }: { params: Params }) => {
           <Separator />
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h5 className="font-semibold text-lg">Policies</h5>
+              <h5 className="font-medium text-lg">Policies</h5>
               <Button className="text-xs" size={"sm"} variant={"ghost"} asChild>
                 <Link href={`/landlord/listings/new/${listingId}/policies`}>
                   Edit
@@ -250,7 +250,7 @@ const page = async ({ params }: { params: Params }) => {
           <Separator />
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h5 className="font-semibold text-lg">Pricing & Extras</h5>
+              <h5 className="font-medium text-lg">Pricing & Extras</h5>
               <Button className="text-xs" size={"sm"} variant={"ghost"} asChild>
                 <Link href={`/landlord/listings/new/${listingId}/price`}>
                   Edit

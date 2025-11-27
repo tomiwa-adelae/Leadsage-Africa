@@ -26,7 +26,7 @@ export function DashboardCards({ listings, pendingBookings, leases }: Props) {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Total Properties</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {listings.length}
           </CardTitle>
           <CardAction>
@@ -44,7 +44,7 @@ export function DashboardCards({ listings, pendingBookings, leases }: Props) {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Total Revenue</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             <NairaIcon />
             1,234
           </CardTitle>
@@ -63,7 +63,7 @@ export function DashboardCards({ listings, pendingBookings, leases }: Props) {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Pending Tours</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {pendingBookings.length}
           </CardTitle>
           <CardAction>
@@ -81,7 +81,7 @@ export function DashboardCards({ listings, pendingBookings, leases }: Props) {
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>My Leases</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {leases.length}
           </CardTitle>
           <CardAction>

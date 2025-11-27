@@ -32,7 +32,7 @@ export const accountCreationSuccess = ({ name }: Props) => `
 				</p>
 
 				<div class="bg-blue-50 border-l-4 border-blue-500 p-5 my-6 rounded-r-lg">
-					<h3 class="text-lg font-semibold text-gray-800 mb-4">🚀 What’s Next?</h3>
+					<h3 class="text-lg font-medium text-gray-800 mb-4">🚀 What’s Next?</h3>
 					<ul class="list-disc list-inside space-y-2 text-gray-700">
 						<li>Browse verified property listings</li>
 						<li>Save your dream homes</li>
@@ -44,7 +44,7 @@ export const accountCreationSuccess = ({ name }: Props) => `
 				<div class="text-center my-8">
 					<a
 						href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/dashboard"
-						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold mx-2 my-2 hover:bg-blue-700 transition-colors"
+						class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium mx-2 my-2 hover:bg-blue-700 transition-colors"
 					>
 						Go to Dashboard
 					</a>
@@ -52,7 +52,7 @@ export const accountCreationSuccess = ({ name }: Props) => `
 
 				<p class="text-gray-700 leading-relaxed mb-4">
 					Need help? Our support team is always here for you at 
-					<a href={mailto:${env.SUPPORT_EMAIL_ADDRESS}} class="text-blue-600 font-semibold">${env.SUPPORT_EMAIL_ADDRESS}</a>.
+					<a href={mailto:${env.SUPPORT_EMAIL_ADDRESS}} class="text-blue-600 font-medium">${env.SUPPORT_EMAIL_ADDRESS}</a>.
 				</p>
 
 				<p class="text-gray-700">

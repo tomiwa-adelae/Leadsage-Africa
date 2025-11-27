@@ -55,7 +55,7 @@ export const DeletedListingCard = ({ listing }: Props) => {
           {listing.title ? (
             <Link
               href={`/landlord/listings/${listing.slug}`}
-              className="group-hover:text-primary hover:underline transition-all font-semibold text-lg line-clamp-1"
+              className="group-hover:text-primary hover:underline transition-all font-medium text-lg line-clamp-1"
             >
               {listing.title}
             </Link>

@@ -36,7 +36,7 @@ export const LeasesCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Total leases</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {leases.length}
           </CardTitle>
           <CardAction>
@@ -54,7 +54,7 @@ export const LeasesCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Active leases</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {activeLeases.length}
           </CardTitle>
           <CardAction>
@@ -72,7 +72,7 @@ export const LeasesCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Expired leases</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {expiredLeases.length}
           </CardTitle>
           <CardAction>
@@ -90,7 +90,7 @@ export const LeasesCards = ({
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Terminated leases</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+          <CardTitle className="text-2xl font-medium tabular-nums @[250px]/card:text-3xl">
             {terminatedLeases.length}
           </CardTitle>
           <CardAction>

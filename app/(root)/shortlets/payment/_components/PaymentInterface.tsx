@@ -147,7 +147,7 @@ export function PaymentInterface({ booking }: Props) {
   );
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       <div className="mb-6">
         <h1 className="text-3xl font-bold mb-2">Complete Your Payment</h1>
         <p className="text-muted-foreground">
@@ -176,9 +176,7 @@ export function PaymentInterface({ booking }: Props) {
               )}
 
               <div>
-                <h3 className="text-xl font-semibold">
-                  {booking.Listing.title}
-                </h3>
+                <h3 className="text-xl font-medium">{booking.Listing.title}</h3>
                 <p className="text-sm text-muted-foreground">
                   {booking.Listing.address}, {booking.Listing.city},{" "}
                   {booking.Listing.state}
@@ -200,7 +198,9 @@ export function PaymentInterface({ booking }: Props) {
 
               <div>
                 <p className="text-sm text-muted-foreground">Total nights</p>
-                <p className="font-medium">{nights} night{nights > 1 ? "s" : ""}</p>
+                <p className="font-medium">
+                  {nights} night{nights > 1 ? "s" : ""}
+                </p>
               </div>
 
               <Separator />
@@ -218,7 +218,7 @@ export function PaymentInterface({ booking }: Props) {
           {/* Important Information */}
           <Card className="border-yellow-500 bg-yellow-50 dark:bg-yellow-950/20">
             <CardContent className="pt-6">
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <h3 className="font-medium mb-2 flex items-center gap-2">
                 <span className="text-yellow-600">⚠️</span>
                 Important Information
               </h3>
@@ -226,11 +226,10 @@ export function PaymentInterface({ booking }: Props) {
                 <li>Payment must be completed to confirm your booking</li>
                 <li>This payment link expires in 48 hours</li>
                 <li>
-                  You'll receive check-in instructions after payment confirmation
+                  You'll receive check-in instructions after payment
+                  confirmation
                 </li>
-                <li>
-                  Cancellation policy applies as per the property listing
-                </li>
+                <li>Cancellation policy applies as per the property listing</li>
               </ul>
             </CardContent>
           </Card>

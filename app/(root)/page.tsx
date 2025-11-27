@@ -11,6 +11,7 @@ import { Categories } from "./_components/Categories";
 import { SecondCTA } from "./_components/SecondCTA";
 
 import type { Metadata } from "next";
+import { Blogs } from "./_components/Blogs";
 
 export const metadata: Metadata = {
   title: "Leadsage | Find Your Dream Home in Nigeria",
@@ -23,7 +24,7 @@ interface Props {
 }
 
 const page = async ({ searchParams }: Props) => {
-  const { login } = await searchParams;
+  const { login, query, tag, categorySlug, page } = await searchParams;
 
   if (login) {
     const user = await getUserInfo();
@@ -40,6 +41,7 @@ const page = async ({ searchParams }: Props) => {
       {/* <Spotlight /> */}
       <CTAs />
       <Testimonials />
+      <Blogs />
       {/* <PartneringCompanies /> */}
       <SecondCTA />
     </div>

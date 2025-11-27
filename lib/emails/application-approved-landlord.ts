@@ -23,7 +23,7 @@ export const applicationApprovedLandlord = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2">✅ Tenant Application Approved</h1>
+    <h1 class="text-2xl font-medium mb-2">✅ Tenant Application Approved</h1>
     <p class="opacity-90 m-0">You’re ready to move forward with your new tenant</p>
 
     <div class="p-10">
@@ -42,7 +42,7 @@ export const applicationApprovedLandlord = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/landlord/applications/${id}"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           Manage Application
         </a>

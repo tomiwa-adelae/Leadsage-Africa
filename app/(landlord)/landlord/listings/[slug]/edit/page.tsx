@@ -31,7 +31,7 @@ const page = async ({ params }: { params: Params }) => {
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-semibold">
+            <h1 className="text-3xl md:text-4xl font-medium">
               Edit {listing.title}
             </h1>
             <p className="text-muted-foreground text-base mt-2.5">

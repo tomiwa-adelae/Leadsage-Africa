@@ -49,7 +49,7 @@ export default async function AdminUserPage({ params }: Props) {
               className="rounded-full object-cover size-[100px]"
             />
             <div className="space-y-2">
-              <h2 className="text-xl font-semibold">{user.name}</h2>
+              <h2 className="text-xl font-medium">{user.name}</h2>
               <p className="text-sm text-muted-foreground">{user.email}</p>
 
               <div className="flex flex-wrap gap-2">

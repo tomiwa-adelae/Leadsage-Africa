@@ -17,7 +17,7 @@ export function Spotlight() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 md:mt-10">
-          <h2 className="text-2xl md:text-3xl font-semibold">
+          <h2 className="text-2xl md:text-3xl font-medium">
             Leadsage connects people to homes they love.
           </h2>
           <div className="space-y-4 mt-2.5">

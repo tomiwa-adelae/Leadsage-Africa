@@ -21,7 +21,7 @@ export const listingApprovedLandlord = ({
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2 text-green-700">✅ Listing Approved!</h1>
+    <h1 class="text-2xl font-medium mb-2 text-green-700">✅ Listing Approved!</h1>
     <p class="opacity-90 m-0">Your property is now live on Leadsage Africa</p>
 
     <div class="p-10">
@@ -33,7 +33,7 @@ export const listingApprovedLandlord = ({
       </p>
 
       <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-3">What Happens Next?</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-3">What Happens Next?</h3>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
           <li>Your property is now searchable on Leadsage Africa.</li>
           <li>Interested tenants can request tours and submit applications.</li>
@@ -44,7 +44,7 @@ export const listingApprovedLandlord = ({
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/landlord/listings/${slug}"
-          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700"
+          class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-medium hover:bg-green-700"
         >
           View My Listing
         </a>

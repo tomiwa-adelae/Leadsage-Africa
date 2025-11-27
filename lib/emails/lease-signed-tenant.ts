@@ -17,7 +17,7 @@ export const leaseSignedTenant = ({ name, location, id }: Props) => `
 </head>
 <body class="font-sans bg-gray-100 p-5">
   <div>
-    <h1 class="text-2xl font-semibold mb-2">✅ Lease Agreement Signed</h1>
+    <h1 class="text-2xl font-medium mb-2">✅ Lease Agreement Signed</h1>
     <p class="opacity-90 m-0">Your rental process is moving forward</p>
 
     <div class="p-10">
@@ -33,7 +33,7 @@ export const leaseSignedTenant = ({ name, location, id }: Props) => `
       </p>
 
       <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg my-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">Next Steps:</h3>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">Next Steps:</h3>
         <ul class="list-disc list-inside text-gray-700 space-y-2">
           <li>Wait for landlord’s signature</li>
           <li>Prepare your move-in checklist</li>
@@ -44,7 +44,7 @@ export const leaseSignedTenant = ({ name, location, id }: Props) => `
       <div class="text-center my-8">
         <a
           href="${env.NEXT_PUBLIC_BETTER_AUTH_URL}/leases/${id}"
-          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-blue-700"
+          class="inline-block bg-blue-600 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-700"
         >
           View Lease details
         </a>

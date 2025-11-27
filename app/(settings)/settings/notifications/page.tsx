@@ -17,7 +17,7 @@ const page = async () => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
-        <h1 className="text-3xl md:text-4xl font-semibold">Notifications</h1>
+        <h1 className="text-3xl md:text-4xl font-medium">Notifications</h1>
         <div className="space-y-1">
           <BookingBox value={user.bookingNotifications} />
           <ListingBox value={user.listingNotifications} />

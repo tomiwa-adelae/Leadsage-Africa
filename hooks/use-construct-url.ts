@@ -1,8 +1,8 @@
-import { DEFAULT_PROFILE_PICTURE } from "@/constants";
+import { DEFAULT_LISTING_IMAGE, DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { env } from "@/lib/env";
 
 export const useConstructUrl = (image: string | null | undefined) => {
-  if (!image) return DEFAULT_PROFILE_PICTURE;
+  if (!image) return DEFAULT_LISTING_IMAGE;
 
   if (image.startsWith("https://")) {
     // Google or external provider

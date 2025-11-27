@@ -24,9 +24,7 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-semibold">
-          Terminated Leases
-        </h1>
+        <h1 className="text-3xl md:text-4xl font-medium">Terminated Leases</h1>
         <p className="text-muted-foreground text-base mt-2.5">
           View and manage all terminated leases
         </p>

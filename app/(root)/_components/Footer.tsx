@@ -7,13 +7,13 @@ export function Footer() {
   return (
     <section className="bg-primary text-white">
       <footer className="border-t md:hidden py-16 md:py-32">
-        <div className="mx-auto max-w-5xl px-6">
+        <div>
           <Link
             href="/"
             aria-label="go home"
             className="mx-auto block size-fit"
           >
-            <Logo />
+            <Logo white />
           </Link>
 
           <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
@@ -21,7 +21,7 @@ export function Footer() {
               <Link
                 key={index}
                 href={link.href}
-                className="hover:text-primary block duration-150"
+                className="hover:underline block"
               >
                 <span>{link.title}</span>
               </Link>
@@ -46,16 +46,16 @@ export function Footer() {
           </div>
           <span className="block text-center text-sm">
             {" "}
-            © {new Date().getFullYear()} Leadsage Africa, All rights reserved
+            © {new Date().getFullYear()} Leadsage Africa. All rights reserved
           </span>
         </div>
       </footer>
-      <footer className="hidden md:block border-t pt-20">
-        <div className="container px-6">
-          <div className="grid gap-12 md:grid-cols-5">
+      <footer className="hidden md:block border-t">
+        <div className="container">
+          {/* <div className="grid gap-12 md:grid-cols-5">
             <div className="md:col-span-2">
               <Link href="/" aria-label="go home" className="block size-fit">
-                <Logo />
+                <Logo white />
               </Link>
             </div>
 
@@ -75,10 +75,10 @@ export function Footer() {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="mt-12 flex flex-wrap items-end justify-between gap-6 border-t py-6">
+          </div> */}
+          <div className="flex flex-wrap items-end justify-between gap-6 py-6">
             <span className="order-last block text-center text-sm md:order-first">
-              © {new Date().getFullYear()} Leadsage Africa, All rights reserved
+              © {new Date().getFullYear()} Leadsage Africa. All rights reserved
             </span>
             <div className="order-first flex flex-wrap justify-center gap-6 text-sm md:order-last">
               {socialLinks.map(({ icon, name, url }, index) => {

@@ -100,7 +100,9 @@ export default function SearchPage({ searchParams }) {
             {/* AI Search Button */}
             <AISearchButton variant="outline">
               Try AI Search
-              <Badge variant="secondary" className="ml-2">NEW</Badge>
+              <Badge variant="secondary" className="ml-2">
+                NEW
+              </Badge>
             </AISearchButton>
           </div>
 
@@ -130,9 +132,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body>
         {/* Your existing layout */}
-        <div className="min-h-screen">
-          {children}
-        </div>
+        <div className="min-h-screen">{children}</div>
 
         {/* Add Floating AI Search Button (mobile only) */}
         <AISearchFAB />
@@ -241,8 +241,8 @@ export default function HomePage() {
 
             {/* Description */}
             <p className="text-muted-foreground text-lg">
-              Simply describe what you're looking for in natural language.
-              Our AI understands your needs and finds the best matches.
+              Simply describe what you're looking for in natural language. Our
+              AI understands your needs and finds the best matches.
             </p>
 
             {/* AI Search Bar */}
@@ -261,7 +261,7 @@ export default function HomePage() {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
                   ✓
                 </div>
-                <h3 className="font-semibold">Natural Language</h3>
+                <h3 className="font-medium">Natural Language</h3>
                 <p className="text-sm text-muted-foreground">
                   Ask as if you're talking to a person
                 </p>
@@ -270,7 +270,7 @@ export default function HomePage() {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
                   ✓
                 </div>
-                <h3 className="font-semibold">Smart Matching</h3>
+                <h3 className="font-medium">Smart Matching</h3>
                 <p className="text-sm text-muted-foreground">
                   AI understands context and intent
                 </p>
@@ -279,7 +279,7 @@ export default function HomePage() {
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
                   ✓
                 </div>
-                <h3 className="font-semibold">Personalized Results</h3>
+                <h3 className="font-medium">Personalized Results</h3>
                 <p className="text-sm text-muted-foreground">
                   Learns from your preferences over time
                 </p>
@@ -330,7 +330,9 @@ export function SimilarListings({ listingId }: SimilarListingsProps) {
           setListings(data.similarListings);
         }
       })
-      .catch((error) => console.error("Error fetching similar listings:", error))
+      .catch((error) =>
+        console.error("Error fetching similar listings:", error)
+      )
       .finally(() => setLoading(false));
   }, [listingId]);
 
@@ -444,13 +446,15 @@ export default function Dashboard() {
 ## 🎯 Quick Copy-Paste Snippets
 
 ### Just the Button
+
 ```tsx
 import { AISearchButton } from "@/components/AISearchButton";
 
-<AISearchButton />
+<AISearchButton />;
 ```
 
 ### Button with Custom Text
+
 ```tsx
 <AISearchButton variant="outline" size="lg">
   Search with AI ✨
@@ -458,26 +462,29 @@ import { AISearchButton } from "@/components/AISearchButton";
 ```
 
 ### Inline Search Bar
+
 ```tsx
 import { AISearchBar } from "@/components/AISearchBar";
 
-<AISearchBar variant="compact" />
+<AISearchBar variant="compact" />;
 ```
 
 ### Floating Button (Mobile)
+
 ```tsx
 import { AISearchFAB } from "@/components/AISearchButton";
 
-<AISearchFAB />
+<AISearchFAB />;
 ```
 
 ### Link to AI Search Page
+
 ```tsx
 import Link from "next/link";
 
 <Link href="/ai-search" className="text-primary">
   Try AI Search
-</Link>
+</Link>;
 ```
 
 ---

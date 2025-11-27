@@ -48,7 +48,7 @@ const page = async ({ params }: { params: Params }) => {
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-semibold">
+            <h1 className="text-3xl md:text-4xl font-medium">
               {booking.bookingId}{" "}
               <Badge
                 variant={
@@ -147,7 +147,7 @@ const page = async ({ params }: { params: Params }) => {
               <p className="text-muted-foreground text-sm mt-1.5">
                 {booking.listing.smallDescription}
               </p>
-              <div className="flex flex-wrap gap-6 items-center justify-start font-semibold text-2xl mt-1.5 mb-4">
+              <div className="flex flex-wrap gap-6 items-center justify-start font-medium text-2xl mt-1.5 mb-4">
                 {booking.listing.propertySize && (
                   <h3 className="tracking-tight">
                     {booking.listing.propertySize}{" "}

@@ -260,7 +260,8 @@ export const BookingDetails = ({
           triggerConfetti();
           // Redirect to success page without payment
           router.push(
-            `/listings/${listing.slug}/success?shortlet=true&id=${result?.shortlet?.id!}&pending=true`
+            `/listings/${listing.slug}/success?shortlet=true&id=${result
+              ?.shortlet?.id!}&pending=true`
           );
         } else {
           toast.error(result.message || "Failed to submit booking request");
@@ -278,7 +279,7 @@ export const BookingDetails = ({
         <CardContent className="py-8">
           <div className="space-y-1.5">
             <p className="text-muted-foreground text-sm">Rent price</p>
-            <h2 className="font-semibold text-3xl">
+            <h2 className="font-medium text-3xl">
               <NairaIcon />
               {listing.price}
               <span className="text-sm">/{listing.paymentFrequency}</span>
@@ -528,7 +529,7 @@ export const BookingDetails = ({
                     </div>
 
                     {/* Price summary */}
-                    <div className="flex justify-between text-base font-semibold mt-2 border-t pt-2">
+                    <div className="flex justify-between text-base font-medium mt-2 border-t pt-2">
                       <span>Total price</span>
                       <span>
                         ₦
@@ -580,8 +581,7 @@ export const BookingDetails = ({
                     transition={{ duration: 0.2 }}
                     className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center"
                   >
-                    {" "}
-                    <div className="w-full max-w-4xl mx-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border p-6 relative">
+                    <div className="w-full bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border p-6 relative">
                       {/* Close button */}
                       <Button
                         variant="ghost"
@@ -592,7 +592,7 @@ export const BookingDetails = ({
                         ✕
                       </Button>
 
-                      <h2 className="text-2xl font-semibold text-center mb-6">
+                      <h2 className="text-2xl font-medium text-center mb-6">
                         Select your stay period
                       </h2>
 

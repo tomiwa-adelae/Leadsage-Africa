@@ -29,9 +29,7 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-semibold">
-          Cancelled bookings
-        </h1>
+        <h1 className="text-3xl md:text-4xl font-medium">Cancelled bookings</h1>
         <p className="text-muted-foreground text-base mt-2.5">
           View and manage all cancelled bookings from here
         </p>

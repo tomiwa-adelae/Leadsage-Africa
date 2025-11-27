@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <div>
-      <h1 className="text-3xl md:text-4xl font-semibold">
+      <h1 className="text-3xl md:text-4xl font-medium">
         Forgot your password?
       </h1>
       <p className="text-muted-foreground text-base mt-1.5">

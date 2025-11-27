@@ -19,7 +19,7 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div>
-          <h1 className="text-3xl md:text-4xl font-semibold">
+          <h1 className="text-3xl md:text-4xl font-medium">
             Lease Agreement for {application.Listing.title}
           </h1>
           <p className="text-muted-foreground text-base mt-2.5">
