@@ -23,6 +23,7 @@ import { ListingMap } from "@/components/ListingMap";
 import { getExistingBooking } from "@/app/data/booking/get-existing-booking";
 import { Metadata, ResolvingMetadata } from "next";
 import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
+import { ContactLandlordButton } from "@/components/messaging";
 
 export async function generateMetadata(
   { params }: any,
@@ -217,10 +218,17 @@ const page = async ({ params }: { params: Params }) => {
                   );
                 })()}
               </div>
-              <div>
+              <div className="space-y-4">
                 <h3 className="font-medium text-2xl md:text-3xl lg:text-5xl">
                   {listing.User.name}
                 </h3>
+                {session && session.user.id !== listing.User.id && (
+                  <ContactLandlordButton
+                    landlordId={listing.User.id}
+                    listingId={listing.id}
+                    listingTitle={listing.title || undefined}
+                  />
+                )}
               </div>
             </div>
           </div>

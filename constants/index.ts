@@ -97,6 +97,10 @@ export const navLinks = [
     label: "Blog",
   },
   {
+    slug: "/messages",
+    label: "Messages",
+  },
+  {
     slug: "/about",
     label: "About us",
   },

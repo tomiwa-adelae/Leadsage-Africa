@@ -21,6 +21,7 @@ import { BlogCard } from "../_components/BlogCard";
 import type { Metadata } from "next";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import { CopyButton } from "../_components/CopyButton";
+import { env } from "@/lib/env";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -59,7 +60,7 @@ const BlogPostPage = async ({ params }: Props) => {
     post.tags
   );
 
-  const shareUrl = `${process.env.NEXT_PUBLIC_BETTER_AUTH_URL}/blog/${post.slug}`;
+  const shareUrl = `${env.NEXT_PUBLIC_BETTER_AUTH_URL}/blog/${post.slug}`;
 
   const photoUrl = useConstructUrl(post?.featuredImage);
   const authorImage = useConstructUrl(post?.author.image);

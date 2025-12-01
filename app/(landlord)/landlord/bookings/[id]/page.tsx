@@ -30,6 +30,7 @@ import { MarkConfirmButton } from "./_components/MarkConfirmButton";
 import { getBookingTimelines } from "@/app/data/booking-timeline/get-booking-timelines";
 import { getUserInfo } from "@/app/data/user/get-user-info";
 import Link from "next/link";
+import { MessageTenantButton } from "@/components/messaging";
 
 type Params = Promise<{
   id: string;
@@ -316,10 +317,12 @@ const page = async ({ params }: { params: Params }) => {
               </div>
             )}
             <div className="grid gap-2">
-              <Button size="md">
-                <Mail />
-                Send Message
-              </Button>
+              <MessageTenantButton
+                tenantId={booking.user.id}
+                bookingId={booking.id}
+                context={`Booking: ${booking.bookingId}`}
+                className="w-full"
+              />
               <Button size="md" variant={"outline"}>
                 View Profile
               </Button>
@@ -359,36 +362,21 @@ const page = async ({ params }: { params: Params }) => {
         </Card>
         <Card className="@container/card gap-0">
           <CardHeader className="flex items-center justify-between gap-2">
-            <CardTitle>Recent Messages</CardTitle>
-            <Button variant="ghost" size="sm">
-              View All
+            <CardTitle>Messages</CardTitle>
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/landlord/messages">View All</Link>
             </Button>
           </CardHeader>
           <CardContent className="mt-2.5 grid gap-2">
-            <div className="bg-accent px-3.5 py-4 rounded-lg flex flex-col md:flex-row items-start justify-between gap-2">
-              <div>
-                <p className="text-sm font-medium">{booking.user.name}</p>
-                <p className="text-sm text-muted-foreground">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Sapiente, accusamus!
-                </p>
-              </div>
-              <p className="text-xs text-muted-foreground">August 21, 2025</p>
-            </div>
-            <div className="bg-accent px-3.5 py-4 rounded-lg flex flex-col md:flex-row items-start justify-between gap-2">
-              <div>
-                <p className="text-sm font-medium">You</p>
-                <p className="text-sm text-muted-foreground">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Sapiente, accusamus!
-                </p>
-              </div>
-              <p className="text-xs text-muted-foreground">August 21, 2025</p>
-            </div>
-            <Button size="md" className="w-full mt-2">
-              <Mail />
-              Reply
-            </Button>
+            <p className="text-sm text-muted-foreground text-center py-4">
+              Use the messaging feature to communicate with {booking.user.name} about this booking.
+            </p>
+            <MessageTenantButton
+              tenantId={booking.user.id}
+              bookingId={booking.id}
+              context={`Booking: ${booking.bookingId}`}
+              className="w-full"
+            />
           </CardContent>
         </Card>
       </div>

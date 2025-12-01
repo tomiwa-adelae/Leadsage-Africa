@@ -55,6 +55,11 @@ model User {
   shortlets ShortletBooking[]
   blogPosts BlogPost[]
 
+  // Messaging relations
+  conversations ConversationParticipant[]
+  messages      Message[]
+  messageReads  MessageRead[]
+
   onboardingCompleted Boolean? @default(false)
 
   role       String?
@@ -655,4 +660,151 @@ model BlogCategory {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// ==================== MESSAGING SYSTEM ====================
+
+model Conversation {
+  id    String            @id @default(uuid())
+  type  ConversationType  @default(DIRECT)
+  title String? // Optional: for context or group chats
+
+  // Link to related entities (optional - for contextual conversations)
+  bookingId     String?
+  applicationId String?
+  leaseId       String?
+  listingId     String?
+
+  // Participants and messages
+  participants ConversationParticipant[]
+  messages     Message[]
+
+  // Metadata
+  lastMessageAt DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([createdAt])
+  @@index([lastMessageAt])
+  @@index([bookingId])
+  @@index([applicationId])
+  @@index([leaseId])
+  @@index([listingId])
+}
+
+enum ConversationType {
+  DIRECT      // 1-to-1 conversations
+  BOOKING     // Related to a tour booking
+  APPLICATION // Related to rental application
+  LEASE       // Related to active lease
+  LISTING     // General inquiry about a listing
+  SUPPORT     // Support conversation
+}
+
+model ConversationParticipant {
+  id             String       @id @default(uuid())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  role ParticipantRole @default(MEMBER)
+
+  // For notifications
+  unreadCount Int       @default(0)
+  lastReadAt  DateTime?
+  isMuted     Boolean   @default(false)
+  isArchived  Boolean   @default(false)
+
+  joinedAt DateTime @default(now())
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+  @@index([conversationId])
+}
+
+enum ParticipantRole {
+  MEMBER
+  ADMIN
+  ARCHIVED
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String
+
+  sender   User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  senderId String
+
+  content String       @db.Text
+  type    MessageType  @default(TEXT)
+  status  MessageStatus @default(SENT)
+
+  // Attachments
+  attachments MessageAttachment[]
+
+  // Threading/replies
+  replyTo   Message?  @relation("MessageReply", fields: [replyToId], references: [id], onDelete: SetNull)
+  replyToId String?
+  replies   Message[] @relation("MessageReply")
+
+  // Read receipts
+  readBy MessageRead[]
+
+  // Metadata
+  editedAt  DateTime?
+  deletedAt DateTime? // Soft delete
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([conversationId, createdAt])
+  @@index([senderId])
+  @@index([status])
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+  SYSTEM // For system notifications like "User joined"
+}
+
+enum MessageStatus {
+  PENDING   // Not yet sent
+  SENT      // Sent to server
+  DELIVERED // Delivered to recipients
+  READ      // Read by recipient(s)
+  FAILED    // Failed to send
+}
+
+model MessageRead {
+  id        String  @id @default(uuid())
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  messageId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  readAt DateTime @default(now())
+
+  @@unique([messageId, userId])
+  @@index([userId])
+  @@index([messageId])
+}
+
+model MessageAttachment {
+  id        String  @id @default(uuid())
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  messageId String
+
+  fileName String
+  fileSize Int
+  fileType String
+  url      String  // S3 URL or path
+
+  createdAt DateTime @default(now())
+
+  @@index([messageId])
 }

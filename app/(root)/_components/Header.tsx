@@ -18,7 +18,7 @@ export const Header = async () => {
     <header className="z-50 bg-white dark:bg-black py-4 h-20 flex items-center justify-center fixed top-0 w-full shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]">
       <div className="container flex items-center justify-between gap-4">
         <Logo invert />
-        {/* <nav className="hidden flex-1 lg:flex items-center justify-center gap-2 lg:gap-8">
+        <nav className="hidden flex-1 lg:flex items-center justify-center gap-2 lg:gap-8">
           {navLinks.map(({ label, slug }) => (
             <Link
               key={slug}
@@ -28,7 +28,7 @@ export const Header = async () => {
               {label}
             </Link>
           ))}
-        </nav> */}
+        </nav>
         <div className="flex items-center justify-end gap-2">
           <div className="flex items-center justify-end gap-2">
             <SearchButton />
