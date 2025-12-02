@@ -73,9 +73,9 @@ export const QuickActions = ({
         {landlordSignature && lease.status !== "ACTIVE" && (
           <div
             onClick={() => setOpenMarkPaymentModal(true)}
-            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
           >
-            <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+            <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-md">
               <IconCreditCard className="size-4" />
             </div>
             Make Payment
@@ -83,15 +83,15 @@ export const QuickActions = ({
         )}
         <div
           onClick={handleDownload}
-          className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+          className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
         >
-          <div className="p-2.5 inline-block bg-purple-600/20 dark:bg-purple-600/70 text-purple-600 dark:text-white rounded-lg">
+          <div className="p-2.5 inline-block bg-purple-600/20 dark:bg-purple-600/70 text-purple-600 dark:text-white rounded-md">
             <IconDownload className="size-4" />
           </div>
           {isGenerating ? "Downloading..." : "Download Lease Agreement"}
         </div>
-        <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-          <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-lg">
+        <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
+          <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-md">
             <Mail className="size-4" />
           </div>
           Message Landlord
@@ -101,9 +101,9 @@ export const QuickActions = ({
           status !== "EXPIRED" && (
             <div
               onClick={() => setOpenCancelModal(true)}
-              className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+              className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
             >
-              <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-lg">
+              <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-md">
                 <IconBan className="size-4" />
               </div>
               Cancel Lease

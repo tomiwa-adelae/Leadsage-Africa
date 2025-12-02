@@ -41,7 +41,7 @@ export const listingRejectedLandlord = ({
         </p>
       </div>
 
-      <div class="bg-slate-50 p-5 rounded-lg my-6">
+      <div class="bg-slate-50 p-5 rounded-md my-6">
         <h4 class="font-medium text-gray-800 mb-3">Next Steps</h4>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
           <li>Update your listing details to address the rejection reason.</li>

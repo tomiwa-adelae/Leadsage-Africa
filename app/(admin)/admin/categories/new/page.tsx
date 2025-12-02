@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/sidebar/site-header";
 import React from "react";
 import { CategoryForm } from "./_components/CategoryForm";
 import { getCategory } from "@/app/data/admin/category/get-category";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Props {
   searchParams: any;
@@ -20,10 +21,14 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">Add new category</h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          Create a new listing category for properties on Leadsage.
-        </p>
+        <PageHeader
+          title={id ? "Edit category" : "Add new category"}
+          description={
+            id
+              ? "Update this category for properties on Leadsage."
+              : "Create a new listing category for properties on Leadsage."
+          }
+        />
         <div className="mt-4 space-y-6">
           <CategoryForm category={category} />
         </div>

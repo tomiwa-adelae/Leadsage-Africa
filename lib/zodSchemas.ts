@@ -485,6 +485,12 @@ export const newCategoryFormSchema = z.object({
   icon: z.string().min(2, { message: "Icon is required" }),
 });
 
+export const newAmenityFormSchema = z.object({
+  name: z.string().min(2, { message: "Name is required" }),
+  description: z.string().min(2, { message: "Description is required" }),
+  icon: z.string().min(2, { message: "Icon is required" }),
+});
+
 export type RegisterFormSchemaType = z.infer<typeof registerFormSchema>;
 export type LoginFormSchemaType = z.infer<typeof loginFormSchema>;
 export type ForgotPasswordFormSchemaType = z.infer<
@@ -529,6 +535,7 @@ export type EditEmergencyFormSchemaType = z.infer<
 >;
 export type EditPasswordFormSchemaType = z.infer<typeof editPasswordFormSchema>;
 export type NewCategoryFormSchemaType = z.infer<typeof newCategoryFormSchema>;
+export type NewAmenityFormSchemaType = z.infer<typeof newAmenityFormSchema>;
 export type AddPaymentMethodFormSchemaType = z.infer<
   typeof addPaymentMethodFormSchema
 >;

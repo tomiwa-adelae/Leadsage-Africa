@@ -9,6 +9,7 @@ import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import React from "react";
 import { QuickActions } from "../../leases/[id]/payments/success/_components/QuickActions";
 import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   id: string;
@@ -21,37 +22,41 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            Payment for {paymentDetails.Lease.leaseId}{" "}
-            <Badge
-              variant={
-                paymentDetails.status === "PENDING"
-                  ? "pending"
-                  : paymentDetails.status === "SUCCESS"
-                  ? "success"
-                  : paymentDetails.status === "CANCELLED"
-                  ? "destructive"
-                  : paymentDetails.status === "FAILED"
-                  ? "destructive"
-                  : paymentDetails.status === "REFUNDED"
-                  ? "secondary"
-                  : "default"
-              }
-              className="capitalize"
-            >
-              {paymentDetails.status === "CANCELLED" && "Cancelled"}
-              {paymentDetails.status === "PENDING" && "Pending"}
-              {paymentDetails.status === "FAILED" && "Failed"}
-              {paymentDetails.status === "REFUNDED" && "Refunded"}
-              {paymentDetails.status === "SUCCESS" && "Success"}
-            </Badge>
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            This is your payment receipt for {paymentDetails.Lease.leaseId} -{" "}
-            {paymentDetails.Lease.Listing.title}
-          </p>
-        </div>
+        <PageHeader
+          title={
+            <>
+              Payment for {paymentDetails.Lease.leaseId}{" "}
+              <Badge
+                variant={
+                  paymentDetails.status === "PENDING"
+                    ? "pending"
+                    : paymentDetails.status === "SUCCESS"
+                    ? "success"
+                    : paymentDetails.status === "CANCELLED"
+                    ? "destructive"
+                    : paymentDetails.status === "FAILED"
+                    ? "destructive"
+                    : paymentDetails.status === "REFUNDED"
+                    ? "secondary"
+                    : "default"
+                }
+                className="capitalize"
+              >
+                {paymentDetails.status === "CANCELLED" && "Cancelled"}
+                {paymentDetails.status === "PENDING" && "Pending"}
+                {paymentDetails.status === "FAILED" && "Failed"}
+                {paymentDetails.status === "REFUNDED" && "Refunded"}
+                {paymentDetails.status === "SUCCESS" && "Success"}
+              </Badge>
+            </>
+          }
+          description={
+            <>
+              This is your payment receipt for {paymentDetails.Lease.leaseId} -{" "}
+              {paymentDetails.Lease.Listing.title}
+            </>
+          }
+        />
         <div className="mt-4 space-y-4">
           <Card className="gap-0">
             <CardHeader className="border-b">

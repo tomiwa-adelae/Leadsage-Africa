@@ -89,7 +89,7 @@ export const QuickActions = ({
             <p className="text-muted-foreground text-base mt-4">
               Tenant's Signature
             </p>
-            <div className="border-2 max-w-[200px] rounded-lg border-dashed mt-2.5">
+            <div className="border-2 max-w-[200px] rounded-md border-dashed mt-2.5">
               <Image
                 src={lease.tenantSignature}
                 alt="Tenant's signature"
@@ -104,7 +104,7 @@ export const QuickActions = ({
               Landlord's Signature
             </p>
             {lease.landlordSignature ? (
-              <div className="border-2 w-fit rounded-lg border-dashed">
+              <div className="border-2 w-fit rounded-md border-dashed">
                 <Image
                   src={lease.landlordSignature}
                   alt="Landlord's signature"
@@ -116,7 +116,7 @@ export const QuickActions = ({
             ) : (
               <div className="mt-4">
                 <p className="text-muted-foreground">Sign here</p>
-                <div className="border-2 w-[200px] h-[200px] overflow-hidden rounded-lg border-dashed">
+                <div className="border-2 w-[200px] h-[200px] overflow-hidden rounded-md border-dashed">
                   {signature && (
                     <Image
                       src={signature}
@@ -163,9 +163,9 @@ export const QuickActions = ({
           {signature && !landlordSignature && (
             <div
               onClick={() => setOpenSignLeaseModal(true)}
-              className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+              className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
             >
-              <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+              <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-md">
                 <IconContract className="size-4" />
               </div>
               Sign lease
@@ -173,15 +173,15 @@ export const QuickActions = ({
           )}
           <div
             onClick={handleDownload}
-            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
           >
-            <div className="p-2.5 inline-block bg-purple-600/20 dark:bg-purple-600/70 text-purple-600 dark:text-white rounded-lg">
+            <div className="p-2.5 inline-block bg-purple-600/20 dark:bg-purple-600/70 text-purple-600 dark:text-white rounded-md">
               <IconDownload className="size-4" />
             </div>
             {isGenerating ? "Downloading..." : "Download Lease Agreement"}
           </div>
-          <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-            <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-lg">
+          <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
+            <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-md">
               <Mail className="size-4" />
             </div>
             Message Tenant

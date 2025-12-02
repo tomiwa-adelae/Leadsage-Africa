@@ -44,9 +44,9 @@ export const QuickActions = ({
         {status === "Draft" && (
           <div
             onClick={() => setOpenPublishModal(true)}
-            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
           >
-            <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+            <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-md">
               <CircleCheckBig className="size-4" />
             </div>
             Publish listing
@@ -55,9 +55,9 @@ export const QuickActions = ({
         {status === "Restored" && (
           <div
             onClick={() => setOpenPublishModal(true)}
-            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
           >
-            <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+            <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-md">
               <CircleCheckBig className="size-4" />
             </div>
             Publish listing
@@ -66,9 +66,9 @@ export const QuickActions = ({
         {status === "Published" && (
           <Link
             href={`/admin/listings/${slug}/preview`}
-            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
           >
-            <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-lg">
+            <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-md">
               <IconEyeDotted className="size-4" />
             </div>
             Preview listing
@@ -78,18 +78,18 @@ export const QuickActions = ({
           <>
             <div
               onClick={() => setOpenApproveModal(true)}
-              className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+              className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
             >
-              <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+              <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-md">
                 <CircleCheckBig className="size-4" />
               </div>
               Approve listing
             </div>
             <div
               onClick={() => setOpenRejectModal(true)}
-              className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+              className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
             >
-              <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-red-600 dark:text-white rounded-lg">
+              <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-red-600 dark:text-white rounded-md">
                 <IconBan className="size-4" />
               </div>
               Reject listing
@@ -99,9 +99,9 @@ export const QuickActions = ({
         {status !== "Deleted" && (
           <Link
             href={`/admin/listings/${slug}/edit`}
-            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
           >
-            <div className="p-2.5 inline-block bg-secondary text-secondary-foreground dark:text-white rounded-lg">
+            <div className="p-2.5 inline-block bg-secondary text-secondary-foreground dark:text-white rounded-md">
               <Edit className="size-4" />
             </div>
             Edit listing
@@ -110,9 +110,9 @@ export const QuickActions = ({
         {isApproved && (
           <div
             onClick={() => setOpenUnapproveModal(true)}
-            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
           >
-            <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-lg">
+            <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-md">
               <PowerOff className="size-4" />
             </div>
             Unapprove listing
@@ -121,9 +121,9 @@ export const QuickActions = ({
         {status === "Archived" && (
           <div
             onClick={() => setOpenUnarchivedModal(true)}
-            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
           >
-            <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-lg">
+            <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-md">
               <ArchiveRestore className="size-4" />
             </div>
             Unarchive listing
@@ -132,9 +132,9 @@ export const QuickActions = ({
         {listing?.Lease[0]?.status !== "ACTIVE" && status !== "Deleted" && (
           <div
             onClick={() => setOpenDeleteModal(true)}
-            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+            className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
           >
-            <div className="p-2.5 inline-block bg-red-600/20 dark:bg-red-600/70 text-red-600 dark:text-white rounded-lg">
+            <div className="p-2.5 inline-block bg-red-600/20 dark:bg-red-600/70 text-red-600 dark:text-white rounded-md">
               <IconTrash className="size-4" />
             </div>
             Delete listing

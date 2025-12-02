@@ -60,7 +60,7 @@ export function LeasesTable({ leases }: Props) {
                     alt={`${lease.Listing.title}'s photo`}
                     width={1000}
                     height={1000}
-                    className="size-[50px] rounded-lg object-cover"
+                    className="size-[50px] rounded-md object-cover"
                   />
                   <p className="group-hover:underline group-hover:text-primary transition-all font-medium">
                     {lease.Listing.title}

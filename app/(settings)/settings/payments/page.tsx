@@ -13,6 +13,7 @@ import { AddPaymentMethod } from "./_components/AddPaymentMethod";
 import { getPaymentMethods } from "@/app/data/payment/get-payment-methods";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Billings & Payments | Leadsage",
@@ -24,9 +25,7 @@ const page = async () => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
-        <h1 className="text-3xl md:text-4xl font-medium">
-          Billings & Payments
-        </h1>
+        <PageHeader title={"Billings & Payments"} />
         <div className="space-y-8 mt-8">
           <Card className="gap-0">
             <CardHeader className="border-b">

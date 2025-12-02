@@ -5,6 +5,7 @@ import { getBlogPost } from "@/app/data/admin/blog/get-blog-post";
 import { notFound } from "next/navigation";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -40,14 +41,10 @@ const EditBlogPostPage = async ({ params }: Props) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div>
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-medium">
-              Edit Blog Post
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Update your blog post
-            </p>
-          </div>
+          <PageHeader
+            description={"Update your blog post"}
+            title={"Edit Blog Post"}
+          />
 
           <BlogPostForm categories={categories} post={post} />
         </div>

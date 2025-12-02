@@ -9,6 +9,7 @@ import { CategoriesTable } from "../_components/CategoriesTable";
 import { EmptyState } from "@/components/EmptyState";
 import { Pagination } from "@/components/Pagination";
 import Link from "next/link";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Categories - Admin | Leadsage",
@@ -32,14 +33,10 @@ const page = async ({ searchParams }: Props) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              Properties Categories
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Manage property categories on Leadsage.
-            </p>
-          </div>
+          <PageHeader
+            title={"Property Categories"}
+            description={"Manage property categories on Leadsage."}
+          />
           <Button asChild className="w-full md:w-auto" size="md">
             <Link href="/admin/categories/new">
               <IconPlus />

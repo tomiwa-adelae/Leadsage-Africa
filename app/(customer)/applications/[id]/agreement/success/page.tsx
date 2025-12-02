@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import React from "react";
 import { PreviewLease } from "../_components/PreviewLease";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Props {
   searchParams: any;
@@ -27,15 +28,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            Lease Agreement Submitted Successfully
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            Thank you for signing your lease. We’ve sent it to the landlord for
-            final approval.
-          </p>
-        </div>
+        <PageHeader
+          title={"Lease Agreement Submitted Successfully"}
+          description={"Thank you for signing your lease. We've sent it to the landlord for final approval."}
+        />
         <div className="mt-4 space-y-4">
           <Card className="@container/card gap-0">
             <CardHeader className="border-b">

@@ -56,7 +56,7 @@ function ImageAttachment({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="block relative rounded-lg overflow-hidden cursor-pointer max-w-[280px] hover:opacity-90 transition-opacity"
+        className="block relative rounded-md overflow-hidden cursor-pointer max-w-[280px] hover:opacity-90 transition-opacity"
       >
         <div className={cn("relative", isLoading && "bg-muted animate-pulse")}>
           <Image
@@ -129,7 +129,7 @@ function VideoAttachment({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="block relative rounded-lg overflow-hidden cursor-pointer max-w-[280px] bg-black hover:opacity-90 transition-opacity"
+        className="block relative rounded-md overflow-hidden cursor-pointer max-w-[280px] bg-black hover:opacity-90 transition-opacity"
       >
         <div className="relative w-[280px] h-[160px] flex items-center justify-center bg-black/80">
           <div className="absolute inset-0 flex items-center justify-center">
@@ -194,7 +194,7 @@ function DocumentAttachment({
       rel="noopener noreferrer"
       download={attachment.fileName}
       className={cn(
-        "flex items-center gap-3 p-3 rounded-lg transition-colors min-w-[200px] max-w-[280px]",
+        "flex items-center gap-3 p-3 rounded-md transition-colors min-w-[200px] max-w-[280px]",
         isOwn
           ? "bg-primary-foreground/10 hover:bg-primary-foreground/20"
           : "bg-background hover:bg-background/80"
@@ -202,7 +202,7 @@ function DocumentAttachment({
     >
       <div
         className={cn(
-          "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
+          "w-10 h-10 rounded-md flex items-center justify-center flex-shrink-0",
           isOwn ? "bg-primary-foreground/20" : "bg-muted"
         )}
       >

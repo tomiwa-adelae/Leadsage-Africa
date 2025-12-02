@@ -18,7 +18,7 @@ export const ListingPhoto = ({ photos }: Props) => {
         alt={"Listing"}
         width={1000}
         height={1000}
-        className="size-full object-cover aspect-auto md:aspect-video rounded-lg"
+        className="size-full object-cover aspect-auto md:aspect-video rounded-md"
       />
     </div>
   );

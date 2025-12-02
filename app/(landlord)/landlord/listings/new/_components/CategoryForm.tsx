@@ -51,7 +51,7 @@ export const CategoryForm = ({ categories, categoryId, listingId }: Props) => {
 
   return (
     <>
-      <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-2 gap-2 lg:grid-cols-3">
         {categories.map(({ icon, name, description, id }) => {
           const photoUrl = useConstructUrl(icon);
           return (
@@ -74,8 +74,10 @@ export const CategoryForm = ({ categories, categoryId, listingId }: Props) => {
                   />
                 </div>
                 <div>
-                  <h5 className="font-medium text-lg">{name}</h5>
-                  <p className="text-muted-foreground text-sm">{description}</p>
+                  <h5 className="font-medium text-sm md:text-base">{name}</h5>
+                  <p className="text-muted-foreground text-xs md:text-sm">
+                    {description}
+                  </p>
                 </div>
               </CardContent>
             </Card>

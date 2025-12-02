@@ -13,6 +13,7 @@ import { Pagination } from "@/components/Pagination";
 import { Searchbar } from "@/components/Searchbar";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Payments - Admin | Leadsage",
@@ -38,12 +39,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">
-          All Payments & Transactions
-        </h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          View and manage all payments & transactions
-        </p>
+        <PageHeader
+          title={"All Payments & Transactions"}
+          description={"View and manage all payment transactions."}
+        />
         <div className="mt-4 space-y-6">
           <PaymentsCards
             pendingPayments={pendingPayments.payments}

@@ -74,7 +74,7 @@ export function OurTeam() {
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {ourTeamMembers.map((member) => (
             <div key={member.id} className="group">
-              <div className="mb-4 aspect-square overflow-hidden rounded-lg">
+              <div className="mb-4 aspect-square overflow-hidden rounded-md">
                 <img
                   src={member.image || "/placeholder.svg"}
                   alt={member.name}

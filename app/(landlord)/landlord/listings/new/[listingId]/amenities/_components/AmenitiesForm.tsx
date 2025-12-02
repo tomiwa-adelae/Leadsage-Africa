@@ -85,7 +85,7 @@ export const AmenitiesForm = ({ id, amenities, listing }: Props) => {
                   />
                 </div>
                 <div>
-                  <h5 className="font-medium text-lg">{name}</h5>
+                  <h5 className="font-medium text-sm md:text-base">{name}</h5>
                 </div>
               </CardContent>
             </Card>

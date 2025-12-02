@@ -278,7 +278,7 @@ function WelcomeScreen({
             <button
               key={index}
               onClick={() => onSuggestionClick(suggestion)}
-              className="text-left px-4 py-3 text-sm rounded-lg border border-border hover:bg-accent hover:border-primary transition-colors"
+              className="text-left px-4 py-3 text-sm rounded-md border border-border hover:bg-accent hover:border-primary transition-colors"
             >
               {suggestion}
             </button>
@@ -287,7 +287,7 @@ function WelcomeScreen({
       </div>
 
       {/* Features */}
-      <div className="bg-card border rounded-lg p-6 space-y-4">
+      <div className="bg-card border rounded-md p-6 space-y-4">
         <h3 className="font-medium">What I can help with:</h3>
         <ul className="space-y-3 text-sm text-muted-foreground">
           <li className="flex items-start gap-2">

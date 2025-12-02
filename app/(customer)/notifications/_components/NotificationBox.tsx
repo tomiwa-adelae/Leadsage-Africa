@@ -47,12 +47,12 @@ export const NotificationBox = ({ notification }: Props) => {
   };
 
   return (
-    <div className="hover:bg-accent/50 flex items-center last:border-0 justify-between gap-2 transition-all border-b p-2 hover:rounded-lg hover:border-transparent">
+    <div className="hover:bg-accent/50 flex items-center last:border-0 justify-between gap-2 transition-all border-b p-2 hover:rounded-md hover:border-transparent">
       <div className="w-full flex flex-col md:flex-row items-start justify-start gap-2">
         <div className="w-full md:w-auto flex items-center justify-between gap-4">
           <div
             className={cn(
-              "p-3 inline-block bg-yellow-600 dark:bg-yellow-600 text-white rounded-lg",
+              "p-3 inline-block bg-yellow-600 dark:bg-yellow-600 text-white rounded-md",
               notification.color
             )}
           >

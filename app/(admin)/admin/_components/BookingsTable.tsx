@@ -58,7 +58,7 @@ export function BookingsTable({ bookings }: Props) {
                     alt={`${booking.listing.title}'s photo`}
                     width={1000}
                     height={1000}
-                    className="size-[50px] rounded-lg object-cover"
+                    className="size-[50px] rounded-md object-cover"
                   />
                   <span className="group-hover:underline group-hover:text-primary transition-all">
                     {booking.listing.title}

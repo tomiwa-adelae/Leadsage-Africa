@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { prisma } from "@/lib/db";
 import { SiteHeader } from "@/components/sidebar/site-header";
 import { Searchbar } from "@/components/Searchbar";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Props {
   searchParams: any;
@@ -197,24 +198,14 @@ export default async function page({ searchParams }: Props) {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
-        <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">All listings</h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Manage all listings in one place
-            </p>
-          </div>
-        </div>
+        <PageHeader
+          title={"Shortlet Bookings"}
+          description={"Manage shortlet booking requests and confirmations."}
+        />
         <Searchbar
           search={query}
           placeholder="Search by title, descriptions..."
         />
-        <div>
-          <h1 className="text-3xl font-bold">Shortlet Bookings</h1>
-          <p className="text-muted-foreground">
-            Manage shortlet booking requests and confirmations
-          </p>
-        </div>
 
         <Tabs defaultValue="pending" className="space-y-4">
           <TabsList>

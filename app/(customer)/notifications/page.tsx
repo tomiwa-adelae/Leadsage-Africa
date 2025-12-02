@@ -3,6 +3,7 @@ import React from "react";
 import { NotificationBox } from "./_components/NotificationBox";
 import { EmptyState } from "@/components/EmptyState";
 import { getNotifications } from "@/app/data/notification/get-notifications";
+import { PageHeader } from "@/components/PageHeader";
 
 import type { Metadata } from "next";
 
@@ -17,10 +18,10 @@ const page = async () => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">Notifications</h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          Stay updated with your latest activities and messages
-        </p>
+        <PageHeader
+          title={"Notifications"}
+          description={"Stay updated with your latest activities and messages."}
+        />
         <div className="mt-4 grid gap-1">
           {notifications.length === 0 && (
             <EmptyState

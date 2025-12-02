@@ -19,6 +19,8 @@ import { UsersCards } from "../_components/UsersCards";
 import { UsersTable } from "../_components/UsersTable";
 import { UsersList } from "../_components/UsersList";
 
+import { PageHeader } from "@/components/PageHeader";
+
 export const metadata: Metadata = {
   title: "All Users - Admin | Leadsage",
 };
@@ -42,10 +44,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">All users</h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          View and manage all users from here
-        </p>
+        <PageHeader
+          title={"All users"}
+          description={"View and manage all registered users."}
+        />
         <div className="mt-4 space-y-6">
           <UsersCards
             admins={admins.admins}

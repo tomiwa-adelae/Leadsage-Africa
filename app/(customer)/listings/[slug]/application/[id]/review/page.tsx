@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { formatPhoneNumber } from "@/lib/utils";
 import { NairaIcon } from "@/components/NairaIcon";
 import { TermsAndAgreements } from "../../_components/TermsAndAgreements";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   slug: string;
@@ -27,14 +28,10 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            Application for {listing.title}
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            Review your application to move forward with this property.
-          </p>
-        </div>
+        <PageHeader
+          title={<>Application for {listing.title}</>}
+          description={"Review your application to move forward with this property."}
+        />
 
         <div className="mt-4 space-y-4">
           <Card>

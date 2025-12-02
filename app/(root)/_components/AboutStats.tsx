@@ -113,7 +113,7 @@ const StatItem = ({
       <div className="flex items-center gap-4">
         <div
           className={cn(
-            "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br text-white",
+            "flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-gradient-to-br text-white",
             color
           )}
         >

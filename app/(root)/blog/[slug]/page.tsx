@@ -102,7 +102,7 @@ const BlogPostPage = async ({ params }: Props) => {
           </div>
 
           {post.featuredImage && (
-            <div className="relative aspect-video w-full rounded-lg overflow-hidden mb-8">
+            <div className="relative aspect-video w-full rounded-md overflow-hidden mb-8">
               <Image
                 src={photoUrl}
                 alt={post.title}
@@ -170,7 +170,7 @@ const BlogPostPage = async ({ params }: Props) => {
           </div>
 
           {post.author?.bio && (
-            <div className="bg-muted/50 rounded-lg p-6 mt-8">
+            <div className="bg-muted/50 rounded-md p-6 mt-8">
               <div className="flex items-start gap-4">
                 {post.author.image && (
                   <Image

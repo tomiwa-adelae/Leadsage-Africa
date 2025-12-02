@@ -49,7 +49,7 @@ export function MobileNavbar() {
                     className={`group flex items-center justify-start gap-2 group/sidebar
                             ${
                               isActive(slug) && "bg-[#F2F2F2] dark:bg-muted"
-                            } hover:bg-[#F2F2F2] dark:bg-muted/20 p-4 rounded-lg
+                            } hover:bg-[#F2F2F2] dark:bg-muted/20 p-4 rounded-md
                             `}
                     onClick={handleClick}
                   >

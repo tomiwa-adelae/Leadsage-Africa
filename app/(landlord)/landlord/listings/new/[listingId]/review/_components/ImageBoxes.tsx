@@ -40,7 +40,7 @@ export const ImageBoxes = ({ photos }: Props) => {
             alt={`Listing image`}
             width={1000}
             height={1000}
-            className="aspect-video cursor-pointer object-cover size-full rounded-lg"
+            className="aspect-video cursor-pointer object-cover size-full rounded-md"
           />
         );
       })}

@@ -13,7 +13,7 @@ export function Spotlight() {
           width={1000}
           height={1000}
           loading="lazy"
-          className="aspect-video size-full object-cover rounded-lg"
+          className="aspect-video size-full object-cover rounded-md"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 md:mt-10">

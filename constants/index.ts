@@ -373,10 +373,11 @@ export const listingCategories = [
 ];
 
 export const listingAmenities = [
+  // Essential Amenities
   {
     id: uuidv4(),
     icon: "/assets/icons/air-conditioning.svg",
-    name: "Air conditioning",
+    name: "Air Conditioning",
     description: "Keeps the property cool and comfortable during hot weather.",
   },
   {
@@ -388,40 +389,243 @@ export const listingAmenities = [
   {
     id: uuidv4(),
     icon: "/assets/icons/wifi.svg",
-    name: "Wifi",
-    description: "One-room living space",
+    name: "WiFi",
+    description: "High-speed internet connection included.",
   },
   {
     id: uuidv4(),
     icon: "/assets/icons/television.svg",
     name: "Television",
-    description:
-      "Includes a TV in the living space or bedrooms for entertainment.",
-  },
-  {
-    id: uuidv4(),
-    icon: "/assets/icons/laundry.svg",
-    name: "Laundry",
-    description:
-      "In-unit or shared laundry facilities available for tenant use.",
+    description: "Flat-screen TV available for entertainment.",
   },
   {
     id: uuidv4(),
     icon: "/assets/icons/refrigerator.svg",
     name: "Refrigerator",
-    description: "Cold storage space for food and beverages.",
+    description: "Cold storage for food and beverages.",
   },
   {
     id: uuidv4(),
     icon: "/assets/icons/microwave.svg",
     name: "Microwave",
-    description: "	A microwave oven available for quick and easy meals.",
+    description: "Quick and easy meal preparation.",
   },
   {
     id: uuidv4(),
     icon: "/assets/icons/oven.svg",
-    name: "Oven",
-    description: "Equipment for baking and cooking meals.",
+    name: "Oven/Stove",
+    description: "Full cooking facilities available.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/laundry.svg",
+    name: "Washing Machine",
+    description: "In-unit laundry facilities.",
+  },
+  // Security & Safety
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/security.svg",
+    name: "24/7 Security",
+    description: "Round-the-clock security personnel on premises.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/cctv.svg",
+    name: "CCTV Surveillance",
+    description: "Security cameras monitoring common areas.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/gate.svg",
+    name: "Gated Compound",
+    description: "Secure gated access to the property.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/smoke-detector.svg",
+    name: "Smoke Detector",
+    description: "Fire safety smoke detection system installed.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/fire-extinguisher.svg",
+    name: "Fire Extinguisher",
+    description: "Fire safety equipment available.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/burglar-proof.svg",
+    name: "Burglar Proof",
+    description: "Windows and doors fitted with burglar-proof protection.",
+  },
+  // Power & Utilities
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/generator.svg",
+    name: "Generator",
+    description: "Backup power supply during outages.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/inverter.svg",
+    name: "Inverter",
+    description: "Uninterrupted power backup system.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/solar.svg",
+    name: "Solar Power",
+    description: "Renewable solar energy available.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/meter.svg",
+    name: "Prepaid Meter",
+    description: "Individual prepaid electricity meter.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/water.svg",
+    name: "Borehole Water",
+    description: "Clean water supply from borehole.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/water-heater.svg",
+    name: "Water Heater",
+    description: "Hot water available for bathing.",
+  },
+  // Parking & Transportation
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/parking.svg",
+    name: "Parking Space",
+    description: "Dedicated parking area for vehicles.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/garage.svg",
+    name: "Garage",
+    description: "Covered garage for vehicle protection.",
+  },
+  // Outdoor & Recreation
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/swimming-pool.svg",
+    name: "Swimming Pool",
+    description: "On-site swimming pool access.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/gym.svg",
+    name: "Gym/Fitness Center",
+    description: "Exercise and fitness facilities.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/garden.svg",
+    name: "Garden/Lawn",
+    description: "Outdoor green space and garden area.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/balcony.svg",
+    name: "Balcony",
+    description: "Private outdoor balcony space.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/rooftop.svg",
+    name: "Rooftop Access",
+    description: "Access to rooftop terrace or area.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/playground.svg",
+    name: "Playground",
+    description: "Children's play area available.",
+  },
+  // Building Features
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/elevator.svg",
+    name: "Elevator/Lift",
+    description: "Building equipped with elevator access.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/tiles.svg",
+    name: "Tiled Floors",
+    description: "Modern tiled flooring throughout.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/ceiling.svg",
+    name: "POP Ceiling",
+    description: "Plaster of Paris ceiling finish.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/wardrobe.svg",
+    name: "Wardrobe",
+    description: "Built-in wardrobe/closet in bedrooms.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/kitchen.svg",
+    name: "Kitchen Cabinets",
+    description: "Fitted kitchen with storage cabinets.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/bathroom.svg",
+    name: "Ensuite Bathrooms",
+    description: "Private bathroom attached to bedrooms.",
+  },
+  // Convenience
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/furnished.svg",
+    name: "Furnished",
+    description: "Property comes fully furnished.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/semi-furnished.svg",
+    name: "Semi-Furnished",
+    description: "Basic furniture and appliances included.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/serviced.svg",
+    name: "Serviced",
+    description: "Regular cleaning and maintenance included.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/intercom.svg",
+    name: "Intercom",
+    description: "Internal communication system.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/trash.svg",
+    name: "Trash Collection",
+    description: "Regular waste disposal services.",
+  },
+  // Pet & Lifestyle
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/pet.svg",
+    name: "Pet Friendly",
+    description: "Pets are allowed on the property.",
+  },
+  {
+    id: uuidv4(),
+    icon: "/assets/icons/no-smoking.svg",
+    name: "No Smoking",
+    description: "Smoke-free property.",
   },
 ];
 
@@ -729,6 +933,11 @@ export const adminNavLinks = {
     {
       title: "Categories",
       slug: "/admin/categories",
+      icon: IconLayout,
+    },
+    {
+      title: "Amenities",
+      slug: "/admin/amenities",
       icon: IconLayout,
     },
     {

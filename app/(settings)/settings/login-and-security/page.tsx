@@ -9,6 +9,7 @@ import { SocialBox } from "./_components/SocialBox";
 import { EmptyState } from "@/components/EmptyState";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Login & Security | Leadsage",
@@ -24,7 +25,7 @@ const page = async () => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
-        <h1 className="text-3xl md:text-4xl font-medium">Login & security</h1>
+        <PageHeader title={"Login & Security"} />
         <div className="space-y-8 mt-8">
           <Card className="gap-0 pb-0">
             <CardHeader className="border-b">

@@ -9,6 +9,7 @@ import { MailingAddressBox } from "./_components/MailingAddressBox";
 import { EmergencyBox } from "./_components/EmergencyBox";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Account Settings | Leadsage",
@@ -23,9 +24,7 @@ const page = async () => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
-        <h1 className="text-3xl md:text-4xl font-medium">
-          Personal Information
-        </h1>
+        <PageHeader title={"Personal Information"} />
         <div className="space-y-1">
           <LegalNamesBox name={user.name} />
           <PreferredFirstNameBox name={user.preferredFirstName} />

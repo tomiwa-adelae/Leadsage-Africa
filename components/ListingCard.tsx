@@ -66,7 +66,7 @@ export const ListingCard = ({ listing, isAuthenticated }: Props) => {
     <Link className="group" href={`/listings/${listing.slug}`}>
       <Card className="gap-0 bg-transparent border-0 rounded-none shadow-none p-0">
         <CardContent className="p-0">
-          <div className="relative rounded-lg overflow-hidden">
+          <div className="relative rounded-md overflow-hidden">
             <div className="relative">
               <Image
                 src={photoUrl}

@@ -21,7 +21,7 @@ export const onboardingRoleSelected = ({ name, role }: Props) => `
 				<p class="text-gray-600">You’ve successfully set up your role</p>
 			</div>
 
-			<div class="p-10 bg-white shadow rounded-lg">
+			<div class="p-10 bg-white shadow rounded-md">
 				<div class="text-lg text-gray-800 mb-6">
 					Hi <span class="font-bold">${name}</span>,
 				</div>

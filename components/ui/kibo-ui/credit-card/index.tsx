@@ -67,7 +67,7 @@ export const CreditCardFlipper = ({
         aria-label="Flip credit card"
         className={cn(
           "h-full w-full",
-          "@xs:rounded-2xl rounded-lg",
+          "@xs:rounded-2xl rounded-md",
           "transform-3d transition duration-700 ease-in-out",
           supportsHover &&
             "group-hover/kibo-credit-card:-rotate-y-180 group-hover/kibo-credit-card:shadow-lg",
@@ -176,7 +176,7 @@ export const CreditCardFront = ({
   <div
     className={cn(
       "backface-hidden absolute inset-0 flex overflow-hidden bg-foreground/90",
-      "@xs:rounded-2xl rounded-lg",
+      "@xs:rounded-2xl rounded-md",
       className
     )}
     {...props}
@@ -254,7 +254,7 @@ export const CreditCardBack = ({
       <div
         className={cn(
           "backface-hidden absolute inset-0 flex overflow-hidden bg-foreground/90",
-          "@xs:rounded-2xl rounded-lg",
+          "@xs:rounded-2xl rounded-md",
           isInsideFlipper && "rotate-y-180",
           className
         )}

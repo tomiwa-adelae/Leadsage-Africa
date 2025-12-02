@@ -31,7 +31,7 @@ export const listingUnapprovedLandlord = ({
         This means it is no longer visible to renters on Leadsage Africa.
       </p>
 
-      <div class="bg-slate-50 p-5 rounded-lg my-6">
+      <div class="bg-slate-50 p-5 rounded-md my-6">
         <h4 class="font-medium text-gray-800 mb-3">What You Can Do</h4>
         <ul class="list-disc list-inside space-y-2 text-gray-700">
           <li>Review the reason above carefully.</li>

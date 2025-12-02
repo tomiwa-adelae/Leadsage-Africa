@@ -9,7 +9,7 @@ export const QuickActions = () => {
       <div className="mt-2.5 grid grid-cols-1 md:grid-cols-2 gap-2">
         <Link
           href="/landlord/listings/new"
-          className="flex items-center justify-start gap-2.5 hover:bg-muted p-2 rounded-lg transition-all"
+          className="flex items-center justify-start gap-2.5 hover:bg-muted p-2 rounded-md transition-all"
         >
           <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-full">
             <Plus className="size-5" />
@@ -18,7 +18,7 @@ export const QuickActions = () => {
         </Link>
         <Link
           href="/landlord/bookings"
-          className="flex items-center justify-start gap-2.5 hover:bg-muted p-2 rounded-lg transition-all"
+          className="flex items-center justify-start gap-2.5 hover:bg-muted p-2 rounded-md transition-all"
         >
           <div className="p-2.5 inline-block bg-purple-400/20 dark:bg-purple-400/70 text-purple-400 dark:text-white rounded-full">
             <Calendar className="size-5" />

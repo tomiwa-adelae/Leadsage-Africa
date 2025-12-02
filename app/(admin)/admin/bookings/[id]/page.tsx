@@ -37,6 +37,7 @@ import { BookingActions } from "./_components/BookingActions";
 import Link from "next/link";
 import { QuickActions } from "./_components/QuickActions";
 import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   id: string;
@@ -59,27 +60,27 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              {booking.bookingId}{" "}
-              <Badge
-                variant={
-                  booking.status === "Pending"
-                    ? "pending"
-                    : booking.status === "Confirmed"
-                    ? "success"
-                    : booking.status === "Completed"
-                    ? "default"
-                    : "destructive"
-                }
-              >
-                {booking.status}
-              </Badge>
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              {booking.listing.title}
-            </p>
-          </div>
+          <PageHeader
+            title={
+              <>
+                {booking.bookingId}{" "}
+                <Badge
+                  variant={
+                    booking.status === "Pending"
+                      ? "pending"
+                      : booking.status === "Confirmed"
+                      ? "success"
+                      : booking.status === "Completed"
+                      ? "default"
+                      : "destructive"
+                  }
+                >
+                  {booking.status}
+                </Badge>
+              </>
+            }
+            description={<>{booking.listing.title}</>}
+          />
           <BookingActions id={booking.id} status={booking.status} />
         </div>
         <Card className="@container/card gap-0">
@@ -432,7 +433,7 @@ const page = async ({ params }: { params: Params }) => {
             </Button>
           </CardHeader>
           <CardContent className="mt-2.5 grid gap-2">
-            <div className="bg-accent px-3.5 py-4 rounded-lg flex flex-col md:flex-row items-start justify-between gap-2">
+            <div className="bg-accent px-3.5 py-4 rounded-md flex flex-col md:flex-row items-start justify-between gap-2">
               <div>
                 <p className="text-sm font-medium">{booking.user.name}</p>
                 <p className="text-sm text-muted-foreground">
@@ -442,7 +443,7 @@ const page = async ({ params }: { params: Params }) => {
               </div>
               <p className="text-xs text-muted-foreground">August 21, 2025</p>
             </div>
-            <div className="bg-accent px-3.5 py-4 rounded-lg flex flex-col md:flex-row items-start justify-between gap-2">
+            <div className="bg-accent px-3.5 py-4 rounded-md flex flex-col md:flex-row items-start justify-between gap-2">
               <div>
                 <p className="text-sm font-medium">You</p>
                 <p className="text-sm text-muted-foreground">

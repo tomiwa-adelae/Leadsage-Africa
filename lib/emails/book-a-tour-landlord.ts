@@ -51,7 +51,7 @@ export const bookATourLandlord = ({
         </ul>
       </div>
 
-      <div class="bg-slate-50 p-5 rounded-lg my-5">
+      <div class="bg-slate-50 p-5 rounded-md my-5">
         <h4 class="font-medium text-gray-800 mb-3">✅ What You Should Do</h4>
         <ul class="list-disc list-inside text-gray-700 space-y-2">
           <li>Confirm the meeting point at ${location}</li>

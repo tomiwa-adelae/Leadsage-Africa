@@ -30,7 +30,7 @@ export const UsersList = ({ users }: Props) => {
           <Link
             key={user.id}
             href={`/admin/users/${user.id}`}
-            className="flex items-center relative justify-start gap-3 hover:bg-muted p-2 rounded-lg group"
+            className="flex items-center relative justify-start gap-3 hover:bg-muted p-2 rounded-md group"
           >
             {/* AVATAR */}
             <Image

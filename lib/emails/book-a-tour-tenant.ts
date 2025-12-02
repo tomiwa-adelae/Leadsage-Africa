@@ -28,13 +28,13 @@ export const bookATourTenant = ({
 	<body class="font-sans bg-gray-100 p-5">
 		<div>
 			<!-- HEADER -->
-			<div class="text-center bg-blue-600 text-white py-10 rounded-lg shadow-md">
+			<div class="text-center bg-blue-600 text-white py-10 rounded-md shadow-md">
 				<h1 class="text-3xl font-bold mb-2">🎉 Your Tour is Confirmed!</h1>
 				<p class="opacity-90 m-0">We’re excited to show you your potential new home</p>
 			</div>
 
 			<!-- BODY -->
-			<div class="p-10 bg-white shadow-md rounded-lg mt-6">
+			<div class="p-10 bg-white shadow-md rounded-md mt-6">
 				<div class="text-lg text-gray-800 mb-5">
 					Hi <span class="font-bold">${name}</span>,
 				</div>
@@ -57,7 +57,7 @@ export const bookATourTenant = ({
 				</div>
 
 				<!-- REMINDERS -->
-				<div class="bg-slate-50 p-5 rounded-lg my-5">
+				<div class="bg-slate-50 p-5 rounded-md my-5">
 					<h4 class="font-medium text-gray-800 mb-4">📋 What to Bring:</h4>
 					<ul class="list-disc list-inside space-y-2 text-gray-600">
 						<li>Valid photo ID</li>
@@ -66,7 +66,7 @@ export const bookATourTenant = ({
 					</ul>
 				</div>
 
-				<div class="p-5 rounded-lg my-5 text-center bg-yellow-50 border border-yellow-200">
+				<div class="p-5 rounded-md my-5 text-center bg-yellow-50 border border-yellow-200">
 					<h3 class="font-medium text-gray-800 mb-2">⏰ Important Reminders</h3>
 					<p class="text-gray-700 m-0">
 						✔ Please arrive 5–10 minutes early<br/>
@@ -102,7 +102,7 @@ export const bookATourTenant = ({
 				</p>
 
 				<!-- SUPPORT -->
-				<div class="bg-blue-50 p-5 rounded-lg my-6 text-center">
+				<div class="bg-blue-50 p-5 rounded-md my-6 text-center">
 					<h4 class="font-medium text-gray-800 mb-3">📞 Contact Information</h4>
 					<p class="m-0">
 						<span class="font-medium">Support Email:</span>
@@ -120,7 +120,7 @@ export const bookATourTenant = ({
 			</div>
 
 			<!-- FOOTER -->
-			<div class="bg-gray-800 text-gray-300 py-8 px-10 text-center text-sm mt-6 rounded-lg">
+			<div class="bg-gray-800 text-gray-300 py-8 px-10 text-center text-sm mt-6 rounded-md">
 				<p class="font-bold text-white mb-2">Leadsage Africa</p>
 				<p class="m-0">
 					This tour was booked through Leadsage Africa<br/>

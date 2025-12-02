@@ -1,6 +1,7 @@
 import React from "react";
 import { RoleForm } from "./_components/RoleForm";
 import { getUserInfo } from "@/app/data/user/get-user-info";
+import { PageHeader } from "@/components/PageHeader";
 
 import type { Metadata } from "next";
 
@@ -14,9 +15,9 @@ const page = async () => {
   const user = await getUserInfo();
   return (
     <div>
-      <h1 className="text-3xl md:text-4xl font-medium">
-        Let's begin! Which of these best describe you?
-      </h1>
+      <PageHeader
+        title={"Let's begin! Which of these best describe you?"}
+      />
       <RoleForm role={user.role} />
     </div>
   );

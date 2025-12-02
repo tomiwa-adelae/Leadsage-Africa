@@ -28,14 +28,14 @@ export const BookingsList = ({ bookings }: Props) => {
           <Link
             key={booking.id}
             href={`/admin/bookings/${booking.id}`}
-            className="flex items-center relative justify-start gap-2 hover:bg-muted p-2 rounded-lg group"
+            className="flex items-center relative justify-start gap-2 hover:bg-muted p-2 rounded-md group"
           >
             <Image
               src={photoUrl}
               alt={`${booking.listing.title}'s photo`}
               width={1000}
               height={1000}
-              className="size-[80px] rounded-lg object-cover"
+              className="size-[80px] rounded-md object-cover"
             />
             <div>
               <h5 className="text-base font-medium group-hover:underline group-hover:text-primary transition-all">

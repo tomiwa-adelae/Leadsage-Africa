@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { EditListing } from "./_components/EditListing";
 import { formatDate } from "@/lib/utils";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   slug: string;
@@ -30,15 +31,10 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              Edit {listing.title}
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Make changes to your property information and save when you're
-              done.
-            </p>
-          </div>
+          <PageHeader
+            title={<>Edit {listing.title}</>}
+            description={"Make changes to your property information and save when you're done."}
+          />
           {listing.status === "Published" && (
             <Button className="w-full md:w-auto" asChild size="md">
               <Link href={`/landlord/listings/${listing.slug}/preview`}>

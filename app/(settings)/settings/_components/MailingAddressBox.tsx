@@ -81,7 +81,7 @@ export const MailingAddressBox = ({
     });
   }
   return (
-    <div className="hover:bg-accent/50 transition-all border-b p-6 hover:rounded-lg hover:border-transparent">
+    <div className="hover:bg-accent/50 transition-all border-b p-6 hover:rounded-md hover:border-transparent">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-base font-medium">Mailing address</p>

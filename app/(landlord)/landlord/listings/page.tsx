@@ -8,6 +8,7 @@ import { LandlordListingCard } from "../_components/LandlordListingCard";
 import { Searchbar } from "@/components/Searchbar";
 import { Pagination } from "@/components/Pagination";
 import { DEFAULT_LIMIT } from "@/constants";
+import { PageHeader } from "@/components/PageHeader";
 
 import type { Metadata } from "next";
 
@@ -32,12 +33,10 @@ const page = async ({ searchParams }: Props) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">My listings</h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Manage all your published and draft properties in one place
-            </p>
-          </div>
+          <PageHeader
+            title={"My Listings"}
+            description={"Manage all your published and draft properties in one place."}
+          />
           <Button className="w-full sm:w-auto" size="md" asChild>
             <Link href="/landlord/listings/new">
               <span className="sm:hidden md:block">Create new listing</span>

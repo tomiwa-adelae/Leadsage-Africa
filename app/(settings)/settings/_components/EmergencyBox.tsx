@@ -92,7 +92,7 @@ export const EmergencyBox = ({
     });
   }
   return (
-    <div className="hover:bg-accent/50 transition-all p-6 hover:rounded-lg">
+    <div className="hover:bg-accent/50 transition-all p-6 hover:rounded-md">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-base font-medium">Emergency contact</p>

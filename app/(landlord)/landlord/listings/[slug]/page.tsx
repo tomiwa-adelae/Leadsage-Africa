@@ -39,6 +39,7 @@ import { LeasesList } from "../../_components/LeasesList";
 
 import { Metadata, ResolvingMetadata } from "next";
 import { ListingMap } from "@/components/ListingMap";
+import { PageHeader } from "@/components/PageHeader";
 
 export async function generateMetadata(
   { params }: any,
@@ -77,60 +78,67 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            {listing.title ? (
-              listing.title
-            ) : (
-              <span className="italic">No title</span>
-            )}{" "}
-            {listing.status === "Published" && !listing.isApproved && (
-              <Badge variant={"pending"}>
-                <Hourglass /> Pending approval
-              </Badge>
-            )}
-            {listing.status === "Draft" && (
-              <Badge variant={"pending"}>
-                <Component /> {listing.status}
-              </Badge>
-            )}
-            {listing.isApproved && listing.status === "Published" && (
-              <div className="inline-flex gap-2">
-                <Badge variant={"default"}>
-                  <Radio /> Live
-                </Badge>
-                {listing?.Lease[0]?.status === "ACTIVE" && (
-                  <Badge variant={"success"}>
-                    <IconLockAccess /> Unavailable
+          <PageHeader
+            title={
+              <>
+                {listing.title ? (
+                  listing.title
+                ) : (
+                  <span className="italic">No title</span>
+                )}{" "}
+                {listing.status === "Published" && !listing.isApproved && (
+                  <Badge variant={"pending"}>
+                    <Hourglass /> Pending approval
                   </Badge>
                 )}
-              </div>
-            )}
-            {listing.status === "Rejected" && (
-              <Badge variant={"destructive"}>
-                <IconCircleDashedX /> Rejected
-              </Badge>
-            )}
-            {listing.status === "Restored" && (
-              <Badge variant={"secondary"}>
-                <IconRestore /> Restored
-              </Badge>
-            )}
-            {listing.status === "Archived" && (
-              <Badge variant={"secondary"}>
-                <Archive /> Archived
-              </Badge>
-            )}
-            {listing.status === "Deleted" && (
-              <Badge variant={"destructive"}>
-                <IconTrash /> Deleted
-              </Badge>
-            )}
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            <IconMapPin className="inline-block mr-1 size-4" />
-            {listing.address}, {listing.city}, {listing.state},{" "}
-            {listing.country}
-          </p>
+                {listing.status === "Draft" && (
+                  <Badge variant={"pending"}>
+                    <Component /> {listing.status}
+                  </Badge>
+                )}
+                {listing.isApproved && listing.status === "Published" && (
+                  <div className="inline-flex gap-2">
+                    <Badge variant={"default"}>
+                      <Radio /> Live
+                    </Badge>
+                    {listing?.Lease[0]?.status === "ACTIVE" && (
+                      <Badge variant={"success"}>
+                        <IconLockAccess /> Unavailable
+                      </Badge>
+                    )}
+                  </div>
+                )}
+                {listing.status === "Rejected" && (
+                  <Badge variant={"destructive"}>
+                    <IconCircleDashedX /> Rejected
+                  </Badge>
+                )}
+                {listing.status === "Restored" && (
+                  <Badge variant={"secondary"}>
+                    <IconRestore /> Restored
+                  </Badge>
+                )}
+                {listing.status === "Archived" && (
+                  <Badge variant={"secondary"}>
+                    <Archive /> Archived
+                  </Badge>
+                )}
+                {listing.status === "Deleted" && (
+                  <Badge variant={"destructive"}>
+                    <IconTrash /> Deleted
+                  </Badge>
+                )}
+              </>
+            }
+            description={
+              <>
+                <IconMapPin className="inline-block mr-1 size-4" />
+                {listing.address}, {listing.city}, {listing.state},{" "}
+                {listing.country}
+              </>
+            }
+          />
+
           {listing?.Lease[0]?.status === "ACTIVE" && (
             <div className="bg-muted p-4 rounded-md w-full mt-2">
               <p className="text-base font-medium">

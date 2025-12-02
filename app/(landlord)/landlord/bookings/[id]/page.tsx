@@ -31,6 +31,7 @@ import { getBookingTimelines } from "@/app/data/booking-timeline/get-booking-tim
 import { getUserInfo } from "@/app/data/user/get-user-info";
 import Link from "next/link";
 import { MessageTenantButton } from "@/components/messaging";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   id: string;
@@ -48,27 +49,27 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              {booking.bookingId}{" "}
-              <Badge
-                variant={
-                  booking.status === "Pending"
-                    ? "pending"
-                    : booking.status === "Confirmed"
-                    ? "success"
-                    : booking.status === "Completed"
-                    ? "default"
-                    : "destructive"
-                }
-              >
-                {booking.status}
-              </Badge>
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              {booking.listing.title}
-            </p>
-          </div>
+          <PageHeader
+            title={
+              <>
+                {booking.bookingId}{" "}
+                <Badge
+                  variant={
+                    booking.status === "Pending"
+                      ? "pending"
+                      : booking.status === "Confirmed"
+                      ? "success"
+                      : booking.status === "Completed"
+                      ? "default"
+                      : "destructive"
+                  }
+                >
+                  {booking.status}
+                </Badge>
+              </>
+            }
+            description={<>{booking.listing.title}</>}
+          />
           {booking.status !== "Confirmed" && booking.status !== "Cancelled" && (
             <MarkConfirmButton id={booking.id} />
           )}
@@ -334,26 +335,26 @@ const page = async ({ params }: { params: Params }) => {
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="mt-2.5 grid gap-4">
-            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-              <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-lg">
+            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
+              <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-md">
                 <Calendar className="size-4" />
               </div>
               Reschedule Tour
             </div>
-            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-              <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
+              <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-md">
                 <Download className="size-4" />
               </div>
               Export Details
             </div>
-            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-              <div className="p-2.5 inline-block bg-purple-600/20 dark:bg-purple-600/70 text-purple-600 dark:text-white rounded-lg">
+            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
+              <div className="p-2.5 inline-block bg-purple-600/20 dark:bg-purple-600/70 text-purple-600 dark:text-white rounded-md">
                 <Navigation className="size-4" />
               </div>
               Get Directions
             </div>
-            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
-              <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-lg">
+            <div className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm">
+              <div className="p-2.5 inline-block bg-yellow-600/20 dark:bg-yellow-600/70 text-yellow-600 dark:text-white rounded-md">
                 <Bell className="size-4" />
               </div>
               Set Reminder
@@ -369,7 +370,8 @@ const page = async ({ params }: { params: Params }) => {
           </CardHeader>
           <CardContent className="mt-2.5 grid gap-2">
             <p className="text-sm text-muted-foreground text-center py-4">
-              Use the messaging feature to communicate with {booking.user.name} about this booking.
+              Use the messaging feature to communicate with {booking.user.name}{" "}
+              about this booking.
             </p>
             <MessageTenantButton
               tenantId={booking.user.id}

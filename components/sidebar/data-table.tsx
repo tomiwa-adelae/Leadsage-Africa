@@ -504,7 +504,7 @@
 // 				value="outline"
 // 				className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
 // 			>
-// 				<div className="overflow-hidden rounded-lg border">
+// 				<div className="overflow-hidden rounded-md border">
 // 					<DndContext
 // 						collisionDetection={closestCenter}
 // 						modifiers={[restrictToVerticalAxis]}
@@ -664,19 +664,19 @@
 // 				value="past-performance"
 // 				className="flex flex-col px-4 lg:px-6"
 // 			>
-// 				<div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
+// 				<div className="aspect-video w-full flex-1 rounded-md border border-dashed"></div>
 // 			</TabsContent>
 // 			<TabsContent
 // 				value="key-personnel"
 // 				className="flex flex-col px-4 lg:px-6"
 // 			>
-// 				<div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
+// 				<div className="aspect-video w-full flex-1 rounded-md border border-dashed"></div>
 // 			</TabsContent>
 // 			<TabsContent
 // 				value="focus-documents"
 // 				className="flex flex-col px-4 lg:px-6"
 // 			>
-// 				<div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
+// 				<div className="aspect-video w-full flex-1 rounded-md border border-dashed"></div>
 // 			</TabsContent>
 // 		</Tabs>
 // 	);
@@ -893,5 +893,5 @@
 import React from "react";
 
 export const DataTable = () => {
-	return <div>data-table</div>;
+  return <div>data-table</div>;
 };

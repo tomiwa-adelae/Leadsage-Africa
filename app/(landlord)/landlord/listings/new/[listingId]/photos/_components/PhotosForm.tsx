@@ -58,7 +58,7 @@ export const PhotosForm = ({ id, listing }: Props) => {
   return (
     <div className="mt-8">
       {photos?.length === 0 && (
-        <div className="min-h-[60vh] rounded-lg flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
+        <div className="min-h-[60vh] rounded-md flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
           <Image
             src={"/assets/icons/camera.svg"}
             alt="Camera icon"
@@ -84,7 +84,7 @@ export const PhotosForm = ({ id, listing }: Props) => {
             ? useConstructUrl(cover?.src)
             : DEFAULT_LISTING_IMAGE;
           return (
-            <div className="rounded-lg relative overflow-hidden">
+            <div className="rounded-md relative overflow-hidden">
               <Image
                 src={photoUrl}
                 alt="Photo uploaded"
@@ -114,7 +114,7 @@ export const PhotosForm = ({ id, listing }: Props) => {
             .map(({ src, cover, id }) => {
               const photoUrl = useConstructUrl(src);
               return (
-                <div key={id} className="rounded-lg relative overflow-hidden ">
+                <div key={id} className="rounded-md relative overflow-hidden ">
                   <Image
                     src={photoUrl}
                     alt="Photo uploaded"
@@ -138,7 +138,7 @@ export const PhotosForm = ({ id, listing }: Props) => {
               );
             })}
           {photos.length !== 0 && (
-            <div className="rounded-lg min-h-[280px] flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
+            <div className="rounded-md min-h-[280px] flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
               <Image
                 src={"/assets/icons/camera.svg"}
                 alt="Camera icon"

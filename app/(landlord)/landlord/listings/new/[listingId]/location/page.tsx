@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/sidebar/site-header";
 import React from "react";
 import { LocationForm } from "./_components/LocationForm";
 import { getLandlordListing } from "@/app/data/landlord/get-landlord-listing";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   listingId: string;
@@ -16,13 +17,10 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">
-          Where is your property located?
-        </h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          Tell us the exact location of your property so renters can find and
-          book it with confidence
-        </p>
+        <PageHeader
+                  description={"Tell us the exact location of your property so renters can find and book it with confidence."}
+                  title={"Where is your property located?"}
+                />
         <LocationForm id={listingId} listing={listing} />
       </div>
     </div>

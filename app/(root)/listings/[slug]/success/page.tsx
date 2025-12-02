@@ -5,6 +5,7 @@ import { Confetti } from "@/components/Confetti";
 import { getShortletDetails } from "@/app/data/user/shortlet/get-shortlet-details";
 import { formatDate } from "@/lib/utils";
 import { env } from "@/lib/env";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Props {
   searchParams: any;
@@ -23,14 +24,10 @@ const page = async ({ searchParams }: Props) => {
     return (
       <div className="container py-16 text-center max-w-2xl mx-auto">
         <Confetti />
-        <h1 className="text-3xl md:text-4xl font-medium">
-          🎉 Booking Confirmed!
-        </h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          Your shortlet reservation was successful. A confirmation email has
-          been sent to you with all the booking details and check-in
-          instructions.
-        </p>
+        <PageHeader
+          title={"Booking Confirmed!"}
+          description={"Your shortlet reservation was successful. A confirmation email has been sent to you with all the booking details and check-in instructions."}
+        />
 
         <div className="bg-muted rounded-2xl p-6 mt-8 text-left shadow-sm">
           <h2 className="text-lg font-medium mb-3">Booking Summary</h2>
@@ -94,10 +91,10 @@ const page = async ({ searchParams }: Props) => {
 
   return (
     <div className="container py-8">
-      <h1 className="text-3xl md:text-4xl font-medium">You're all set!</h1>
-      <p className="text-muted-foreground text-base mt-2.5">
-        Your visit has been scheduled. We’ve sent the details to your email.
-      </p>
+      <PageHeader
+        title={"You're all set!"}
+        description={"Your visit has been scheduled. We've sent the details to your email."}
+      />
       <div className="grid grid-cols-2 gap-4 mt-8">
         <Button size="md" asChild variant={"outline"} className="w-full">
           <Link href={`/dashboard`}>Visit my dashboard</Link>

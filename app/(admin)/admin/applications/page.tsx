@@ -12,6 +12,7 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { Searchbar } from "@/components/Searchbar";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Applications - Admin | Leadsage",
@@ -37,10 +38,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">All Applications</h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          View and manage all applications
-        </p>
+        <PageHeader
+          title={"All applications"}
+          description={"View and manage all applications."}
+        />
         <div className="mt-4 space-y-6">
           <ApplicationsCards
             pendingReviewApplications={pendingReviewApplications}

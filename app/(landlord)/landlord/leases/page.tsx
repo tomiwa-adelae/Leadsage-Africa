@@ -7,6 +7,7 @@ import { getMyLeases } from "@/app/data/landlord/lease/get-my-leases";
 import { Searchbar } from "@/components/Searchbar";
 import { Pagination } from "@/components/Pagination";
 import { DEFAULT_LIMIT } from "@/constants";
+import { PageHeader } from "@/components/PageHeader";
 
 import type { Metadata } from "next";
 
@@ -27,14 +28,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            My leases & Agreements
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            Manage and view all your leases and agreements from here
-          </p>
-        </div>
+        <PageHeader
+          title={"My Leases & Agreements"}
+          description={"Manage and view all your leases and agreements from here."}
+        />
         <Searchbar search={query} placeholder="Search by name, Lease ID..." />
 
         {leases.leases.length === 0 && (

@@ -257,7 +257,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
             </CardHeader>
             <CardContent className="space-y-4">
               {booking.status === "PENDING" && (
-                <div className="bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 p-4 rounded-lg">
+                <div className="bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 p-4 rounded-md">
                   <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
                     ⏰ Action Required
                   </p>
@@ -269,7 +269,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
               )}
 
               {booking.status === "AWAITING_PAYMENT" && (
-                <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 p-4 rounded-lg">
+                <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 p-4 rounded-md">
                   <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
                     💳 Payment Link Sent
                   </p>
@@ -281,7 +281,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
               )}
 
               {booking.rejectedByAdmin && booking.rejectionReason && (
-                <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 p-4 rounded-lg">
+                <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 p-4 rounded-md">
                   <p className="text-sm font-medium text-red-800 dark:text-red-200">
                     Rejection Reason
                   </p>
@@ -329,7 +329,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
                   {booking.Listing.photos.slice(0, 3).map((photo: any) => (
                     <div
                       key={photo.id}
-                      className="relative h-32 rounded-lg overflow-hidden"
+                      className="relative h-32 rounded-md overflow-hidden"
                     >
                       <Image
                         src={`https://leadsage.fly.storage.tigris.dev/${photo.src}`}

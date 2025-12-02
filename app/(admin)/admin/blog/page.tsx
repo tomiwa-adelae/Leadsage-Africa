@@ -9,6 +9,7 @@ import { Pagination } from "@/components/Pagination";
 import { EmptyState } from "@/components/EmptyState";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Blog Posts | Admin - Leadsage",
@@ -35,12 +36,10 @@ const AdminBlogPage = async ({ searchParams }: Props) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">Blog Posts</h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Manage your blog posts
-            </p>
-          </div>
+          <PageHeader
+            title={"Blog Posts"}
+            description={"Manage and publish blog posts."}
+          />
           <Button asChild>
             <Link href="/admin/blog/create">
               <IconPlus className="h-4 w-4 mr-2" />

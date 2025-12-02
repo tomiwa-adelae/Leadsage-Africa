@@ -165,7 +165,7 @@ export function PaymentInterface({ booking }: Props) {
             <CardContent className="space-y-4">
               {/* Property Image and Info */}
               {booking.Listing.photos[0] && (
-                <div className="relative w-full h-48 rounded-lg overflow-hidden">
+                <div className="relative w-full h-48 rounded-md overflow-hidden">
                   <Image
                     src={`https://leadsage.fly.storage.tigris.dev/${booking.Listing.photos[0].src}`}
                     alt={booking.Listing.title || "Property"}

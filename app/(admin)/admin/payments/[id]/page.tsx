@@ -9,6 +9,7 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { getPaymentDetails } from "@/app/data/admin/payment/get-payment-details";
 import { QuickActions } from "./_components/QuickActions";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   id: string;
@@ -21,9 +22,10 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            Payment for {paymentDetails.Lease.leaseId}{" "}
+        <PageHeader
+          description={<>This is the payment receipt for {paymentDetails.Lease.leaseId} -{" "}
+            {paymentDetails.Lease.Listing.title} by {paymentDetails.User.name}</>}
+          title={<>  Payment for {paymentDetails.Lease.leaseId}{" "}
             <Badge
               variant={
                 paymentDetails.status === "PENDING"
@@ -45,13 +47,8 @@ const page = async ({ params }: { params: Params }) => {
               {paymentDetails.status === "FAILED" && "Failed"}
               {paymentDetails.status === "REFUNDED" && "Refunded"}
               {paymentDetails.status === "SUCCESS" && "Success"}
-            </Badge>
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            This is the payment receipt for {paymentDetails.Lease.leaseId} -{" "}
-            {paymentDetails.Lease.Listing.title} by {paymentDetails.User.name}
-          </p>
-        </div>
+            </Badge></>}
+        />
         <div className="mt-4 space-y-4">
           <Card className="gap-0">
             <CardHeader className="border-b">

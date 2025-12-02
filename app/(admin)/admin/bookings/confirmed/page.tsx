@@ -8,6 +8,7 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { Pagination } from "@/components/Pagination";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Confirmed bookings - Admin | Leadsage",
@@ -29,10 +30,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">Confirmed bookings</h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          View and manage all confirmed bookings from here
-        </p>
+        <PageHeader
+          title={"Confirmed bookings"}
+          description={"View and manage all confirmed tour bookings."}
+        />
         <Searchbar search={query} placeholder="Search by name, booking ID..." />
         <div className="mt-4 space-y-6">
           {confirmedBookings.bookings.length === 0 && (

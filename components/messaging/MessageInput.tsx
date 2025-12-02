@@ -30,7 +30,12 @@ export interface AttachmentFile {
 interface MessageInputProps {
   onSend: (
     content: string,
-    attachments?: { fileName: string; fileSize: number; fileType: string; url: string }[]
+    attachments?: {
+      fileName: string;
+      fileSize: number;
+      fileType: string;
+      url: string;
+    }[]
   ) => Promise<void>;
   disabled?: boolean;
   placeholder?: string;
@@ -97,7 +102,9 @@ export function MessageInput({
     };
   }, []);
 
-  const uploadFile = async (attachment: AttachmentFile): Promise<AttachmentFile> => {
+  const uploadFile = async (
+    attachment: AttachmentFile
+  ): Promise<AttachmentFile> => {
     try {
       // Get presigned URL
       const presignedRes = await fetch("/api/s3/upload", {
@@ -160,58 +167,61 @@ export function MessageInput({
     }
   };
 
-  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    if (files.length === 0) return;
+  const handleFileSelect = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const files = Array.from(e.target.files || []);
+      if (files.length === 0) return;
 
-    // Validate files
-    const validFiles: AttachmentFile[] = [];
-    for (const file of files) {
-      if (file.size > MAX_FILE_SIZE) {
-        alert(`File "${file.name}" is too large. Maximum size is 10MB.`);
-        continue;
+      // Validate files
+      const validFiles: AttachmentFile[] = [];
+      for (const file of files) {
+        if (file.size > MAX_FILE_SIZE) {
+          alert(`File "${file.name}" is too large. Maximum size is 10MB.`);
+          continue;
+        }
+        if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+          alert(`File type "${file.type}" is not supported.`);
+          continue;
+        }
+
+        const preview = file.type.startsWith("image/")
+          ? URL.createObjectURL(file)
+          : undefined;
+
+        validFiles.push({
+          id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          file,
+          preview,
+          uploading: true,
+          uploaded: false,
+        });
       }
-      if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-        alert(`File type "${file.type}" is not supported.`);
-        continue;
+
+      if (validFiles.length === 0) return;
+
+      setAttachments((prev) => [...prev, ...validFiles]);
+      setIsUploading(true);
+
+      // Upload files
+      const uploadedFiles = await Promise.all(validFiles.map(uploadFile));
+
+      // Update attachments with upload results
+      setAttachments((prev) =>
+        prev.map((att) => {
+          const uploaded = uploadedFiles.find((u) => u.id === att.id);
+          return uploaded || att;
+        })
+      );
+
+      setIsUploading(false);
+
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
       }
-
-      const preview = file.type.startsWith("image/")
-        ? URL.createObjectURL(file)
-        : undefined;
-
-      validFiles.push({
-        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        file,
-        preview,
-        uploading: true,
-        uploaded: false,
-      });
-    }
-
-    if (validFiles.length === 0) return;
-
-    setAttachments((prev) => [...prev, ...validFiles]);
-    setIsUploading(true);
-
-    // Upload files
-    const uploadedFiles = await Promise.all(validFiles.map(uploadFile));
-
-    // Update attachments with upload results
-    setAttachments((prev) =>
-      prev.map((att) => {
-        const uploaded = uploadedFiles.find((u) => u.id === att.id);
-        return uploaded || att;
-      })
-    );
-
-    setIsUploading(false);
-
-    // Reset file input
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  }, []);
+    },
+    []
+  );
 
   const removeAttachment = useCallback((id: string) => {
     setAttachments((prev) => {
@@ -225,10 +235,13 @@ export function MessageInput({
 
   const handleSend = async () => {
     const trimmedMessage = message.trim();
-    const uploadedAttachments = attachments.filter((att) => att.uploaded && att.url);
+    const uploadedAttachments = attachments.filter(
+      (att) => att.uploaded && att.url
+    );
 
     // Allow sending if there's a message OR attachments
-    if ((!trimmedMessage && uploadedAttachments.length === 0) || isSending) return;
+    if ((!trimmedMessage && uploadedAttachments.length === 0) || isSending)
+      return;
 
     // Check if any uploads are still in progress
     if (attachments.some((att) => att.uploading)) {
@@ -245,7 +258,10 @@ export function MessageInput({
         url: att.url!,
       }));
 
-      await onSend(trimmedMessage, attachmentData.length > 0 ? attachmentData : undefined);
+      await onSend(
+        trimmedMessage,
+        attachmentData.length > 0 ? attachmentData : undefined
+      );
       setMessage("");
       setAttachments([]);
       if (textareaRef.current) {
@@ -313,11 +329,12 @@ export function MessageInput({
               <div
                 key={attachment.id}
                 className={cn(
-                  "relative group rounded-lg border bg-muted/50 overflow-hidden",
+                  "relative group rounded-md border bg-muted/50 overflow-hidden",
                   attachment.error && "border-destructive"
                 )}
               >
-                {attachment.file.type.startsWith("image/") && attachment.preview ? (
+                {attachment.file.type.startsWith("image/") &&
+                attachment.preview ? (
                   <div className="relative w-20 h-20">
                     <Image
                       src={attachment.preview}
@@ -359,7 +376,9 @@ export function MessageInput({
                   className={cn(
                     "absolute top-1 right-1 h-5 w-5 rounded-full bg-black/60 text-white flex items-center justify-center",
                     "opacity-0 group-hover:opacity-100 transition-opacity",
-                    attachment.file.type.startsWith("image/") ? "" : "opacity-100"
+                    attachment.file.type.startsWith("image/")
+                      ? ""
+                      : "opacity-100"
                   )}
                 >
                   <X className="h-3 w-3" />

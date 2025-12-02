@@ -93,7 +93,7 @@ function ListingsContent({
   return (
     <div className="space-y-4">
       {summary && (
-        <div className="bg-muted/50 rounded-lg p-3 text-sm">
+        <div className="bg-muted/50 rounded-md p-3 text-sm">
           <p className="text-muted-foreground italic">&quot;{summary}&quot;</p>
         </div>
       )}
@@ -196,10 +196,10 @@ function LinkContent({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block border rounded-lg p-4 hover:bg-accent transition-colors group"
+      className="block border rounded-md p-4 hover:bg-accent transition-colors group"
     >
       <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+        <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center group-hover:bg-primary/20 transition-colors">
           <ExternalLink className="w-5 h-5 text-primary" />
         </div>
         <div className="flex-1 min-w-0">
@@ -272,7 +272,7 @@ function InsightsContent({
   };
 }) {
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-lg p-4 space-y-3 border border-primary/20">
+    <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-md p-4 space-y-3 border border-primary/20">
       <div className="flex items-center gap-2">
         <TrendingUp className="h-4 w-4 text-primary" />
         <h4 className="font-medium text-sm">{title}</h4>

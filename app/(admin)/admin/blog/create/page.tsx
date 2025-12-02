@@ -3,6 +3,7 @@ import { BlogPostForm } from "../_components/BlogPostForm";
 import { getBlogCategories } from "@/app/data/admin/blog/get-blog-categories";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Create Blog Post | Admin - Leadsage",
@@ -17,16 +18,14 @@ const CreateBlogPostPage = async () => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div>
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-medium">
-              Create Blog Post
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Write and publish a new blog post
-            </p>
-          </div>
+          <PageHeader
+            title={"Create Blog Post"}
+            description={"Write and publish a new blog post."}
+          />
 
-          <BlogPostForm categories={categories} />
+          <div className="mt-8">
+            <BlogPostForm categories={categories} />
+          </div>
         </div>
       </div>
     </div>

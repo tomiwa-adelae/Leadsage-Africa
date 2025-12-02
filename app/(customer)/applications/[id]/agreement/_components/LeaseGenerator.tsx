@@ -297,7 +297,7 @@ export const LeaseGenerator = ({
 
   return (
     <div className="p-8">
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-white rounded-md shadow-sm border p-6">
         <div className="flex items-center space-x-3 mb-4">
           <FileText className="w-8 h-8 text-blue-600" />
           <h2 className="text-2xl font-bold">Simple PDF Lease Generator</h2>
@@ -309,7 +309,7 @@ export const LeaseGenerator = ({
         </p>
 
         {/* Preview Information */}
-        <div className="bg-gray-50 rounded-lg p-4 mb-6">
+        <div className="bg-gray-50 rounded-md p-4 mb-6">
           <h3 className="font-medium mb-2">Document Preview:</h3>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
@@ -337,7 +337,7 @@ export const LeaseGenerator = ({
           <button
             onClick={handleDownload}
             disabled={isGenerating}
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400"
+            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:bg-gray-400"
           >
             <Download className="w-4 h-4 mr-2" />
             {isGenerating ? "Generating..." : "Download PDF"}
@@ -346,7 +346,7 @@ export const LeaseGenerator = ({
           <button
             onClick={handlePreview}
             disabled={isGenerating}
-            className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400"
+            className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors disabled:bg-gray-400"
           >
             <Eye className="w-4 h-4 mr-2" />
             Preview in New Tab
@@ -355,7 +355,7 @@ export const LeaseGenerator = ({
           <button
             onClick={handleEmbeddedPreview}
             disabled={isGenerating}
-            className="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400"
+            className="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors disabled:bg-gray-400"
           >
             <Eye className="w-4 h-4 mr-2" />
             Preview Embedded
@@ -363,7 +363,7 @@ export const LeaseGenerator = ({
         </div>
 
         {isGenerating && (
-          <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
             <p className="text-yellow-800">Generating PDF... Please wait.</p>
           </div>
         )}

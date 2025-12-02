@@ -60,7 +60,7 @@ export function MessagesPage({
   };
 
   return (
-    <div className="h-full flex bg-background rounded-lg border overflow-hidden">
+    <div className="h-full flex bg-background rounded-md border overflow-hidden">
       {/* Conversation List - Hidden on mobile when conversation is selected */}
       <div
         className={cn(

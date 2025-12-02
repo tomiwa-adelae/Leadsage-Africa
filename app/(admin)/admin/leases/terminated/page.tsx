@@ -6,6 +6,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { Searchbar } from "@/components/Searchbar";
 import { DEFAULT_LIMIT } from "@/constants";
 import { getTerminatedLeases } from "@/app/data/admin/lease/get-terminated-leases";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Props {
   searchParams: any;
@@ -24,10 +25,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">Terminated Leases</h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          View and manage all terminated leases
-        </p>
+        <PageHeader
+          title={"Terminated Leases"}
+          description={"View and manage all terminated lease agreements."}
+        />
         <div className="mt-4 space-y-6">
           <Searchbar search={query} placeholder="Search by name, Lease ID..." />
           {leases.leases.length === 0 && (

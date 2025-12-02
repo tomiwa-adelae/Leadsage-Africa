@@ -81,7 +81,7 @@ export const Themes = () => {
 
     return (
       <div
-        className={`relative cursor-pointer rounded-lg border-2 transition-all duration-200 ${
+        className={`relative cursor-pointer rounded-md border-2 transition-all duration-200 ${
           isSelected
             ? "border-blue-500 ring-2 ring-blue-200"
             : "border-gray-300 hover:border-gray-400"

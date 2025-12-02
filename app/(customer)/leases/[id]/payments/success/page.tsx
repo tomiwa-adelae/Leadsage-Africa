@@ -9,6 +9,7 @@ import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import React from "react";
 import { QuickActions } from "./_components/QuickActions";
 import { Confetti } from "@/components/Confetti";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Props {
   searchParams: any;
@@ -22,14 +23,10 @@ const page = async ({ searchParams }: Props) => {
       <SiteHeader />
       <Confetti />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            Payment successful
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            Your payment has been confirmed and your lease is now active
-          </p>
-        </div>
+        <PageHeader
+          title={"Payment Successful"}
+          description={"Your payment has been confirmed and your lease is now active."}
+        />
         <div className="mt-4 space-y-4">
           <Card className="gap-0">
             <CardHeader className="border-b">

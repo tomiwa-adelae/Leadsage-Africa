@@ -56,7 +56,7 @@ export function ApplicationsTable({ applications }: Props) {
                     alt={`${application.Listing.title}'s photo`}
                     width={1000}
                     height={1000}
-                    className="size-[50px] rounded-lg object-cover"
+                    className="size-[50px] rounded-md object-cover"
                   />
                   <span className="group-hover:underline group-hover:text-primary transition-all">
                     {application.Listing.title}

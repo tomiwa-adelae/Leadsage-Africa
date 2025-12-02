@@ -1,5 +1,6 @@
 import React from "react";
 import { ForgotPasswordForm } from "./_components/ForgotPasswordForm";
+import { PageHeader } from "@/components/PageHeader";
 
 import type { Metadata } from "next";
 
@@ -10,13 +11,10 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <div>
-      <h1 className="text-3xl md:text-4xl font-medium">
-        Forgot your password?
-      </h1>
-      <p className="text-muted-foreground text-base mt-1.5">
-        We’ve got you. Just provide your email, and we’ll help you get back on
-        track.
-      </p>
+      <PageHeader
+        title={"Forgot your password?"}
+        description={"We've got you. Just provide your email, and we'll help you get back on track."}
+      />
       <ForgotPasswordForm />
     </div>
   );

@@ -9,6 +9,7 @@ import { Searchbar } from "@/components/Searchbar";
 import { DEFAULT_LIMIT } from "@/constants";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Uncompleted applications - Admin | Leadsage",
@@ -30,16 +31,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              Uncompleted applications
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Manage all uncompleted applications
-            </p>
-          </div>
-        </div>
+        <PageHeader
+          title={"Uncompleted applications"}
+          description={"View and manage all uncompleted rental applications."}
+        />
         <Searchbar search={query} placeholder="Search by name, booking ID..." />
 
         {uncompletedApplications.applications.length === 0 && (

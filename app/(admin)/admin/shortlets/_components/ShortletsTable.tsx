@@ -50,7 +50,10 @@ export function ShortletsTable({ bookings, showActions = false }: Props) {
   const getStatusBadge = (status: string) => {
     const statusMap: Record<
       string,
-      { variant: "default" | "secondary" | "destructive" | "outline"; label: string }
+      {
+        variant: "default" | "secondary" | "destructive" | "outline";
+        label: string;
+      }
     > = {
       PENDING: { variant: "outline", label: "Pending" },
       AWAITING_PAYMENT: { variant: "secondary", label: "Awaiting Payment" },
@@ -79,7 +82,7 @@ export function ShortletsTable({ bookings, showActions = false }: Props) {
   }
 
   return (
-    <div className="border rounded-lg">
+    <div className="border rounded-md">
       <Table>
         <TableHeader>
           <TableRow>
@@ -118,9 +121,7 @@ export function ShortletsTable({ bookings, showActions = false }: Props) {
               </TableCell>
               <TableCell>
                 <div>
-                  <p className="font-medium text-sm">
-                    {booking.Listing.title}
-                  </p>
+                  <p className="font-medium text-sm">{booking.Listing.title}</p>
                   <p className="text-xs text-muted-foreground">
                     {booking.Listing.city}, {booking.Listing.state}
                   </p>

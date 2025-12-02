@@ -10,6 +10,7 @@ import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import { CheckCircle, Hourglass } from "lucide-react";
 import { QuickActions } from "./_components/QuickActions";
 import { getLeaseDetails } from "@/app/data/landlord/lease/get-lease-details";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   id: string;
@@ -25,42 +26,46 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              Lease Agreement for {lease.Listing.title}{" "}
-              <Badge
-                variant={
-                  lease.status === "PENDING"
-                    ? "pending"
-                    : lease.status === "ACTIVE"
-                    ? "success"
-                    : lease.status === "CANCELLED"
-                    ? "destructive"
-                    : lease.status === "DELETED"
-                    ? "destructive"
-                    : lease.status === "TERMINATED"
-                    ? "destructive"
-                    : lease.status === "EXPIRED"
-                    ? "secondary"
-                    : lease.status === "RENEWED"
-                    ? "success"
-                    : "default"
-                }
-              >
-                {lease.status === "ACTIVE" && "Active"}
-                {lease.status === "PENDING" && "Pending"}
-                {lease.status === "CANCELLED" && "Cancelled"}
-                {lease.status === "DELETED" && "Deleted"}
-                {lease.status === "EXPIRED" && "Expired"}
-                {lease.status === "RENEWED" && "Renewed"}
-                {lease.status === "TERMINATED" && "Terminated"}
-              </Badge>
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              {lease.Listing.address}, {lease.Listing.city},{" "}
-              {lease.Listing.state}, {lease.Listing.country}
-            </p>
-          </div>
+          <PageHeader
+            title={
+              <>
+                Lease Agreement for {lease.Listing.title}{" "}
+                <Badge
+                  variant={
+                    lease.status === "PENDING"
+                      ? "pending"
+                      : lease.status === "ACTIVE"
+                      ? "success"
+                      : lease.status === "CANCELLED"
+                      ? "destructive"
+                      : lease.status === "DELETED"
+                      ? "destructive"
+                      : lease.status === "TERMINATED"
+                      ? "destructive"
+                      : lease.status === "EXPIRED"
+                      ? "secondary"
+                      : lease.status === "RENEWED"
+                      ? "success"
+                      : "default"
+                  }
+                >
+                  {lease.status === "ACTIVE" && "Active"}
+                  {lease.status === "PENDING" && "Pending"}
+                  {lease.status === "CANCELLED" && "Cancelled"}
+                  {lease.status === "DELETED" && "Deleted"}
+                  {lease.status === "EXPIRED" && "Expired"}
+                  {lease.status === "RENEWED" && "Renewed"}
+                  {lease.status === "TERMINATED" && "Terminated"}
+                </Badge>
+              </>
+            }
+            description={
+              <>
+                {lease.Listing.address}, {lease.Listing.city},{" "}
+                {lease.Listing.state}, {lease.Listing.country}
+              </>
+            }
+          />
           <DownloadLeaseButton lease={lease} />
         </div>
         <div className="mt-4 space-y-4">

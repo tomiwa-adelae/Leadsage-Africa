@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/sidebar/site-header";
 import React from "react";
 import { EmploymentForm } from "../../_components/EmploymentForm";
 import { getApplication } from "@/app/data/user/application/get-application";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   slug: string;
@@ -19,14 +20,10 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            Application for {listing.title}
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            Complete your application to move forward with this property.
-          </p>
-        </div>
+        <PageHeader
+          title={<>Application for {listing.title}</>}
+          description={"Complete your application to move forward with this property."}
+        />
 
         <EmploymentForm
           data={application}

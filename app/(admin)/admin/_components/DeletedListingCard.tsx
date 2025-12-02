@@ -24,7 +24,7 @@ export const DeletedListingCard = ({ listing }: Props) => {
   return (
     <Card className="bg-transparent gap-0 border-0 rounded-none shadow-none p-0">
       <CardContent className="p-0">
-        <div className="relative rounded-lg overflow-hidden">
+        <div className="relative rounded-md overflow-hidden">
           {listing.status === "Draft" ? (
             <Image
               src={photoUrl}
@@ -34,7 +34,7 @@ export const DeletedListingCard = ({ listing }: Props) => {
               className="aspect-video md:aspect-square size-full object-cover"
             />
           ) : (
-            <div className="relative rounded-lg">
+            <div className="relative rounded-md">
               <Image
                 src={photoUrl}
                 alt={`${listing.title}'s photo`}

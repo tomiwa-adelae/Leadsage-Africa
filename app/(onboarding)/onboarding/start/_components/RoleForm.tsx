@@ -51,7 +51,7 @@ export const RoleForm = ({ role }: Props) => {
               key={role}
               onClick={() => setSelectedRole(role)}
               className={cn(
-                "border hover:bg-[#F7F7F7] transition-all cursor-pointer border-border p-4 rounded-lg flex items-center justify-start gap-2",
+                "border hover:bg-[#F7F7F7] transition-all cursor-pointer border-border p-4 rounded-md flex items-center justify-start gap-2",
                 selectedRole === role && "border-primary bg-primary/10"
               )}
             >

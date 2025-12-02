@@ -11,7 +11,7 @@ export const PlaceholderImage = () => {
         alt="Placeholder image"
         width={1000}
         height={1000}
-        className="aspect-video rounded-lg size-full object-cover dark:hidden"
+        className="aspect-video rounded-md size-full object-cover dark:hidden"
       />
       <Image
         src={
@@ -20,7 +20,7 @@ export const PlaceholderImage = () => {
         alt="Placeholder image"
         width={1000}
         height={1000}
-        className="aspect-video rounded-lg size-full object-cover hidden dark:block"
+        className="aspect-video rounded-md size-full object-cover hidden dark:block"
       />
     </>
   );

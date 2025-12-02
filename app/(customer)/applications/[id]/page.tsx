@@ -18,6 +18,7 @@ import { ApprovedApplicationModal } from "../../_components/ApprovedApplicationM
 import { UncompletedApplicationModal } from "../../_components/UncompletedApplicationModal";
 import { IconArrowNarrowRightDashed, IconContract } from "@tabler/icons-react";
 import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   id: string;
@@ -53,33 +54,34 @@ const page = async ({ params }: { params: Params }) => {
       )}
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            Application for {application.Listing.title}{" "}
-            <Badge
-              variant={
-                application.status === "PENDING"
-                  ? "pending"
-                  : application.status === "UNDER_REVIEW"
-                  ? "success"
-                  : application.status === "REJECTED"
-                  ? "destructive"
-                  : application.status === "APPROVED"
-                  ? "default"
-                  : "default"
-              }
-              className="capitalize"
-            >
-              {application.status === "APPROVED" && "Approved"}
-              {application.status === "PENDING" && "Uncompleted"}
-              {application.status === "REJECTED" && "Rejected"}
-              {application.status === "UNDER_REVIEW" && "Under review"}
-            </Badge>
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            Application details for {application.Listing.title}.
-          </p>
-        </div>
+        <PageHeader
+          description={` Application details for ${application.Listing.title}.`}
+          title={
+            <>
+              {" "}
+              Application for {application.Listing.title}{" "}
+              <Badge
+                variant={
+                  application.status === "PENDING"
+                    ? "pending"
+                    : application.status === "UNDER_REVIEW"
+                    ? "success"
+                    : application.status === "REJECTED"
+                    ? "destructive"
+                    : application.status === "APPROVED"
+                    ? "default"
+                    : "default"
+                }
+                className="capitalize"
+              >
+                {application.status === "APPROVED" && "Approved"}
+                {application.status === "PENDING" && "Uncompleted"}
+                {application.status === "REJECTED" && "Rejected"}
+                {application.status === "UNDER_REVIEW" && "Under review"}
+              </Badge>
+            </>
+          }
+        />
 
         <div className="mt-4 space-y-4">
           <Card>
@@ -497,9 +499,9 @@ const page = async ({ params }: { params: Params }) => {
               {application.status === "APPROVED" && (
                 <Link
                   href={`/applications/${application.id}/agreement`}
-                  className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+                  className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
                 >
-                  <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-lg">
+                  <div className="p-2.5 inline-block bg-green-600/20 dark:bg-green-600/70 text-green-600 dark:text-white rounded-md">
                     <IconContract className="size-4" />
                   </div>
                   Continue to leasing & agreement
@@ -512,9 +514,9 @@ const page = async ({ params }: { params: Params }) => {
                       ? `/listings/${application.Listing.slug}/application/${application.id}/rental-history`
                       : `/listings/${application.Listing.slug}/application/${application.id}/employment`
                   }
-                  className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-lg hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
+                  className="w-full flex items-center justify-start gap-2 cursor-pointer rounded-md hover:bg-accent hover:text-accent-foreground dark:bg-accent dark:hover:bg-accent/50 font-medium h-12 px-2 transition-all text-xs lg:text-sm"
                 >
-                  <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-lg">
+                  <div className="p-2.5 inline-block bg-blue-600/20 dark:bg-blue-600/70 text-blue-600 dark:text-white rounded-md">
                     <IconArrowNarrowRightDashed className="size-4" />
                   </div>
                   Complete application

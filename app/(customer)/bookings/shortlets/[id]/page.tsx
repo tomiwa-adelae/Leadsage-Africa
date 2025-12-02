@@ -44,7 +44,7 @@ const page = async ({ params }: { params: Params }) => {
               alt={shortletDetails.Listing.title!}
               width={1200}
               height={600}
-              className="w-full h-64 object-cover rounded-lg"
+              className="w-full h-64 object-cover rounded-md"
             />
           </div>
           <CardHeader>

@@ -15,6 +15,7 @@ import { AmenityBox } from "@/components/AmenityBox";
 import { NairaIcon } from "@/components/NairaIcon";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { useConstructUrl } from "@/hooks/use-construct-url";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   listingId: string;
@@ -31,14 +32,10 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">
-          Review Your Listing
-        </h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          Carefully review all the details you've provided before publishing
-          your listing. Make sure everything is accurate. This is what potential
-          renters will see.
-        </p>
+        <PageHeader
+          title={"Review Your Listing"}
+          description={"Carefully review all the details you've provided before publishing your listing. Make sure everything is accurate. This is what potential renters will see."}
+        />
         <div className="mt-8 space-y-4">
           <div>
             <div className="flex items-center justify-between gap-3">

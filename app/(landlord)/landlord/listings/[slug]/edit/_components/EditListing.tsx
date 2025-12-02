@@ -642,7 +642,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
             <Separator className="my-4" />
             <CardContent className="space-y-6">
               {photos?.length === 0 && (
-                <div className="min-h-[60vh] rounded-lg flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
+                <div className="min-h-[60vh] rounded-md flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
                   <Image
                     src={"/assets/icons/camera.svg"}
                     alt="Camera icon"
@@ -669,7 +669,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
                     ? useConstructUrl(cover?.src)
                     : DEFAULT_LISTING_IMAGE;
                   return (
-                    <div className="rounded-lg relative overflow-hidden">
+                    <div className="rounded-md relative overflow-hidden">
                       <Image
                         src={photoUrl}
                         alt="Photo uploaded"
@@ -701,7 +701,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
                       return (
                         <div
                           key={id}
-                          className="rounded-lg relative overflow-hidden "
+                          className="rounded-md relative overflow-hidden "
                         >
                           <Image
                             src={photoUrl}
@@ -726,7 +726,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
                       );
                     })}
                   {photos.length !== 0 && (
-                    <div className="rounded-lg min-h-[280px] flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
+                    <div className="rounded-md min-h-[280px] flex gap-4 items-center justify-center flex-col border-dashed border border-border bg-muted">
                       <Image
                         src={"/assets/icons/camera.svg"}
                         alt="Camera icon"

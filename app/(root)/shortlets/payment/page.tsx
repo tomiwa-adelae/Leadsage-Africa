@@ -61,7 +61,7 @@ export default async function ShortletPaymentPage({ searchParams }: Props) {
   ) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="w-full bg-white dark:bg-neutral-900 rounded-lg shadow-lg p-8 text-center">
+        <div className="w-full bg-white dark:bg-neutral-900 rounded-md shadow-lg p-8 text-center">
           <div className="text-red-500 text-6xl mb-4">⏰</div>
           <h1 className="text-2xl font-bold mb-2">Payment Link Expired</h1>
           <p className="text-muted-foreground mb-6">
@@ -70,7 +70,7 @@ export default async function ShortletPaymentPage({ searchParams }: Props) {
           </p>
           <a
             href="/contact"
-            className="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90"
+            className="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90"
           >
             Contact Support
           </a>
@@ -88,7 +88,7 @@ export default async function ShortletPaymentPage({ searchParams }: Props) {
   if (booking.status !== "AWAITING_PAYMENT") {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="w-full bg-white dark:bg-neutral-900 rounded-lg shadow-lg p-8 text-center">
+        <div className="w-full bg-white dark:bg-neutral-900 rounded-md shadow-lg p-8 text-center">
           <div className="text-yellow-500 text-6xl mb-4">⚠️</div>
           <h1 className="text-2xl font-bold mb-2">Payment Not Available</h1>
           <p className="text-muted-foreground mb-6">
@@ -96,7 +96,7 @@ export default async function ShortletPaymentPage({ searchParams }: Props) {
           </p>
           <a
             href="/dashboard"
-            className="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90"
+            className="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90"
           >
             Go to Dashboard
           </a>

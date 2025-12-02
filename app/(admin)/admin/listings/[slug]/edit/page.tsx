@@ -23,6 +23,7 @@ import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   slug: string;
@@ -41,45 +42,44 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              Edit {listing.title}{" "}
-              {listing.status === "Published" && !listing.isApproved && (
-                <Badge variant={"pending"}>
-                  <Hourglass /> Pending approval
-                </Badge>
-              )}
-              {listing.status === "Draft" && (
-                <Badge variant={"pending"}>
-                  <Component /> {listing.status}
-                </Badge>
-              )}
-              {listing.isApproved && (
-                <Badge variant={"default"}>
-                  <Radio /> Live
-                </Badge>
-              )}
-              {listing.status === "Rejected" && (
-                <Badge variant={"destructive"}>
-                  <IconCircleDashedX /> Rejected
-                </Badge>
-              )}
-              {listing.status === "Restored" && (
-                <Badge variant={"secondary"}>
-                  <IconRestore /> Restored
-                </Badge>
-              )}
-              {listing.status === "Archived" && (
-                <Badge variant={"secondary"}>
-                  <Archive /> Archived
-                </Badge>
-              )}
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Make changes to this property information and save when you're
-              done.
-            </p>
-          </div>
+          <PageHeader
+            title={
+              <>
+                Edit {listing.title}{" "}
+                {listing.status === "Published" && !listing.isApproved && (
+                  <Badge variant={"pending"}>
+                    <Hourglass /> Pending approval
+                  </Badge>
+                )}
+                {listing.status === "Draft" && (
+                  <Badge variant={"pending"}>
+                    <Component /> {listing.status}
+                  </Badge>
+                )}
+                {listing.isApproved && (
+                  <Badge variant={"default"}>
+                    <Radio /> Live
+                  </Badge>
+                )}
+                {listing.status === "Rejected" && (
+                  <Badge variant={"destructive"}>
+                    <IconCircleDashedX /> Rejected
+                  </Badge>
+                )}
+                {listing.status === "Restored" && (
+                  <Badge variant={"secondary"}>
+                    <IconRestore /> Restored
+                  </Badge>
+                )}
+                {listing.status === "Archived" && (
+                  <Badge variant={"secondary"}>
+                    <Archive /> Archived
+                  </Badge>
+                )}
+              </>
+            }
+            description={"Make changes to this property information and save when you're done."}
+          />
           {listing.status === "Published" && (
             <Button className="w-full md:w-auto" asChild size="md">
               <Link href={`/admin/listings/${listing.slug}/preview`}>

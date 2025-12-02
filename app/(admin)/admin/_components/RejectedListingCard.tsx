@@ -22,10 +22,10 @@ export const RejectedListingCard = ({ listing }: Props) => {
   return (
     <Card className="bg-transparent gap-0 border-0 rounded-none shadow-none p-0">
       <CardContent className="p-0">
-        <div className="relative rounded-lg overflow-hidden">
+        <div className="relative rounded-md overflow-hidden">
           <Link
             href={`/admin/listings/${listing.slug}`}
-            className="relative rounded-lg"
+            className="relative rounded-md"
           >
             <Image
               src={photoUrl}

@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/sidebar/site-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AgreementForm } from "./_components/AgreementForm";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   id: string;
@@ -18,16 +19,10 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            Lease Agreement for {application.Listing.title}
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            Your application has been approved! Complete these final steps to
-            secure your new home. Please review the terms of your lease before
-            signing
-          </p>
-        </div>
+        <PageHeader
+          title={<>Lease Agreement for {application.Listing.title}</>}
+          description={"Your application has been approved! Complete these final steps to secure your new home. Please review the terms of your lease before signing."}
+        />
         <div className="mt-4 space-y-4">
           <Card className="@container/card gap-0">
             <CardHeader className="border-b">

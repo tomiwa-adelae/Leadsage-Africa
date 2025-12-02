@@ -11,6 +11,7 @@ import { ApplicationsList } from "../_components/ApplicationsList";
 import { DEFAULT_LIMIT } from "@/constants";
 import { Pagination } from "@/components/Pagination";
 import { Searchbar } from "@/components/Searchbar";
+import { PageHeader } from "@/components/PageHeader";
 
 import type { Metadata } from "next";
 
@@ -38,10 +39,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">My Applications</h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          View and manage all applications
-        </p>
+        <PageHeader
+          title={"My Applications"}
+          description={"View and manage all tenant applications."}
+        />
         <div className="mt-4 space-y-6">
           <ApplicationsCards
             pendingApplications={pendingApplications}

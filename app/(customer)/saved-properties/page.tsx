@@ -5,6 +5,7 @@ import { SavedListing } from "./_components/SavedListing";
 import { Searchbar } from "@/components/Searchbar";
 import { Pagination } from "@/components/Pagination";
 import { DEFAULT_LIMIT } from "@/constants";
+import { PageHeader } from "@/components/PageHeader";
 
 import type { Metadata } from "next";
 
@@ -27,10 +28,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">Saved Properties</h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          Track your favorite listings and price changes
-        </p>{" "}
+        <PageHeader
+          title={"Saved Properties"}
+          description={"Track your favorite listings and price changes."}
+        />
         <Searchbar
           search={query}
           placeholder="Search by title, description..."

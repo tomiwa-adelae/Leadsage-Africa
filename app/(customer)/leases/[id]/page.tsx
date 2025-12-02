@@ -21,6 +21,7 @@ import { getUserInfo } from "@/app/data/user/get-user-info";
 import { PaymentsTable } from "../../_components/PaymentsTable";
 import { PaymentsList } from "../../_components/PaymentsList";
 import { getLeasePayments } from "@/app/data/user/lease/get-lease-payments";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   id: string;
@@ -38,42 +39,46 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              Lease Agreement for {lease.Listing.title}{" "}
-              <Badge
-                variant={
-                  lease.status === "PENDING"
-                    ? "pending"
-                    : lease.status === "ACTIVE"
-                    ? "success"
-                    : lease.status === "CANCELLED"
-                    ? "destructive"
-                    : lease.status === "DELETED"
-                    ? "destructive"
-                    : lease.status === "TERMINATED"
-                    ? "destructive"
-                    : lease.status === "EXPIRED"
-                    ? "secondary"
-                    : lease.status === "RENEWED"
-                    ? "success"
-                    : "default"
-                }
-              >
-                {lease.status === "ACTIVE" && "Active"}
-                {lease.status === "PENDING" && "Pending"}
-                {lease.status === "CANCELLED" && "Cancelled"}
-                {lease.status === "DELETED" && "Deleted"}
-                {lease.status === "EXPIRED" && "Expired"}
-                {lease.status === "RENEWED" && "Renewed"}
-                {lease.status === "TERMINATED" && "Terminated"}
-              </Badge>
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              {lease.Listing.address}, {lease.Listing.city},{" "}
-              {lease.Listing.state}, {lease.Listing.country}
-            </p>
-          </div>
+          <PageHeader
+            title={
+              <>
+                Lease Agreement for {lease.Listing.title}{" "}
+                <Badge
+                  variant={
+                    lease.status === "PENDING"
+                      ? "pending"
+                      : lease.status === "ACTIVE"
+                      ? "success"
+                      : lease.status === "CANCELLED"
+                      ? "destructive"
+                      : lease.status === "DELETED"
+                      ? "destructive"
+                      : lease.status === "TERMINATED"
+                      ? "destructive"
+                      : lease.status === "EXPIRED"
+                      ? "secondary"
+                      : lease.status === "RENEWED"
+                      ? "success"
+                      : "default"
+                  }
+                >
+                  {lease.status === "ACTIVE" && "Active"}
+                  {lease.status === "PENDING" && "Pending"}
+                  {lease.status === "CANCELLED" && "Cancelled"}
+                  {lease.status === "DELETED" && "Deleted"}
+                  {lease.status === "EXPIRED" && "Expired"}
+                  {lease.status === "RENEWED" && "Renewed"}
+                  {lease.status === "TERMINATED" && "Terminated"}
+                </Badge>
+              </>
+            }
+            description={
+              <>
+                {lease.Listing.address}, {lease.Listing.city},{" "}
+                {lease.Listing.state}, {lease.Listing.country}
+              </>
+            }
+          />
           <DownloadLeaseButton lease={lease} />
         </div>
         <div className="mt-4 space-y-4">
@@ -272,7 +277,7 @@ const page = async ({ params }: { params: Params }) => {
                 <p className="text-muted-foreground text-base mt-4">
                   Tenant's Signature
                 </p>
-                <div className="border-2 w-fit rounded-lg border-dashed mt-2.5">
+                <div className="border-2 w-fit rounded-md border-dashed mt-2.5">
                   <Image
                     src={lease.tenantSignature}
                     alt="Tenant's signature"
@@ -287,7 +292,7 @@ const page = async ({ params }: { params: Params }) => {
                   Landlord's Signature
                 </p>
                 {lease.landlordSignature ? (
-                  <div className="border-2 w-fit rounded-lg border-dashed">
+                  <div className="border-2 w-fit rounded-md border-dashed">
                     <Image
                       src={lease.landlordSignature}
                       alt="Landlord's signature"

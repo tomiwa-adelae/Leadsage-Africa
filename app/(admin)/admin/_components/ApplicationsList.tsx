@@ -37,14 +37,14 @@ export const ApplicationsList = ({ applications }: Props) => {
           <Link
             key={application.id}
             href={`/admin/applications/${application.id}`}
-            className="flex items-center relative justify-start gap-2 hover:bg-muted p-2 rounded-lg group"
+            className="flex items-center relative justify-start gap-2 hover:bg-muted p-2 rounded-md group"
           >
             <Image
               src={photoUrl}
               alt={`${application.Listing.title}'s photo`}
               width={1000}
               height={1000}
-              className="size-[80px] rounded-lg object-cover"
+              className="size-[80px] rounded-md object-cover"
             />
             <div>
               <h5 className="text-base font-medium group-hover:underline group-hover:text-primary transition-all">

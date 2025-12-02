@@ -7,6 +7,7 @@ import { Searchbar } from "@/components/Searchbar";
 import { DEFAULT_LIMIT } from "@/constants";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Deleted listings - Admin | Leadsage",
@@ -29,16 +30,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              Deleted listings
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              Manage all deleted listings
-            </p>
-          </div>
-        </div>
+        <PageHeader
+          title={"Deleted listings"}
+          description={"View and manage all deleted property listings."}
+        />
         <Searchbar
           search={query}
           placeholder="Search by title, descriptions..."

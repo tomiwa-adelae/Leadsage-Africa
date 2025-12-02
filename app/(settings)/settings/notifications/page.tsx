@@ -6,6 +6,7 @@ import { PromotionalBox } from "./_components/PromotionalBox";
 import { AccountBox } from "./_components/AccountBox";
 
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Notifications | Leadsage",
@@ -17,7 +18,7 @@ const page = async () => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
-        <h1 className="text-3xl md:text-4xl font-medium">Notifications</h1>
+        <PageHeader title={"Notifications"} />
         <div className="space-y-1">
           <BookingBox value={user.bookingNotifications} />
           <ListingBox value={user.listingNotifications} />

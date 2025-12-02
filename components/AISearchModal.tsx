@@ -146,8 +146,10 @@ export function AISearchModal({ open, onOpenChange }: AISearchModalProps) {
           </div>
 
           {/* Features */}
-          <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-            <p className="text-sm font-medium">What makes AI search different?</p>
+          <div className="bg-muted/50 rounded-md p-4 space-y-2">
+            <p className="text-sm font-medium">
+              What makes AI search different?
+            </p>
             <ul className="space-y-1 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-0.5">✓</span>

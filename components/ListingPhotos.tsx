@@ -40,7 +40,7 @@ export const ListingPhotos = ({ photos }: Props) => {
     <>
       <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-4 gap-2 relative">
         {/* Cover Photo */}
-        <div className="col-span-2 row-span-4 rounded-lg overflow-hidden cursor-pointer">
+        <div className="col-span-2 row-span-4 rounded-md overflow-hidden cursor-pointer">
           <Image
             src={photoUrl}
             alt={"Listing"}
@@ -67,7 +67,7 @@ export const ListingPhotos = ({ photos }: Props) => {
           return (
             <div
               key={photo.id}
-              className={`hidden md:block ${gridPositions[index]} rounded-lg overflow-hidden cursor-pointer`}
+              className={`hidden md:block ${gridPositions[index]} rounded-md overflow-hidden cursor-pointer`}
               onClick={() => handleOpen(index)}
             >
               <Image
@@ -83,7 +83,7 @@ export const ListingPhotos = ({ photos }: Props) => {
 
         {/* Show all photos button */}
         <Button
-          className="md:w-full md:h-full absolute right-2 bottom-2 md:bottom-0 md:right-0 md:relative col-start-4 row-start-4 rounded-lg overflow-hidden"
+          className="md:w-full md:h-full absolute right-2 bottom-2 md:bottom-0 md:right-0 md:relative col-start-4 row-start-4 rounded-md overflow-hidden"
           size="md"
           onClick={() => setOpenModal(true)}
         >

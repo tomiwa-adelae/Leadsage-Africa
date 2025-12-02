@@ -285,10 +285,17 @@ model Amenities {
   description String?
   icon        String
 
+  status AmenityStatus @default(ACTIVE)
+
   listings Listing[] @relation("ListingAmenities")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum AmenityStatus {
+  ACTIVE
+  INACTIVE
 }
 
 model Photos {

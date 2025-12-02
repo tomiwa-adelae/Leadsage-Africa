@@ -50,7 +50,7 @@ export const passwordResetEmail = ({ name, resetLink }: Props) => `
 					immediately to secure your account.
 				</p>
 
-				<div class="bg-blue-50 p-5 rounded-lg my-6 text-center">
+				<div class="bg-blue-50 p-5 rounded-md my-6 text-center">
 					<h4 class="font-medium text-gray-800 mb-3">📞 Need Help?</h4>
 					<p class="m-0">
 						Email us at 

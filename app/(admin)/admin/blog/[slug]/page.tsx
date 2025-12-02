@@ -55,7 +55,7 @@ const BlogPostDetailPage = async ({ params }: Props) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div>
-          <div className="relative aspect-video w-full rounded-lg overflow-hidden mb-6">
+          <div className="relative aspect-video w-full rounded-md overflow-hidden mb-6">
             <Image
               src={photoUrl || DEFAULT_LISTING_IMAGE}
               alt={post.title}

@@ -13,6 +13,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { BookingsTable } from "../_components/BookingsTable";
 import { BookingsList } from "../_components/BookingsList";
 import { Pagination } from "@/components/Pagination";
+import { PageHeader } from "@/components/PageHeader";
 
 import type { Metadata } from "next";
 
@@ -41,10 +42,10 @@ const page = async ({ searchParams }: Props) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <h1 className="text-3xl md:text-4xl font-medium">My bookings</h1>
-        <p className="text-muted-foreground text-base mt-2.5">
-          View and manage all tour bookings for your properties
-        </p>
+        <PageHeader
+          title={"My Bookings"}
+          description={"View and manage all tour bookings for your properties."}
+        />
         <div className="mt-4 space-y-6">
           <BookingsCards
             pendingBookings={pendingBookings.bookings}

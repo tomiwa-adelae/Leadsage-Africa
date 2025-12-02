@@ -20,7 +20,7 @@ export const accountCreationSuccess = ({ name }: Props) => `
 				<p class="text-gray-600">Your account has been created successfully</p>
 			</div>
 
-			<div class="p-10 bg-white shadow rounded-lg">
+			<div class="p-10 bg-white shadow rounded-md">
 				<div class="text-lg text-gray-800 mb-6">
 					Hi <span class="font-bold">${name}</span>,
 				</div>

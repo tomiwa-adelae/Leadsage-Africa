@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
 import { getApplication } from "@/app/data/landlord/application/get-application";
 import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = Promise<{
   id: string;
@@ -30,34 +31,34 @@ const page = async ({ params }: { params: Params }) => {
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-medium">
-            Application for {application.Listing.title} by{" "}
-            {application.User.name}{" "}
-            <Badge
-              variant={
-                application.status === "PENDING"
-                  ? "pending"
-                  : application.status === "UNDER_REVIEW"
-                  ? "success"
-                  : application.status === "REJECTED"
-                  ? "destructive"
-                  : application.status === "APPROVED"
-                  ? "default"
-                  : "default"
-              }
-              className="capitalize"
-            >
-              {application.status === "APPROVED" && "Approved"}
-              {application.status === "PENDING" && "Uncompleted"}
-              {application.status === "REJECTED" && "Rejected"}
-              {application.status === "UNDER_REVIEW" && "Under review"}
-            </Badge>
-          </h1>
-          <p className="text-muted-foreground text-base mt-2.5">
-            Review this application to move forward with this property.
-          </p>
-        </div>
+        <PageHeader
+          title={
+            <>
+              Application for {application.Listing.title} by{" "}
+              {application.User.name}{" "}
+              <Badge
+                variant={
+                  application.status === "PENDING"
+                    ? "pending"
+                    : application.status === "UNDER_REVIEW"
+                    ? "success"
+                    : application.status === "REJECTED"
+                    ? "destructive"
+                    : application.status === "APPROVED"
+                    ? "default"
+                    : "default"
+                }
+                className="capitalize"
+              >
+                {application.status === "APPROVED" && "Approved"}
+                {application.status === "PENDING" && "Uncompleted"}
+                {application.status === "REJECTED" && "Rejected"}
+                {application.status === "UNDER_REVIEW" && "Under review"}
+              </Badge>
+            </>
+          }
+          description={"Review this application to move forward with this property."}
+        />
 
         <div className="mt-4 space-y-4">
           <Card>

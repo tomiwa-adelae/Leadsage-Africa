@@ -45,6 +45,7 @@ import { PlaceholderImage } from "@/components/PlaceholderImage";
 
 import { Metadata, ResolvingMetadata } from "next";
 import { ListingMap } from "@/components/ListingMap";
+import { PageHeader } from "@/components/PageHeader";
 
 export async function generateMetadata(
   { params }: any,
@@ -84,71 +85,77 @@ const page = async ({ params }: { params: Params }) => {
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <div className="flex flex-col sm:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-medium">
-              {listing.title ? (
-                listing.title
-              ) : (
-                <span className="italic">No title</span>
-              )}{" "}
-              {listing.status === "Published" && !listing.isApproved && (
-                <Badge variant={"pending"}>
-                  <Hourglass /> Pending approval
-                </Badge>
-              )}
-              {listing.status === "Draft" && (
-                <Badge variant={"pending"}>
-                  <Component /> {listing.status}
-                </Badge>
-              )}
-              {listing.isApproved && listing.status === "Published" && (
-                <Badge variant={"default"}>
-                  <Radio /> Live
-                </Badge>
-              )}
-              {listing.status === "Rejected" && (
-                <Badge variant={"destructive"}>
-                  <IconCircleDashedX /> Rejected
-                </Badge>
-              )}
-              {listing.status === "Restored" && (
-                <Badge variant={"secondary"}>
-                  <IconRestore /> Restored
-                </Badge>
-              )}
-              {listing.status === "Archived" && (
-                <Badge variant={"secondary"}>
-                  <Archive /> Archived
-                </Badge>
-              )}
-              {listing.status === "Deleted" && (
-                <Badge variant={"destructive"}>
-                  <IconTrash /> Deleted
-                </Badge>
-              )}
-            </h1>
-            <p className="text-muted-foreground text-base mt-2.5">
-              <IconMapPin className="inline-block mr-1 size-4" />
-              {listing.address ? (
-                `${listing.address}, ${listing.city}, ${listing.state}, ${listing.country}`
-              ) : (
-                <span className="italic">No location</span>
-              )}
-            </p>
-            {listing?.Lease[0]?.status === "ACTIVE" && (
-              <div className="bg-muted p-4 rounded-md w-full mt-2">
-                <p className="text-base font-medium">
-                  Listing Unavailable – Active Lease
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  This listing is currently under an active lease with{" "}
-                  {listing.Lease[0].User.name} from{" "}
-                  {formatDate(listing.Lease[0].startDate)} to{" "}
-                  {formatDate(listing.Lease[0].endDate)}. This listing would
-                  automatically become available again on{" "}
-                  {formatDate(listing.Lease[0].endDate)} unless renewed{" "}
-                </p>
-              </div>
-            )}
+            <PageHeader
+              description={
+                <>
+                  <IconMapPin className="inline-block mr-1 size-4" />
+                  {listing.address ? (
+                    `${listing.address}, ${listing.city}, ${listing.state}, ${listing.country}`
+                  ) : (
+                    <span className="italic">No location</span>
+                  )}
+                  {listing?.Lease[0]?.status === "ACTIVE" && (
+                    <div className="bg-muted p-4 rounded-md w-full mt-2">
+                      <p className="text-base font-medium">
+                        Listing Unavailable – Active Lease
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        This listing is currently under an active lease with{" "}
+                        {listing.Lease[0].User.name} from{" "}
+                        {formatDate(listing.Lease[0].startDate)} to{" "}
+                        {formatDate(listing.Lease[0].endDate)}. This listing
+                        would automatically become available again on{" "}
+                        {formatDate(listing.Lease[0].endDate)} unless renewed{" "}
+                      </p>
+                    </div>
+                  )}
+                </>
+              }
+              title={
+                <>
+                  {listing.title ? (
+                    listing.title
+                  ) : (
+                    <span className="italic">No title</span>
+                  )}
+                  {listing.status === "Published" && !listing.isApproved && (
+                    <Badge variant={"pending"}>
+                      <Hourglass /> Pending approval
+                    </Badge>
+                  )}
+                  {listing.status === "Draft" && (
+                    <Badge variant={"pending"}>
+                      <Component /> {listing.status}
+                    </Badge>
+                  )}
+                  {listing.isApproved && listing.status === "Published" && (
+                    <Badge variant={"default"}>
+                      <Radio /> Live
+                    </Badge>
+                  )}
+                  {listing.status === "Rejected" && (
+                    <Badge variant={"destructive"}>
+                      <IconCircleDashedX /> Rejected
+                    </Badge>
+                  )}
+                  {listing.status === "Restored" && (
+                    <Badge variant={"secondary"}>
+                      <IconRestore /> Restored
+                    </Badge>
+                  )}
+                  {listing.status === "Archived" && (
+                    <Badge variant={"secondary"}>
+                      <Archive /> Archived
+                    </Badge>
+                  )}
+                  {listing.status === "Deleted" && (
+                    <Badge variant={"destructive"}>
+                      <IconTrash /> Deleted
+                    </Badge>
+                  )}
+                </>
+              }
+            />
           </div>
           <ListingActions
             isApproved={listing.isApproved}
