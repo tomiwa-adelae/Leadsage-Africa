@@ -21,7 +21,7 @@ const page = async ({ params }: { params: Params }) => {
           description={
             "Share the key features of your property so renters know what to expect."
           }
-          title={"ell us more about your property"}
+          title={"Tell us more about your property"}
         />
         <DescribeForm id={listingId} listing={listing} />
       </div>

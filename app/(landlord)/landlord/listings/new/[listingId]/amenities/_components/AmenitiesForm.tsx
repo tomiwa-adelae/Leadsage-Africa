@@ -62,7 +62,7 @@ export const AmenitiesForm = ({ id, amenities, listing }: Props) => {
 
   return (
     <div className="mt-8">
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-2 lg:grid-cols-3">
         {amenities.map(({ icon, name, id }) => {
           const isSelected = selectedAmenities.some((a) => a === id);
           return (
