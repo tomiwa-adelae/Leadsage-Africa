@@ -389,7 +389,7 @@ export const Uploader = forwardRef<UploaderHandle, iAppProps>(
       onDrop,
       accept:
         fileTypeAccepted === "video" ? { "video/*": [] } : { "image/*": [] },
-      maxFiles: multiple ? 10 : 1,
+      maxFiles: multiple ? 20 : 1,
       multiple,
       maxSize:
         fileTypeAccepted === "image" ? 5 * 1024 * 1024 : 5000 * 1024 * 1024,
