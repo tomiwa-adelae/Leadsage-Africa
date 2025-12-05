@@ -9,6 +9,7 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { ScrollableListingCard } from "@/components/ScrollableListingCard";
 
 import type { Metadata } from "next";
+import { ListingCard } from "@/components/ListingCard";
 
 export const metadata: Metadata = {
   title: "Browse Property Listings | Leadsage Nigeria",
@@ -44,7 +45,7 @@ const page = async ({ searchParams }: Props) => {
               description="There are no properties to showcase at this moment."
             />
           )}
-          <ScrollArea className="w-full max-w-full">
+          {/* <ScrollArea className="w-full max-w-full">
             <div className="flex w-max space-x-2 md:space-x-3 lg:space-x-4 pt-4 pr-10 pb-2">
               {listings.listings.map((listing) => (
                 <ScrollableListingCard
@@ -55,7 +56,16 @@ const page = async ({ searchParams }: Props) => {
               ))}
             </div>
             <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+          </ScrollArea> */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            {listings.listings.slice(0, 9).map((listing) => (
+              <ListingCard
+                isAuthenticated={!!session?.user}
+                listing={listing}
+                key={listing.id}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
