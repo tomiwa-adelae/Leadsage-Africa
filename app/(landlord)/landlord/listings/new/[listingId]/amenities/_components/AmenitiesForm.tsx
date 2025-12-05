@@ -8,10 +8,12 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useEffect, useMemo, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { saveAmenities } from "../actions";
 import { GetLandlordListingType } from "@/app/data/landlord/get-landlord-listing";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 interface Props {
   id: string;
@@ -23,6 +25,14 @@ export const AmenitiesForm = ({ id, amenities, listing }: Props) => {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredAmenities = useMemo(() => {
+    if (!searchQuery.trim()) return amenities;
+    return amenities.filter((amenity) =>
+      amenity.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [amenities, searchQuery]);
 
   useEffect(() => {
     // Set the selected amenities to the existing ones' IDs
@@ -62,8 +72,18 @@ export const AmenitiesForm = ({ id, amenities, listing }: Props) => {
 
   return (
     <div className="mt-8">
+      <div className="relative mb-4">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+        <Input
+          type="text"
+          placeholder="Search amenities..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="pl-10"
+        />
+      </div>
       <div className="grid grid-cols-2 gap-2 lg:grid-cols-3">
-        {amenities.map(({ icon, name, id }) => {
+        {filteredAmenities.map(({ icon, name, id }) => {
           const isSelected = selectedAmenities.some((a) => a === id);
           return (
             <Card

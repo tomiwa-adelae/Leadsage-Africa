@@ -28,7 +28,7 @@ import Image from "next/image";
 import { CopyToClipboard } from "@/components/CopyToClipboard";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DEFAULT_PROFILE_PICTURE } from "@/constants";
+import { DEFAULT_LISTING_IMAGE, DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { AllAmenitiesModal } from "@/components/AllAmenitiesModal";
 import { AmenityBox } from "@/components/AmenityBox";
 import { EmptyState } from "@/components/EmptyState";
@@ -46,6 +46,7 @@ import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { Metadata, ResolvingMetadata } from "next";
 import { ListingMap } from "@/components/ListingMap";
 import { PageHeader } from "@/components/PageHeader";
+import { useConstructUrl } from "@/hooks/use-construct-url";
 
 export async function generateMetadata(
   { params }: any,
@@ -78,6 +79,9 @@ const page = async ({ params }: { params: Params }) => {
   const pastBookings = await getListingPastBookings(listing.id);
 
   const leases = await getListingLeases(listing.id);
+
+  const photoUrl =
+    useConstructUrl(listing?.Category?.icon) || DEFAULT_LISTING_IMAGE;
 
   return (
     <div>
@@ -180,7 +184,7 @@ const page = async ({ params }: { params: Params }) => {
                 <div className="mt-1.5 flex items-center justify-start gap-2">
                   <div className="p-4 inline-block bg-primary/20 dark:bg-primary/70 text-primary dark:text-white rounded-full">
                     <Image
-                      src={listing.Category.icon}
+                      src={photoUrl}
                       alt={listing.Category.name}
                       width={1000}
                       height={1000}
