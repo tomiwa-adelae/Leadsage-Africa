@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "allow": [
+    "sharp",
+    "prisma",
+    "@prisma/client",
+    "@prisma/engines",
+    "@prisma/engines-version",
+    "@tailwindcss/oxide",
+    "esbuild",
+    "rollup",
+    "turbo",
+    "@next/swc-*"
+  ]
+}
