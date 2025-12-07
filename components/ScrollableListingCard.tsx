@@ -112,7 +112,7 @@ export const ScrollableListingCard = ({ listing, isAuthenticated }: Props) => {
             <h2 className="group-hover:text-primary hover:underline transition-all font-medium text-base line-clamp-1">
               {listing.title}
             </h2>
-            <p className="font-medium text-sm md:text-base">
+            <p className="font-medium text-sm">
               <NairaIcon />
               {listing.price}
             </p>

@@ -109,7 +109,7 @@ export const AdminListingCard = ({ listing }: Props) => {
           ) : (
             <p className="italic text-lg">No title</p>
           )}
-          <p className="font-medium text-base">
+          <p className="font-medium text-sm">
             <NairaIcon />
             {listing.price ? listing.price : 0}
           </p>
