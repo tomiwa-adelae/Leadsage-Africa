@@ -1,0 +1,10 @@
+{
+  "allowedScripts": {
+    "@prisma/client": true,
+    "prisma": true,
+    "@prisma/engines": true,
+    "sharp": true,
+    "@tailwindcss/oxide": true,
+    "esbuild": true
+  }
+}
