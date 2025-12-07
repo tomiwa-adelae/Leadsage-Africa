@@ -102,7 +102,7 @@ export const AdminListingCard = ({ listing }: Props) => {
           {listing.title ? (
             <Link
               href={`/admin/listings/${listing.slug}`}
-              className="group-hover:text-primary hover:underline transition-all font-medium text-lg line-clamp-1"
+              className="group-hover:text-primary hover:underline transition-all font-medium text-base line-clamp-1"
             >
               {listing.title}
             </Link>
