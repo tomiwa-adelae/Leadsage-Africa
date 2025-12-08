@@ -291,7 +291,7 @@ const page = async ({ params }: { params: Params }) => {
           </Button>
         </div> */}
         <Separator className="my-8" />
-        <div>
+        {/* <div>
           <h3 className="font-medium text-lg">Where you'll be</h3>
           <p className="text-muted-foreground text-base mt-1.5">
             {listing.address ? (
@@ -306,7 +306,7 @@ const page = async ({ params }: { params: Params }) => {
             </>
           )}
         </div>
-        <Separator className="my-8" />
+        <Separator className="my-8" /> */}
         <div>
           <h3 className="font-medium text-lg">Meet your landlord</h3>
           <div className="mt-4 flex flex-col md:flex-row items-center justify-center text-center md:text-left md:justify-start gap-10">

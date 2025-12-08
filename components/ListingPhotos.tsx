@@ -38,7 +38,7 @@ export const ListingPhotos = ({ photos }: Props) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-4 gap-2 relative">
+      <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-4 gap-1 relative">
         {/* Cover Photo */}
         <div className="col-span-2 row-span-4 rounded-md overflow-hidden cursor-pointer">
           <Image

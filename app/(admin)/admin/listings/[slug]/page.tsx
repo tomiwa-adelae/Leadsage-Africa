@@ -342,7 +342,7 @@ const page = async ({ params }: { params: Params }) => {
               <CardTitle>Property Details</CardTitle>
             </CardHeader>
             <CardContent className="mt-4 grid gap-6">
-              <div>
+              {/* <div>
                 <h3 className="font-medium text-base">Location</h3>
                 <p className="text-muted-foreground text-base">
                   <IconMapPin className="inline-block mr-1 size-4" />
@@ -358,7 +358,7 @@ const page = async ({ params }: { params: Params }) => {
                   </>
                 )}
               </div>
-              <Separator />
+              <Separator /> */}
               <div>
                 <h3 className="font-medium text-base">Rent</h3>
                 <p className="text-muted-foreground font-medium text-3xl">

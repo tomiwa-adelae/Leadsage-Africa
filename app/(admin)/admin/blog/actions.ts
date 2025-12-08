@@ -296,8 +296,6 @@ export const createBlogCategory = async (
   try {
     const validation = createBlogCategoryFormSchema.safeParse(data);
 
-    console.log(validation);
-
     if (!validation.success)
       return { status: "error", message: "Invalid data provided" };
 

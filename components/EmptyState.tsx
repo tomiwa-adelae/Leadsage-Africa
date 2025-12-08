@@ -28,8 +28,10 @@ export const EmptyState = ({
         <Lottie lottieRef={animationRef} animationData={EmptyAnimation} />
       </div>
       <div className="space-y-2 mt-20 z-20">
-        <h3 className="font-medium text-xl">{title}</h3>
-        <p className="text-muted-foreground text-sm">{description}</p>
+        <h3 className="font-medium text-base md:text-xl">{title}</h3>
+        <p className="text-muted-foreground text-xs md:text-sm">
+          {description}
+        </p>
         {buttonSlug && buttonText && (
           <Button asChild>
             <Link href={buttonSlug}>

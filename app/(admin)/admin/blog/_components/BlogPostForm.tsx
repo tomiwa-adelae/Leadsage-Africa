@@ -154,8 +154,6 @@ export const BlogPostForm = ({
 
     setIsCreatingCategory(true);
 
-    console.log(newCategoryName, newCategoryDescription);
-
     const result = await createBlogCategory({
       name: newCategoryName.trim(),
       description: newCategoryDescription.trim() || undefined,

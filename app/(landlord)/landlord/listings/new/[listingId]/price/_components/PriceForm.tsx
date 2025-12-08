@@ -56,7 +56,7 @@ export function PriceForm({ id, listing }: Props) {
       discount: listing.discount || "",
       paymentFrequency:
         (listing.paymentFrequency as ListingPriceFormSchemaType["paymentFrequency"]) ||
-        (listing.Category.name === "Short let"
+        (listing.Category.name === "Shortlet"
           ? "Daily"
           : ("Yearly" as ListingPriceFormSchemaType["paymentFrequency"])),
     },
@@ -194,7 +194,7 @@ export function PriceForm({ id, listing }: Props) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {listing.Category.name === "Short let" ? (
+                    {listing.Category.name === "Shortlet" ? (
                       <SelectItem value={"Daily"}>Daily</SelectItem>
                     ) : (
                       <>

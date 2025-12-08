@@ -48,8 +48,6 @@ const BlogPostDetailPage = async ({ params }: Props) => {
   };
 
   const photoUrl = constructImageUrl(post?.featuredImage);
-  console.log(post);
-
   return (
     <div>
       <SiteHeader />

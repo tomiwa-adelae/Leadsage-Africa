@@ -122,7 +122,7 @@ export function AmenityForm({ amenity }: Props) {
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-2 gap-4 mt-8">
+          <div className="grid grid-cols-2 gap-2 mt-8">
             <Button
               type="button"
               size="md"

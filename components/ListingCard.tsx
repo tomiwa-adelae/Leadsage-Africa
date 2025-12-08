@@ -109,10 +109,10 @@ export const ListingCard = ({ listing, isAuthenticated }: Props) => {
             )}
           </div>
           <div className="py-2">
-            <h2 className="group-hover:text-primary hover:underline transition-all font-medium text-base line-clamp-1">
+            <h2 className="group-hover:text-primary hover:underline transition-all font-medium text-sm sm:text-base line-clamp-1">
               {listing.title}
             </h2>
-            <p className="font-medium text-sm">
+            <p className="font-medium text-muted-foreground text-xs sm:text-sm">
               <NairaIcon />
               {listing.price}
             </p>

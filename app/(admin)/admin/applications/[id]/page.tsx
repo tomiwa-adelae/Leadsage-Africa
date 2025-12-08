@@ -68,7 +68,7 @@ const page = async ({ params }: { params: Params }) => {
 
         <div className="mt-4 space-y-4">
           <Card>
-            <CardHeader className="border-b flex items-center justify-between gap-4">
+            <CardHeader className="border-b flex items-center justify-between gap-2">
               <CardTitle>Applicant Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">
@@ -225,7 +225,7 @@ const page = async ({ params }: { params: Params }) => {
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="border-b flex items-center justify-between gap-4">
+            <CardHeader className="border-b flex items-center justify-between gap-2">
               <CardTitle>Applicant Emergency Contact</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">
@@ -272,7 +272,7 @@ const page = async ({ params }: { params: Params }) => {
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="border-b flex items-center justify-between gap-4">
+            <CardHeader className="border-b flex items-center justify-between gap-2">
               <CardTitle>Employment & Income</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">
@@ -358,7 +358,7 @@ const page = async ({ params }: { params: Params }) => {
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="border-b flex items-center justify-between gap-4">
+            <CardHeader className="border-b flex items-center justify-between gap-2">
               <CardTitle>Rental History</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">
@@ -422,7 +422,7 @@ const page = async ({ params }: { params: Params }) => {
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="border-b flex items-center justify-between gap-4">
+            <CardHeader className="border-b flex items-center justify-between gap-2">
               <CardTitle>Landlord's Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm font-medium">

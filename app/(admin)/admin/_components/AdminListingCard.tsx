@@ -39,7 +39,7 @@ export const AdminListingCard = ({ listing }: Props) => {
               alt={`${listing.title}'s photo`}
               width={1000}
               height={1000}
-              className="aspect-video md:aspect-square size-full object-cover"
+              className="aspect-square h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-black/30" />
           </Link>
@@ -102,14 +102,14 @@ export const AdminListingCard = ({ listing }: Props) => {
           {listing.title ? (
             <Link
               href={`/admin/listings/${listing.slug}`}
-              className="group-hover:text-primary hover:underline transition-all font-medium text-base line-clamp-1"
+              className="group-hover:text-primary hover:underline transition-all font-medium text-sm md:text-base line-clamp-1"
             >
               {listing.title}
             </Link>
           ) : (
-            <p className="italic text-lg">No title</p>
+            <p className="italic text-sm sm:text-base">No title</p>
           )}
-          <p className="font-medium text-sm">
+          <p className="font-medium text-xs text-muted-foreground md:text-sm">
             <NairaIcon />
             {listing.price ? listing.price : 0}
           </p>

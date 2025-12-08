@@ -282,7 +282,12 @@ export const BookingDetails = ({
             <h2 className="font-medium text-3xl">
               <NairaIcon />
               {listing.price}
-              <span className="text-sm">/{listing.paymentFrequency}</span>
+              <span className="text-sm">
+                /
+                {listing.Category.name === "Shortlet"
+                  ? "Daily"
+                  : listing.paymentFrequency}
+              </span>
             </h2>
           </div>
           <div className="mt-4 text-base space-y-4">
@@ -293,7 +298,7 @@ export const BookingDetails = ({
                 {listing.price}
               </span>
             </p>
-            {listing.Category.name !== "Short let" && (
+            {listing.Category.name !== "Shortlet" && (
               <p className="flex items-center justify-between gap-4">
                 <span className="text-muted-foreground">Security deposit</span>
                 <span>
@@ -318,7 +323,7 @@ export const BookingDetails = ({
             </p> */}
           </div>
           <Separator className="my-4" />
-          {listing.Category.name !== "Short let" && (
+          {listing.Category.name !== "Shortlet" && (
             <p className="flex font-medium items-center justify-between gap-4 text-lg">
               <span className="text-muted-foreground">Total</span>
               <span>
@@ -333,7 +338,7 @@ export const BookingDetails = ({
           <div className="mt-4 space-y-4">
             {session ? (
               <>
-                {listing.Category.name === "Short let" ? (
+                {listing.Category.name === "Shortlet" ? (
                   !selectedDateRange && (
                     <Button
                       onClick={() => setShowCalendar(true)}
@@ -560,7 +565,7 @@ export const BookingDetails = ({
                     </Button>
 
                     <Button
-                      variant="ghost"
+                      variant="secondary"
                       size="md"
                       className="w-full"
                       onClick={() => {
