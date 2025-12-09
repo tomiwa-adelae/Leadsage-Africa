@@ -327,7 +327,7 @@ export const Uploader = forwardRef<UploaderHandle, iAppProps>(
         );
 
         if (tooManyFiles) {
-          toast.error("Too many files selected, max is 10");
+          toast.error("Too many files selected, max is 20");
         }
 
         if (fileSizeTooBig) {
@@ -398,61 +398,7 @@ export const Uploader = forwardRef<UploaderHandle, iAppProps>(
     });
 
     return (
-      // <>
-      // 	<input
-      // 		ref={inputRef}
-      // 		type="file"
-      // 		hidden
-      // 		accept={
-      // 			fileTypeAccepted === "image" ? "image/*" : "video/*"
-      // 		}
-      // 		multiple={multiple}
-      // 		onChange={handleManualSelect}
-      // 	/>
-      // 	{photos.length === 0 ? (
-      // 		<Card
-      // 			className={cn(
-      // 				"relative border-2 border-dashed transition-colors duration-200 ease-in-out w-full h-64",
-      // 				isDragActive
-      // 					? "border-primary bg-primary/10 border-solid"
-      // 					: "border-border hover:border-primary"
-      // 			)}
-      // 			ref={inputRef}
-      // 			{...getRootProps()}
-      // 		>
-      // 			<CardContent className="items-center flex justify-center size-full">
-      // 				<input
-      // 					ref={inputRef}
-      // 					multiple
-      // 					{...getInputProps()}
-      // 				/>
-
-      // 				{renderContent()}
-      // 			</CardContent>
-      // 		</Card>
-      // 	) : (
-      // 		<ScrollArea>
-      // 			<div className="grid grid-cols-2 gap-4 overflow-hidden">
-      // 				{photos.map((photo, index) => (
-      // 					<div
-      // 						key={index}
-      // 						className="border rounded-md overflow-hidden"
-      // 					>
-      // 						<Image
-      // 							src={photo}
-      // 							alt={"Photo uploaded"}
-      // 							width={1000}
-      // 							height={1000}
-      // 							className="aspect-square col-span-1 object-cover size-full"
-      // 						/>
-      // 					</div>
-      // 				))}
-      // 			</div>
-      // 		</ScrollArea>
-      // 	)}
-      // </>
       <>
-        {/* Hidden input */}
         <input
           ref={inputRef}
           type="file"
