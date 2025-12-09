@@ -46,7 +46,7 @@ export const PopularProperties = async () => {
       </ScrollArea> */}
       {/* GRID — 3 per row */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-4">
-        {listings.listings.slice(0, 9).map((listing) => (
+        {listings.listings.map((listing) => (
           <ListingCard
             isAuthenticated={!!session?.user}
             listing={listing}
