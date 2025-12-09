@@ -48,13 +48,13 @@ export function PoliciesForm({ id, listing }: Props) {
     defaultValues: {
       petPolicy:
         (listing.petPolicy as ListingPolicyFormSchemaType["petPolicy"]) ||
-        ("" as ListingPolicyFormSchemaType["petPolicy"]),
+        ("No" as ListingPolicyFormSchemaType["petPolicy"]),
       smokingPolicy:
         (listing.smokingPolicy as ListingPolicyFormSchemaType["smokingPolicy"]) ||
-        ("" as ListingPolicyFormSchemaType["smokingPolicy"]),
+        ("No" as ListingPolicyFormSchemaType["smokingPolicy"]),
       partyPolicy:
         (listing.partyPolicy as ListingPolicyFormSchemaType["partyPolicy"]) ||
-        ("" as ListingPolicyFormSchemaType["partyPolicy"]),
+        ("No" as ListingPolicyFormSchemaType["partyPolicy"]),
       additionalPolicies: listing.additionalPolicies || "",
     },
   });
