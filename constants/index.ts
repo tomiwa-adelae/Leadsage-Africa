@@ -261,14 +261,14 @@ export const DEFAULT_LISTING_IMAGE =
 
 export const testimonials = [
   {
-    image: "/assets/images/tomiwa-adelae.JPG",
+    image: "/assets/images/listing-2.jpg",
     testimony:
       "Leadsage made renting so effortless! I found the perfect apartment in a week and the process was so smooth.",
     name: "Tomiwa Adelae",
     portfolio: "Renter",
   },
   {
-    image: "/assets/images/israel-ibitoye.jpg",
+    image: "/assets/images/listing-3.jpg",
     testimony:
       "Listing my property was seamless. I got verified renters in just days!",
     name: "Israel Ibitoye",
