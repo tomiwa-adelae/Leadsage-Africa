@@ -185,7 +185,7 @@ export function PaymentInterface({ booking }: Props) {
 
               <Separator />
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-muted-foreground">Check-in</p>
                   <p className="font-medium">{formattedCheckIn}</p>
@@ -217,7 +217,7 @@ export function PaymentInterface({ booking }: Props) {
 
           {/* Important Information */}
           <Card className="border-yellow-500 bg-yellow-50 dark:bg-yellow-950/20">
-            <CardContent className="pt-6">
+            <CardContent>
               <h3 className="font-medium mb-2 flex items-center gap-2">
                 <span className="text-yellow-600">⚠️</span>
                 Important Information

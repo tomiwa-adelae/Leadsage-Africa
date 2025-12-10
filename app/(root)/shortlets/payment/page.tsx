@@ -106,7 +106,7 @@ export default async function ShortletPaymentPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-neutral-950 py-12 px-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-neutral-950 py-12 container">
       <PaymentInterface booking={booking} />
     </div>
   );
