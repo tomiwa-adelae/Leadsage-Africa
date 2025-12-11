@@ -21,6 +21,7 @@ export const getShortletDetails = async (id: string) => {
       Listing: {
         select: {
           title: true,
+          id: true,
           slug: true,
           smallDescription: true,
           bedrooms: true,

@@ -155,7 +155,7 @@ export function PaymentInterface({ booking }: Props) {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-2">
         {/* Booking Details */}
         <div className="lg:col-span-2 space-y-6">
           <Card>
@@ -267,7 +267,7 @@ export function PaymentInterface({ booking }: Props) {
               </div>
 
               <Button
-                size="lg"
+                size="md"
                 className="w-full"
                 onClick={handlePayment}
                 disabled={pending}
