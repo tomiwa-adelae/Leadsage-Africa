@@ -32,9 +32,9 @@ export const Header = async () => {
         <div className="flex items-center justify-end gap-2">
           <div className="flex items-center justify-end gap-2">
             <SearchButton />
+            <ThemeToggle />
           </div>
           <div className="hidden md:flex items-center justify-end gap-2">
-            <ThemeToggle />
             {!session?.user && (
               <Button asChild variant="secondary">
                 <Link href={"/login"}>Login</Link>
@@ -47,9 +47,6 @@ export const Header = async () => {
 
           {session?.user && (
             <>
-              <div className="md:hidden">
-                <ThemeToggle />
-              </div>
               <UserDropdown
                 name={session?.user?.name}
                 email={session?.user?.email}
