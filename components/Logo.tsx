@@ -16,12 +16,23 @@ export const Logo = ({
       href="/"
     >
       <Image
+        src={"/assets/images/logo-small.png"}
+        alt="Leadsage africa logo"
+        width={1000}
+        height={1000}
+        className={cn(
+          "md:hidden w-[50px] object-cover dark:invert",
+          invert && "",
+          white && ""
+        )}
+      />
+      <Image
         src={"/assets/images/logo.png"}
         alt="Leadsage africa logo"
         width={1000}
         height={1000}
         className={cn(
-          "w-[150px] md:w-[160px] object-cover dark:invert",
+          "hidden md:block w-[150px] md:w-[160px] object-cover dark:invert",
           invert && "invert dark:invert-0",
           white && "dark:invert-0"
         )}

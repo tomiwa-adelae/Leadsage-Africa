@@ -19,6 +19,7 @@ import {
   landlordDropdownLinks,
   userDropdownLinks,
 } from "@/constants";
+import { Badge } from "@/components/ui/badge";
 
 interface Props {
   image: string;
@@ -66,9 +67,16 @@ export function UserDropdown({ image, name, email, role }: Props) {
             : role === "admin"
             ? adminDropdownLinks
             : []
-          ).map(({ slug, label, icon }, index) => {
+          ).map(({ slug, label, icon, comingSoon }, index) => {
             const Icon = icon;
-            return (
+            return comingSoon ? (
+              <DropdownMenuItem disabled key={index}>
+                <Icon size={16} className="opacity-60" aria-hidden="true" />
+                <span>
+                  {label} <Badge variant={"secondary"}>Soon</Badge>
+                </span>
+              </DropdownMenuItem>
+            ) : (
               <DropdownMenuItem asChild key={index}>
                 <Link href={slug}>
                   <Icon size={16} className="opacity-60" aria-hidden="true" />
@@ -85,11 +93,11 @@ export function UserDropdown({ image, name, email, role }: Props) {
             <span>Settings</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/help-center">
-            <Info size={16} className="opacity-60" aria-hidden="true" />
-            <span>Help Center</span>
-          </Link>
+        <DropdownMenuItem disabled>
+          <Info size={16} className="opacity-60" aria-hidden="true" />
+          <span>
+            Help Center <Badge variant={"secondary"}>Soon</Badge>
+          </span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignout}>

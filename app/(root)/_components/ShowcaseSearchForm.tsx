@@ -60,7 +60,7 @@ export function ShowcaseSearchForm() {
         )}
       </div>
       <Input
-        className="border-0 text-black h-8 md:h-11"
+        className="border-0 text-black h-11"
         placeholder="Search title, description..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}

@@ -36,14 +36,9 @@ export const Header = async () => {
           <div className="hidden md:flex items-center justify-end gap-2">
             <ThemeToggle />
             {!session?.user && (
-              <>
-                <Button asChild variant="ghost">
-                  <Link href={"/register"}>Become a landlord</Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link href={"/login"}>Sign in</Link>
-                </Button>
-              </>
+              <Button asChild variant="outline">
+                <Link href={"/login"}>Sign in</Link>
+              </Button>
             )}
             <Button asChild>
               <Link href={"/listings"}>Browse listings</Link>
@@ -51,15 +46,25 @@ export const Header = async () => {
           </div>
 
           {session?.user && (
-            <UserDropdown
-              name={session?.user?.name}
-              email={session?.user?.email}
-              role={session?.user?.role || "user"}
-              image={session?.user?.image || DEFAULT_PROFILE_PICTURE}
-            />
+            <>
+              <div className="md:hidden">
+                <ThemeToggle />
+              </div>
+              <UserDropdown
+                name={session?.user?.name}
+                email={session?.user?.email}
+                role={session?.user?.role || "user"}
+                image={session?.user?.image || DEFAULT_PROFILE_PICTURE}
+              />
+            </>
           )}
-          <div className="lg:hidden">
-            <MobileNavbar />
+          <div className="md:hidden flex items-center justify-end gap-2">
+            {!session?.user && (
+              <Button className="lg:hidden" size="sm" asChild>
+                <Link href={"/login"}>Login</Link>
+              </Button>
+            )}
+            <MobileNavbar session={session} />
           </div>
         </div>
       </div>

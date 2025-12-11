@@ -56,7 +56,7 @@ export function SearchButton() {
   }, [query, searchParams, router]);
 
   return (
-    <div className="hidden md:block">
+    <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size="icon" variant="outline" aria-label="Search">

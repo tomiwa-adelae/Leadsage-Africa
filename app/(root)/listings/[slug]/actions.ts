@@ -19,6 +19,8 @@ import { bookATourAdmin } from "@/lib/emails/book-a-tour-admin";
 import { User } from "lucide-react";
 import { ApiResponse } from "@/lib/types";
 import { shortletBookedUser } from "@/lib/emails/shortlet-booked-user";
+import { shortletBookingPendingUser } from "@/lib/emails/shortlet-booking-pending-user";
+import { shortletBookingAdminNotification } from "@/lib/emails/shortlet-booking-admin-notification";
 
 const mailjet = Mailjet.apiConnect(
   env.MAILJET_API_PUBLIC_KEY,
@@ -729,21 +731,6 @@ export const reserveShortlet = async ({
         status: "PENDING", // Awaiting admin confirmation
       },
     });
-
-    // Import email templates
-    const { shortletBookingPendingUser } = await import(
-      "@/lib/emails/shortlet-booking-pending-user"
-    );
-    const { shortletBookingAdminNotification } = await import(
-      "@/lib/emails/shortlet-booking-admin-notification"
-    );
-    const Mailjet = await import("node-mailjet");
-    const { env } = await import("@/lib/env");
-
-    const mailjet = Mailjet.default.apiConnect(
-      env.MAILJET_API_PUBLIC_KEY,
-      env.MAILJET_API_PRIVATE_KEY
-    );
 
     const formattedCheckIn = new Date(checkInDate).toLocaleDateString("en-US", {
       weekday: "long",

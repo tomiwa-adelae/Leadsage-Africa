@@ -96,10 +96,10 @@ export const navLinks = [
     slug: "/blog",
     label: "Blog",
   },
-  {
-    slug: "/messages",
-    label: "Messages",
-  },
+  // {
+  //   slug: "/messages",
+  //   label: "Messages",
+  // },
   {
     slug: "/about",
     label: "About us",
@@ -693,11 +693,13 @@ export const landlordNavLinks = {
       title: "Messages",
       slug: "/landlord/messages",
       icon: MessageSquareMore,
+      comingSoon: true,
     },
     {
       title: "Earnings",
       slug: "/landlord/earnings",
       icon: Wallet,
+      comingSoon: true,
     },
     {
       title: "Notifications",
@@ -1083,6 +1085,7 @@ export const userDropdownLinks = [
     slug: "/notifications",
     label: "Notifications",
     icon: Bell,
+    comingSoon: true,
   },
   {
     slug: "/",
@@ -1121,6 +1124,7 @@ export const landlordDropdownLinks = [
     slug: "/landlord/wallets",
     label: "Earnings",
     icon: Wallet,
+    comingSoon: true,
   },
   {
     slug: "/messages",
@@ -1141,6 +1145,7 @@ export const landlordDropdownLinks = [
     slug: "/notifications",
     label: "Notifications",
     icon: Bell,
+    comingSoon: true,
   },
 ];
 
@@ -1189,6 +1194,7 @@ export const adminDropdownLinks = [
     slug: "/admin/notifications",
     label: "Notifications",
     icon: Bell,
+    comingSoon: true,
   },
 ];
 
