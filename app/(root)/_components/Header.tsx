@@ -36,8 +36,8 @@ export const Header = async () => {
           <div className="hidden md:flex items-center justify-end gap-2">
             <ThemeToggle />
             {!session?.user && (
-              <Button asChild variant="outline">
-                <Link href={"/login"}>Sign in</Link>
+              <Button asChild variant="secondary">
+                <Link href={"/login"}>Login</Link>
               </Button>
             )}
             <Button asChild>

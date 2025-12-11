@@ -68,30 +68,6 @@ export function MobileNavbar({ session }: { session: any }) {
                   </Button>
                 ))}
               </div>
-              {/* <div className="flex flex-col mt-4 w-full items-center justify-end gap-2">
-                {!session?.user ? (
-                  <>
-                    <SheetClose asChild>
-                      <Button className="w-full" asChild size="md">
-                        <Link href="/register">Login</Link>
-                      </Button>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Button
-                        className="w-full"
-                        variant="ghost"
-                        asChild
-                        size="md"
-                      >
-                        <Link href="/register">Sign up</Link>
-                      </Button>
-                    </SheetClose>
-                  </>
-                ) : (
-                  ""
-                )}
-              </div> */}
-
               <div className="flex flex-col mt-4 w-full items-center justify-end gap-2">
                 {session?.user ? (
                   <>

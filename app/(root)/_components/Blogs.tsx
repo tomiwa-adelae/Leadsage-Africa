@@ -5,7 +5,7 @@ export const Blogs = async () => {
   const [{ posts }] = await Promise.all([getPublishedPosts()]);
   return (
     <div>
-      <div className="container">
+      <div className="container pb-8">
         <div className="text-center">
           <h2 className="text-2xl md:text-3xl font-medium">
             From the Leadsage Blog

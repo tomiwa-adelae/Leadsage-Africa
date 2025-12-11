@@ -234,7 +234,7 @@ export const socialLinks = [
 export const smallFooterLinks = [
   {
     title: "About",
-    href: "/aout",
+    href: "/about",
   },
   {
     title: "Services",

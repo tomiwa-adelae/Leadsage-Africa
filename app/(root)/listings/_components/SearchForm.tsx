@@ -52,7 +52,7 @@ export const SearchForm = ({ search }: Props) => {
   }, [query, searchParams, router]);
 
   return (
-    <div className="pt-10 pb-10 bg-muted/10 dark:bg-[#171718] border-b">
+    <div className="py-4 md:py-10 bg-muted/10 dark:bg-[#171718] border-b">
       <div className="border container max-w-3xl overflow-hidden rounded-full px-6 py-4 gap-4 flex items-center justify-center dark:bg-[#171718]">
         <div className="group relative w-full">
           <label className="origin-start text-muted-foreground/70 group-focus-within:text-muted-foreground has-[+input:not(:placeholder-shown)]:text-muted-foreground absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-xs group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-xs has-[+input:not(:placeholder-shown)]:font-medium">

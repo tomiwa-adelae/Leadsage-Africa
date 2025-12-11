@@ -43,7 +43,7 @@ const page = async ({ searchParams }: Props) => {
       <Testimonials />
       <Blogs />
       {/* <PartneringCompanies /> */}
-      <SecondCTA />
+      {/* <SecondCTA /> */}
     </div>
   );
 };

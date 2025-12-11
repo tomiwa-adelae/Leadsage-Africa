@@ -72,7 +72,7 @@ const testimonialChunks = chunkArray(
 
 export function Testimonials() {
   return (
-    <div className="py-16">
+    <div className="pt-16 pb-8">
       <div className="container">
         <div className="text-center">
           <h2 className="text-2xl md:text-3xl font-medium">

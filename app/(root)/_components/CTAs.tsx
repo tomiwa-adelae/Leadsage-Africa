@@ -4,8 +4,8 @@ import React from "react";
 
 export const CTAs = () => {
   return (
-    <div className="container mt-12">
-      <div className="relative w-full max-w-screen overflow-hidden rounded-[40px] bg-primary container px-6 py-10 sm:p-10 md:p-20">
+    <div className="md:container mt-12">
+      <div className="relative w-full max-w-screen overflow-hidden md:rounded-[40px] bg-primary container py-10">
         <div className="absolute inset-0 hidden h-full w-full overflow-hidden md:block">
           <div className="absolute top-1/2 right-[-10%] aspect-square h-[800px] w-[800px] -translate-y-1/2">
             <div className="absolute inset-0 rounded-full bg-green-400 opacity-30"></div>
@@ -16,7 +16,7 @@ export const CTAs = () => {
             <div className="absolute inset-0 scale-[0.1] rounded-full bg-white/50 opacity-30"></div>
           </div>
         </div>
-        <div className="relative z-10 text-white">
+        <div className="relative z-10 text-white container">
           <h2 className="text-2xl md:text-3xl font-medium">
             Ready to Find Your Perfect Home?
           </h2>
@@ -27,7 +27,7 @@ export const CTAs = () => {
           <div className="flex flex-col gap-4 sm:flex-row sm:gap-6 mt-8">
             <Button
               asChild
-              variant={"black"}
+              variant={"secondary"}
               className="w-full sm:w-auto"
               size={"md"}
             >

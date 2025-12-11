@@ -73,7 +73,7 @@ export const ScrollableListingCard = ({ listing, isAuthenticated }: Props) => {
                 alt={`${listing.title}'s photo`}
                 width={1000}
                 height={1000}
-                className="aspect-square h-full w-[350px] lg:w-[400px] object-cover"
+                className="aspect-square object-cover h-full w-full"
               />
               <div className="absolute inset-0 bg-black/30" />
             </div>
