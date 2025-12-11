@@ -15,7 +15,7 @@ interface Props {
 // You may need to adjust 'any' to your actual Listing type
 interface Listing {
   id: string | number;
-  city: string; // The property to group by
+  city: string | null; // The property to group by
   [key: string]: any;
 }
 
@@ -42,7 +42,7 @@ export const PopularProperties = async () => {
   });
 
   // 1. Group the listings by city (or whatever field you use for location)
-  const groupedListings = groupListingsBy(listings.listings, "city");
+  const groupedListings = groupListingsBy(listings?.listings, "city");
 
   const cityOrder = ["Lagos", "Ilorin"]; // Define a preferred order if needed
 

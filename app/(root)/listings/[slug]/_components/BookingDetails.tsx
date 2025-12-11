@@ -335,7 +335,7 @@ export const BookingDetails = ({
               </span>
             </p>
           )}
-          <div className="mt-4 space-y-4">
+          <div className="mt-4 space-y-2">
             {session ? (
               <>
                 {listing.Category.name === "Shortlet" ? (
@@ -584,9 +584,12 @@ export const BookingDetails = ({
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center"
+                    className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6" // 👈 Added padding for small screens
                   >
-                    <div className="w-full bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border p-6 relative">
+                    <div
+                      // 👈 Added max-width and modified width for better responsiveness
+                      className="w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border p-6 relative overflow-y-auto max-h-full"
+                    >
                       {/* Close button */}
                       <Button
                         variant="ghost"
@@ -600,24 +603,29 @@ export const BookingDetails = ({
                       <h2 className="text-2xl font-medium text-center mb-6">
                         Select your stay period
                       </h2>
-
-                      <RangeCalendar
-                        mode="range"
-                        selected={date}
-                        onSelect={(value) => {
-                          setDate(value);
-                          setSelectedDateRange(true);
-                        }}
-                        numberOfMonths={2}
-                        pagedNavigation
-                        showOutsideDays
-                        className="rounded-md border p-4 mx-auto"
-                        classNames={{
-                          months: "gap-8 flex justify-center",
-                          month:
-                            "relative first-of-type:before:hidden before:absolute max-sm:before:inset-x-2 max-sm:before:h-px max-sm:before:-top-2 sm:before:inset-y-2 sm:before:w-px before:bg-border sm:before:-left-4",
-                        }}
-                      />
+                      <div className="flex justify-center">
+                        <RangeCalendar
+                          mode="range"
+                          selected={date}
+                          onSelect={(value) => {
+                            setDate(value);
+                            setSelectedDateRange(true);
+                          }}
+                          // 👈 Responsive number of months: 1 on small screens, 2 on medium+
+                          numberOfMonths={window.innerWidth >= 640 ? 2 : 1}
+                          pagedNavigation
+                          showOutsideDays
+                          // 👈 Simplified classNames: removed fixed `mx-auto` on the container
+                          className="rounded-md border p-4"
+                          classNames={{
+                            // 👈 Adjusted months layout for small screens
+                            months:
+                              "gap-4 sm:gap-8 flex flex-col sm:flex-row justify-center",
+                            month:
+                              "relative first-of-type:before:hidden before:absolute max-sm:before:inset-x-2 max-sm:before:h-px max-sm:before:-top-2 sm:before:inset-y-2 sm:before:w-px before:bg-border sm:before:-left-4",
+                          }}
+                        />
+                      </div>
 
                       <div className="mt-6 flex justify-center gap-4">
                         <Button
@@ -628,9 +636,16 @@ export const BookingDetails = ({
                         </Button>
                         <Button
                           onClick={() => {
+                            if (!date?.from || !date?.to) {
+                              toast.error(
+                                "Please select both check-in and check-out dates."
+                              );
+                              return;
+                            }
                             setShowCalendar(false);
                             toast.success("Date range selected");
                           }}
+                          disabled={!date?.from || !date?.to} // Disable if range is incomplete
                         >
                           Continue
                         </Button>
@@ -642,7 +657,7 @@ export const BookingDetails = ({
                 {!showSelector && (
                   <Button
                     className="w-full"
-                    variant={"outline"}
+                    variant={"secondary"}
                     size="md"
                     asChild
                   >
@@ -659,11 +674,11 @@ export const BookingDetails = ({
             )}
           </div>
           {!session && (
-            <div className="mt-6 space-y-2.5">
+            <div className="mt-6 space-y-1">
               <p className="text-muted-foreground text-sm text-center text-balance">
                 You need to login to place a book a listing
               </p>
-              <p className="text-muted-foreground text-sm text-center text-balance">
+              <p className="text-muted-foreground text-sm text-center">
                 Don't have an account?{" "}
                 <Link className="text-primary hover:underline" href="/register">
                   Create an account on Leadsage Africa

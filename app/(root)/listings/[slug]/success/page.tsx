@@ -26,7 +26,9 @@ const page = async ({ searchParams }: Props) => {
         <Confetti />
         <PageHeader
           title={"Booking Confirmed!"}
-          description={"Your shortlet reservation was successful. A confirmation email has been sent to you with all the booking details and check-in instructions."}
+          description={
+            "Your shortlet reservation was successful. A confirmation email has been sent to you with all the booking details and check-in instructions."
+          }
         />
 
         <div className="bg-muted rounded-2xl p-6 mt-8 text-left shadow-sm">
@@ -51,28 +53,19 @@ const page = async ({ searchParams }: Props) => {
             </li>
             <li>
               <strong>Status:</strong>{" "}
-              <span className="text-green-600 font-medium">Confirmed</span>
+              <span className="text-primary font-medium">Confirmed</span>
             </li>
           </ul>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
-          <Button
-            size="md"
-            asChild
-            variant="outline"
-            className="w-full border-green-500 text-green-600 hover:bg-green-50"
-          >
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-8">
+          <Button size="md" asChild variant="outline" className="w-full">
             <Link href={`/bookings/shortlets/${shortletDetails.id}`}>
               View my booking
             </Link>
           </Button>
 
-          <Button
-            className="w-full bg-green-600 hover:bg-green-700 text-white"
-            asChild
-            size="md"
-          >
+          <Button className="w-full" asChild size="md">
             <Link href={`/listings`}>Explore more stays</Link>
           </Button>
         </div>
@@ -81,7 +74,7 @@ const page = async ({ searchParams }: Props) => {
           Need help? Contact{" "}
           <Link
             href={`mailto:${env.SUPPORT_EMAIL_ADDRESS}`}
-            className="underline text-green-600"
+            className="underline text-primary"
           >
             {env.SUPPORT_EMAIL_ADDRESS}
           </Link>
@@ -93,7 +86,9 @@ const page = async ({ searchParams }: Props) => {
     <div className="container py-8">
       <PageHeader
         title={"You're all set!"}
-        description={"Your visit has been scheduled. We've sent the details to your email."}
+        description={
+          "Your visit has been scheduled. We've sent the details to your email."
+        }
       />
       <div className="grid grid-cols-2 gap-4 mt-8">
         <Button size="md" asChild variant={"outline"} className="w-full">
