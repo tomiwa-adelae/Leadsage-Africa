@@ -44,7 +44,7 @@ const page = async ({ searchParams }: Props) => {
             description={"There are no archived listings yet"}
           />
         )}
-        <div className="mt-8 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
           {listings.listings.map((listing) => (
             <ArchivedListingCard key={listing.id} listing={listing} />
           ))}
