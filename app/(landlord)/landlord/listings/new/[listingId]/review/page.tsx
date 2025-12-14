@@ -34,7 +34,9 @@ const page = async ({ params }: { params: Params }) => {
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <PageHeader
           title={"Review Your Listing"}
-          description={"Carefully review all the details you've provided before publishing your listing. Make sure everything is accurate. This is what potential renters will see."}
+          description={
+            "Carefully review all the details you've provided before publishing your listing. Make sure everything is accurate. This is what potential renters will see."
+          }
         />
         <div className="mt-8 space-y-4">
           <div>
@@ -239,7 +241,11 @@ const page = async ({ params }: { params: Params }) => {
                   <span className="text-muted-foreground">
                     Additional policies?
                   </span>{" "}
-                  {listing.additionalPolicies}
+                  <div className="mt-4">
+                    <RenderDescription
+                      json={JSON.parse(listing.additionalPolicies)}
+                    />
+                  </div>
                 </h5>
               )}
             </div>

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { formatDate, formatPhoneNumber } from "@/lib/utils";
+import { RenderDescription } from "@/components/text-editor/RenderDescription";
 
 interface Props {
   leaseId: string;
@@ -156,7 +157,11 @@ export const PreviewLease = ({
         yPos += 6;
       }
       if (additionalRule) {
-        doc.text(`Other: ${additionalRule}`, 20, yPos);
+        doc.text(
+          `Other: ${(<RenderDescription json={JSON.parse(additionalRule)} />)}`,
+          20,
+          yPos
+        );
         yPos += 6;
       }
       yPos += 12;

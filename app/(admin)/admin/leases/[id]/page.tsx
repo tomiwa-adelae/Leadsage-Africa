@@ -16,6 +16,7 @@ import { PaymentsList } from "../../_components/PaymentsList";
 import { PaymentsTable } from "../../_components/PaymentsTable";
 import { getLeasePayments } from "@/app/data/admin/lease/get-lease-payments";
 import { PageHeader } from "@/components/PageHeader";
+import { RenderDescription } from "@/components/text-editor/RenderDescription";
 
 type Params = Promise<{
   id: string;
@@ -244,9 +245,11 @@ const page = async ({ params }: { params: Params }) => {
               {lease.Listing.additionalPolicies && (
                 <>
                   <Separator />
-                  <p className="text-muted-foreground text-base mt-4">
-                    {lease.Listing.additionalPolicies}
-                  </p>
+                  <div className="mt-4">
+                    <RenderDescription
+                      json={JSON.parse(lease.Listing.additionalPolicies)}
+                    />
+                  </div>
                 </>
               )}
             </CardContent>

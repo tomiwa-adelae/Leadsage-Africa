@@ -32,6 +32,7 @@ import { tryCatch } from "@/hooks/use-try-catch";
 import { Loader } from "@/components/Loader";
 import { savePolicies } from "../actions";
 import { GetLandlordListingType } from "@/app/data/landlord/get-landlord-listing";
+import { RichTextEditor } from "@/components/text-editor/Editor";
 
 interface Props {
   id: string;
@@ -181,10 +182,7 @@ export function PoliciesForm({ id, listing }: Props) {
               <FormItem>
                 <FormLabel>Additional rules & policies</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder="e.g.,No loud music, No shoes indoors"
-                    {...field}
-                  />
+                  <RichTextEditor field={field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

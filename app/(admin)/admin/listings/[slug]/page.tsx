@@ -458,9 +458,11 @@ const page = async ({ params }: { params: Params }) => {
                     </span>
                   </p>
                   {listing.additionalPolicies && (
-                    <p className="text-muted-foreground text-base mt-4">
-                      {listing.additionalPolicies}
-                    </p>
+                    <div className="mt-4">
+                      <RenderDescription
+                        json={JSON.parse(listing.additionalPolicies)}
+                      />
+                    </div>
                   )}
                 </div>
               </div>

@@ -20,7 +20,7 @@ export const PendingListings = ({ listings }: Props) => {
             description="There are no listings pending your approval"
           />
         )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
           {listings.map((listing) => (
             <PendingListingCard key={listing.id} listing={listing} />
           ))}

@@ -25,6 +25,7 @@ import { useConfetti } from "@/hooks/use-confetti";
 import { useRouter } from "next/navigation";
 import { Loader } from "@/components/Loader";
 import { PreviewLease } from "./PreviewLease";
+import { RenderDescription } from "@/components/text-editor/RenderDescription";
 
 interface Props {
   application: GetApplicationType;
@@ -199,9 +200,11 @@ export const AgreementForm = ({ application }: Props) => {
           {application.Listing.additionalPolicies && (
             <>
               <Separator />
-              <p className="text-muted-foreground text-base mt-4">
-                {application.Listing.additionalPolicies}
-              </p>
+              <div className="mt-4">
+                <RenderDescription
+                  json={JSON.parse(application.Listing.additionalPolicies)}
+                />
+              </div>
             </>
           )}
         </CardContent>

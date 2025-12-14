@@ -11,6 +11,7 @@ import { CheckCircle, Hourglass } from "lucide-react";
 import { QuickActions } from "./_components/QuickActions";
 import { getLeaseDetails } from "@/app/data/landlord/lease/get-lease-details";
 import { PageHeader } from "@/components/PageHeader";
+import { RenderDescription } from "@/components/text-editor/RenderDescription";
 
 type Params = Promise<{
   id: string;
@@ -237,9 +238,11 @@ const page = async ({ params }: { params: Params }) => {
               {lease.Listing.additionalPolicies && (
                 <>
                   <Separator />
-                  <p className="text-muted-foreground text-base mt-4">
-                    {lease.Listing.additionalPolicies}
-                  </p>
+                  <div className="mt-4">
+                    <RenderDescription
+                      json={JSON.parse(lease.Listing.additionalPolicies)}
+                    />
+                  </div>
                 </>
               )}
             </CardContent>

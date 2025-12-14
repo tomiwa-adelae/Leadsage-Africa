@@ -894,10 +894,7 @@ export const EditListing = ({ listing, categories, amenities }: Props) => {
                   <FormItem>
                     <FormLabel>Additional rules & policies</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="e.g.,No loud music, No shoes indoors"
-                        {...field}
-                      />
+                      <RichTextEditor field={field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
