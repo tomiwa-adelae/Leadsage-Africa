@@ -307,7 +307,7 @@ const page = async ({ params }: { params: Params }) => {
           )}
         </div>
         <Separator className="my-8" /> */}
-        <div>
+        {/* <div>
           <h3 className="font-medium text-lg">Meet your landlord</h3>
           <div className="mt-4 flex flex-col md:flex-row items-center justify-center text-center md:text-left md:justify-start gap-10">
             <div>
@@ -332,7 +332,7 @@ const page = async ({ params }: { params: Params }) => {
               </h3>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
