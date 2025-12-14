@@ -2,12 +2,33 @@
 import CountUp from "react-countup";
 import Image from "next/image";
 import { ShowcaseSearchForm } from "./ShowcaseSearchForm";
-import { homeStats } from "@/constants";
 import { ShowcaseBoxes } from "./ShowcaseBoxes";
 import { InfiniteSlider } from "@/components/motion-primitives/infinite-slider";
 import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
 
-export const Showcase = () => {
+export const Showcase = ({ listings }: { listings: number }) => {
+  const homeStats = [
+    {
+      number: 20,
+      suffix: "+",
+      title: "Total houses",
+    },
+    {
+      number: listings,
+      suffix: "+",
+      title: "Listings",
+    },
+    // {
+    //   number: 3,
+    //   suffix: "+",
+    //   title: "Estates",
+    // },
+    // {
+    //   number: 10,
+    //   suffix: "+",
+    //   title: "Completed projects",
+    // },
+  ];
   return (
     <div
       className="text-white bg-scroll bg-no-repeat bg-cover bg-left md:min-h-[80vh] relative"

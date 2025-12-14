@@ -28,7 +28,7 @@ export const AdminListingCard = ({ listing }: Props) => {
 
   return (
     <Card className="bg-transparent gap-0 border-0 rounded-none shadow-none p-0">
-      <CardContent className="p-0">
+      <CardContent className="p-0 group">
         <div className="relative rounded-md overflow-hidden">
           <Link
             href={`/admin/listings/${listing.slug ? listing.slug : listing.id}`}
@@ -102,7 +102,7 @@ export const AdminListingCard = ({ listing }: Props) => {
           {listing.title ? (
             <Link
               href={`/admin/listings/${listing.slug}`}
-              className="group-hover:text-primary hover:underline transition-all font-medium text-sm md:text-base line-clamp-1"
+              className="group-hover:text-primary group-hover:underline transition-all font-medium text-sm md:text-base line-clamp-1"
             >
               {listing.title}
             </Link>

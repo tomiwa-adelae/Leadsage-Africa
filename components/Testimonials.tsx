@@ -85,7 +85,7 @@ export function Testimonials() {
 
         {/* Horizontal Scroll */}
         <ScrollArea className="w-full mt-8">
-          <div className="flex w-max space-x-4 pb-4 pr-10">
+          <div className="flex w-max space-x-2 pb-4 pr-10">
             {testimonials.map(({ name, role, quote, image }, i) => (
               <Card key={i} className="w-80 flex-shrink-0">
                 <CardContent className="space-y-3">

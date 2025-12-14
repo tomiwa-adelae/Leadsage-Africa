@@ -60,29 +60,6 @@ import {
   IconUsersGroup,
 } from "@tabler/icons-react";
 
-export const homeStats = [
-  {
-    number: 20,
-    suffix: "+",
-    title: "Total houses",
-  },
-  {
-    number: 50,
-    suffix: "+",
-    title: "listings",
-  },
-  // {
-  //   number: 3,
-  //   suffix: "+",
-  //   title: "Estates",
-  // },
-  // {
-  //   number: 10,
-  //   suffix: "+",
-  //   title: "Completed projects",
-  // },
-];
-
 export const navLinks = [
   {
     slug: "/",

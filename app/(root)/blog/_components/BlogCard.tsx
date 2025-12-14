@@ -20,7 +20,7 @@ export const BlogCard = ({ post }: Props) => {
 
   return (
     <Card className="bg-transparent gap-0 border-0 rounded-none shadow-none p-0">
-      <CardContent className="p-0">
+      <CardContent className="group p-0">
         <div className="relative rounded-md overflow-hidden">
           <Link href={`/blog/${post.slug}`} className="relative rounded-md">
             <Image
@@ -36,7 +36,7 @@ export const BlogCard = ({ post }: Props) => {
         <div className="py-2">
           <Link
             href={`/blog/${post.slug}`}
-            className="group-hover:text-primary hover:underline transition-all font-medium text-lg line-clamp-1"
+            className="group-hover:text-primary group-hover:underline transition-all font-medium text-lg line-clamp-1"
           >
             {post.title}
           </Link>

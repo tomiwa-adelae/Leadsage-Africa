@@ -31,6 +31,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { formatDate } from "@/lib/utils";
 
 interface BookingDetailsProps {
   booking: any;
@@ -244,9 +245,9 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-2">
         {/* Main Content */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-3">
           {/* Status Card */}
           <Card>
             <CardHeader>
@@ -291,18 +292,16 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
                   <p className="text-muted-foreground">Created</p>
-                  <p className="font-medium">
-                    {new Date(booking.createdAt).toLocaleString()}
-                  </p>
+                  <p className="font-medium">{formatDate(booking.createdAt)}</p>
                 </div>
                 {booking.adminConfirmedAt && (
                   <div>
                     <p className="text-muted-foreground">Confirmed</p>
                     <p className="font-medium">
-                      {new Date(booking.adminConfirmedAt).toLocaleString()}
+                      {formatDate(booking.adminConfirmedAt)}
                     </p>
                   </div>
                 )}
@@ -310,7 +309,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
                   <div>
                     <p className="text-muted-foreground">Payment Completed</p>
                     <p className="font-medium">
-                      {new Date(booking.paymentCompletedAt).toLocaleString()}
+                      {formatDate(booking.paymentCompletedAt)}
                     </p>
                   </div>
                 )}
@@ -325,17 +324,17 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
             </CardHeader>
             <CardContent className="space-y-4">
               {booking.Listing.photos.length > 0 && (
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
                   {booking.Listing.photos.slice(0, 3).map((photo: any) => (
                     <div
                       key={photo.id}
-                      className="relative h-32 rounded-md overflow-hidden"
+                      className="relative rounded-md overflow-hidden"
                     >
                       <Image
                         src={`https://leadsage.fly.storage.tigris.dev/${photo.src}`}
                         alt="Property"
                         fill
-                        className="object-cover"
+                        className="object-cover aspect-video"
                       />
                     </div>
                   ))}
@@ -408,7 +407,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
               <CardTitle>Stay Details</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
@@ -443,7 +442,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
         </div>
 
         {/* Sidebar */}
-        <div className="lg:col-span-1 space-y-6">
+        <div className="lg:col-span-1 space-y-3">
           {/* Guest Information */}
           <Card>
             <CardHeader>
@@ -470,7 +469,12 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
                   <Mail className="h-4 w-4 mt-0.5 text-muted-foreground" />
                   <div>
                     <p className="text-muted-foreground">Email</p>
-                    <p className="font-medium">{booking.User.email}</p>
+                    <a
+                      href={`mailto:${booking.User.email}`}
+                      className="font-medium hover:underline hover:text-primary"
+                    >
+                      {booking.User.email}
+                    </a>
                   </div>
                 </div>
 
@@ -479,7 +483,12 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
                     <Phone className="h-4 w-4 mt-0.5 text-muted-foreground" />
                     <div>
                       <p className="text-muted-foreground">Phone</p>
-                      <p className="font-medium">{booking.User.phoneNumber}</p>
+                      <a
+                        href={`tel:${booking.User.phoneNumber}`}
+                        className="font-medium hover:underline hover:text-primary"
+                      >
+                        {booking.User.phoneNumber}
+                      </a>
                     </div>
                   </div>
                 )}

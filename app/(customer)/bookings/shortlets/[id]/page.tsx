@@ -33,8 +33,6 @@ const page = async ({ params }: { params: Params }) => {
     shortletDetails.Listing.photos[0];
   const photoUrl = useConstructUrl(cover.src);
 
-  console.log(shortletDetails);
-
   return (
     <div>
       <SiteHeader />

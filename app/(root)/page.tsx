@@ -12,6 +12,7 @@ import { SecondCTA } from "./_components/SecondCTA";
 
 import type { Metadata } from "next";
 import { Blogs } from "./_components/Blogs";
+import { getApprovedListings } from "../data/listing/get-approved-listings";
 
 export const metadata: Metadata = {
   title: "Leadsage | Find Your Dream Home in Nigeria",
@@ -32,9 +33,11 @@ const page = async ({ searchParams }: Props) => {
     if (!user.onboardingCompleted) redirect("/onboarding");
   }
 
+  const listings = await getApprovedListings();
+
   return (
     <div>
-      <Showcase />
+      <Showcase listings={listings.listings.length} />
       <Categories />
       <PopularProperties />
       {/* <Features /> */}
