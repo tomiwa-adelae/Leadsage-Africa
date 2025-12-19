@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { IconMail } from "@tabler/icons-react";
+import { Loader } from "../Loader";
 
 interface ContactLandlordButtonProps {
   landlordId: string;
@@ -13,6 +15,7 @@ interface ContactLandlordButtonProps {
   className?: string;
   variant?: "default" | "outline" | "ghost" | "secondary";
   size?: "default" | "sm" | "lg" | "icon";
+  buttonName?: string | null;
 }
 
 export function ContactLandlordButton({
@@ -20,6 +23,7 @@ export function ContactLandlordButton({
   listingId,
   listingTitle,
   className,
+  buttonName = "Message Landlord",
   variant = "outline",
   size = "default",
 }: ContactLandlordButtonProps) {
@@ -70,12 +74,8 @@ export function ContactLandlordButton({
       size={size}
       className={className}
     >
-      {isLoading ? (
-        <Loader2 className="h-4 w-4 animate-spin mr-2" />
-      ) : (
-        <MessageSquare className="h-4 w-4 mr-2" />
-      )}
-      Message Landlord
+      {isLoading ? <Loader text="" /> : <IconMail />}
+      {buttonName}
     </Button>
   );
 }

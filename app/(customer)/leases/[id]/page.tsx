@@ -263,9 +263,9 @@ const page = async ({ params }: { params: Params }) => {
                 <>
                   <Separator />
                   <div className="mt-4">
-                    <RenderDescription
-                      json={JSON.parse(lease.Listing.additionalPolicies)}
-                    />
+                    <p className="text-muted-foreground text-sm">
+                      {lease.Listing.additionalPolicies}
+                    </p>
                   </div>
                 </>
               )}

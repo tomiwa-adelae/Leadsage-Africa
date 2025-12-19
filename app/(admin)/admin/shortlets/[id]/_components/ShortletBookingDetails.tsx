@@ -170,7 +170,7 @@ export function ShortletBookingDetails({ booking }: BookingDetailsProps) {
             Booking ID: <span className="font-mono">{booking.shortletID}</span>
           </p>
         </div>
-        <div className="flex bg-red-300 w-full md:w-auto gap-2">
+        <div className="flex w-full md:w-auto gap-2">
           {booking.status === "PENDING" && (
             <>
               <AlertDialog

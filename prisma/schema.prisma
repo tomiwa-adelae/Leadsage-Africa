@@ -591,6 +591,11 @@ model ShortletBooking {
   adminRejectedById  String?
   rejectionReason    String?
 
+  instructions         String?
+  wifiPassword         String?
+  wifiName             String?
+  additionalDirections String?
+
   // Payment link token for secure access
   paymentToken       String?   @unique
   paymentTokenExpiry DateTime?
@@ -672,8 +677,8 @@ model BlogCategory {
 // ==================== MESSAGING SYSTEM ====================
 
 model Conversation {
-  id    String            @id @default(uuid())
-  type  ConversationType  @default(DIRECT)
+  id    String           @id @default(uuid())
+  type  ConversationType @default(DIRECT)
   title String? // Optional: for context or group chats
 
   // Link to related entities (optional - for contextual conversations)
@@ -700,12 +705,12 @@ model Conversation {
 }
 
 enum ConversationType {
-  DIRECT      // 1-to-1 conversations
-  BOOKING     // Related to a tour booking
+  DIRECT // 1-to-1 conversations
+  BOOKING // Related to a tour booking
   APPLICATION // Related to rental application
-  LEASE       // Related to active lease
-  LISTING     // General inquiry about a listing
-  SUPPORT     // Support conversation
+  LEASE // Related to active lease
+  LISTING // General inquiry about a listing
+  SUPPORT // Support conversation
 }
 
 model ConversationParticipant {
@@ -745,8 +750,8 @@ model Message {
   sender   User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
   senderId String
 
-  content String       @db.Text
-  type    MessageType  @default(TEXT)
+  content String        @db.Text
+  type    MessageType   @default(TEXT)
   status  MessageStatus @default(SENT)
 
   // Attachments
@@ -779,11 +784,11 @@ enum MessageType {
 }
 
 enum MessageStatus {
-  PENDING   // Not yet sent
-  SENT      // Sent to server
+  PENDING // Not yet sent
+  SENT // Sent to server
   DELIVERED // Delivered to recipients
-  READ      // Read by recipient(s)
-  FAILED    // Failed to send
+  READ // Read by recipient(s)
+  FAILED // Failed to send
 }
 
 model MessageRead {
@@ -809,7 +814,7 @@ model MessageAttachment {
   fileName String
   fileSize Int
   fileType String
-  url      String  // S3 URL or path
+  url      String // S3 URL or path
 
   createdAt DateTime @default(now())
 

@@ -18,6 +18,10 @@ export const getShortletDetails = async (id: string) => {
       checkOutDate: true,
       totalPrice: true,
       shortletID: true,
+      instructions: true,
+      wifiName: true,
+      wifiPassword: true,
+      additionalDirections: true,
       Listing: {
         select: {
           title: true,

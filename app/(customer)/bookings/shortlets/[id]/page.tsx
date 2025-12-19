@@ -38,8 +38,8 @@ const page = async ({ params }: { params: Params }) => {
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
         <div className="mb-4">
-          <h1 className="text-2xl md:text-3xl font-medium">Booking Details</h1>
-          <p className="text-muted-foreground mt-2">
+          <h1 className="text-2xl md:text-3xl font-medium">Shortlet Details</h1>
+          <p className="text-muted-foreground mt-1">
             Review your shortlet reservation and property details below.
           </p>
         </div>
@@ -60,11 +60,12 @@ const page = async ({ params }: { params: Params }) => {
               {shortletDetails.Listing.title}
             </CardTitle>
             <p className="text-muted-foreground text-xs md:text-sm">
-              {shortletDetails.Listing.address}, {shortletDetails.Listing.city},{" "}
-              {shortletDetails.Listing.state}, {shortletDetails.Listing.country}
+              {shortletDetails.status === "PAID"
+                ? `${shortletDetails.Listing.address}, ${shortletDetails.Listing.city}, ${shortletDetails.Listing.state}, ${shortletDetails.Listing.country}`
+                : shortletDetails.Listing.city}
             </p>
           </CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="font-medium text-base">Check-in</p>
               <p className="text-muted-foreground text-xs md:text-sm">
@@ -92,21 +93,70 @@ const page = async ({ params }: { params: Params }) => {
             </div>
             <div>
               <p className="font-medium text-base">Payment Status</p>
-              <p className="text-yellow-500 text-xs md:text-sm">
-                Payment pending
-              </p>
-            </div>
-            <div>
-              <p className="font-medium text-base">Status</p>
               <p
                 className={cn(
-                  shortletDetails.status === "PENDING" &&
-                    "text-yellow-500 text-xs md:text-sm"
+                  "text-xs md:text-sm",
+                  shortletDetails.status === "PAID" && "text-green-500",
+                  shortletDetails.status === "AWAITING_PAYMENT" &&
+                    "text-yellow-500",
+                  shortletDetails.status === "REJECTED" && "text-red-500",
+                  shortletDetails.status === "CANCELLED" && "text-red-500",
+                  shortletDetails.status === "CONFIRMED" && "text-blue-500"
                 )}
               >
                 {formattedStatus[shortletDetails.status]}
               </p>
             </div>
+          </CardContent>
+        </Card>
+        <Card className="gap-0">
+          <CardHeader>
+            <CardTitle>Getting there</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-2 space-y-2 text-muted-foreground text-xs md:text-sm">
+            <p>
+              <span className="font-semibold">Address location:</span>{" "}
+              {shortletDetails.status === "PAID"
+                ? `${shortletDetails.Listing.address}, ${shortletDetails.Listing.city}, ${shortletDetails.Listing.state}, ${shortletDetails.Listing.country}`
+                : shortletDetails.Listing.city}
+            </p>
+            {shortletDetails.status === "PAID" && (
+              <p>
+                <span className="font-semibold">Additional Information:</span>{" "}
+                {shortletDetails.additionalDirections}
+              </p>
+            )}
+          </CardContent>
+        </Card>
+        <Card className="gap-0">
+          <CardHeader>
+            <CardTitle>How to get inside</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-2">
+            <p className="text-muted-foreground text-xs md:text-sm">
+              {shortletDetails.status === "PAID" ? (
+                shortletDetails.instructions
+              ) : (
+                <span className="italic">
+                  Instructions locked until payment
+                </span>
+              )}
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="gap-0">
+          <CardHeader>
+            <CardTitle>Wifi Information</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-2 space-y-2 text-sm">
+            {shortletDetails.status === "PAID" ? (
+              <>
+                <p>Network: {shortletDetails.wifiName}</p>
+                <p>Password: {shortletDetails.wifiPassword}</p>
+              </>
+            ) : (
+              <span className="italic">Instructions locked until payment</span>
+            )}
           </CardContent>
         </Card>
 
@@ -143,6 +193,7 @@ const page = async ({ params }: { params: Params }) => {
                       landlordId={shortletDetails.Listing.User.id}
                       listingId={shortletDetails.Listing.id || ""}
                       listingTitle={shortletDetails.Listing.title || undefined}
+                      buttonName={"Message host"}
                     />
                   )}
               </div>

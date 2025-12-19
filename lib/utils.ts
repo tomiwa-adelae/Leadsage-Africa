@@ -296,4 +296,5 @@ export const formattedStatus: Record<string, string> = {
   CREDIT: "Credit",
   PROCESSING: "Processing",
   DEBIT: "Debit",
+  AWAITING_PAYMENT: "Awaiting Payment",
 };

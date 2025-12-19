@@ -83,8 +83,6 @@ const page = async ({ params }: { params: Params }) => {
   const photoUrl =
     useConstructUrl(listing?.Category?.icon) || DEFAULT_LISTING_IMAGE;
 
-  console.log(typeof listing.additionalPolicies, typeof listing.description);
-
   return (
     <div>
       <SiteHeader />
@@ -461,9 +459,9 @@ const page = async ({ params }: { params: Params }) => {
                   </p>
                   {listing.additionalPolicies && (
                     <div className="mt-4">
-                      {/* <RenderDescription
-                        json={JSON.parse(listing.additionalPolicies)}
-                      /> */}
+                      <p className="text-muted-foreground text-sm">
+                        {listing.additionalPolicies}
+                      </p>
                     </div>
                   )}
                 </div>

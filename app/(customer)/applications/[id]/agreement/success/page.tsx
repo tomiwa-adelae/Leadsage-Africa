@@ -30,7 +30,9 @@ const page = async ({ searchParams }: Props) => {
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <PageHeader
           title={"Lease Agreement Submitted Successfully"}
-          description={"Thank you for signing your lease. We've sent it to the landlord for final approval."}
+          description={
+            "Thank you for signing your lease. We've sent it to the landlord for final approval."
+          }
         />
         <div className="mt-4 space-y-4">
           <Card className="@container/card gap-0">

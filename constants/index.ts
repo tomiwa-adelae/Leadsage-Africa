@@ -957,6 +957,11 @@ export const customerNavLinks = {
       icon: ClipboardList,
     },
     {
+      title: "Shortlets",
+      slug: "/bookings/shortlets",
+      icon: ClipboardList,
+    },
+    {
       title: "My Applications",
       slug: "/applications",
       icon: IconFolderCheck,
