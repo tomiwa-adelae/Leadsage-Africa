@@ -441,7 +441,7 @@ const page = async ({ params }: { params: Params }) => {
                   Sapiente, accusamus!
                 </p>
               </div>
-              <p className="text-xs text-muted-foreground">August 21, 2025</p>
+              <p className="text-xs text-muted-foreground">August 21, 2026</p>
             </div>
             <div className="bg-accent px-3.5 py-4 rounded-md flex flex-col md:flex-row items-start justify-between gap-2">
               <div>
@@ -451,7 +451,7 @@ const page = async ({ params }: { params: Params }) => {
                   Sapiente, accusamus!
                 </p>
               </div>
-              <p className="text-xs text-muted-foreground">August 21, 2025</p>
+              <p className="text-xs text-muted-foreground">August 21, 2026</p>
             </div>
             <Button size="md" className="w-full mt-2">
               <Mail />
