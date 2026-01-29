@@ -630,3 +630,15 @@ export type EditBlogPostFormSchemaType = z.infer<typeof editBlogPostFormSchema>;
 export type CreateBlogCategoryFormSchemaType = z.infer<
   typeof createBlogCategoryFormSchema
 >;
+
+export const kycFormSchema = z.object({
+  dob: z.string().min(1, "Date of birth is required"),
+
+  idType: z.enum(["NIN", "PASSPORT", "VOTERS_CARD", "DRIVERS_LICENSE"]),
+  idNumber: z.string().min(5, "Valid ID number is required"),
+
+  // bvn: z.string().length(11, "BVN must be exactly 11 digits"),
+  gender: z.enum(genders, { message: "Please select your gender" }).optional(),
+});
+
+export type kycFormSchemaType = z.infer<typeof kycFormSchema>;

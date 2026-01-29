@@ -66,6 +66,14 @@ model User {
   banned     Boolean?
   banReason  String?
   banExpires DateTime?
+  kyc        Kyc[]
+
+  walletAccountNo String? // Their virtual NUBAN once created
+  walletBankName  String? @default("Anchor/Bank")
+
+  anchorId String? @unique
+
+  kycTier Int @default(0) // 0, 1, 2, or 3
 
   @@unique([email])
   @@map("user")
@@ -819,4 +827,44 @@ model MessageAttachment {
   createdAt DateTime @default(now())
 
   @@index([messageId])
+}
+
+model Kyc {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User?  @relation(fields: [userId], references: [id])
+
+  // Tier 1 Fields
+  bvn         String? // Encrypted in your DB
+  dateOfBirth String?
+
+  // Tier 2 Fields
+  idType   IdType? // NIN, PASSPORT, VOTERS_CARD, DRIVERS_LICENSE
+  idNumber String?
+  idImage  String? // URL to your secure S3 bucket
+
+  // Tier 3 Fields
+  utilityBillUrl String?
+  livenessStatus Boolean @default(false)
+
+  // Internal Tracking
+  anchorCustomerId String? // ID returned by Anchor API
+  status           KycStatus @default(PENDING)
+  rejectionReason  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum IdType {
+  NIN
+  PASSPORT
+  VOTERS_CARD
+  DRIVERS_LICENSE
+}
+
+enum KycStatus {
+  PENDING
+  VERIFIED
+  REJECTED
 }

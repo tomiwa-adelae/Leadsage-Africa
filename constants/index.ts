@@ -56,6 +56,7 @@ import {
   IconShieldCancel,
   IconTrash,
   IconTrendingUp,
+  IconUser,
   IconUsers,
   IconUsersGroup,
 } from "@tabler/icons-react";
@@ -1033,6 +1034,11 @@ export const settingsNavLinks = {
       title: "Billings & Payments",
       slug: "/settings/payments",
       icon: CreditCard,
+    },
+    {
+      title: "KYC",
+      slug: "/settings/kyc",
+      icon: IconUser,
     },
     {
       title: "Exit settings",

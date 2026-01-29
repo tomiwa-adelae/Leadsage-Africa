@@ -19,11 +19,13 @@ interface BookingData {
   checkOutDate: Date;
   totalPrice: string;
   status: string;
+  paymentToken: string | null;
   User: {
     id: string;
     name: string;
     email: string;
     phoneNumber: string | null;
+    kycTier: number;
   };
   Listing: {
     id: string;
@@ -79,6 +81,14 @@ export function PaymentInterface({ booking }: Props) {
   const initializePayment = usePaystackPayment(config);
 
   const handlePayment = () => {
+    if (booking.User.kycTier < 1) {
+      toast.error("Identity verification required before payment.");
+      router.push(
+        `/settings/kyc?redirect=/shortlets/payment?token=${booking.paymentToken}&id=${booking.paymentToken}`,
+      );
+      return;
+    }
+
     initializePayment({
       onSuccess: (reference) => {
         startTransition(async () => {
@@ -124,7 +134,7 @@ export function PaymentInterface({ booking }: Props) {
       year: "numeric",
       month: "long",
       day: "numeric",
-    }
+    },
   );
 
   const formattedCheckOut = new Date(booking.checkOutDate).toLocaleDateString(
@@ -134,7 +144,7 @@ export function PaymentInterface({ booking }: Props) {
       year: "numeric",
       month: "long",
       day: "numeric",
-    }
+    },
   );
 
   const nights = Math.max(
@@ -142,8 +152,8 @@ export function PaymentInterface({ booking }: Props) {
     Math.ceil(
       (new Date(booking.checkOutDate).getTime() -
         new Date(booking.checkInDate).getTime()) /
-        (1000 * 60 * 60 * 24)
-    )
+        (1000 * 60 * 60 * 24),
+    ),
   );
 
   return (

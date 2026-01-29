@@ -14,6 +14,8 @@ export const getUserInfo = async () => {
       id: true,
       name: true,
       image: true,
+      // kycTier: true,
+      kycTier: true,
       email: true,
       phoneNumber: true,
       gender: true,

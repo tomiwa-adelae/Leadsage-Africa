@@ -27,6 +27,7 @@ export default async function ShortletPaymentPage({ searchParams }: Props) {
           name: true,
           email: true,
           phoneNumber: true,
+          kycTier: true,
         },
       },
       Listing: {
