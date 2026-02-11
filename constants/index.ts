@@ -734,27 +734,27 @@ export const adminNavLinks = {
       group: true,
       items: [
         {
-          title: "All Listings",
+          title: "All",
           slug: "/admin/listings",
           icon: IconClipboardList,
         },
         {
-          title: "Pending Listings",
+          title: "Pending",
           slug: "/admin/listings/pendings",
           icon: Hourglass,
         },
         {
-          title: "Rejected Listings",
+          title: "Rejected",
           slug: "/admin/listings/rejected",
           icon: IconBan,
         },
         {
-          title: "Archived Listings",
+          title: "Archived",
           slug: "/admin/listings/archived",
           icon: IconArchive,
         },
         {
-          title: "Deleted Listings",
+          title: "Deleted",
           slug: "/admin/listings/deleted",
           icon: IconTrash,
         },
@@ -766,27 +766,27 @@ export const adminNavLinks = {
       group: true,
       items: [
         {
-          title: "All Bookings",
+          title: "All",
           slug: "/admin/bookings",
           icon: IconClipboardList,
         },
         {
-          title: "Pending Bookings",
+          title: "Pending",
           slug: "/admin/bookings/pendings",
           icon: Hourglass,
         },
         {
-          title: "Completed Bookings",
+          title: "Completed",
           slug: "/admin/bookings/completed",
           icon: IconCalendarCheck,
         },
         {
-          title: "Confirmed Bookings",
+          title: "Confirmed",
           slug: "/admin/bookings/confirmed",
           icon: IconCheckbox,
         },
         {
-          title: "Cancelled Bookings",
+          title: "Cancelled",
           slug: "/admin/bookings/cancelled",
           icon: IconCalendarX,
         },
@@ -803,27 +803,27 @@ export const adminNavLinks = {
       group: true,
       items: [
         {
-          title: "All Applications",
+          title: "All",
           slug: "/admin/applications",
           icon: IconClipboardList,
         },
         {
-          title: "Uncompleted Applications",
+          title: "Uncompleted",
           slug: "/admin/applications/uncompleted",
           icon: Hourglass,
         },
         {
-          title: "Applications Under Review",
+          title: "Under Review",
           slug: "/admin/applications/under-review",
           icon: IconLineScan,
         },
         {
-          title: "Approved Applications",
+          title: "Approved",
           slug: "/admin/applications/approved",
           icon: IconCheckbox,
         },
         {
-          title: "Rejected Applications",
+          title: "Rejected",
           slug: "/admin/applications/rejected",
           icon: IconBan,
         },
@@ -835,27 +835,27 @@ export const adminNavLinks = {
       group: true,
       items: [
         {
-          title: "All Leases",
+          title: "All",
           slug: "/admin/leases",
           icon: IconContract,
         },
         {
-          title: "Active Leases",
+          title: "Active",
           slug: "/admin/leases/active",
           icon: IconActivity,
         },
         {
-          title: "Pending Leases",
+          title: "Pending",
           slug: "/admin/leases/pending",
           icon: Hourglass,
         },
         {
-          title: "Expired Leases",
+          title: "Expired",
           slug: "/admin/leases/expired",
           icon: IconShieldCancel,
         },
         {
-          title: "Terminated Leases",
+          title: "Terminated",
           slug: "/admin/leases/terminated",
           icon: IconBan,
         },
@@ -971,6 +971,11 @@ export const customerNavLinks = {
       title: "My Leases",
       slug: "/leases",
       icon: IconContract,
+    },
+    {
+      title: "My Wallet",
+      slug: "/wallet",
+      icon: IconCreditCard,
     },
     {
       title: "My Payments",

@@ -9,16 +9,12 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import {
-  documentsFormSchema,
-  documentsFormSchemaType,
-  kycFormSchema,
-  kycFormSchemaType,
-} from "@/lib/zodSchemas";
+import { documentsFormSchema, documentsFormSchemaType } from "@/lib/zodSchemas";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -34,19 +30,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader } from "@/components/Loader";
-import { genders } from "@/constants";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { processKycAndCreateWallet } from "../actions";
 import { Uploader } from "@/components/file-uploader/Uploader";
+import { processKycAndCreateWallet } from "@/app/(customer)/listings/[slug]/application/actions";
 
-export const DocumentsForm = ({
-  slug,
-  applicationId,
-}: {
-  slug: string;
-  applicationId: string;
-}) => {
+export const DocumentsForm = () => {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
 
@@ -68,8 +57,9 @@ export const DocumentsForm = ({
 
       if (result.status === "success") {
         toast.success(result.message);
-        // Redirect to the review page as requested
-        router.push(`/listings/${slug}/application/${applicationId}/review`);
+        // Redirect back to the main wallet dashboard
+        router.push(`/wallet`);
+        router.refresh();
       } else {
         toast.error(result.message);
       }
@@ -77,11 +67,12 @@ export const DocumentsForm = ({
   }
 
   return (
-    <Card className="mt-4 border-none shadow-none lg:border lg:shadow-sm">
+    <Card className="border shadow-sm">
       <CardHeader>
-        <CardTitle>Identity Verification</CardTitle>
+        <CardTitle>Identity Verification (Tier 2)</CardTitle>
         <CardDescription>
-          Upload your government ID and verify your BVN to reach Tier 2.
+          We use your BVN and Government ID to verify your identity and secure
+          your wallet.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -94,11 +85,13 @@ export const DocumentsForm = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>BVN</FormLabel>
-                    <Input
-                      placeholder="Enter 11-digit BVN"
-                      {...field}
-                      maxLength={11}
-                    />
+                    <FormControl>
+                      <Input
+                        placeholder="Enter 11-digit BVN"
+                        {...field}
+                        maxLength={11}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -109,7 +102,9 @@ export const DocumentsForm = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Date of Birth</FormLabel>
-                    <Input type="date" {...field} />
+                    <FormControl>
+                      <Input type="date" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -132,9 +127,7 @@ export const DocumentsForm = ({
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="NIN">NIN (National ID)</SelectItem>
-                        <SelectItem value="PASSPORT">
-                          International Passport
-                        </SelectItem>
+                        <SelectItem value="PASSPORT">Passport</SelectItem>
                         <SelectItem value="DRIVERS_LICENSE">
                           Driver's License
                         </SelectItem>
@@ -162,13 +155,12 @@ export const DocumentsForm = ({
               />
             </div>
 
-            {/* Government ID Upload using your Tigris Uploader */}
             <FormField
               control={form.control}
               name="idImage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Upload a clear photo of your ID Card</FormLabel>
+                  <FormLabel>Government ID Photo</FormLabel>
                   <FormControl>
                     <Uploader
                       fileTypeAccepted="image"
@@ -176,6 +168,9 @@ export const DocumentsForm = ({
                       value={field.value}
                     />
                   </FormControl>
+                  <FormDescription className="text-xs">
+                    Please ensure the photo is clear and all text is legible.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -183,9 +178,9 @@ export const DocumentsForm = ({
 
             <Button className="w-full" disabled={pending || !idImage}>
               {pending ? (
-                <Loader text="Verifying..." />
+                <Loader text="Submitting..." />
               ) : (
-                "Verify & Continue to Review"
+                "Submit Verification"
               )}
             </Button>
           </form>

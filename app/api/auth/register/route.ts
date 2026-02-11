@@ -16,17 +16,18 @@ export async function POST(req: Request) {
           message: "Invalid input",
           errors: parsed.error.errors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    const { firstName, lastName, email, password } = parsed.data;
+    const { firstName, lastName, email, password, phoneNumber } = parsed.data;
 
     // ✅ Create user with Better Auth
     const result = await auth.api.signUpEmail({
       body: {
         email,
         password,
+        phoneNumber,
         name: `${firstName} ${lastName}`,
         callbackURL: "/login?registered=true",
       },
@@ -41,10 +42,11 @@ export async function POST(req: Request) {
           id: result.user.id,
           email: result.user.email,
           name: result.user.name,
+          phoneNumber: result.user.phoneNumber,
         },
         token: result.token,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error: any) {
     console.error("Error in register route:", error);
@@ -57,7 +59,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { success: false, message },
-      { status: error?.statusCode || 500 }
+      { status: error?.statusCode || 500 },
     );
   }
 }

@@ -7,7 +7,10 @@ import { applicationSubmittedLandlord } from "@/lib/emails/application-submitted
 import { applicationSubmittedTenant } from "@/lib/emails/application-submitted-tenant";
 import { env } from "@/lib/env";
 import { ApiResponse } from "@/lib/types";
+import { sanitizePhoneNumber } from "@/lib/utils";
 import {
+  documentsFormSchema,
+  documentsFormSchemaType,
   employmentFormSchema,
   EmploymentFormSchemaType,
   personalInformationFormSchema,
@@ -17,16 +20,17 @@ import {
   termsAndAgreementFormSchema,
   TermsAndAgreementFormSchemaType,
 } from "@/lib/zodSchemas";
+import { revalidatePath } from "next/cache";
 
 import Mailjet from "node-mailjet";
 const mailjet = Mailjet.apiConnect(
   env.MAILJET_API_PUBLIC_KEY,
-  env.MAILJET_API_PRIVATE_KEY
+  env.MAILJET_API_PRIVATE_KEY,
 );
 
 export const updateProfile = async (
   data: PersonalInformationFormSchemaType,
-  listingId: string
+  listingId: string,
 ) => {
   const { user } = await requireUser();
 
@@ -69,7 +73,7 @@ export const updateProfile = async (
 
 export const updateEmploymentDetails = async (
   data: EmploymentFormSchemaType,
-  id: string
+  id: string,
 ): Promise<ApiResponse> => {
   const { user } = await requireUser();
 
@@ -101,7 +105,7 @@ export const updateEmploymentDetails = async (
 
 export const updateRentalHistory = async (
   data: RentalHistoryFormSchemaType,
-  id: string
+  id: string,
 ): Promise<ApiResponse> => {
   const { user } = await requireUser();
 
@@ -136,7 +140,7 @@ export const updateRentalHistory = async (
 
 export const submitApplication = async (
   data: TermsAndAgreementFormSchemaType,
-  id: string
+  id: string,
 ): Promise<ApiResponse> => {
   const { user } = await requireUser();
 
@@ -274,5 +278,186 @@ export const submitApplication = async (
       status: "error",
       message: "Failed to submit application",
     };
+  }
+};
+
+export const processKycAndCreateWallet = async (
+  data: documentsFormSchemaType,
+): Promise<ApiResponse> => {
+  const { user } = await requireUser();
+
+  try {
+    const validation = documentsFormSchema.safeParse(data);
+    if (!validation.success) {
+      return { status: "error", message: "Invalid verification data." };
+    }
+
+    const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
+    if (!dbUser) return { status: "error", message: "User not found." };
+
+    const { dob, bvn, idType, idNumber, idImage } = validation.data;
+    const anchorPhone = sanitizePhoneNumber(
+      dbUser.phoneNumber || "08000000000",
+    );
+
+    // Name Parsing
+    const nameParts = (dbUser.name || "User").trim().split(" ");
+    const firstName = nameParts[0];
+    const lastName =
+      nameParts.length > 1 ? nameParts[nameParts.length - 1] : "Customer";
+    const middleName =
+      nameParts.length > 2 ? nameParts.slice(1, -1).join(" ") : "";
+
+    // STEP 1: Create Anchor Customer
+    const customerResponse = await fetch(
+      "https://api.sandbox.getanchor.co/api/v1/customers",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-anchor-key": env.ANCHOR_SECRET_KEY,
+        },
+        body: JSON.stringify({
+          data: {
+            type: "IndividualCustomer",
+            attributes: {
+              fullName: { firstName, lastName, middleName },
+              address: {
+                addressLine_1: dbUser.address || "1, Street Address",
+                city: dbUser.city || "Ikeja",
+                state: dbUser.state || "Lagos",
+                postalCode: "100001",
+                country: "NG",
+              },
+              email: dbUser.email,
+              phoneNumber: anchorPhone,
+              identificationLevel2: {
+                dateOfBirth: dob,
+                gender: dbUser?.gender,
+                bvn,
+              },
+            },
+          },
+        }),
+      },
+    );
+
+    const customerJson = await customerResponse.json();
+    if (!customerResponse.ok) {
+      return {
+        status: "error",
+        message:
+          customerJson.errors?.[0]?.detail || "Customer creation failed.",
+      };
+    }
+
+    const anchorCustomerId = customerJson.data.id;
+
+    const verifyResponse = await fetch(
+      `https://api.sandbox.getanchor.co/api/v1/customers/${anchorCustomerId}/verification/individual`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-anchor-key": env.ANCHOR_SECRET_KEY,
+        },
+        body: JSON.stringify({
+          data: {
+            attributes: {
+              level: "TIER_2",
+              level2: {
+                bvn,
+                dateOfBirth: dob,
+                gender: dbUser?.gender,
+              },
+            },
+            type: "Verification",
+          },
+        }),
+      },
+    );
+
+    if (!verifyResponse.ok) {
+      const errorData = await verifyResponse.json();
+      return {
+        status: "error",
+        message: `Anchor Verification Failed: ${errorData.errors?.[0]?.detail || "Unknown error"}`,
+      };
+    }
+
+    // STEP 2: Create Deposit Account (Wallet)
+    const walletResponse = await fetch(
+      "https://api.sandbox.getanchor.co/api/v1/accounts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-anchor-key": env.ANCHOR_SECRET_KEY,
+        },
+        body: JSON.stringify({
+          data: {
+            type: "DepositAccount",
+            attributes: { productName: "SAVINGS" },
+            relationships: {
+              customer: {
+                data: { id: anchorCustomerId, type: "IndividualCustomer" },
+              },
+            },
+          },
+        }),
+      },
+    );
+
+    const walletJson = await walletResponse.json();
+
+    await prisma.$transaction([
+      prisma.user.update({
+        where: { id: user.id },
+        data: {
+          kycTier: 2,
+          anchorId: anchorCustomerId,
+          walletId: walletJson.data.id,
+          walletAccountNo: walletJson.data.attributes.accountNumber,
+          walletAccountName: walletJson.data.attributes.accountName,
+          walletBankName: walletJson.data.attributes.bank.name,
+          walletBankCode: walletJson.data.attributes.bank.nipCode,
+          walletStatus: walletJson.data.attributes.status,
+          walletCurrency: walletJson.data.attributes.currency,
+        },
+      }),
+
+      prisma.kyc.upsert({
+        where: { userId: user.id },
+        update: {
+          anchorCustomerId: anchorCustomerId,
+          bvn: bvn, // Save the BVN here too
+          dateOfBirth: dob,
+          idType,
+          idNumber,
+          idImage,
+          status: "PENDING",
+        },
+        create: {
+          userId: user.id,
+          anchorCustomerId: anchorCustomerId,
+          bvn: bvn,
+          dateOfBirth: dob,
+          idType,
+          idNumber,
+          idImage,
+          status: "PENDING",
+        },
+      }),
+    ]);
+
+    revalidatePath("/");
+
+    return {
+      status: "success",
+      message: "Identity submitted and wallet generated.",
+    };
+  } catch (error) {
+    console.error("KYC_ACCOUNT_ERROR", error);
+    return { status: "error", message: "An unexpected error occurred." };
   }
 };

@@ -106,6 +106,7 @@ export const getApplication = async (id: string) => {
           updatedAt: true,
           createdAt: true,
           emailVerified: true,
+          kyc: true,
         },
       },
     },

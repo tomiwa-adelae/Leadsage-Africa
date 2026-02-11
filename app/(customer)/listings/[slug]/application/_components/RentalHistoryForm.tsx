@@ -56,7 +56,7 @@ export function RentalHistoryForm({ data, slug, applicationId }: Props) {
   function onSubmit(data: RentalHistoryFormSchemaType) {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
-        updateRentalHistory(data, applicationId)
+        updateRentalHistory(data, applicationId),
       );
 
       if (error) {
@@ -66,7 +66,7 @@ export function RentalHistoryForm({ data, slug, applicationId }: Props) {
 
       if (result.status === "success") {
         toast.success(result.message);
-        router.push(`/listings/${slug}/application/${applicationId}/review`);
+        router.push(`/listings/${slug}/application/${applicationId}/documents`);
       } else {
         toast.error(result.message);
       }

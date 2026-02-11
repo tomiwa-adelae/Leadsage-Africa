@@ -19,6 +19,9 @@ export const registerFormSchema = z.object({
   email: z.string().email().min(2, {
     message: "Email must be at least 2 characters.",
   }),
+  phoneNumber: z
+    .string()
+    .regex(/^(\+?\d{10,15})$/, { message: "Enter a valid phone number." }),
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters." })
@@ -642,3 +645,14 @@ export const kycFormSchema = z.object({
 });
 
 export type kycFormSchemaType = z.infer<typeof kycFormSchema>;
+
+export const documentsFormSchema = z.object({
+  dob: z.string().min(1, "Date of birth is required"),
+  bvn: z.string().length(11, "BVN must be 11 digits"),
+  idType: z.enum(["NIN", "PASSPORT", "VOTERS_CARD", "DRIVERS_LICENSE"]),
+  idNumber: z.string().min(5, "ID number is required"),
+  idImage: z.string().min(1, "Please upload a photo of your ID"),
+  // Address fields for Tier 2
+});
+
+export type documentsFormSchemaType = z.infer<typeof documentsFormSchema>;

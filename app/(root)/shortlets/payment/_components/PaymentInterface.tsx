@@ -83,9 +83,10 @@ export function PaymentInterface({ booking }: Props) {
   const handlePayment = () => {
     if (booking.User.kycTier < 1) {
       toast.error("Identity verification required before payment.");
-      router.push(
-        `/settings/kyc?redirect=/shortlets/payment?token=${booking.paymentToken}&id=${booking.paymentToken}`,
+      const redirect = encodeURIComponent(
+        `/shortlets/payment?token=${booking.paymentToken}&id=${booking.id}`,
       );
+      router.push(`/settings/kyc?redirect=${redirect}`);
       return;
     }
 

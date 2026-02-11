@@ -68,10 +68,14 @@ model User {
   banExpires DateTime?
   kyc        Kyc[]
 
-  walletAccountNo String? // Their virtual NUBAN once created
-  walletBankName  String? @default("Anchor/Bank")
-
-  anchorId String? @unique
+  anchorId          String? // '17708099957725-anc_acc'
+  walletId          String? // '17708099957725-anc_acc'
+  walletAccountNo   String? // '******8681'
+  walletAccountName String? // 'Tomiwa Adelae'
+  walletBankName    String? // 'CORESTEP MICROFINANCE BANK'
+  walletBankCode    String? // '090365' (The nipCode)
+  walletCurrency    String? @default("NGN")
+  walletStatus      String? // 'ACTIVE'
 
   kycTier Int @default(0) // 0, 1, 2, or 3
 

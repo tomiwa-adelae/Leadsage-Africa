@@ -49,6 +49,7 @@ export const getUserInfo = async () => {
           updatedAt: true,
         },
       },
+      kyc: true,
     },
   });
 

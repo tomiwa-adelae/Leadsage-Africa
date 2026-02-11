@@ -10,12 +10,13 @@ import { QuickActions } from "./_components/QuickActions";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import Image from "next/image";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
-import { CircleCheckBig } from "lucide-react";
+import { CircleCheckBig, Eye, ShieldAlert, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ListingPhoto } from "@/app/(landlord)/landlord/bookings/_components/ListingPhoto";
 import Link from "next/link";
 import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
 import { PageHeader } from "@/components/PageHeader";
+import { KycActions } from "./_components/KycActions";
 
 type Params = Promise<{
   id: string;
@@ -26,9 +27,15 @@ const page = async ({ params }: { params: Params }) => {
 
   const application = await getApplication(id);
 
+  const idImageUrl = application.User.kyc?.[0]?.idImage
+    ? constructProfilePictureUrl(application.User.kyc[0].idImage)
+    : null;
+
+  const kycData = application.User.kyc?.[0];
+
   const profilePicture = constructProfilePictureUrl(application.User.image);
   const landlordPicture = constructProfilePictureUrl(
-    application.Listing.User.image
+    application.Listing.User.image,
   );
 
   return (
@@ -45,12 +52,12 @@ const page = async ({ params }: { params: Params }) => {
                   application.status === "PENDING"
                     ? "pending"
                     : application.status === "UNDER_REVIEW"
-                    ? "success"
-                    : application.status === "REJECTED"
-                    ? "destructive"
-                    : application.status === "APPROVED"
-                    ? "default"
-                    : "default"
+                      ? "success"
+                      : application.status === "REJECTED"
+                        ? "destructive"
+                        : application.status === "APPROVED"
+                          ? "default"
+                          : "default"
                 }
                 className="capitalize"
               >
@@ -163,6 +170,87 @@ const page = async ({ params }: { params: Params }) => {
               <Button size="md" className="w-full">
                 View Profile
               </Button>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="border-b flex flex-row items-center justify-between">
+              <CardTitle className="flex items-center gap-2">
+                <ShieldCheck className="size-5 text-primary" />
+                KYC Verification (Tier 2)
+              </CardTitle>
+              <Badge
+                variant={kycData?.status === "VERIFIED" ? "default" : "pending"}
+              >
+                {kycData?.status || "NOT SUBMITTED"}
+              </Badge>
+            </CardHeader>
+            <CardContent className="mt-4 space-y-4 text-sm font-medium">
+              {!kycData ? (
+                <div className="flex items-center gap-2 text-muted-foreground italic">
+                  <ShieldAlert className="size-4" />
+                  No KYC documents submitted yet.
+                </div>
+              ) : (
+                <>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">BVN</p>
+                      <p className="text-base tracking-widest">{kycData.bvn}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">Date of Birth</p>
+                      <p className="text-base">{kycData.dateOfBirth}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">ID Type</p>
+                      <p className="text-base">
+                        {kycData?.idType?.replace("_", " ")}
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">ID Number</p>
+                      <p className="text-base">{kycData.idNumber}</p>
+                    </div>
+                  </div>
+
+                  <Separator />
+
+                  <div className="space-y-2">
+                    <p className="text-muted-foreground">
+                      Government Issued ID Document
+                    </p>
+                    {idImageUrl ? (
+                      <div className="relative group overflow-hidden rounded-lg border bg-white aspect-video md:aspect-[21/9]">
+                        <Image
+                          src={idImageUrl}
+                          alt="Government ID"
+                          fill
+                          className="object-contain"
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <Button variant="secondary" size="sm" asChild>
+                            <a
+                              href={idImageUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <Eye className="mr-2 size-4" /> View Full
+                              Resolution
+                            </a>
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-destructive">
+                        Image missing from record.
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Action Buttons for KYC specifically */}
+                  <KycActions kycId={kycData.id} status={kycData.status} />
+                </>
+              )}
             </CardContent>
           </Card>
           <Card className="@container/card gap-0">
@@ -404,7 +492,7 @@ const page = async ({ params }: { params: Params }) => {
                       className="text-muted-foreground"
                     >
                       {formatPhoneNumber(
-                        application.currentLandlordPhoneNumber
+                        application.currentLandlordPhoneNumber,
                       )}
                     </a>
                   </p>

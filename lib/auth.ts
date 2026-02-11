@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { admin } from "better-auth/plugins";
+import { admin, phoneNumber } from "better-auth/plugins";
 import { prisma } from "./db";
 import { env } from "./env";
 
@@ -8,7 +8,7 @@ import Mailjet from "node-mailjet";
 import { passwordResetEmail } from "./emails/password-reset-email";
 const mailjet = Mailjet.apiConnect(
   env.MAILJET_API_PUBLIC_KEY,
-  env.MAILJET_API_PRIVATE_KEY
+  env.MAILJET_API_PRIVATE_KEY,
 );
 
 export const auth = betterAuth({
@@ -52,5 +52,5 @@ export const auth = betterAuth({
       clientSecret: env.AUTH_GOOGLE_CLIENT_SECRET,
     },
   },
-  plugins: [admin()],
+  plugins: [admin(), phoneNumber()],
 });

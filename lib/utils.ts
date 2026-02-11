@@ -72,7 +72,7 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams) {
       url: window.location.pathname,
       query: currentUrl,
     },
-    { skipNull: true }
+    { skipNull: true },
   );
 }
 
@@ -93,7 +93,7 @@ export function removeKeysFromQuery({
     },
     {
       skipNull: true,
-    }
+    },
   );
 }
 
@@ -206,7 +206,7 @@ export function getBookingDateRangeWeekdaysOnly(numberOfWeekdays = 3) {
 
 export function formatPhoneNumber(
   phone: string | null,
-  style: "international" | "local" = "international"
+  style: "international" | "local" = "international",
 ): string {
   if (!phone) return "";
 
@@ -297,4 +297,17 @@ export const formattedStatus: Record<string, string> = {
   PROCESSING: "Processing",
   DEBIT: "Debit",
   AWAITING_PAYMENT: "Awaiting Payment",
+};
+
+export const sanitizePhoneNumber = (phone: string): string => {
+  // Remove all non-numeric characters (spaces, +, dashes)
+  let clean = phone.replace(/\D/g, "");
+
+  // If it starts with 234, replace it with 0
+  if (clean.startsWith("234") && clean.length > 10) {
+    clean = "0" + clean.slice(3);
+  }
+
+  // Ensure it's exactly 11 digits (e.g., 080...)
+  return clean;
 };

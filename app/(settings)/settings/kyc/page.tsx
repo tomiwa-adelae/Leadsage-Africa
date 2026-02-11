@@ -32,7 +32,10 @@ import { processKycAndCreateWallet } from "../notifications/actions";
 export default function KYCPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get("redirect") || "/dashboard";
+  const redirectUrl = decodeURIComponent(
+    searchParams.get("redirect") || "/dashboard",
+  );
+
   const [pending, startTransition] = useTransition();
 
   const form = useForm<kycFormSchemaType>({

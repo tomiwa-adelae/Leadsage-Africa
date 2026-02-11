@@ -37,7 +37,7 @@ import { revalidatePath } from "next/cache";
 import Mailjet from "node-mailjet";
 const mailjet = Mailjet.apiConnect(
   env.MAILJET_API_PUBLIC_KEY,
-  env.MAILJET_API_PRIVATE_KEY
+  env.MAILJET_API_PRIVATE_KEY,
 );
 
 export const approveListing = async (id: string): Promise<ApiResponse> => {
@@ -291,7 +291,7 @@ export const unapproveListing = async (id: string): Promise<ApiResponse> => {
 
 export const rejectListing = async (
   id: string,
-  data: RejectListingFormSchemaType
+  data: RejectListingFormSchemaType,
 ): Promise<ApiResponse> => {
   await requireAdmin();
 
@@ -655,7 +655,7 @@ export const confirmBooking = async (id: string): Promise<ApiResponse> => {
         message: `Your tour request for ${
           booking.listing.title
         } has been confirmed by the admin. See you on ${formatDate(
-          booking.date
+          booking.date,
         )} at ${booking.timeSlot}.`,
       },
     });
@@ -1325,7 +1325,7 @@ export const approveApplication = async (id: string): Promise<ApiResponse> => {
 
 export const rejectApplication = async (
   id: string,
-  data: RejectApplicationFormSchemaType
+  data: RejectApplicationFormSchemaType,
 ): Promise<ApiResponse> => {
   await requireAdmin();
 
@@ -1455,7 +1455,7 @@ export const rejectApplication = async (
 
 export const requestMoreInformationApplication = async (
   id: string,
-  data: RequestMoreInfoApplicationFormSchemaType
+  data: RequestMoreInfoApplicationFormSchemaType,
 ): Promise<ApiResponse> => {
   await requireAdmin();
 
@@ -1933,7 +1933,7 @@ export const cancelLease = async (id: string): Promise<ApiResponse> => {
 };
 
 export const markPaymentSuccessful = async (
-  id: string
+  id: string,
 ): Promise<ApiResponse> => {
   await requireAdmin();
 
@@ -1954,5 +1954,70 @@ export const markPaymentSuccessful = async (
     return { status: "success", message: "Payment successfully updated" };
   } catch (error) {
     return { status: "error", message: "Failed to update payment status" };
+  }
+};
+
+export const approveKyc = async (kycId: string): Promise<ApiResponse> => {
+  await requireAdmin();
+
+  try {
+    // 1. Fetch local KYC record to get the Anchor Customer ID
+    const kyc = await prisma.kyc.findUnique({
+      where: { id: kycId },
+      include: { user: true },
+    });
+
+    if (!kyc || !kyc.anchorCustomerId) {
+      return {
+        status: "error",
+        message: "KYC record or Anchor Customer ID not found",
+      };
+    }
+
+    // STEP 3: Update local Database
+    await prisma.$transaction([
+      prisma.kyc.update({
+        where: { id: kycId },
+        data: { status: "VERIFIED" }, // Changed from VERIFIED to match your UI badges
+      }),
+      prisma.user.update({
+        where: { id: kyc.userId },
+        data: {
+          kycTier: 2,
+        },
+      }),
+    ]);
+
+    revalidatePath("/admin");
+    return {
+      status: "success",
+      message: `KYC Approved!`,
+    };
+  } catch (error) {
+    console.error("KYC_APPROVE_ERROR", error);
+    return {
+      status: "error",
+      message: "A server error occurred during Anchor processing",
+    };
+  }
+};
+
+export const rejectKyc = async (
+  kycId: string,
+  reason: string,
+): Promise<ApiResponse> => {
+  await requireAdmin();
+  try {
+    await prisma.kyc.update({
+      where: { id: kycId },
+      data: {
+        status: "REJECTED",
+        rejectionReason: reason,
+      },
+    });
+    revalidatePath("/admin");
+    return { status: "success", message: "KYC Rejected" };
+  } catch (error) {
+    return { status: "error", message: "Failed to reject KYC" };
   }
 };

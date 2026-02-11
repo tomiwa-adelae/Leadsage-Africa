@@ -25,7 +25,13 @@ import { authClient } from "@/lib/auth-client";
 import { Loader } from "@/components/Loader";
 import { useRouter } from "next/navigation";
 import { triggerUserCreationNotifications } from "@/app/actions";
+import * as RPNInput from "react-phone-number-input";
 import axios from "axios";
+import {
+  CountrySelect,
+  FlagComponent,
+  PhoneInput,
+} from "@/components/PhoneNumberInput";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -39,6 +45,7 @@ export function RegisterForm() {
       lastName: "",
       email: "",
       password: "",
+      phoneNumber: "",
     },
   });
 
@@ -103,11 +110,12 @@ export function RegisterForm() {
         email: data.email,
         password: data.password,
         name: `${data.firstName} ${data.lastName}`,
+        phoneNumber: data.phoneNumber,
         callbackURL: "/login?=true",
         fetchOptions: {
           onSuccess: async () => {
             toast.success(
-              `Your account was successfully created. You will be redirected...`
+              `Your account was successfully created. You will be redirected...`,
             );
             router.push("/?login=true");
             await triggerUserCreationNotifications();
@@ -182,6 +190,28 @@ export function RegisterForm() {
           />
           <FormField
             control={form.control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone number</FormLabel>
+                <FormControl>
+                  <RPNInput.default
+                    className="flex rounded-md shadow-xs"
+                    international
+                    flagComponent={FlagComponent}
+                    countrySelectComponent={CountrySelect}
+                    inputComponent={PhoneInput}
+                    placeholder="8012345679"
+                    value={field.value}
+                    onChange={(value) => field.onChange(value)}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
@@ -215,7 +245,7 @@ export function RegisterForm() {
                 <FormMessage />
                 <div
                   className={cn(
-                    password.length !== 0 ? "block mt-2 space-y-3" : "hidden"
+                    password.length !== 0 ? "block mt-2 space-y-3" : "hidden",
                   )}
                 >
                   <Progress

@@ -11,6 +11,7 @@ import { formatPhoneNumber } from "@/lib/utils";
 import { NairaIcon } from "@/components/NairaIcon";
 import { TermsAndAgreements } from "../../_components/TermsAndAgreements";
 import { PageHeader } from "@/components/PageHeader";
+import { Badge } from "@/components/ui/badge";
 
 type Params = Promise<{
   slug: string;
@@ -22,7 +23,11 @@ const page = async ({ params }: { params: Params }) => {
 
   const listing = await getListingDetails(slug);
   const application = await getApplication(id);
+
   const user = await getUserInfo();
+
+  // Assuming Kyc is an array or object on the user
+  const kycData = user.kyc?.[0];
 
   return (
     <div>
@@ -30,7 +35,9 @@ const page = async ({ params }: { params: Params }) => {
       <div className="py-4 md:py-6 px-4 lg:px-6">
         <PageHeader
           title={<>Application for {listing.title}</>}
-          description={"Review your application to move forward with this property."}
+          description={
+            "Review your application to move forward with this property."
+          }
         />
 
         <div className="mt-4 space-y-4">
@@ -96,6 +103,71 @@ const page = async ({ params }: { params: Params }) => {
                 Current country:{" "}
                 <span className="text-muted-foreground">{user.country}</span>
               </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="border-b flex flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <CardTitle>Identity Verification</CardTitle>
+                {kycData && (
+                  <Badge
+                    variant={
+                      kycData.status === "VERIFIED" ? "default" : "outline"
+                    }
+                  >
+                    {kycData.status}
+                  </Badge>
+                )}
+              </div>
+              <Button size={"sm"} variant={"ghost"} asChild>
+                <Link
+                  href={`/listings/${listing.slug!}/application/id=${application.id}/kyc`}
+                >
+                  Edit
+                </Link>
+              </Button>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm font-medium pt-4">
+              {kycData ? (
+                <>
+                  <p>
+                    ID Type:{" "}
+                    <span className="text-muted-foreground">
+                      {kycData.idType?.replace("_", " ")}
+                    </span>
+                  </p>
+                  <Separator />
+                  <p>
+                    ID Number:{" "}
+                    <span className="text-muted-foreground">
+                      {/* Masking the ID number for security in review */}
+                      {kycData.idNumber
+                        ? `****${kycData.idNumber.slice(-4)}`
+                        : "Not provided"}
+                    </span>
+                  </p>
+                  <Separator />
+                  <p>
+                    Date of Birth:{" "}
+                    <span className="text-muted-foreground">
+                      {kycData.dateOfBirth}
+                    </span>
+                  </p>
+                  {kycData.idImage && (
+                    <>
+                      <Separator />
+                      <div className="flex items-center justify-between">
+                        <span>Document Uploaded:</span>
+                        <Badge variant="secondary">Image Attached</Badge>
+                      </div>
+                    </>
+                  )}
+                </>
+              ) : (
+                <p className="italic text-destructive">
+                  Identity verification not yet completed.
+                </p>
+              )}
             </CardContent>
           </Card>
           <Card>
@@ -281,7 +353,7 @@ const page = async ({ params }: { params: Params }) => {
                       className="text-muted-foreground"
                     >
                       {formatPhoneNumber(
-                        application.currentLandlordPhoneNumber
+                        application.currentLandlordPhoneNumber,
                       )}
                     </a>
                   </p>
