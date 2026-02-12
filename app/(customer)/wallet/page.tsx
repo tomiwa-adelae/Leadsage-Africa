@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { SiteHeader } from "@/components/sidebar/site-header";
 import WalletActiveUI from "./_components/WalletActiveUI";
 import WalletStateHandler from "./_components/WalletStateHandler";
