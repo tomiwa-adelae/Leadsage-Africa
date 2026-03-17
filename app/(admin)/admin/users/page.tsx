@@ -21,6 +21,8 @@ import { UsersList } from "../_components/UsersList";
 
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "All Users - Admin | Leadsage",
 };

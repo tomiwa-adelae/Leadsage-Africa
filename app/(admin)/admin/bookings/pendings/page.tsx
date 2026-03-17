@@ -10,6 +10,8 @@ import { Pagination } from "@/components/Pagination";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Pending bookings - Admin | Leadsage",
 };

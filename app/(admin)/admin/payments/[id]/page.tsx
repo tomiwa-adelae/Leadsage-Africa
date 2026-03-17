@@ -11,6 +11,8 @@ import { getPaymentDetails } from "@/app/data/admin/payment/get-payment-details"
 import { QuickActions } from "./_components/QuickActions";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 type Params = Promise<{
   id: string;
 }>;

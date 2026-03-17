@@ -39,6 +39,8 @@ import { QuickActions } from "./_components/QuickActions";
 import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 type Params = Promise<{
   id: string;
 }>;

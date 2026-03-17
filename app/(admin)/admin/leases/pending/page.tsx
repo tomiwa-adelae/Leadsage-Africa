@@ -10,6 +10,8 @@ import { getExpiredLeases } from "@/app/data/admin/lease/get-expired-leases";
 import { getPendingLeases } from "@/app/data/admin/lease/get-pending-leases";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   searchParams: any;
 }

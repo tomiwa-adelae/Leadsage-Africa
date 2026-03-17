@@ -15,6 +15,8 @@ import { Searchbar } from "@/components/Searchbar";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Payments - Admin | Leadsage",
 };

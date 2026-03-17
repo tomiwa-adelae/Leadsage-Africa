@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { ShortletBookingDetails } from "./_components/ShortletBookingDetails";
 import { SiteHeader } from "@/components/sidebar/site-header";
 
+export const dynamic = "force-dynamic";
+
 type Params = Promise<{
   id: string;
 }>;

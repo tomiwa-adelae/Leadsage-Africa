@@ -11,6 +11,8 @@ import { Pagination } from "@/components/Pagination";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Amenities - Admin | Leadsage",
 };

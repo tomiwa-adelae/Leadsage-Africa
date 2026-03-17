@@ -4,6 +4,8 @@ import { CategoryForm } from "./_components/CategoryForm";
 import { getCategory } from "@/app/data/admin/category/get-category";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   searchParams: any;
 }

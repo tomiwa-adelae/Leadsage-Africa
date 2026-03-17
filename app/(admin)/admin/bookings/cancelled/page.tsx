@@ -10,6 +10,8 @@ import { DEFAULT_LIMIT } from "@/constants";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Cancelled bookings - Admin | Leadsage",
 };

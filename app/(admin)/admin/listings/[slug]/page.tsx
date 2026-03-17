@@ -48,6 +48,8 @@ import { ListingMap } from "@/components/ListingMap";
 import { PageHeader } from "@/components/PageHeader";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(
   { params }: any,
   parent: ResolvingMetadata

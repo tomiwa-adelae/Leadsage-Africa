@@ -18,6 +18,8 @@ import { constructProfilePictureUrl } from "@/hooks/use-profile-url";
 import { PageHeader } from "@/components/PageHeader";
 import { KycActions } from "./_components/KycActions";
 
+export const dynamic = "force-dynamic";
+
 type Params = Promise<{
   id: string;
 }>;

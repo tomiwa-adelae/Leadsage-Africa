@@ -9,6 +9,8 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { getExpiredLeases } from "@/app/data/admin/lease/get-expired-leases";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   searchParams: any;
 }

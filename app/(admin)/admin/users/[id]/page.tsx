@@ -17,6 +17,8 @@ import { BookingsList } from "../../_components/BookingsList";
 import { LeasesTable } from "../../_components/LeasesTable";
 import { LeasesList } from "../../_components/LeasesList";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: Promise<{ id: string }>;
 }

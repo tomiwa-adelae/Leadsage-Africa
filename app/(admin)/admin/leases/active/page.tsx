@@ -9,6 +9,8 @@ import { Searchbar } from "@/components/Searchbar";
 import { DEFAULT_LIMIT } from "@/constants";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   searchParams: any;
 }

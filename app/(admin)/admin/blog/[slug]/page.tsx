@@ -11,6 +11,8 @@ import { DEFAULT_LISTING_IMAGE } from "@/constants";
 import { constructImageUrl } from "@/lib/construct-url";
 import { BlogQuickActions } from "../_components/BlogQuickActions";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: Promise<{ slug: string }>;
 }

@@ -12,6 +12,8 @@ import { getRenters } from "@/app/data/admin/user/get-renters";
 import { UsersTable } from "../../_components/UsersTable";
 import { UsersList } from "../../_components/UsersList";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Renters - Admin | Leadsage",
 };

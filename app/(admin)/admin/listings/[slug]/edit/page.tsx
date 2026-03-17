@@ -25,6 +25,8 @@ import Image from "next/image";
 import { DEFAULT_PROFILE_PICTURE } from "@/constants";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 type Params = Promise<{
   slug: string;
 }>;

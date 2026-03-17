@@ -18,6 +18,8 @@ import { getLeasePayments } from "@/app/data/admin/lease/get-lease-payments";
 import { PageHeader } from "@/components/PageHeader";
 import { RenderDescription } from "@/components/text-editor/RenderDescription";
 
+export const dynamic = "force-dynamic";
+
 type Params = Promise<{
   id: string;
 }>;

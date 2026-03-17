@@ -4,6 +4,8 @@ import { AmenityForm } from "./_components/AmenityForm";
 import { getAmenity } from "@/app/data/admin/amenity/get-amenity";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   searchParams: any;
 }

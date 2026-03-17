@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: Promise<{ slug: string }>;
 }

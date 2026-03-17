@@ -6,6 +6,8 @@ import { SiteHeader } from "@/components/sidebar/site-header";
 import { Searchbar } from "@/components/Searchbar";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   searchParams: any;
 }

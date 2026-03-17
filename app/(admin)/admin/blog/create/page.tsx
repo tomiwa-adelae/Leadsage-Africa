@@ -5,6 +5,8 @@ import { getBlogCategories } from "@/app/data/admin/blog/get-blog-categories";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Create Blog Post | Admin - Leadsage",
   description: "Create a new blog post",
