@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useState, useTransition } from "react";
+import { useTransition, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,7 @@ import { Loader } from "@/components/Loader";
 import { genders } from "@/constants";
 import { processKycAndCreateWallet } from "../notifications/actions";
 
-export default function KYCPage() {
+function KYCForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = decodeURIComponent(
@@ -57,6 +57,99 @@ export default function KYCPage() {
   }
 
   return (
+    <div className="space-y-1">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="dob"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Date of Birth</FormLabel>
+                <FormControl>
+                  <Input type="date" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="idType"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>ID Type</FormLabel>
+                <Select onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select ID type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="NIN">NIN (National ID)</SelectItem>
+                    <SelectItem value="PASSPORT">
+                      International Passport
+                    </SelectItem>
+                    <SelectItem value="DRIVERS_LICENSE">
+                      Driver's License
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="idNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>ID Number</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter ID number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Gender</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your gender" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {genders.map((gender) => (
+                      <SelectItem value={gender} key={gender}>
+                        {gender}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button className="w-full" disabled={pending}>
+            {pending ? <Loader /> : "Verify & Continue"}
+          </Button>
+        </form>
+      </Form>
+    </div>
+  );
+}
+
+export default function KYCPage() {
+  return (
     <div>
       <SiteHeader />
       <div className="py-4 md:py-6 px-4 lg:px-6 space-y-4">
@@ -64,98 +157,9 @@ export default function KYCPage() {
           title={"Verify Your Identity"}
           description="To comply with financial regulations for shortlets."
         />
-        <div className="space-y-1">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="dob"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Date of Birth</FormLabel>
-                    <FormControl>
-                      <Input type="date" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="idType"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ID Type</FormLabel>
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select ID type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="NIN">NIN (National ID)</SelectItem>
-                        <SelectItem value="PASSPORT">
-                          International Passport
-                        </SelectItem>
-                        <SelectItem value="DRIVERS_LICENSE">
-                          Driver's License
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="idNumber"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ID Number</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter ID number" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="gender"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Gender</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your gender" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {genders.map((gender) => (
-                          <SelectItem value={gender} key={gender}>
-                            {gender}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button className="w-full" disabled={pending}>
-                {pending ? <Loader /> : "Verify & Continue"}
-              </Button>
-            </form>
-          </Form>
-          {/* <p className="text-[10px] text-center text-muted-foreground">
-            Your BVN is encrypted and processed by Anchor (CBN licensed). We do
-            not store your raw BVN.
-          </p> */}
-        </div>
+        <Suspense fallback={<Loader />}>
+          <KYCForm />
+        </Suspense>
       </div>
     </div>
   );
