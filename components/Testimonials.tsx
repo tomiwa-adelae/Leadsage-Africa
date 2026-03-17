@@ -11,52 +11,24 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
   {
-    name: "Tomiwa Adeniran",
-    role: "Product Designer, Lagos",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
+    name: "Stefan Emecho",
+    role: "Website Developer",
+    image: "/assets/images/profile-img.jpg",
     quote:
-      "This platform has completely changed how I manage my digital products. Clean interface, fast onboarding, and everything just works. It has saved me hours every week.",
+      "Booking through Leadsage was surprisingly smooth. Everything from confirmation to check-in was well handled, and I didn’t have to worry about anything. It felt reliable from start to finish.",
   },
   {
-    name: "Sarah Mwangi",
+    name: "Olaoluwa Akintomiwa",
     role: "Creative Entrepreneur",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
+    image: "/assets/images/profile-img.jpg",
     quote:
-      "I launched my first online offering in less than an hour. The simplicity and speed are unmatched. This is exactly what creators in Africa have been waiting for.",
-  },
-  {
-    name: "Michael Johnson",
-    role: "Full-Stack Developer",
-    image: "https://randomuser.me/api/portraits/men/85.jpg",
-    quote:
-      "The developer experience is solid. Integrations are straightforward, documentation is clean, and the system is extremely reliable. I recommend it to any team shipping fast.",
-  },
-  {
-    name: "Aisha Bello",
-    role: "Community Manager",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
-    quote:
-      "Managing my members has never been easier. The built-in tools helped me organize, monetize, and grow my community without needing any extra plugins or heavy setup.",
-  },
-  {
-    name: "Kevin Mutiso",
-    role: "Startup Founder",
-    image: "https://randomuser.me/api/portraits/men/11.jpg",
-    quote:
-      "We moved our workflow here and instantly saw improvements in onboarding, customer communication, and payment handling. I honestly wish we switched sooner.",
-  },
-  {
-    name: "Olivia Thompson",
-    role: "Digital Marketing Strategist",
-    image: "https://randomuser.me/api/portraits/women/21.jpg",
-    quote:
-      "Everything feels thoughtfully designed. It’s intuitive, fast, and gives me the analytics I need to make smarter decisions. A must-have platform for modern creators.",
+      "I’ve used a few platforms before, but this stood out. The communication was clear, the process was fast, and the apartment matched exactly what was promised. I’d definitely use it again.",
   },
 ];
 
 const chunkArray = (
   array: Testimonial[],
-  chunkSize: number
+  chunkSize: number,
 ): Testimonial[][] => {
   const result: Testimonial[][] = [];
   for (let i = 0; i < array.length; i += chunkSize) {
@@ -67,7 +39,7 @@ const chunkArray = (
 
 const testimonialChunks = chunkArray(
   testimonials,
-  Math.ceil(testimonials.length / 3)
+  Math.ceil(testimonials.length / 3),
 );
 
 export function Testimonials() {

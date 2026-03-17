@@ -92,16 +92,16 @@ export function OurTeam() {
               )}
               {member.bio && (
                 <p className="mb-4 text-sm text-muted-foreground">
-                  {member.bio}
+                  {member.role}
                 </p>
               )}
-              <div className="mt-2 flex space-x-4">
+              <div className="hidden mt-2 flex space-x-4">
                 {member.socialMedia &&
                   Object.entries(member.socialMedia).map(
                     ([key, value]) =>
                       value && (
                         <span key={key}>{getSocialIcon(key, value)}</span>
-                      )
+                      ),
                   )}
               </div>
             </div>

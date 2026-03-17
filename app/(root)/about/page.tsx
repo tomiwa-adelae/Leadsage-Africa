@@ -41,7 +41,7 @@ export default function AboutUs2() {
 
       <div className="relative z-10 py-16">
         <AboutShowcase />
-        <AboutStats />
+        {/* <AboutStats /> */}
         <AboutSections />
         <Features />
         <OurTeam />
